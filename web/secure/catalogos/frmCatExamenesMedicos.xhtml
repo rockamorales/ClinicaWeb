@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <ui:composition template="/templates/main.xhtml">
+        <ui:define name="title">
+          <h:outputText value="#{messages['default.windowTitle']}--Administración de ExaMedicos" escape="false"></h:outputText>  
+        </ui:define>
+        <ui:define name="body">
+            <h:form>
+                <h:outputLink value="frmMantCatExamenesMedicos.jsf">
+                    Agregar Nuevo Registro
+                </h:outputLink>
+            <rich:dataTable value="#{frmCatExamenesMedicos.catExamenesMedicosList}" var="catExamenesMedicos" rows="10" id="catExamenesMedicosTable">
+            <f:facet name="header">
+                <rich:columnGroup>
+                  <h:column>
+                    <h:outputText value="Código"/>
+                  </h:column>
+                  <h:column>
+                    <h:outputText value="Nombre"/>
+                  </h:column>
+                  <h:column>
+                    <h:outputText value="Descripcion"/>
+                  </h:column>                  
+                    <h:column>
+                    <h:outputText value="Estado"/>
+                  </h:column>
+                 <h:column>
+                    <h:outputText value=""/>
+                  </h:column>
+                  <h:column>
+                    <h:outputText value=""/>
+                  </h:column>
+                </rich:columnGroup>
+              </f:facet>
+                <h:column>
+                    <h:outputText value="#{catExamenesMedicos.codExaMedico}">
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <h:outputText value="#{catExamenesMedicos.nomExaMedico}">
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <h:outputText value="#{catExamenesMedicos.desExaMedico}">
+                    </h:outputText>
+                </h:column>   
+                <h:column>
+                    <h:outputText value="#{catExamenesMedicos.actExaMedico}">
+                    </h:outputText>
+                </h:column>   
+                <h:column>
+                    
+                    <h:outputLink value="frmMantCatExamenesMedicos.jsf">
+                        <f:param name="codExaMedico" value="#{catExamenesMedicos.codExaMedico}"/>
+                        <f:param name="faces-redirect" value="true"/>
+                        <h:graphicImage url="/img/icons/edit.gif">
+                            
+                        </h:graphicImage>
+                    </h:outputLink>
+                </h:column>
+                <h:column>
+                    <a4j:commandLink actionListener="#{frmCatExamenesMedicos.delete}" render="catExamenesMedicosTable" onclick="if(!confirm('Esta seguro que desea eliminar el Examen Medico: #{catExamenesMedicos.nomExaMedico}')){return false;}">
+                        <h:graphicImage url="/img/icons/delete.gif"/>
+                        <f:setPropertyActionListener target="#{frmCatExamenesMedicos.catExamenesMedicos}" value="#{catExamenesMedicos}"/>
+                    </a4j:commandLink>
+                  
+                   
+                </h:column>                
+            </rich:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

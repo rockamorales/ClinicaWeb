@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    <ui:composition template="/templates/main.xhtml">
+	<ui:define name="title">#{messages['default.windowTitle']} - Administracion de usuarios</ui:define>
+	<ui:define name="body">
+            <h:form id="frmUsuariosMant">
+              <table>
+                <tr>
+                    <td>
+                        <table border="0" cellpadding="2" cellspacing="2">
+                                <tr>
+                                        <td>
+                                            <h:outputLabel for="usuariosid" value="Usuarios Id: "></h:outputLabel>
+                                        </td>
+                                        <td>
+                                            <h:outputText value="#{frmMantUsuarios.usuario.tblUsuario.numUsuario}" id="usuariosid"></h:outputText>
+                                            <h:inputHidden value="#{frmMantUsuarios.usuario.tblUsuario.numUsuario}"></h:inputHidden>
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                                <h:outputLabel for="nombres" value="Nombres:"></h:outputLabel>
+                                        </td>
+                                        <td>
+                                            <h:inputText value="#{frmMantUsuarios.usuario.tblUsuario.nomUsuario}" id="nombres">
+                                            </h:inputText>
+                                            <h:outputLabel value="*" for="nombres" style="color:red;font-weight:bold;"></h:outputLabel>
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                                <h:outputLabel for="codigousuario" value="Codigo de usuario:"></h:outputLabel>
+                                        </td>
+                                        <td>
+                                            <h:inputText value="#{frmMantUsuarios.usuario.tblUsuario.aliUsuario}" id="codigousuario">
+                                                </h:inputText>
+                                                <h:outputLabel value="*" style="color:red;font-weight:bold;"></h:outputLabel>
+                                        </td>
+                                </tr>
+
+                                <tr>
+                                        <td>
+                                                <h:outputLabel for="fechaexpiracion" value="Fecha expiracion:"></h:outputLabel>
+                                        </td>
+                                        <td>
+                                            <rich:calendar id="fechaexpiracion" value="#{frmMantUsuarios.usuario.tblUsuario.fecExpiracion}" mode="client" enableManualInput="true" datePattern="dd/MM/yyyy">
+                                             <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                           </rich:calendar>
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                            <h:outputLabel value="Estado:"></h:outputLabel>
+                                        </td>
+                                        <td>
+                                            <h:outputText value="#{frmMantUsuarios.usuario.tblUsuario.estUsuario}"></h:outputText>
+                                        </td>
+                                </tr>
+                             <!--  Contrasena -->
+                                        <tr>
+                                                <td>
+                                                    <h:outputLabel for="contrasena" value="Contrasena:" rendered="#{frmMantUsuarios.usuario.tblUsuario.numUsuario==null}"></h:outputLabel>
+                                                </td>
+                                                <td>
+                                                    <h:inputSecret value="#{frmMantUsuarios.usuario.tblUsuario.conUsuario}" id="contrasena" rendered="#{frmMantUsuarios.usuario.tblUsuario.numUsuario==null}"></h:inputSecret>
+                                                    <h:outputLabel value="*" style="color:red;font-weight:bold;" rendered="#{frmMantUsuarios.usuario.tblUsuario.numUsuario==null}"></h:outputLabel>
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                                <td>
+                                                    <h:outputLabel for="passwordConfirmation" value="Confirmacion de contrasena:" rendered="#{frmMantUsuarios.usuario.tblUsuario.numUsuario==null}"></h:outputLabel>
+                                                </td>
+                                                <td>
+                                                    <h:inputSecret value="#{frmMantUsuarios.usuario.tblUsuario.passwordConfirmation}" id="passwordConfirmation" rendered="#{frmMantUsuarios.usuario.tblUsuario.numUsuario==null}"></h:inputSecret>
+                                                    <h:outputLabel value="*" style="color:red;font-weight:bold;" rendered="#{frmMantUsuarios.usuario.tblUsuario.numUsuario==null}"></h:outputLabel>
+                                                </td>
+                                        </tr>
+                                <tr>
+                                        <td colspan="2" align="center">
+                                            <a4j:commandButton value="Guardar" actionListener="#{frmMantUsuarios.guardar}" render="panelMessage,creacionUsuariosPanel"/>
+                                            <a4j:commandButton value="Nuevo" actionListener="#{frmMantUsuarios.nuevo}" render="panelMessage,frmUsuariosMant" immediate="true"/>
+                                            <h:commandButton value="Regresar" action="frmUsuarios.jsf?faces-redirect=true" immediate="true"/>
+                                        </td>
+                                </tr>
+                        </table>
+                    </td>
+                    <td align="left" valign="top">
+                        <rich:panel header="Roles para el usuario: #{frmMantUsuarios.usuario.tblUsuario.nomUsuario}" id="rolesPanel">
+                             <center>
+                                <table>
+                                        <tr>
+                                            <td>
+                                                    <h:outputLabel for="roleslist" value="Role: "/>
+                                            </td>
+                                            <td>
+                                                <h:selectOneMenu value="#{frmMantUsuarios.selectedRoleId}" id="roleslist">
+                                                    <f:selectItems value="#{frmMantUsuarios.rolesList}"/>
+                                                </h:selectOneMenu>
+                                        </td>
+                                            <td>
+                                                <a4j:commandButton value="Adicionar" render="panelMessage, rolesusuario" actionListener="#{frmMantUsuarios.addRole}"></a4j:commandButton>
+                                            </td>
+                                        </tr>
+                                            <tr>
+                                                <td colspan="3">
+                                                   <rich:dataTable id="rolesusuario" rows="2" columnClasses="col" var="roleusuario" value="#{frmMantUsuarios.rolesUsuarioList}">
+                                                      <f:facet name="header">
+                                                        <rich:columnGroup>
+                                                           <h:column>
+                                                              <h:outputText styleClass="headerText" value="Role"/>
+                                                           </h:column>
+                                                           <h:column>
+                                                              <h:outputText styleClass="headerText" value="Descripcion"/>
+                                                           </h:column>
+                                                           <h:column>
+                                                              <h:outputText styleClass="headerText" value=""/>
+                                                           </h:column>
+                                                        </rich:columnGroup>
+                                                      </f:facet>
+                                                      <h:column>
+                                                           <h:outputText value="#{roleusuario.catRole.nomRol}"/>
+                                                      </h:column>
+                                                      <h:column>
+                                                          <h:outputText value="#{roleusuario.catRole.desRol}"/>
+                                                      </h:column>
+                                                      <h:column>
+                                                          <a4j:commandButton value="Eliminar" render="panelMessage,rolesPanel" execute="frmUsuariosMant, @form" actionListener="#{frmMantUsuarios.deleteRole}">
+                                                            </a4j:commandButton>
+                                                      </h:column>
+                                                      <f:facet name="footer">
+                                                      <rich:dataScroller for="rolesusuario" maxPages="5"/>
+                                                </f:facet>
+                                          </rich:dataTable>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </center>
+                        </rich:panel>
+                    </td>
+               </tr>
+            </table>
+          </h:form>
+	</ui:define>
+    </ui:composition>
+</html>

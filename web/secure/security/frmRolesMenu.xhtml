@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+<ui:composition template="/templates/main.xhtml">
+	<ui:define name="title">#{messages['default.windowTitle']} -- Creacion y configuracion de roles</ui:define>
+	<ui:define name="body">
+		<rich:panel header="Creacion y configuracion de roles">
+		  <h:form id="frmRolesMant">
+			 <table align="center">
+            <tr>
+                    <td valign="top">
+                            <a4j:outputPanel id="rolesMantPanel">
+                              <rich:tabPanel switchType="client">
+                                  <rich:tab header="Roles">
+                                            <table>
+                                                    <tr>
+                                                            <td>
+                                                                    <h:outputLabel value="Id:" for="rolesid"></h:outputLabel>
+                                                            </td>
+                                                            <td>
+                                                                <h:outputText value="#{role.catRol.codRol}" id="rolesid"></h:outputText>
+                                                                <h:inputHidden value="#{role.catRol.codRol}" id="rolesidHidden"></h:inputHidden>
+                                                            </td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td>
+                                                                    <h:outputLabel value="Nombre:" for="nombre"></h:outputLabel>
+                                                            </td>
+                                                            <td>
+                                                                <h:inputText value="#{role.catRol.nomRol}" id="nombre" size="50"></h:inputText>
+                                                            </td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td>
+                                                                    <h:outputLabel value="Descripcion:" for="descripcion"></h:outputLabel>
+                                                            </td>
+                                                            <td>
+                                                                <h:inputTextarea value="#{role.catRol.desRol}" id="descripcion" cols="50" rows="3"></h:inputTextarea>
+                                                            </td>
+                                                    </tr>
+                                                    <tr>
+                                                            <td colspan="2" align="center">
+                                                                    <a4j:commandButton value="Guardar" actionListener="#{frmRolesMenu.guardar}" render="panelMessage,frmRolesMant"></a4j:commandButton>
+                                                                    <a4j:commandButton value="Nuevo" actionListener="#{frmRolesMenu.nuevo}" render="panelMessage,frmRolesMant"></a4j:commandButton>
+                                                            </td>
+                                                    </tr>
+                                            </table>
+                                    </rich:tab>
+                              </rich:tabPanel>
+                            </a4j:outputPanel>
+                            <a4j:outputPanel id="rolesTablePanel">
+                            <rich:dataTable id="rolesTable" rows="10" columnClasses="col" var="roleRow" value="#{frmRolesMenu.rolesList}">
+			                      <!-- onRowClick="this.style.backgroundColor='#F1F1F1'" onRowMouseOver="this.style.backgroundColor='#B5CEFD'" onRowMouseOut="this.style.backgroundColor='' -->
+			                      <f:facet name="header">
+			                        <rich:columnGroup>
+			                          <h:column>
+			                            <h:outputText styleClass="headerText" value="Corr:"/>
+			                          </h:column>
+			                          <h:column>
+			                            <h:outputText styleClass="headerText" value="Nombre:"/>
+			                          </h:column>
+			                          <h:column>
+			                            <h:outputText styleClass="headerText" value="Descripcion:"/>
+			                          </h:column>
+			                         <h:column>
+			                            <h:outputText styleClass="headerText" value=""/>
+			                          </h:column>
+			                          <h:column>
+			                            <h:outputText styleClass="headerText" value=""/>
+			                          </h:column>
+			                        </rich:columnGroup>
+			                      </f:facet>
+			                      <h:column>
+                                                  <h:outputText value="#{roleRow.codRol}"/>
+			                      </h:column>
+			                      <h:column>
+                                                  <h:outputText value="#{roleRow.nomRol}"/>
+			                      </h:column>
+			                      <h:column>
+                                                  <h:outputText value="#{roleRow.desRol}"/>
+			                      </h:column>
+			                      <h:column>
+			                      		<a4j:commandButton value="Seleccionar"  render="panelMessage,rolesMantPanel,treePanel" actionListener="#{frmRolesMenu.seleccionar}">
+                                                            <f:setPropertyActionListener value="#{roleRow}" target="#{role.catRol}" />
+			                      		</a4j:commandButton>
+			                      </h:column>
+			                      <h:column>
+			                      		<a4j:commandButton value="Eliminar" actionListener="#{frmRolesMenu.delete}"  render="panelMessage,frmRolesMant">
+			                      		</a4j:commandButton>				
+			                      </h:column>
+			                <f:facet name="footer">
+			                  <rich:dataScroller for="rolesTable" maxPages="20"/>
+			                </f:facet>
+			               </rich:dataTable>	
+                                       </a4j:outputPanel>				  		
+				</td>
+		    		<td valign="top">
+		    			<a4j:outputPanel id="treePanel">
+                                            <rich:tree id="tree" render="tree" toggleType="ajax"  style="height: 400; overflow: auto" var="menuRow">
+                                                <rich:treeModelRecursiveAdaptor roots="#{frmRolesMenu.menuList}" nodes="#{menuRow.optionsList}">
+                                                    <rich:treeNode>
+                                                        <a4j:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;">
+                                                            <table>
+                                                              <tr>
+                                                                <td>
+                                                                    <a4j:commandLink actionListener="#{frmRolesMenu.addRemoveOption}" render="@form">
+                                                                            <h:graphicImage url="/img/icons/verify.gif" alt="Clic para quitar la opcion del role" rendered="#{menuRow.inrole}" style="border:none" ></h:graphicImage>
+                                                                            <h:graphicImage url="/img/close.png" alt="Clic para adicionar la opcion al role" rendered="#{!menuRow.inrole}"  style="border:none"></h:graphicImage>
+                                                                    </a4j:commandLink>
+                                                                </td>
+                                                                <td>
+                                                                    <h:outputText  value="#{menuRow.nomOpcMenu}" />
+                                                                </td>
+                                                              </tr>
+                                                            </table>
+                                                        </a4j:outputPanel>
+                                                    </rich:treeNode>
+                                                </rich:treeModelRecursiveAdaptor>
+					      </rich:tree>
+                                        </a4j:outputPanel>
+				    </td>
+				</tr>
+			</table>
+		  </h:form>
+		</rich:panel>
+	</ui:define>
+</ui:composition>
+</html>

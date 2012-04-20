@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <div class="page_brick"></div>
+    <img src="/ClinicaWeb/img/Fondo1.png" class="headerBackground"></img>
+    <h:form rendered="#{clinicaSessionBean.usuario!=null and clinicaSessionBean.usuario.numUsuario != null}">
+        <h:panelGrid styleClass="module_chooser">
+            <rich:toolbar>
+                <rich:toolbarGroup itemSeparator="line">
+                    <c:forEach items="#{clinicaSessionBean.usuario.modulos}" var="menu1">
+                        <a4j:commandLink render="leftMenuForm" execute="leftMenuForm">
+                            <f:setPropertyActionListener target="#{clinicaSessionBean.usuario.selectedModule}" value="#{menu1}"/>
+                            <h:graphicImage url="#{menu1.icoMenu}" title="#{menu1.nomOpcMenu}" height="30" width="30" style="border: 0">
+                            </h:graphicImage>
+                        </a4j:commandLink>
+                    </c:forEach>
+                </rich:toolbarGroup>
+           </rich:toolbar>
+        </h:panelGrid>
+    </h:form>
+</ui:composition>
