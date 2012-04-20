@@ -1,0 +1,176 @@
+/* 
+    Document   : clinica
+    Created on : 11-06-2011, 10:00:52 AM
+    Author     : Administrador
+    Description:
+    Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+.rich-mpnl-controls {
+	z-index: 1;
+}
+
+.headerBackground{
+    position: absolute;
+    border: 0;
+    top: 0; 
+    left: -9; 
+    height: 100px; 
+    width: 100%; 
+    padding: 0; 
+    margin: 0;
+}
+
+body, html  {
+	font: 100% Verdana, Arial, Helvetica, sans-serif;
+        background: url(/ClinicaWeb/img/fondo3.png);
+        background-repeat: no-repeat;
+        margin: 0; /* es recomendable ajustar a cero el margen y el relleno del elemento body para lograr la compatibilidad con la configuración predeterminada de los diversos navegadores */
+	padding: 0;
+	color: #000000;
+}
+
+.left_menu{
+	position : absolute;
+	z-index : 10;
+        overflow: scroll;
+	top : 117px;
+	left : 2px;
+	width : 222px;
+}
+
+body{
+	margin : 0px;
+	background-position : top left;
+	background-repeat : no-repeat;
+	background-color : White;
+	padding-top:428px;
+	font-family: Verdana;
+	font-size:11px;
+	z-index: -1;
+}
+
+.page_brick{
+	position : absolute;
+	top : 0px;
+	width : 998px;
+} 
+.content_container{
+	position : absolute;
+	top : 145px;
+	left : 10px;
+}
+.content_container_pdddings{
+	padding : 0px 35px 35px 0px;
+	z-index: -1
+}
+.content_container_left_brick{
+	background-color : transparent;
+	width : 250px;
+}
+
+.footer{
+	border-top : 2px solid #ACBECE;
+	text-align : right;
+	height : 50px;
+	font-family : verdana;
+	font-size : 11px;
+	padding : 0px 15px 0px 0px;
+        z-index: -1;
+}
+
+.top_navbar{
+	position : absolute;
+	top : 2px;
+	right : 0px;
+	font-family : verdana;
+	font-size : 11px;
+}
+
+input, select, textarea, button, keygen, isindex, legend, a {
+	font-family : verdana;
+}
+
+.top_navbar td{
+	padding : 5px 10px 7px 10px;
+	background-position : left;
+	background-repeat : repeat-y;
+	background-color : transparent;
+}
+.top_navbar td a{
+	color : #000000;
+	text-decoration : none;
+}
+.top_navbar td a:hover{
+	color : #000000;
+	text-decoration : underline;
+}
+.module_chooser{
+	position : absolute;
+	top : 81px;
+	left : 292px;
+	font-family : verdana;
+	font-size : 11px;
+	height : 26px;
+}
+.module_chooser td{
+	padding : 0px 0px 0px 10px;
+	background-color : transparent;
+}
+.module_chooser td a{
+	color : #7795AF;
+	text-decoration : none;
+}
+.module_chooser td a:hover{
+	color : #7795AF;
+	text-decoration : underline;
+}
+.module_chooser .skin_line{
+	font-family : verdana;
+	font-size : 11px;
+}
+.module_chooser .skin_line .control a{
+	color : #7795AF;
+	text-decoration : none;
+}
+.module_chooser .skin_line .control a:hover{
+	color : #7795AF;
+	text-decoration : underline;
+}
+.module_chooser .module_line a{
+	color : #000000;
+	text-decoration : none;
+}
+.module_chooser .module_line a:hover{
+	color : #000000;
+	text-decoration : underline;
+}
+
+.footer-text {
+	font-size: 10px;	
+}
+
+hr{
+    border-color: cornflowerblue;
+}
+form {
+	margin: 0;
+	padding: 0;
+}
+
+* {
+	font-family: Verdana,Arial;
+        font-size: 11;
+}
+
+p {
+	margin-top: 15px;
+	margin-bottom: 5px;
+	font-size: 12px;
+	font-family: Verdana,Arial;
+}

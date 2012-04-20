@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:form id="leftMenuForm">
+        <rich:panel header="#{clinicaSessionBean.usuario.selectedModule.nomOpcMenu}" style="height: 100%; #{clinicaSessionBean.usuario.selectedModule!=null and clinicaSessionBean.usuario.selectedModule.codMenu !=null?'visibility:visible':'visibility:hidden'};" id="leftMenu">
+            <rich:tree toggleType="ajax" var="item" iconLeaf="#{item.icoMenu}">
+                <rich:treeModelRecursiveAdaptor roots="#{clinicaSessionBean.usuario.selectedModule.options}" nodes="#{item.options}" leaf="#{item.leaf}">
+                    <rich:treeNode>
+                        <h:outputLink value="#{item.urlIniMenu}" rendered="#{item.leaf}">
+                            #{item.nomOpcMenu}
+                        </h:outputLink>
+                        <h:outputText value="#{item.nomOpcMenu}" rendered="#{!item.leaf}"/>
+                    </rich:treeNode>
+                </rich:treeModelRecursiveAdaptor>
+            </rich:tree>
+        </rich:panel>
+    </h:form>
+</ui:composition>

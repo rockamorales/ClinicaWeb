@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+<f:view>
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml; charset=windows-1252"/>
+<title>
+	<ui:insert name="title"/>
+</title>
+<link rel="shortcut icon" type="image/x-icon" href="/VUI/images/logo16x16.ico"/>
+<link rel="STYLESHEET" type="text/css" href="/VUI/css/common.css"/>
+<script type="text/javascript" src="/VUI/scripts/util.js"></script>
+<script type="text/javascript" src="/VUI/scripts/jquery.maskedinput-1.2.2.js"/>
+<ui:include src="/templates/dynamic-css.jsp" />
+<script>
+A4J.AJAX.onExpired = function(loc, expiredMsg){
+    if(window.confirm(expiredMsg)){
+      return loc;
+    } else {
+     return false;
+    }
+}
+
+jQuery(document).ready(function(){
+	jQuery(".sacMasked").mask("9999.99.99.99");
+});
+
+</script>
+</head>
+
+<body lang="ES-SV">
+<f:loadBundle var="messages" basename="messages"/>
+<ui:insert name="metadata"/>
+<ui:include src="/templates/header.jsp" />
+<table class="left_menu" cellpadding="0" cellspacing="0" border="0">
+<tbody>
+    <tr>
+	<td>
+            <h:form>
+		<rich:panelMenu style="width:215px;" 
+                                itemMode="ajax" 
+                                groupMode="ajax"
+                                groupExpandedLeftIcon="triangleUp"
+                                groupCollapsedLeftIcon="triangleDown"
+                                topGroupExpandedRightIcon="chevronUp"
+                                topGroupCollapsedRightIcon="chevronDown"
+                                itemLeftIcon="disc">
+                                    <rich:panelMenuGroup label="Canal Ciudadano">
+					<rich:panelMenuItem label="Inf. de productos" action="/public/frmInformacionProducto?faces-redirect=true"/>
+				    </rich:panelMenuGroup>
+		</rich:panelMenu>
+	    </h:form>
+	</td>
+   </tr>
+</tbody>
+</table>
+<ui:include src="/templates/messages.jsp"/>
+<table cellpadding="0" cellspacing="0" border="0" class="content_container" width="100%">
+<tbody>
+	<tr>
+		<td>
+			<div class="content_container_left_brick"></div>
+		</td>
+		<td width="100%" class="content_container_pdddings">
+<!-- tabpanel begin -->
+		<ui:insert name="body">Body</ui:insert>
+<!-- tabpanel end -->	
+
+		<a4j: style="height:10px;" />
+		<rich:separator style="height:1px" />
+		<div style="float:right;" class="footer-text">#{messages['product.name']} Version: #{messages['product.version']}</div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div class="content_container_left_brick"></div>
+		</td>
+		<td width="100%" align="center" class="content_container_pdddings">
+			<font class="footer-text">
+					<h:outputText value="#{messages['product.copyright']}" escape="false"></h:outputText>
+					<br />
+					<a href="/VUI/terminos_de_uso.htm" style="color:#000;" class="footer-text" target="_new">Condiciones y Terminos de Uso</a>
+			</font>
+		</td>
+	</tr>
+</tbody>
+</table>
+</body>
+</f:view>
+</html>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <ui:composition template="/templates/main.xhtml">
+        <ui:define name="title">
+          <h:outputText value="#{messages['default.windowTitle']}--Administración de Requisiciones" escape="false"></h:outputText>  
+        </ui:define>
+        <ui:define name="body">
+            <h:form>
+                <h:outputLink value="frmMantRequisiciones.jsf">
+                    Agregar Nueva Requisición
+                </h:outputLink>
+                <rich:dataTable value="#{frmTblRequisiciones.tblRequisicionesList}" var="tblrequisiciones" rows="10" id="tblrequisicionesTable">
+            <f:facet name="header">
+                <rich:columnGroup>
+                  <h:column>
+                    <h:outputText value="Numero de Requisición"/>
+                  </h:column>
+                  <h:column>
+                    <h:outputText value="Fecha de Requisición"/>
+                  </h:column>
+                  <h:column>
+                    <h:outputText value="Tipo de Requisición"/>
+                  </h:column>                  
+                    <h:column>
+                    <h:outputText value="Empleado que Elaboró"/>
+                  </h:column>
+                 <h:column>
+                     <h:outputText value="Area de Requisición" />
+                  </h:column>
+                  <h:column>
+                    <h:outputText value="Estado"/>
+                  </h:column>
+                </rich:columnGroup>
+              </f:facet>
+                <h:column>
+                    <h:outputText value="#{tblrequisiciones.numRequisicion}">
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <h:outputText value="#{tblrequisiciones.fecRequisicion}">
+                    </h:outputText>
+                </h:column>               
+                <h:column>
+                    <h:outputText value="#{tblrequisiciones.catTipoRequisicion.nomTipRequisicion}">
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <h:outputText value="#{tblrequisiciones.tblEmpleado.nomEmpleado} #{tblrequisiciones.tblEmpleado.priApeEmpleado} #{tblrequisiciones.tblEmpleado.segApeEmpleado} #{requisicion.tblEmpleado.terApeEmpleado}">>
+                    </h:outputText>            
+                </h:column>               
+                <h:column>
+                    <h:outputText value="#{tblrequisiciones.catAreas.nomArea}">
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <h:outputText value="#{tblrequisicion.estado}">
+                    </h:outputText>
+                </h:column>     
+                <h:column>
+                    
+                    <h:outputLink value="frmMantTblRequisiciones.jsf">
+                        <f:param name="numRequisicion" value="#{tblRequisiciones.numRequisicion}"/>
+                        <f:param name="faces-redirect" value="true"/>
+                        <h:graphicImage url="/img/icons/edit.gif">
+                            
+                        </h:graphicImage>
+                    </h:outputLink>
+                </h:column>
+                <h:column>
+                    <a4j:commandLink actionListener="#{frmTblRequisiciones.delete}" render="tblrequisicionTable" onclick="if(!confirm('Esta seguro que desea eliminar el Registro: #{tblRequisiciones.numRequisicion}')){return false;}">
+                        <h:graphicImage url="/img/icons/delete.gif"/>
+                        <f:setPropertyActionListener target="#{frmTblRequisiciones.tblRequisiciones}" value="#{tblRequisiciones}"/>
+                    </a4j:commandLink>
+                    </h:column>                
+            </rich:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

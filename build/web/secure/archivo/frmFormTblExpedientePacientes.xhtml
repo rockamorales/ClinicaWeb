@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <ui:composition template="/templates/main.xhtml">
+        <ui:define name="title">
+          <h:outputText value="#{messages['default.windowTitle']}--Administración de expediente" escape="false"></h:outputText>  
+        </ui:define>
+        <ui:define name="body">
+            <rich:popupPanel id="generarConsultaPanel" modal="true" autosized="true" resizeable="false">
+                <f:facet name="header">
+                    <h:outputText value="Generacion de consulta"/>
+                </f:facet>
+                <f:facet name="controls">
+                    <h:outputLink value="#" onclick="#{rich:component('generarConsultaPanel')}.hide(); return false;" style="color:white;font-weight: bold;">
+                        Cerrar
+                    </h:outputLink>
+                </f:facet>
+                <h:form>
+                    <table>
+                        <tr>
+                            <td align="left">Tipo consulta:</td>
+                            <td align="left">
+                                <h:selectOneMenu value="#{generarConsultaInf.codTipConsulta}" id="codTipConsulta">
+                                    <f:selectItems value="#{frmMantTblExpedientePacientes.catTipoConsultaList}"/>
+                                </h:selectOneMenu>
+                            </td>
+                            <td align="left">Especialidad:</td>
+                            <td align="left">
+                                <h:selectOneMenu value="#{generarConsultaInf.codEspecialidad}" id="codEspecialidad">
+                                    <f:selectItems value="#{frmMantTblExpedientePacientes.catEspecialidadList}"/>
+                                </h:selectOneMenu>
+                            </td>                    
+                        </tr> 
+                        <tr>
+                            <td align="left">Dr:</td>
+                            <td colspan="3" align="left">
+                                <h:selectOneMenu value="#{generarConsultaInf.numMedico}" id="numMedico">
+                                    <f:selectItems value="#{frmMantTblExpedientePacientes.tblMedicosList}"/>
+                                </h:selectOneMenu>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">Observaciones:</td>
+                            <td align="left" colspan="3">
+                                <h:inputTextarea value="#{generarConsultaInf.observaciones}" id="observaciones" rows="2" cols="40">
+                                </h:inputTextarea>
+                            </td>
+                        </tr>  
+                          <td colspan="4" align="center">
+                              <a4j:commandButton value="Aceptar" actionListener="#{frmMantTblExpedientePacientes.generarConsulta}" render="@form, panelMessage" oncomplete="#{rich:component('generarConsultaPanel')}.hide();"/>
+                              <a4j:commandButton value="Cancelar">
+                                  <rich:componentControl target="generarConsultaPanel" operation="hide" event="click"></rich:componentControl>
+                              </a4j:commandButton>
+                          </td>                        
+                    </table>
+                </h:form>
+            </rich:popupPanel>            
+            
+            <h:form id="tblExpedienteForm">
+              <h3>Informacion general del paciente</h3>
+              <hr/>
+              <table>
+                <tr>
+                    <td align="left">Código:</td>
+                    <td align="left">
+                        <h:inputHidden value="#{frmMantTblExpedientePacientes.numExpediente}" id="numExpediente"/>
+                        <h:outputText value="#{tblExpedientePacienteForm.tblExpedientePacientes.numExpediente}" style="font-weight: bold"/>
+                        <h:inputHidden value="#{tblExpedientePacienteForm.tblExpedientePacientes.numExpediente}"/>
+                    </td>
+                    <td align="left">Fecha de Registro:</td>
+                    <td align="left">
+                        <h:outputText value="#{tblExpedientePacienteForm.tblExpedientePacientes.fecRegExpediente}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Nombre del Paciente:</td>
+                    <td align="left">
+                        <h:inputText value="#{tblExpedientePacienteForm.tblExpedientePacientes.nomPaciente}" size="30"/>
+                    </td>
+                    <td align="left">Primer Apellido:</td>
+                    <td align="left">
+                        <h:inputText value="#{tblExpedientePacienteForm.tblExpedientePacientes.priApePaciente}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Segundo Apellido:</td>
+                    <td align="left">
+                        <h:inputText value="#{tblExpedientePacienteForm.tblExpedientePacientes.secApePaciente}" />
+                    </td>
+                    <td align="left">
+                        <h:outputText value="Tercer Apellido:" id="terApePacienteLabel">
+                        </h:outputText>
+                    </td>
+                    <td align="left">
+                        <h:inputText value="#{tblExpedientePacienteForm.tblExpedientePacientes.terApePaciente}" id="terApePaciente"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Fecha de Nacimiento:</td>
+                    <td align="left">
+                        <rich:calendar value="#{tblExpedientePacienteForm.tblExpedientePacientes.fecNacPaciente}" datePattern="dd/MM/yyyy" enableManualInput="true"/>
+                    </td>
+                    <td align="left">Edad del Paciente:</td>
+                    <td align="left">
+                        <h:inputText value="#{tblExpedientePacienteForm.tblExpedientePacientes.edaPaciente}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Ocupacion:</td>
+                    <td align="left">
+                        <h:selectOneMenu value="#{tblExpedientePacienteForm.tblExpedientePacientes.codOcupacion}">
+                             <f:selectItems value="#{frmMantTblExpedientePacientes.catOcupacionList}"/>
+                        </h:selectOneMenu>
+                    </td>
+                    <td align="left">Sexo:</td>
+                    <td align="left">
+                        <h:selectOneMenu id="codSexPaciente" value="#{tblExpedientePacienteForm.tblExpedientePacientes.codSexPaciente}">
+                            <f:selectItems value="#{frmMantTblExpedientePacientes.catSexoList}"/>
+                           
+                        </h:selectOneMenu>
+                    </td>
+                 </tr>
+                 <tr>
+                        <td align="left">Estado Civil:</td>
+                        <td align="left">
+                            <h:selectOneMenu id="codEstCivil" value="#{tblExpedientePacienteForm.tblExpedientePacientes.codEstCivil}" >
+                                <f:selectItems value="#{frmMantTblExpedientePacientes.catEstadoCivilList}"/>
+                            </h:selectOneMenu>
+                        </td>
+                        <td align="left">Numero de Dui:</td>
+                        <td align="left"><h:inputText value="#{tblExpedientePacienteForm.tblExpedientePacientes.numDui}" size="9"/></td>
+                 </tr>
+                 <tr>
+                        <td align="left">Dirección del Paciente:</td>
+                        <td colspan="3" align="left"><h:inputText value="#{tblExpedientePacienteForm.tblExpedientePacientes.dirPaciente}" size="100"/></td>    
+                 </tr>    
+                 <tr>
+                        <td align="left">Lugar de Procedencia del Paciente:</td>
+                        <td align="left">
+                            <h:inputText value="#{tblExpedientePacienteForm.tblExpedientePacientes.lugProcPaciente}" size="30" >
+                            </h:inputText>
+                        </td>
+                        <td align="left">Telefono del Paciente:</td>
+                        <td align="left"><h:inputText value="#{tblExpedientePacienteForm.tblExpedientePacientes.telPaciente}" size="8"/></td>
+                 </tr>
+                 <tr>
+                        <td align="left">Nombre del Padre:</td>
+                        <td colspan="3" align="left">
+                            <h:inputText value="#{tblExpedientePacienteForm.tblExpedientePacientes.nomPadPaciente}" size="100" />
+                        </td>
+                 </tr>
+                 <tr>
+                        <td align="left">Nombre de la Madre:</td>
+                        <td colspan="3" align="left">
+                            <h:inputText value="#{tblExpedientePacienteForm.tblExpedientePacientes.nomMadPaciente}" size="100" />
+                        </td>
+                 </tr>
+                 <tr> 
+                     <td align="left"><h:outputText id="nomConPacienteLabel" value="Nombre de Conyuge de Paciente:"></h:outputText></td>
+                     <td colspan="3" align="left"><h:inputText value="#{tblExpedientePacienteForm.tblExpedientePacientes.nomConPaciente}" id="nomConPaciente" size="100"/></td>
+                 </tr>
+                 <tr>
+                        <td align="left">Nombre del Responsable del Paciente:</td>
+                        <td align="left"><h:inputText value="#{tblExpedientePacienteForm.tblExpedientePacientes.nomResPaciente}" size="30" /></td>
+                        <td align="left">Parentesco del Resp.:</td>
+                        <td align="left">
+                            <h:selectOneMenu value="#{tblExpedientePacienteForm.tblExpedientePacientes.codParResponsable}" >
+                                <f:selectItems value="#{frmMantTblExpedientePacientes.catParentescoResponsableList}"/>                 
+                            </h:selectOneMenu>
+                        </td>                    
+                 </tr>
+                 <tr>
+                        <td align="left">Direccion del Responsable del Paciente:</td>
+                        <td align="left"><h:inputText value="#{tblExpedientePacienteForm.tblExpedientePacientes.dirResPaciente}" size="30" /></td>
+                        <td align="left">Telefono del Resp. del Paciente:</td>
+                        <td align="left">
+                            <h:inputText value="#{tblExpedientePacienteForm.tblExpedientePacientes.telResPaciente}" size="8" />
+                        </td>
+                 </tr>
+                 <tr>
+                        <td align="left">Estado:</td>
+                        <td align="left">
+                            <h:selectOneMenu value="#{tblExpedientePacienteForm.tblExpedientePacientes.estPaciente}" >
+                                <f:selectItem itemValue="ACTIVO" itemLabel="Activo"/>
+                                <f:selectItem itemValue="INACTIVO" itemLabel="Inactivo"/>
+                            </h:selectOneMenu>
+                        </td>
+                        <td align="left">Ubicacion Exp.:</td>
+                        <td align="left">
+                            <h:selectOneMenu value="#{tblExpedientePacienteForm.tblExpedientePacientes.codUbiFisica}" >
+                               <f:selectItems value="#{frmMantTblExpedientePacientes.catUbicacionFisicaList}"/>                 
+                            </h:selectOneMenu>
+                        </td>
+                 </tr>
+                  <tr>
+                      <td colspan="4" align="center">
+                          <a4j:commandButton value="Guardar" actionListener="#{frmMantTblExpedientePacientes.guardar}" render="@form, panelMessage" />
+                          <a4j:commandButton value="Nuevo" actionListener="#{frmMantTblExpedientePacientes.nuevo}" render="@form, panelMessage" execute="@this"/>
+                          <a4j:commandButton value="Regresar" action="frmTblExpedientePacientes.jsf?faces-redirect=true" immediate="true"/>
+                          <a4j:commandButton value="Generar consulta">
+                              <rich:componentControl target="generarConsultaPanel" operation="show" event="click"></rich:componentControl>
+                          </a4j:commandButton>
+                      </td>
+                  </tr>
+                  <tr>
+                  </tr>
+              </table>
+                <h:panelGroup rendered="#{tblExpedientePacienteForm.tblExpedientePacientes.numExpediente != null}">
+                <h3>Informacion de tarjeta</h3>
+                <hr></hr>
+                <table>
+                    <tr>
+                        <td align="left"># de Tarjeta:</td>
+                        <td align="left">
+                            <h:inputText value="#{tblExpedientePacienteForm.tblTarjetaControlCitas.numTarjeta}" size="10" />
+                        </td>
+                        <td>
+                            <a4j:commandButton value="Asignar" actionListener="#{frmMantTblExpedientePacientes.asignar}" render="@form, panelMessage" />
+                        </td>
+                    </tr>
+                </table>
+                <rich:dataTable value="#{frmMantTblExpedientePacientes.tblTarjetaControlCitasList}" var="tblTarjetaCitas" rows="10" id="tblDetalleComprobanteDonacionTable">
+                    <f:facet name="header">
+                        <rich:columnGroup>
+                          <h:column>
+                            <h:outputText value="No. Tarjeta"/>
+                          </h:column>
+                          <h:column>
+                            <h:outputText value="Fecha de Expedicion"/>
+                          </h:column>
+                          <h:column>
+                            <h:outputText value="Activo?"/>
+                          </h:column>
+                          <h:column>
+                            <h:outputText value="Pagado?"/>
+                          </h:column>
+                        </rich:columnGroup>
+                  </f:facet>
+                  <h:column>
+                     <h:outputText value="#{tblTarjetaCitas.numTarjeta}">   
+                     </h:outputText>
+                  </h:column>
+                  <h:column>
+                      <h:outputText value="#{tblTarjetaCitas.fecExpTarjeta}">
+                          <f:convertDateTime pattern="dd/MM/yyyy"/>
+                      </h:outputText>
+                  </h:column>     
+                  <h:column>
+                      <h:outputText value="#{tblTarjetaCitas.actTarjeta}">
+                     </h:outputText>
+                  </h:column>
+                  <h:column>
+                      <h:outputText value="#{tblTarjetaCitas.estTarjeta}">
+                     </h:outputText>
+                  </h:column>     
+              </rich:dataTable> 
+            </h:panelGroup>
+           </h:form>
+        </ui:define>
+    </ui:composition>    
+</html>

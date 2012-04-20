@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+<ui:composition template="/templates/main.xhtml">
+	<ui:define name="title">#{messages['default.windowTitle']} -- Matenimiento de opciones de menu</ui:define>
+	<ui:define name="body">
+            <rich:popupPanel resizeable="false" modal="true" show="false" width="400" height="400" id="fileSystemModal" style="overflow: auto; height: 400px" rendered="false">
+			<f:facet name="header">
+				<h:panelGroup>
+					<h:outputText value="Archivos" escape="false"></h:outputText>
+				</h:panelGroup>
+			</f:facet>
+		    <f:facet name="controls">
+		         <h:graphicImage value="/images/close.png" style="cursor:pointer" onclick="Richfaces.hideModalPanel('fileSystemModal')" />
+		    </f:facet>
+	    	<a4j:outputPanel id="fileSystemPanel" layout="block" style="overflow: auto; height: 400">
+			    	<!--<ui:include src="/secure/filesystem/FrmFileSystemMenu.jsp">
+			    	</ui:include>-->
+	    	</a4j:outputPanel>
+            </rich:popupPanel>
+	
+            <rich:panel header="Mantenimiento de opciones de menu">
+              <h:form id="frmOpcionesMenu">
+                <table align="center">
+                  <tr>
+                    <td valign="top">
+                        <rich:tree id="tree" render="tree" selectionType="ajax" var="menuRow">
+                            <rich:treeModelRecursiveAdaptor roots="#{frmOpcionesMenu.menuList}" nodes="#{menuRow.optionsList}">
+                                <rich:treeNode>
+                                    <h:panelGroup layout="block" style="cursor:pointer;width:200px;" >
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <a4j:commandLink render="@form" actionListener="#{frmOpcionesMenu.nuevo}">
+                                                        <h:graphicImage url="/img/icons/create_doc.gif" alt="Clic para agregar una nueva opcion" style="border:none" >
+                                                        </h:graphicImage>
+                                                        <f:setPropertyActionListener value="#{menuRow.codMenu}" target="#{menu.catMenu.codPadMenu}"/>
+                                                    </a4j:commandLink>
+                                                </td>
+                                                <td>
+                                                    <a4j:commandLink render="@form" actionListener="#{frmOpcionesMenu.seleccionar}">
+                                                        <h:graphicImage url="/img/icons/edit.gif" alt="Clic para editar la opcion" style="border:none" >
+                                                        </h:graphicImage>
+                                                        <f:setPropertyActionListener value="#{menuRow}" target="#{menu.catMenu}"/>
+                                                    </a4j:commandLink>
+                                                </td>
+                                                <td>
+                                                    <a4j:commandLink render="@form"  actionListener="#{frmOpcionesMenu.delete}">
+                                                            <h:graphicImage url="/img/icons/delete.gif" alt="Clic para eliminar la opcion" style="border:none" >
+                                                            </h:graphicImage>
+                                                    </a4j:commandLink>
+                                                </td>
+                                                <td>
+                                                    <h:outputText  value="#{menuRow.codMenu} -- #{menuRow.nomOpcMenu}" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </h:panelGroup>
+                                </rich:treeNode>
+                            </rich:treeModelRecursiveAdaptor>
+                           </rich:tree>
+                    </td>
+                    <td valign="top">
+                        <table>
+                                <tr>
+                                        <td>
+                                                <h:outputLabel value="Cod. Menu:" for="codigomenu1"></h:outputLabel>
+                                        </td>
+                                        <td>
+                                                <h:outputText value="#{menu.catMenu.codMenu}" id="codigomenu1"></h:outputText>
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                                <h:outputLabel value="Menu padre:" for="codigomenupadre"></h:outputLabel>
+                                        </td>
+                                        <td>
+                                                <h:inputText value="#{menu.catMenu.codPadMenu}" id="codigomenupadre"></h:inputText>
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                                <h:outputLabel value="Nombre:" for="nombreopcion"></h:outputLabel>
+                                        </td>
+                                        <td>
+                                                <h:inputText value="#{menu.catMenu.nomOpcMenu}" id="nombreopcion"></h:inputText>
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                                <h:outputLabel value="Url Inicial:" for="urlinicial"></h:outputLabel>
+                                        </td>
+                                        <td>
+                                                <h:inputText value="#{menu.catMenu.urlIniMenu}" id="urlinicial"></h:inputText>
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                                <h:outputLabel value="Icono:" for="icono"></h:outputLabel>
+                                        </td>
+                                        <td>
+                                                <h:inputText value="#{menu.catMenu.icoMenu}" id="icono"></h:inputText>
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td align="center" colspan="2">
+                                                <a4j:commandButton value="Guardar" actionListener="#{frmOpcionesMenu.guardar}" render="panelMessage, menuMantPanel, treePanel"></a4j:commandButton>
+                                                <a4j:commandButton value="Nuevo" actionListener="#{frmOpcionesMenu.nuevo}" render="panelMessage, menuMantPanel"></a4j:commandButton>
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td colspan="2" align="center">
+                                                <h:commandButton value="Agregar url" onclick="Richfaces.showModalPanel('fileSystemModal');return false"></h:commandButton>
+                                                <a4j:outputPanel id="urlsMenuTablePanel">
+                                            <rich:dataTable id="urlsMenuTable" rows="10" columnClasses="col" var="url" value="#{frmOpcionesMenu.urlsList}">
+                                              <!-- onRowClick="this.style.backgroundColor='#F1F1F1'" onRowMouseOver="this.style.backgroundColor='#B5CEFD'" onRowMouseOut="this.style.backgroundColor='' -->
+                                              <f:facet name="header">
+                                                <rich:columnGroup>
+                                                  <h:column>
+                                                    <h:outputText styleClass="headerText" value="URL:"/>
+                                                  </h:column>
+                                                  <h:column>
+                                                    <h:outputText styleClass="headerText" value=""/>
+                                                  </h:column>
+                                                </rich:columnGroup>
+                                              </f:facet>
+                                              <h:column>
+                                                <h:outputText value="#{url.url}"/>
+                                              </h:column>
+                                              <h:column>
+                                                        <a4j:commandButton value="Eliminar" actionListener="#{frmOpcionesMenu.deleteUrl}"  render="panelMessage, urlsMenuTablePanel">
+                                                        </a4j:commandButton>
+                                              </h:column>
+                                                  <f:facet name="footer">
+                                                          <rich:dataScroller for="urlsMenuTable" maxPages="20"/>
+                                                  </f:facet>
+                                                        </rich:dataTable>
+                                                </a4j:outputPanel>
+                                        </td>
+                                </tr>
+                        </table>
+                      <h:inputHidden value="#{menu.catMenu.codMenu}" id="codigomenu"></h:inputHidden>
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+    </rich:panel>
+  </ui:define>
+</ui:composition>
+</html>

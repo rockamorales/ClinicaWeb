@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <ui:composition template="/templates/main.xhtml">
+        <ui:define name="title">
+          <h:outputText value="#{messages['default.windowTitle']}--Administración de Ubicacion Fisica" escape="false"></h:outputText>  
+        </ui:define>
+        <ui:define name="body">
+            <h:form id="form">
+              <table>
+                <tr>
+                    <td>Código</td>
+                    <td><h:outputText value="#{frmMantCatUbicacionFisica.catUbicacionFisica.codUbiFisica}" />
+                        <h:inputHidden value="#{frmMantCatUbicacionFisica.catUbicacionFisica.codUbiFisica}" /></td>
+                    <td>Nombre</td>
+                    <td><h:inputText value="#{frmMantCatUbicacionFisica.catUbicacionFisica.estUbiFisica}" /></td>
+                </tr>
+                <tr>
+                    <td>Año</td>
+                    <td><h:inputText value="#{frmMantCatUbicacionFisica.catUbicacionFisica.aniUbiFisica}" /></td>
+                    <td>Nivel</td>
+                    <td>
+                        <h:selectOneMenu value="#{frmMantCatUbicacionFisica.catUbicacionFisica.nivUbiFisica}" >
+                            <f:selectItem itemValue="1" itemLabel="1"/>
+                            <f:selectItem itemValue="2" itemLabel="2"/>
+                            <f:selectItem itemValue="3" itemLabel="3"/>
+                            <f:selectItem itemValue="4" itemLabel="4"/>
+                        </h:selectOneMenu>
+                    </td>
+                    <td>Observaciones de la Ubicacion Fisica</td>
+                    <td><h:inputTextarea value="#{frmMantCatUbicacionFisica.catUbicacionFisica.obsUbiFisica}" rows="3"/></td>
+                    <td>
+                        <h:selectOneMenu value="#{frmMantCatUbicacionFisica.catUbicacionFisica.actUbiFisica}" >
+                            <f:selectItem itemValue="ACTIVO" itemLabel="Activo"/>
+                            <f:selectItem itemValue="INACTIVO" itemLabel="Inactivo"/>
+                        </h:selectOneMenu>
+                    </td>
+                </tr>
+                  <tr>
+                      <td colspan="4" align="center">
+                          <a4j:commandButton value="Guardar" actionListener="#{frmMantCatUbicacionFisica.guardar}" render="form, panelMessage" />
+                          <a4j:commandButton value="Nuevo" actionListener="#{frmMantCatUbicacionFisica.nuevo}" render="form"/>
+                          <a4j:commandButton value="Regresar" action="frmCatUbicacionFisica.jsf?faces-redirect=true" immediate="true"/>
+                      </td>
+                  </tr>
+              </table>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
