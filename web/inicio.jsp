@@ -5,6 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
     xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich">
+    
 <ui:composition template="/templates/main.jsp">
 	<ui:define name="title"></ui:define>
 	<ui:define name="body">
