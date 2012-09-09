@@ -6,8 +6,6 @@ package sv.com.cormaria.clinica.web.managebeans.security;
 
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import sv.com.cormaria.servicios.entidades.security.CatMenu;
 

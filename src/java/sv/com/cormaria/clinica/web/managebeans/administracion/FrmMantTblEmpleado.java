@@ -2,17 +2,13 @@
  * and open the template in the editor.
  */
 package sv.com.cormaria.clinica.web.managebeans.administracion;
-import java.util.ArrayList;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.event.ActionEvent;
-import javax.faces.model.SelectItem;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
 import sv.com.cormaria.servicios.entidades.administracion.TblEmpleado;
-import sv.com.cormaria.servicios.facades.administracion.TblEmpleadoFacade;
 import sv.com.cormaria.servicios.facades.administracion.TblEmpleadoFacadeLocal;
 
 /**

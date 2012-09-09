@@ -7,7 +7,7 @@ import javax.faces.context.FacesContext;
 import sv.com.cormaria.clinica.web.managebeans.sessions.ClinicaSessionBean;
 
 
-public class PageBase{
+public class PageBase implements Serializable{
     public ClinicaSessionBean getSessionBean(){
       ClinicaSessionBean vuiSession = (ClinicaSessionBean) this.getBean("#{clinicaSessionBean}", ClinicaSessionBean.class);
       return vuiSession;

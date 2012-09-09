@@ -11,6 +11,9 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
+                    <file>${libs.CDKAnnotations.classpath}</file>
+                </library>
+                <library dirs="200">
                     <file>${libs.jsf20.classpath}</file>
                 </library>
                 <library dirs="100">

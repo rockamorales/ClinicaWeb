@@ -38,6 +38,7 @@ public class FrmLogin extends PageBase {
         try{
             System.out.println("Buscando el usuario");
             TblUsuarios usuario1 = usuarioSession.findByCodigoUsuarioWithMenu(this.usuario);
+            //MenuBean menu = (MenuBean) this.getBean("#{menuBean}", MenuBean.class);
             FacesContext context = FacesContext.getCurrentInstance();
             HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
             request.login(this.usuario, this.contrasena);
@@ -46,6 +47,7 @@ public class FrmLogin extends PageBase {
                 sessionBean.setUsuario(usuario1);
                 usuario1.setUltFecIniSesion(new java.util.Date());
                 usuarioSession.updateAll(usuario1);
+                //menu.loadMenuOptions(usuario);
                 return "inicio?faces-redirect=true";
             }else{
                 this.addError("El usuario no existe o esta desactivado", "El usuario no existe o esta desactivado");

@@ -1,10 +1,13 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:rich="http://richfaces.org/rich"
       xmlns:h="http://java.sun.com/jsf/html">
     <h:form id="leftMenuForm">
+        <rich:panelMenu />
+        <rich:panelMenu style="width:200px" groupMode="ajax" itemMode="server" groupExpandedLeftIcon="triangleUp" groupCollapsedLeftIcon="triangleDown" topGroupExpandedRightIcon="chevronUp" topGroupCollapsedRightIcon="chevronDown" itemLeftIcon="disc" binding="#{menuBean.menu}">
+        </rich:panelMenu>
+        <!--
         <rich:panel header="#{clinicaSessionBean.usuario.selectedModule.nomOpcMenu}" style="height: 100%; #{clinicaSessionBean.usuario.selectedModule!=null and clinicaSessionBean.usuario.selectedModule.codMenu !=null?'visibility:visible':'visibility:hidden'};" id="leftMenu">
             <rich:tree toggleType="ajax" var="item" iconLeaf="#{item.icoMenu}">
                 <rich:treeModelRecursiveAdaptor roots="#{clinicaSessionBean.usuario.selectedModule.options}" nodes="#{item.options}" leaf="#{item.leaf}">
@@ -16,6 +19,6 @@
                     </rich:treeNode>
                 </rich:treeModelRecursiveAdaptor>
             </rich:tree>
-        </rich:panel>
+        </rich:panel> -->
     </h:form>
 </ui:composition>

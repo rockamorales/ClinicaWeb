@@ -11,10 +11,10 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
-import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
 import sv.com.cormaria.servicios.entidades.archivo.TblTarjetaControlCitas;
 import sv.com.cormaria.servicios.entidades.catalogos.CatEspecialidad;
 import sv.com.cormaria.servicios.entidades.catalogos.CatSexo;
@@ -26,6 +26,7 @@ import sv.com.cormaria.servicios.entidades.catalogos.CatUbicacionFisica;
 import sv.com.cormaria.servicios.entidades.colecturia.TblComprobanteDonacion;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblConsultas;
 import sv.com.cormaria.servicios.entidades.administracion.TblMedico;
+import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
 import sv.com.cormaria.servicios.facades.archivo.TblExpedientePacientesFacadeLocal;
 import sv.com.cormaria.servicios.facades.archivo.TblTarjetaControlCitasFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatEspecialidadFacadeLocal;
@@ -42,10 +43,9 @@ import sv.com.cormaria.servicios.facades.administracion.TblMedicoFacadeLocal;
  * @author Claudia
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class FrmMantTblExpedientePacientes extends PageBase {
-    @ManagedProperty(value="#{tblExpedientePacienteForm}")
-    private TblExpedientePacienteForm tblExpedientePacientes;
+    private TblExpedientePacientes tblExpedientePacientes = new TblExpedientePacientes();
 
     @ManagedProperty(value="#{generarConsultaInf}")
     private GenerarConsultaInf generacionConsultaInf;
@@ -84,7 +84,6 @@ public class FrmMantTblExpedientePacientes extends PageBase {
     @EJB
     private TblTarjetaControlCitasFacadeLocal tblTarjetaControlCitasfacade;
    
-    @ManagedProperty(value ="#{param.numExpediente}")
     private Integer numExpediente;
     private List<SelectItem> catSexoList = new ArrayList<SelectItem>();
     private List<SelectItem> catEstadoCivilList = new ArrayList<SelectItem>();
@@ -162,9 +161,9 @@ public class FrmMantTblExpedientePacientes extends PageBase {
     
     public List<TblTarjetaControlCitas> getTblTarjetaControlCitasList() {
         if(tblTarjetaControlCitasList.isEmpty() ){
-            if(tblExpedientePacientes.getTblExpedientePacientes().getNumExpediente()!= null){
+            if(tblExpedientePacientes.getNumExpediente()!= null){
                 try{
-                    tblTarjetaControlCitasList = tblTarjetaControlCitasfacade.findByNumExpediente(tblExpedientePacientes.getTblExpedientePacientes().getNumExpediente());
+                    tblTarjetaControlCitasList = tblTarjetaControlCitasfacade.findByNumExpediente(tblExpedientePacientes.getNumExpediente());
                 }
                 catch(Exception ex){
                     ex.printStackTrace();
@@ -283,44 +282,36 @@ public class FrmMantTblExpedientePacientes extends PageBase {
     }
 
     public void setNumExpediente(Integer numExpediente) {
-        if(numExpediente != null){
-            try{
-              tblExpedientePacientes.setTblExpedientePacientes(facade.find(numExpediente));
-            }catch(Exception x){
-                x.printStackTrace();
-            }
-        }
         this.numExpediente = numExpediente;
     }
 
-    public TblExpedientePacienteForm getTblExpedientePacientes() {
+    public TblExpedientePacientes getTblExpedientePacientes() {
         return tblExpedientePacientes;
     }
 
-    public void setTblExpedientePacientes(TblExpedientePacienteForm tblExpedientePacientes) {
+    public void setTblExpedientePacientes(TblExpedientePacientes tblExpedientePacientes) {
         this.tblExpedientePacientes = tblExpedientePacientes;
     }
       
     public void guardar(ActionEvent ae){
         try{
-            if(tblExpedientePacientes.getTblExpedientePacientes().getNumExpediente() != null){
-                facade.edit(tblExpedientePacientes.getTblExpedientePacientes());
+            if(tblExpedientePacientes.getNumExpediente() != null){
+                facade.edit(tblExpedientePacientes);
             }else{
-                facade.create(tblExpedientePacientes.getTblExpedientePacientes());
+                facade.create(tblExpedientePacientes);
             }
         }catch(Exception x){
-            x.printStackTrace();
             this.addError(x.getMessage(), x.getMessage());
         }
     }
     public void nuevo(ActionEvent ae){
-        this.tblExpedientePacientes.setTblExpedientePacientes(new TblExpedientePacientes());
+        this.tblExpedientePacientes = new TblExpedientePacientes();
     }
     
     public void asignar(ActionEvent ae){
         try{
-             tblExpedientePacientes.getTblTarjetaControlCitas().setNumExpediente(tblExpedientePacientes.getTblExpedientePacientes().getNumExpediente());
-             tblTarjetaControlCitasfacade.create(tblExpedientePacientes.getTblTarjetaControlCitas());
+             //tblExpedientePacientes.getTblTarjetaControlCitas().setNumExpediente(tblExpedientePacientes.getTblExpedientePacientes().getNumExpediente());
+             //tblTarjetaControlCitasfacade.create(tblExpedientePacientes.getTblTarjetaControlCitas());
              this.getTblTarjetaControlCitasList().clear();
         }catch(Exception x){
             x.printStackTrace();
@@ -332,14 +323,29 @@ public class FrmMantTblExpedientePacientes extends PageBase {
       try{
            TblConsultas consultas = new TblConsultas();
            consultas.setCodTipConsulta(generacionConsultaInf.getCodTipConsulta());
-           consultas.setNumExpediente(tblExpedientePacientes.getTblExpedientePacientes().getNumExpediente());
+           consultas.setNumExpediente(tblExpedientePacientes.getNumExpediente());
            consultas.setNumMedico(generacionConsultaInf.getNumMedico());
            consultas.setObsCliPaciente(generacionConsultaInf.getObservaciones());
-           TblComprobanteDonacion comprobante = new TblComprobanteDonacion();
-           facade.generarConsulta(consultas, this.getTblExpedientePacientes().getTblExpedientePacientes(), generacionConsultaInf.getCodEspecialidad());
+           facade.generarConsulta(consultas, this.getTblExpedientePacientes(), generacionConsultaInf.getCodEspecialidad());
       }catch(Exception ex){
          ex.printStackTrace();
       }
     }
+
+    
+    public void init(){
+        if (this.getTblExpedientePacientes()==null || this.getTblExpedientePacientes().getNumExpediente()==null || this.getTblExpedientePacientes().getNumExpediente()<=0){
+            if (numExpediente != null && numExpediente > 0){
+                    System.out.println("Cargando el expediente...");
+                    try{
+                        this.tblExpedientePacientes = facade.find(numExpediente);
+                    }catch(Exception ex){
+                        ex.printStackTrace();
+                        throw new RuntimeException(ex.getMessage());
+                    }
+            }
+        }		
+    }
+    
 
 }
