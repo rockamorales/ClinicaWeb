@@ -204,65 +204,11 @@
                       <td colspan="4" align="center">
                           <a4j:commandButton value="Guardar" actionListener="#{frmMantTblExpedientePacientes.guardar}" render="@form, panelMessage" />
                           <a4j:commandButton value="Nuevo" actionListener="#{frmMantTblExpedientePacientes.nuevo}" render="@form, panelMessage" execute="@this"/>
-                          <a4j:commandButton value="Regresar" action="frmTblExpedientePacientes.jsf?faces-redirect=true" immediate="true"/>
-                          <a4j:commandButton value="Generar consulta">
-                              <rich:componentControl target="generarConsultaPanel" operation="show" event="click"></rich:componentControl>
-                          </a4j:commandButton>
                       </td>
                   </tr>
                   <tr>
                   </tr>
               </table>
-                <h:panelGroup rendered="#{frmMantTblExpedientePacientes.tblExpedientePacientes.numExpediente != null}">
-                <h3>Informacion de tarjeta</h3>
-                <hr></hr>
-                <table>
-                    <tr>
-                        <td align="left"># de Tarjeta:</td>
-                        <td align="left">
-                            <h:inputText value="#{frmMantTblExpedientePacientes.tblTarjetaControlCitas.numTarjeta}" size="10" />
-                        </td>
-                        <td>
-                            <a4j:commandButton value="Asignar" actionListener="#{frmMantTblExpedientePacientes.asignar}" render="@form, panelMessage" />
-                        </td>
-                    </tr>
-                </table>
-                <rich:dataTable value="#{frmMantTblExpedientePacientes.tblTarjetaControlCitasList}" var="tblTarjetaCitas" rows="10" id="tblDetalleComprobanteDonacionTable">
-                    <f:facet name="header">
-                        <rich:columnGroup>
-                          <h:column>
-                            <h:outputText value="No. Tarjeta"/>
-                          </h:column>
-                          <h:column>
-                            <h:outputText value="Fecha de Expedicion"/>
-                          </h:column>
-                          <h:column>
-                            <h:outputText value="Activo?"/>
-                          </h:column>
-                          <h:column>
-                            <h:outputText value="Pagado?"/>
-                          </h:column>
-                        </rich:columnGroup>
-                  </f:facet>
-                  <h:column>
-                     <h:outputText value="#{tblTarjetaCitas.numTarjeta}">   
-                     </h:outputText>
-                  </h:column>
-                  <h:column>
-                      <h:outputText value="#{tblTarjetaCitas.fecExpTarjeta}">
-                          <f:convertDateTime pattern="dd/MM/yyyy"/>
-                      </h:outputText>
-                  </h:column>     
-                  <h:column>
-                      <h:outputText value="#{tblTarjetaCitas.actTarjeta}">
-                     </h:outputText>
-                  </h:column>
-                  <h:column>
-                      <h:outputText value="#{tblTarjetaCitas.estTarjeta}">
-                     </h:outputText>
-                  </h:column>     
-              </rich:dataTable> 
-            </h:panelGroup>
            </h:form>
         </ui:define>
     </ui:composition>
