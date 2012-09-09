@@ -12,6 +12,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 
 import javax.servlet.ServletException;
@@ -183,28 +184,34 @@ public class MenuBean extends PageBase{
 	}
 	
 	public void loadMenuOptions(TblUsuarios usuario){
-		try{
-                    if (usuario!=null && usuario.getSelectedModule()!=null){
-			menus = usuario.getSelectedModule().getOptions();
-			try{
-				if (!menus.isEmpty()){
-					System.out.println("Populating menu");
-					for (CatMenu menuData: menus) {
-						System.out.println("Populating menu:"+menuData.getNomOpcMenu());
-						UIPanelMenuGroup ddMenu = new UIPanelMenuGroup();
-						ddMenu.setValue(menuData.getNomOpcMenu());
-						ddMenu.setId("ddMenu_"+menuData.getCodMenu());
-						menu.getChildren().add(ddMenu);
-						generateSubOptions(menuData, ddMenu);
-					}
-				}
-			}catch(Exception ex){
-				ex.printStackTrace();
-			}
-                    }
-		}catch(Exception ex){
-			ex.printStackTrace();
-			this.addError(ex.getMessage(), ex.toString());
-		}
-	}    
+          try{
+            if (usuario!=null && usuario.getSelectedModule()!=null){
+                menus = usuario.getSelectedModule().getOptions();
+                try{
+                        if (!menus.isEmpty()){
+                            System.out.println("Populating menu");
+                            for (CatMenu menuData: menus) {
+                                System.out.println("Populating menu:"+menuData.getNomOpcMenu());
+                                UIPanelMenuGroup ddMenu = new UIPanelMenuGroup();
+                                ddMenu.setValue(menuData.getNomOpcMenu());
+                                ddMenu.setId("ddMenu_"+menuData.getCodMenu());
+                                menu.getChildren().add(ddMenu);
+                                generateSubOptions(menuData, ddMenu);
+                            }
+                        }
+                }catch(Exception ex){
+                        ex.printStackTrace();
+                }
+            }
+        }catch(Exception ex){
+                ex.printStackTrace();
+                this.addError(ex.getMessage(), ex.toString());
+        }
+      }    
+        
+        public void resetMenu(ActionEvent ae){
+            this.menu = (UIPanelMenu) FacesContext.getCurrentInstance().getApplication().createComponent(FacesContext.getCurrentInstance(), 
+                UIPanelMenu.COMPONENT_TYPE, "org.richfaces.PanelMenuRenderer");
+            this.loadMenuOptions(codUsuario);
+        }
 }
