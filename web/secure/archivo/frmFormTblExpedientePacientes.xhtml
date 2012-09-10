@@ -124,7 +124,6 @@
                     <td align="left">
                         <h:selectOneMenu id="codSexPaciente" value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.codSexPaciente}">
                             <f:selectItems value="#{frmMantTblExpedientePacientes.catSexoList}"/>
-                           
                         </h:selectOneMenu>
                     </td>
                  </tr>
@@ -140,7 +139,11 @@
                  </tr>
                  <tr>
                         <td align="left">Dirección del Paciente:</td>
-                        <td colspan="3" align="left"><h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.dirPaciente}" size="100"/></td>    
+                        <td colspan="3" align="left">
+                            <h:inputTextarea value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.dirPaciente}" rows="2" cols="100">
+                                <f:validateLength maximum="250" ></f:validateLength>
+                            </h:inputTextarea>
+                        </td>    
                  </tr>    
                  <tr>
                         <td align="left">Lugar de Procedencia del Paciente:</td>
@@ -179,7 +182,11 @@
                  </tr>
                  <tr>
                         <td align="left">Direccion del Responsable del Paciente:</td>
-                        <td align="left"><h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.dirResPaciente}" size="30" /></td>
+                        <td align="left">
+                            <h:inputTextarea value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.dirResPaciente}" rows="2">
+                                <f:validateLength maximum="250"/>
+                            </h:inputTextarea>
+                        </td>
                         <td align="left">Telefono del Resp. del Paciente:</td>
                         <td align="left">
                             <h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.telResPaciente}" size="8" />
@@ -200,6 +207,20 @@
                             </h:selectOneMenu>
                         </td>
                  </tr>
+                  <tr>
+                        <td align="left">Enfermedades cronicas:</td>
+                        <td align="left">
+                            <h:inputTextarea value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.enfCroPaciente}" rows="2">
+                                <f:validateLength maximum="250" ></f:validateLength>
+                            </h:inputTextarea>
+                        </td>
+                        <td align="left">Alergias:</td>
+                        <td align="left">
+                            <h:inputTextarea value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.alePaciente}" rows="2">
+                                <f:validateLength maximum="250" ></f:validateLength>
+                            </h:inputTextarea>
+                        </td>
+                  </tr>
                   <tr>
                       <td colspan="4" align="center">
                           <a4j:commandButton value="Guardar" actionListener="#{frmMantTblExpedientePacientes.guardar}" render="@form, panelMessage" />
