@@ -10,11 +10,12 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
+import org.richfaces.component.UIDataTable;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
+import sv.com.cormaria.clinica.web.managebeans.datamodels.ExpedienteDataModel;
 import sv.com.cormaria.servicios.entidades.archivo.TblTarjetaControlCitas;
 import sv.com.cormaria.servicios.entidades.catalogos.CatEspecialidad;
 import sv.com.cormaria.servicios.entidades.catalogos.CatSexo;
@@ -361,9 +362,26 @@ public class FrmMantTblExpedientePacientes extends PageBase {
   
   public void searchExpedienteByNum(){
       try{
-          this.tblExpedientePacientes = facade.find(numExpediente);
+          this.tblExpedientePacientes = facade.find(this.tblExpedientePacientes.getNumExpediente());
       }catch(Exception ex){
           this.addError(ex.getMessage(), ex.getMessage());
       }
   }
+  
+  public void seleccionar(ActionEvent ae){
+    try{
+        UIDataTable table = (UIDataTable) ae.getComponent().getParent().getParent();
+        System.out.println("Buscando el expediente... "+((TblExpedientePacientes)table.getRowData()).getNumExpediente());
+        this.tblExpedientePacientes = facade.find(((TblExpedientePacientes)table.getRowData()).getNumExpediente());
+        System.out.println("Expediente encontrado... ");
+    }catch(Exception x){
+        x.printStackTrace();
+        this.addError(x.getMessage(), x.getMessage());
+    }
+  }
+  
+    public void buscar(ActionEvent ae){
+        ExpedienteDataModel model = (ExpedienteDataModel) this.getBean("#{expedienteDataModel}", ExpedienteDataModel.class);
+        model.clear();
+    }  
 }
