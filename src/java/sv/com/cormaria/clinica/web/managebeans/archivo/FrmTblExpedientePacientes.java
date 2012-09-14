@@ -12,6 +12,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.event.ActionEvent;
 import org.richfaces.component.UIDataTable;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
+import sv.com.cormaria.clinica.web.managebeans.datamodels.ExpedienteDataModel;
 import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
 import sv.com.cormaria.servicios.facades.archivo.TblExpedientePacientesFacadeLocal;
 
@@ -57,9 +58,15 @@ public class FrmTblExpedientePacientes extends PageBase {
             tblExpedientePacientes = (TblExpedientePacientes) table.getRowData();
             tblExpedientePacientesFacade.remove(tblExpedientePacientes);
             tblExpedientePacientesList.clear();
+            this.addInfo("El expediente ha sido desactivado", "El expediente ha sido desactivado");
         }catch(Exception x){
             x.printStackTrace();
             this.addError(x.getMessage(), x.getMessage());
         }
+    }
+    
+    public void buscar(ActionEvent ae){
+        ExpedienteDataModel model = (ExpedienteDataModel) this.getBean("#{expedienteDataModel}", ExpedienteDataModel.class);
+        model.clear();
     }
 }

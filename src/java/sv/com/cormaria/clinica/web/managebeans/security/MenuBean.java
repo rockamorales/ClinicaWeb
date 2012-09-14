@@ -18,8 +18,12 @@ import javax.faces.event.ActionEvent;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import org.richfaces.PanelMenuMode;
+import org.richfaces.component.Mode;
+import org.richfaces.component.Positioning;
+import org.richfaces.component.UIDropDownMenu;
 import org.richfaces.component.UIMenuItem;
 import org.richfaces.component.UIMenuSeparator;
+import org.richfaces.component.UIPanel;
 import org.richfaces.component.UIPanelMenu;
 import org.richfaces.component.UIPanelMenuGroup;
 import org.richfaces.component.UIPanelMenuItem;
@@ -41,8 +45,7 @@ public class MenuBean extends PageBase{
     @EJB
     TblUsuariosSessionFacadeLocal usuarioSession;
 
-    private UIPanelMenu menu = (UIPanelMenu) FacesContext.getCurrentInstance().getApplication().createComponent(FacesContext.getCurrentInstance(), 
-                UIPanelMenu.COMPONENT_TYPE, "org.richfaces.PanelMenuRenderer");
+    private UIPanel menu = (UIPanel) FacesContext.getCurrentInstance().getApplication().createComponent(FacesContext.getCurrentInstance(), UIPanel.COMPONENT_TYPE, "org.richfaces.PanelRenderer");
     
     @EJB
     CatMenuSessionFacadeLocal menuSessionFacade;
@@ -101,41 +104,44 @@ public class MenuBean extends PageBase{
 					separator.setId("separator_"+menuData.getCodMenu());
 					mainMenu.getChildren().add(separator);
 				}else{
-					UIPanelMenuItem item = (UIPanelMenuItem) FacesContext.getCurrentInstance().getApplication().createComponent(FacesContext.getCurrentInstance(), 
-                UIPanelMenuItem.COMPONENT_TYPE, "org.richfaces.PanelMenuItemRenderer");
+					UIMenuItem item = (UIMenuItem) FacesContext.getCurrentInstance().getApplication().createComponent(FacesContext.getCurrentInstance(), 
+                UIMenuItem.COMPONENT_TYPE, "org.richfaces.PanelMenuItemRenderer");
 					item.setId("menuItem_"+menuData.getCodMenu());
                                         System.out.println("menuData.getUrlIniMenu(): "+menuData.getUrlIniMenu());
                                         //FacesContext.getCurrentInstance().getApplication().
 					item.setActionExpression(FacesContext.getCurrentInstance().getApplication().getExpressionFactory().createMethodExpression(FacesContext.getCurrentInstance().getELContext(), menuData.getUrlIniMenu()+"?faces-redirect=true", String.class, new Class[]{}));
-                                        item.setSelectable(true);
                                         item.setValue(menuData.getUrlIniMenu()+"?faces-redirect=true");
+                                        item.setMode(Mode.server);
 					item.setLabel(menuData.getNomOpcMenu());
 					mainMenu.getChildren().add(item);
 				}
 			}
 			if (!menuData.getOptions().isEmpty()){
-				if (menuData.getNomOpcMenu().equals("-")){
+				/*if (menuData.getNomOpcMenu().equals("-")){
 					UIMenuSeparator separator = (UIMenuSeparator) FacesContext.getCurrentInstance().getApplication().createComponent(FacesContext.getCurrentInstance(), 
                 UIMenuSeparator.COMPONENT_TYPE, "org.richfaces.MenuSeparatorRenderer");
 					separator.setId("separator_"+menuData.getCodMenu());
 					mainMenu.getChildren().add(separator);
-				}else{
-					UIPanelMenuGroup group = (UIPanelMenuGroup) FacesContext.getCurrentInstance().getApplication().createComponent(FacesContext.getCurrentInstance(), UIPanelMenuGroup.COMPONENT_TYPE, "org.richfaces.PanelMenuGroupRenderer");
+				}else{*/
+					UIDropDownMenu group = (UIDropDownMenu) FacesContext.getCurrentInstance().getApplication().createComponent(FacesContext.getCurrentInstance(), UIDropDownMenu.COMPONENT_TYPE, "org.richfaces.DropDownMenuRenderer");
 					mainMenu.getChildren().add(group);
-					group.setValue(false);
                                         group.setLabel(menuData.getNomOpcMenu());
+
+                                        group.setDirection(Positioning.bottomRight);
+                                        group.setMode(Mode.ajax);
+                                        group.setJointPoint(Positioning.auto);
 					group.setId("menuGroup_"+menuData.getCodMenu());
 					generateSubOptions(menuData, group);
-				}
+				//}
 			}
 		}
 	}
 	
-	public UIPanelMenu getMenu() {
-                if (menu == null){
-                    menu = (UIPanelMenu) FacesContext.getCurrentInstance().getApplication().createComponent(FacesContext.getCurrentInstance(), 
-                UIPanelMenu.COMPONENT_TYPE, "org.richfaces.PanelMenuRenderer");
-                }
+	public UIPanel getMenu() {
+                //if (menu == null){
+                //    menu = (UIPanelMenu) FacesContext.getCurrentInstance().getApplication().createComponent(FacesContext.getCurrentInstance(), 
+                //UIPanelMenu.COMPONENT_TYPE, "org.richfaces.PanelMenuRenderer");
+                //}
                 
 		if (menu.getChildCount()<=0){
 			if (this.getSessionBean().getUsuario()!=null){
@@ -145,7 +151,7 @@ public class MenuBean extends PageBase{
 		return menu;
 	}
 
-	public void setMenu(UIPanelMenu menu) {
+	public void setMenu(UIPanel menu) {
 		this.menu = menu;
 	}
 
@@ -163,12 +169,12 @@ public class MenuBean extends PageBase{
                                 System.out.println("Populating menu");
                                 for (CatMenu menuData: menus) {
                                     System.out.println("Populating menu:"+menuData.getNomOpcMenu());
-                                    UIPanelMenuGroup ddMenu = (UIPanelMenuGroup) application.createComponent(context, UIPanelMenuGroup.COMPONENT_TYPE, "org.richfaces.PanelMenuGroupRenderer");
-                                    ddMenu.setExpanded(false);
-                                    ddMenu.setValue(false);
-                                    ddMenu.setMode(PanelMenuMode.ajax);
+                                    UIDropDownMenu ddMenu = (UIDropDownMenu) application.createComponent(context, UIDropDownMenu.COMPONENT_TYPE, "org.richfaces.DropDownMenuRenderer");
+                                    ddMenu.setDirection(Positioning.bottomRight);
+                                    ddMenu.setMode(Mode.ajax);
                                     ddMenu.setLabel(menuData.getNomOpcMenu());
                                     ddMenu.setId("ddMenu_"+menuData.getCodMenu());
+                                    ddMenu.setJointPoint(Positioning.auto);
                                     menu.getChildren().add(ddMenu);
                                     generateSubOptions(menuData, ddMenu);
                                 }
@@ -210,8 +216,9 @@ public class MenuBean extends PageBase{
       }    
         
         public void resetMenu(ActionEvent ae){
-            this.menu = (UIPanelMenu) FacesContext.getCurrentInstance().getApplication().createComponent(FacesContext.getCurrentInstance(), 
-                UIPanelMenu.COMPONENT_TYPE, "org.richfaces.PanelMenuRenderer");
+            //this.menu = (UIPanel) FacesContext.getCurrentInstance().getApplication().createComponent(FacesContext.getCurrentInstance(), 
+            //    UIPanel.COMPONENT_TYPE, "org.richfaces.PanelRenderer");
+            menu.getChildren().clear();
             this.loadMenuOptions(codUsuario);
         }
 }

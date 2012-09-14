@@ -300,6 +300,7 @@ public class FrmMantTblExpedientePacientes extends PageBase {
             }else{
                 facade.create(tblExpedientePacientes);
             }
+            this.addInfo("La informacion ha sido guardada sin problemas", "La informacion ha sido guardada sin problemas");
         }catch(Exception x){
             this.addError(x.getMessage(), x.getMessage());
         }
@@ -347,5 +348,22 @@ public class FrmMantTblExpedientePacientes extends PageBase {
         }		
     }
     
+  public void eliminar(ActionEvent ae){
+      try{
+          this.facade.remove(tblExpedientePacientes);
+          tblExpedientePacientes = facade.find(numExpediente);
+          this.addInfo("El expediente ha sido desactivado", "El expediente ha sido desactivado");
+      }catch(Exception ex){
+          this.addError(ex.getMessage(), ex.getMessage());
+      }
+  }
 
+  
+  public void searchExpedienteByNum(){
+      try{
+          this.tblExpedientePacientes = facade.find(numExpediente);
+      }catch(Exception ex){
+          this.addError(ex.getMessage(), ex.getMessage());
+      }
+  }
 }

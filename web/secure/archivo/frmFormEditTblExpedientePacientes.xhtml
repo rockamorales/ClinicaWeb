@@ -22,8 +22,9 @@
                 <tr>
                     <td align="left">Código:</td>
                     <td align="left">
-                        <h:inputHidden value="#{tblExpedientePacienteForm.tblExpedientePacientes.numExpediente}" id="numExpediente"/>
-                        <h:outputText value="#{tblExpedientePacienteForm.tblExpedientePacientes.numExpediente}" style="font-weight: bold"/>
+                        <h:inputText value="#{frmMantTblExpedientePacientes.numExpediente}" id="numExpediente">
+                            <a4j:ajax event="change" listener="#{frmMantTblExpedientePacientes.searchExpedienteByNum}" render="@form"/>
+                        </h:inputText>
                     </td>
                     <td align="left">Fecha de Registro:</td>
                     <td align="left">
