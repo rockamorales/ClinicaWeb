@@ -58,14 +58,6 @@ public class FrmMantTblExpedientePacientes extends PageBase {
     @EJB
     private TblExpedientePacientesFacadeLocal facade;   
     
-    @EJB
-    private CatTipoConsultaFacadeLocal tipoConsultaFacade;   
-    
-    @EJB
-    private CatEspecialidadFacadeLocal especialidadFacade;   
-
-    @EJB
-    private TblMedicoFacadeLocal medicosFacade;
 
     @EJB
     private CatSexoFacadeLocal catSexofacade;
@@ -91,9 +83,6 @@ public class FrmMantTblExpedientePacientes extends PageBase {
     private List<SelectItem> catOcupacionList = new ArrayList<SelectItem>();
     private List<SelectItem> catParentescoResponsableList = new ArrayList<SelectItem>();
     private List<SelectItem> catUbicacionFisicaList = new ArrayList<SelectItem>();
-    private List<SelectItem> catTipoConsultaList = new ArrayList<SelectItem>();
-    private List<SelectItem> catEspecialidadList = new ArrayList<SelectItem>();
-    private List<SelectItem> tblMedicosList = new ArrayList<SelectItem>();
     private List<TblTarjetaControlCitas> tblTarjetaControlCitasList = new ArrayList<TblTarjetaControlCitas>();
 
     public GenerarConsultaInf getGeneracionConsultaInf() {
@@ -103,62 +92,6 @@ public class FrmMantTblExpedientePacientes extends PageBase {
     public void setGeneracionConsultaInf(GenerarConsultaInf generacionConsultaInf) {
         this.generacionConsultaInf = generacionConsultaInf;
     }
-
-    public List<SelectItem> getCatEspecialidadList() {
-        if (this.catEspecialidadList.isEmpty()){
-            try{
-                List<CatEspecialidad> l = especialidadFacade.findActive();
-                for (CatEspecialidad catEspecialidad : l) {
-                    catEspecialidadList.add(new SelectItem(catEspecialidad.getCodEspecialidad(), catEspecialidad.getNomEspecialidad()));
-                }
-            }catch(Exception ex){
-                ex.printStackTrace();
-            }
-        }
-        return catEspecialidadList;
-    }
-
-    public void setCatEspecialidadList(List<SelectItem> catEspecialidadList) {
-       this.catEspecialidadList = catEspecialidadList;
-    }
-
-    public List<SelectItem> getCatTipoConsultaList() {
-        if (this.catTipoConsultaList.isEmpty()){
-            try{
-                List<CatTipoConsulta> l = tipoConsultaFacade.findActive();
-                for (CatTipoConsulta catTipo : l) {
-                    catTipoConsultaList.add(new SelectItem(catTipo.getCodTipConsulta(), catTipo.getNomTipConsulta()));
-                }
-            }catch(Exception ex){
-                ex.printStackTrace();
-            }
-        }
-        return catTipoConsultaList;
-    }
-
-    public void setCatTipoConsultaList(List<SelectItem> catTipoConsultaList) {
-        this.catTipoConsultaList = catTipoConsultaList;
-    }
-
-    public List<SelectItem> getTblMedicosList() {
-        if (this.tblMedicosList.isEmpty()){
-            try{
-                List<TblMedico> l = medicosFacade.findAll();
-                for (TblMedico medico : l) {
-                    tblMedicosList.add(new SelectItem(medico.getNumMedico(), medico.getNomMedico()));
-                }
-            }catch(Exception ex){
-                ex.printStackTrace();
-            }
-        }
-        return tblMedicosList;
-    }
-
-    public void setTblMedicosList(List<SelectItem> tblMedicosList) {
-        this.tblMedicosList = tblMedicosList;
-    }
-
-    
     
     public List<TblTarjetaControlCitas> getTblTarjetaControlCitasList() {
         if(tblTarjetaControlCitasList.isEmpty() ){
@@ -320,20 +253,6 @@ public class FrmMantTblExpedientePacientes extends PageBase {
             this.addError(x.getMessage(), x.getMessage());
         }
     }
-
-    public void generarConsulta(ActionEvent ae){
-      try{
-           TblConsultas consultas = new TblConsultas();
-           consultas.setCodTipConsulta(generacionConsultaInf.getCodTipConsulta());
-           consultas.setNumExpediente(tblExpedientePacientes.getNumExpediente());
-           consultas.setNumMedico(generacionConsultaInf.getNumMedico());
-           consultas.setObsCliPaciente(generacionConsultaInf.getObservaciones());
-           facade.generarConsulta(consultas, this.getTblExpedientePacientes(), generacionConsultaInf.getCodEspecialidad());
-      }catch(Exception ex){
-         ex.printStackTrace();
-      }
-    }
-
     
     public void init(){
         if (this.getTblExpedientePacientes()==null || this.getTblExpedientePacientes().getNumExpediente()==null || this.getTblExpedientePacientes().getNumExpediente()<=0){
@@ -352,14 +271,13 @@ public class FrmMantTblExpedientePacientes extends PageBase {
   public void eliminar(ActionEvent ae){
       try{
           this.facade.remove(tblExpedientePacientes);
-          tblExpedientePacientes = facade.find(numExpediente);
+          tblExpedientePacientes = facade.find(this.tblExpedientePacientes.getNumExpediente());
           this.addInfo("El expediente ha sido desactivado", "El expediente ha sido desactivado");
       }catch(Exception ex){
           this.addError(ex.getMessage(), ex.getMessage());
       }
   }
 
-  
   public void searchExpedienteByNum(){
       try{
           this.tblExpedientePacientes = facade.find(this.tblExpedientePacientes.getNumExpediente());

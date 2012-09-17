@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+    <ui:composition 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j"
+      template="/templates/main.xhtml">
+        <f:metadata>
+	  <f:viewParam name="numExpediente" value="#{frmMantTblExpedientePacientes.numExpediente}"/>
+	  <f:event listener="#{frmMantTblExpedientePacientes.init}" type="preRenderView"></f:event>
+	</f:metadata>
+        <ui:define name="title">
+          <h:outputText value="#{messages['default.windowTitle']}--Modificacion de expediente" escape="false"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+           <h:form id="tblExpedienteForm">
+            <rich:popupPanel id="buscarExpedientePanel" modal="true" autosized="true" resizeable="false" domElementAttachment="form">
+                <f:facet name="header">
+                    <h:outputText value="Seleccionar expediente"/>
+                </f:facet>
+                <f:facet name="controls">
+                    <h:outputLink value="#" onclick="#{rich:component('buscarExpedientePanel')}.hide(); return false;" style="color:white;font-weight: bold;">
+                        Cerrar
+                    </h:outputLink>
+                </f:facet>
+                <table>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Expediente:" for="numExpediente1">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.numExpediente}" id="numExpediente1">
+                            </h:inputText>
+                        </td>
+                        <td>
+                            <h:outputLabel value="DUI:" for="dui1">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.dui}" id="dui1">
+                            </h:inputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Nombres:" for="nombres1">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.nombres}" id="nombres1">
+                            </h:inputText>
+                        </td>
+                        <td>
+                            <h:outputLabel value="Primer Ape:" for="primerApellido1">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.primerApellido}" id="primerApellido1">
+                            </h:inputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Segundo ape:" for="segundoApellido1">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.segundoApellido}" id="segundoApellido1">
+                            </h:inputText>
+                        </td>
+                        <td>
+                            <h:outputLabel value="Tercer ape:" for="tercerApellido1">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.tercerApellido}" id="tercerApellido1">
+                            </h:inputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" align="center">
+                            <a4j:commandButton value="Buscar" actionListener="#{frmGenerarConsulta.buscar}" render="tblExpedientePacientesTable" type="submit"/>
+                        </td>                        
+                    </tr>
+                  </table>
+                  <rich:dataTable value="#{expedienteDataModel}" var="tblExpedientePacientes" rows="10" id="tblExpedientePacientesTable">
+                    <f:facet name="header">
+                        <rich:columnGroup>
+                          <h:column>
+                            <h:outputText value="Expediente"/>
+                          </h:column>
+                          <h:column>
+                            <h:outputText value="Nombres"/>
+                          </h:column>
+                          <h:column>
+                            <h:outputText value="Primer Apellido"/>
+                          </h:column>   
+                            <h:column>
+                            <h:outputText value="Segundo Apellido"/>
+                           </h:column> 
+                            <h:column>
+                            <h:outputText value="Sexo"/>
+                          </h:column>
+                            <h:column>
+                            <h:outputText value="Fecha de Nacimiento"/>
+                          </h:column>
+                            <h:column>
+                            <h:outputText value="DUI"/>
+                          </h:column>
+                          <h:column>
+                            <h:outputText value="Ver"/>
+                          </h:column>
+                        </rich:columnGroup>
+                      </f:facet>
+                    <h:column>
+                        <h:outputText value="#{tblExpedientePacientes.numExpediente}">
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <h:outputText value="#{tblExpedientePacientes.nomPaciente}">
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <h:outputText value="#{tblExpedientePacientes.priApePaciente}">
+                        </h:outputText>
+                    </h:column>   
+                    <h:column>
+                        <h:outputText value="#{tblExpedientePacientes.secApePaciente}">
+                        </h:outputText>
+                    </h:column>   
+                    <h:column>
+                        <h:outputText value="#{tblExpedientePacientes.catSexo.nomSexPaciente}">
+                        </h:outputText>
+                    </h:column>  
+                    <h:column>
+                        <h:outputText value="#{tblExpedientePacientes.fecNacPaciente}">
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <h:outputText value="#{tblExpedientePacientes.numDui}">
+                      </h:outputText>
+                    </h:column>  
+                    <h:column> 
+                        <a4j:commandButton image="/img/icons/edit.gif" render="@form, panelMessage" oncomplete="#{rich:component('buscarExpedientePanel')}.hide();" actionListener="#{frmGenerarConsulta.seleccionar}">
+                        </a4j:commandButton>
+                    </h:column>   
+                </rich:dataTable>
+            </rich:popupPanel>
+              <h3>Generacion de consulta</h3>
+              <hr/>
+              <table>
+                <tr>
+                    <td align="left">Expediente:</td>
+                    <td align="left">
+                        <h:inputText value="#{frmGenerarConsulta.tblExpediente.numExpediente}" id="numExpediente">
+                            <a4j:ajax event="change" listener="#{frmGenerarConsulta.searchExpedienteByNum}" render="@form"/>
+                        </h:inputText>
+                        <a4j:commandButton value="..." onclick="#{rich:component('buscarExpedientePanel')}.show(); return false;">
+                        </a4j:commandButton>
+                    </td>
+                    <td align="left"># Consulta:</td>
+                    <td align="left">
+                        <h:outputText value="#{frmGenerarConsulta.tblConsultas.numConsulta}" id="numConsulta">
+                        </h:outputText>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Nombres:</td>
+                    <td align="left">
+                        <h:outputText value="#{frmGenerarConsulta.tblExpediente.nomPaciente}"/>
+                    </td>
+                    <td align="left">Apellidos:</td>
+                    <td align="left">
+                        <h:outputText value="#{frmGenerarConsulta.tblExpediente.priApePaciente} #{frmGenerarConsulta.tblExpediente.secApePaciente} #{frmGenerarConsulta.tblExpediente.terApePaciente}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Fecha de Nacimiento:</td>
+                    <td align="left">
+                        <h:outputText value="#{frmGenerarConsulta.tblExpediente.fecNacPaciente}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </td>
+                    <td align="left">Edad del Paciente:</td>
+                    <td align="left">
+                        <h:outputText value="#{frmGenerarConsulta.tblExpediente.edaPaciente}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Tipo consulta:</td>
+                    <td align="left">
+                        <h:selectOneMenu value="#{frmGenerarConsulta.tblConsultas.codTipConsulta}" id="codTipConsulta">
+                            <f:selectItems value="#{frmGenerarConsulta.catTipoConsultaList}"/>
+                        </h:selectOneMenu>
+                    </td>
+                    <td align="left">Especialidad:</td>
+                    <td align="left">
+                        <h:selectOneMenu value="#{frmGenerarConsulta.tblConsultas.codEspecialidad}" id="codEspecialidad">
+                            <f:selectItems value="#{frmGenerarConsulta.catEspecialidadList}"/>
+                        </h:selectOneMenu>
+                    </td>                    
+                </tr> 
+                <tr>
+                    <td align="left">Dr:</td>
+                    <td colspan="3" align="left">
+                        <h:selectOneMenu value="#{frmGenerarConsulta.tblConsultas.numMedico}" id="numMedico">
+                            <f:selectItems value="#{frmGenerarConsulta.tblMedicosList}" var="medico" itemLabel="#{medico.nomMedico} #{medico.priApeMedico} #{medico.secApeMedico} #{medico.terApeMedico}" itemValue="#{medico.numMedico}" />
+                        </h:selectOneMenu>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Observaciones:</td>
+                    <td align="left" colspan="3">
+                        <h:inputTextarea value="#{frmGenerarConsulta.tblConsultas.obsCliPaciente}" id="observaciones" rows="2" cols="40">
+                        </h:inputTextarea>
+                    </td>
+                </tr>  
+                <tr>
+                  <td colspan="4" align="center">
+                      <a4j:commandButton value="Generar consulta" actionListener="#{frmGenerarConsulta.generarConsulta}" render="@form, panelMessage"/>
+                      <a4j:commandButton value="Crear nueva consulta" actionListener="#{frmGenerarConsulta.nuevaConsulta}" render="@form, panelMessage" />
+                       <h:commandButton value="Cancelar" action="/inicio.jsf"/>
+                  </td>
+                </tr>
+              </table>
+           </h:form>
+        </ui:define>
+    </ui:composition>
