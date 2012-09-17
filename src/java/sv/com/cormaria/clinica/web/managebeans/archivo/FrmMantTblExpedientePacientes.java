@@ -8,11 +8,13 @@ package sv.com.cormaria.clinica.web.managebeans.archivo;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.NoSuchEntityException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
+import javax.persistence.NoResultException;
 import org.richfaces.component.UIDataTable;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
 import sv.com.cormaria.clinica.web.managebeans.datamodels.ExpedienteDataModel;
@@ -226,9 +228,25 @@ public class FrmMantTblExpedientePacientes extends PageBase {
     public void setTblExpedientePacientes(TblExpedientePacientes tblExpedientePacientes) {
         this.tblExpedientePacientes = tblExpedientePacientes;
     }
+    
+    public boolean validate(){
+        boolean isValid = true;
+        if (tblExpedientePacientes.getNumExpediente()==null || tblExpedientePacientes.getNumExpediente()<=0){
+            this.addError("Por favor ingrese el numero de expediente", "Por favor ingrese el numero de expediente");
+            isValid = false;
+        }
+        if (tblExpedientePacientes.getNomPaciente()==null || tblExpedientePacientes.getNomPaciente().trim().equals("")){
+            this.addError("Por favor ingrese los nombres del paciente", "Por favor ingrese los nombres del paciente");
+            isValid = false;
+        }
+        return isValid;
+    }
       
     public void guardar(ActionEvent ae){
         try{
+            if (!validate()){
+                return;
+            }
             if(tblExpedientePacientes.getNumExpediente() != null){
                 facade.edit(tblExpedientePacientes);
             }else{
@@ -281,6 +299,9 @@ public class FrmMantTblExpedientePacientes extends PageBase {
   public void searchExpedienteByNum(){
       try{
           this.tblExpedientePacientes = facade.find(this.tblExpedientePacientes.getNumExpediente());
+          if (this.tblExpedientePacientes==null){
+              this.addError("No se encontro informacion para el numero de expediente", "No se encontro informacion para el numero de expediente");
+          }
       }catch(Exception ex){
           this.addError(ex.getMessage(), ex.getMessage());
       }

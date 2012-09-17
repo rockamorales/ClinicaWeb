@@ -7,11 +7,11 @@
       xmlns:rich="http://richfaces.org/rich"
       xmlns:a4j="http://richfaces.org/a4j"
       template="/templates/main.xhtml">
-      <ui:define name="title">
-        <h:outputText value="#{messages['default.windowTitle']}--Modificacion de expediente" escape="false"></h:outputText>
-      </ui:define>
-      <ui:define name="body">
-         <h:form id="tblExpedienteForm">
+        <ui:define name="title">
+          <h:outputText value="#{messages['default.windowTitle']}--Modificacion de expediente" escape="false"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+           <h:form id="tblExpedienteForm">
             <rich:popupPanel id="buscarExpedientePanel" modal="true" autosized="true" resizeable="false" domElementAttachment="form">
                 <f:facet name="header">
                     <h:outputText value="Seleccionar expediente"/>

@@ -156,9 +156,10 @@
                 <tr>
                     <td align="left">Código:</td>
                     <td align="left">
-                        <h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.numExpediente}" id="numExpediente">
-                            <a4j:ajax event="change" listener="#{frmMantTblExpedientePacientes.searchExpedienteByNum}" render="@form"/>
+                        <h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.numExpediente}" id="numExpediente" onkeypress="return filterInput(1, event, false, '');">
+                            <a4j:ajax event="change" listener="#{frmMantTblExpedientePacientes.searchExpedienteByNum}" render="@form panelMessage"/>
                         </h:inputText>
+                        <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                         <a4j:commandButton value="..." onclick="#{rich:component('buscarExpedientePanel')}.show(); return false;">
                         </a4j:commandButton>
                     </td>

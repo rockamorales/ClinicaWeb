@@ -50,10 +50,6 @@ and open the template in the editor.
                     </h:outputText>
                 </h:column>
                 <h:column>
-                    <h:outputText value="#{tblComprobanteDonacion.nomComDonacion}" rendered="#{tblComprobanteDonacion.nomComDonacion != null}">
-                    </h:outputText>
-                    <h:outputText value="#{tblComprobanteDonacion.tblInstitucion.nomComInstitucion}" rendered="#{tblComprobanteDonacion.tblInstitucion.nomComInstitucion != null}">
-                    </h:outputText>
                     <h:outputText value="#{tblComprobanteDonacion.tblExpedientePacientes.nomPaciente} #{tblComprobanteDonacion.tblExpedientePacientes.priApePaciente} #{tblComprobanteDonacion.tblExpedientePacientes.secApePaciente} #{tblComprobanteDonacion.tblExpedientePacientes.terApePaciente}" rendered="#{tblComprobanteDonacion.tblExpedientePacientes != null}">
                     </h:outputText>                    
                 </h:column> 
