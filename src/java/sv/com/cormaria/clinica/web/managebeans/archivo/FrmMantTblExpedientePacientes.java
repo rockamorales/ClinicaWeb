@@ -310,8 +310,8 @@ public class FrmMantTblExpedientePacientes extends PageBase {
   public void seleccionar(ActionEvent ae){
     try{
         UIDataTable table = (UIDataTable) ae.getComponent().getParent().getParent();
-        System.out.println("Buscando el expediente... "+((TblExpedientePacientes)table.getRowData()).getNumExpediente());
-        this.tblExpedientePacientes = facade.find(((TblExpedientePacientes)table.getRowData()).getNumExpediente());
+        System.out.println("Buscando el expediente... "+((TblConsultas)table.getRowData()).getNumExpediente());
+        this.tblExpedientePacientes = facade.find(((TblConsultas)table.getRowData()).getNumExpediente());
         System.out.println("Expediente encontrado... ");
     }catch(Exception x){
         x.printStackTrace();
