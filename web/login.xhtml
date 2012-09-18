@@ -12,20 +12,30 @@
             <rich:panel header="Inicio de sesion" rendered="#{clinicaSessionBean.usuario == null or clinicaSessionBean.usuario.aliUsuario==null}">
                 <center>
 		  <table>
+                      
 		  	<tr>
+                            <td colspan="2">
+                                <h:outputLabel value="Por favor ingrese su usuario y contraseña "  ></h:outputLabel>
+                            </td>
+                        </tr>
+                        <tr> 
                             <td>
-                                <h:outputLabel for="j_username" value="Usuario: "></h:outputLabel>
+                                <h:outputLabel for="j_username" value="Usuario: "  ></h:outputLabel>
                             </td>
                             <td>
-                                <h:inputText value="#{frmLogin.usuario}" id="j_username" required="true"></h:inputText>
+                                <h:inputText value="#{frmLogin.usuario}" id="j_username" required="true" alt="Ingrese el Usuario" > 
+                                </h:inputText>
+                                <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                             </td>
 			</tr>
 		  	<tr>
                             <td>
-                                <h:outputLabel for="j_password" value="Contrasena: "></h:outputLabel>
+                                <h:outputLabel for="j_password" value="Contraseña: "></h:outputLabel>
                             </td>
                             <td>
-                                <h:inputSecret value="#{frmLogin.contrasena}" id="j_password"></h:inputSecret>
+                                <h:inputSecret value="#{frmLogin.contrasena}" id="j_password" alt="Ingrese su contraseña" >
+                                </h:inputSecret>
+                                <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                             </td>
 			</tr>
 		  	<tr>
