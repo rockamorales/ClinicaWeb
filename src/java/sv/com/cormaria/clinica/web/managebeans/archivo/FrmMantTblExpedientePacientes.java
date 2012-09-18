@@ -231,10 +231,10 @@ public class FrmMantTblExpedientePacientes extends PageBase {
     
     public boolean validate(){
         boolean isValid = true;
-        if (tblExpedientePacientes.getNumExpediente()==null || tblExpedientePacientes.getNumExpediente()<=0){
+       /*if (tblExpedientePacientes.getNumExpediente()==null || tblExpedientePacientes.getNumExpediente()<=0){
             this.addError("Por favor ingrese el numero de expediente", "Por favor ingrese el numero de expediente");
             isValid = false;
-        }
+        }*/
         if (tblExpedientePacientes.getNomPaciente()==null || tblExpedientePacientes.getNomPaciente().trim().equals("")){
             this.addError("Por favor ingrese los nombres del paciente", "Por favor ingrese los nombres del paciente");
             isValid = false;
@@ -248,9 +248,10 @@ public class FrmMantTblExpedientePacientes extends PageBase {
                 return;
             }
             if(tblExpedientePacientes.getNumExpediente() != null){
-                facade.edit(tblExpedientePacientes);
+                tblExpedientePacientes = facade.edit1(tblExpedientePacientes);
+                
             }else{
-                facade.create(tblExpedientePacientes);
+                tblExpedientePacientes = facade.create1(tblExpedientePacientes);
             }
             this.addInfo("La informacion ha sido guardada sin problemas", "La informacion ha sido guardada sin problemas");
         }catch(Exception x){
