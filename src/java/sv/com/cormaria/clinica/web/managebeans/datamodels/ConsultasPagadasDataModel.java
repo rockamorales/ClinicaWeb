@@ -17,9 +17,9 @@ import sv.com.cormaria.servicios.entidades.consultasmedicas.TblConsultas;
  */
 @ManagedBean
 @ViewScoped
-public class ConsultasDataModel extends ClinicaDataModel<TblConsultas, Integer> {
+public class ConsultasPagadasDataModel extends ClinicaDataModel<TblConsultas, Integer> {
 
-    @ManagedProperty(value="#{consultasDataProvider}")
+    @ManagedProperty(value="#{consultasPagadasDataProvider}")
     ClinicaDataProvider<TblConsultas, Integer> dataProvider;
     
     @Override

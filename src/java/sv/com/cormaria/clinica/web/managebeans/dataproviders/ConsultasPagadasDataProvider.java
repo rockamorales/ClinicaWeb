@@ -21,11 +21,11 @@ import sv.com.cormaria.servicios.facades.consultasmedicas.TblConsultasFacadeLoca
  */
 @ManagedBean
 @ViewScoped
-public class ConsultasDataProvider implements ClinicaDataProvider<TblConsultas, Integer> {
+public class ConsultasPagadasDataProvider implements ClinicaDataProvider<TblConsultas, Integer> {
     @EJB
     private TblConsultasFacadeLocal facade;
 
-    @ManagedProperty(value="#{consultasSearchCriteria}")
+    @ManagedProperty(value="#{consultasPagadasSearchCriteria}")
     private SearchCriteria criteria;
 
     @Override

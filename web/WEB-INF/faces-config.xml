@@ -12,4 +12,30 @@
   <managed-bean-class>sv.com.cormaria.servicios.criteria.ExpedientesSearchCriteria</managed-bean-class>
   <managed-bean-scope>view</managed-bean-scope>
  </managed-bean>
+
+ <managed-bean>
+  <managed-bean-name>consultasSearchCriteria</managed-bean-name>
+  <managed-bean-class>sv.com.cormaria.servicios.criteria.ConsultasSearchCriteria</managed-bean-class>
+  <managed-bean-scope>view</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>consultasPagadasSearchCriteria</managed-bean-name>
+  <managed-bean-class>sv.com.cormaria.servicios.criteria.ConsultasSearchCriteria</managed-bean-class>
+  <managed-bean-scope>view</managed-bean-scope>
+  <!--<managed-property>
+      <display-name>numMedico</display-name>
+      <property-name>numMedico</property-name>
+      <property-class>java.lang.Integer</property-class>
+      <value>#{clinicaSessionBean.usuario.numMedico}</value>
+  </managed-property>-->
+  <managed-property>
+      <display-name>estadoConsultas</display-name>
+      <property-name>estadoConsultas</property-name>
+      <property-class>java.util.List</property-class>
+      <list-entries>
+          <value>PAGADA</value>
+          <value-class>java.lang.String</value-class>
+      </list-entries>
+  </managed-property>
+ </managed-bean>
 </faces-config>

@@ -144,7 +144,7 @@
                   </h:outputText>
                 </h:column>  
                 <h:column> 
-                    <a4j:commandButton image="/img/icons/edit.gif" render="tblExpedienteForm, panelMessage" oncomplete="#{rich:component('buscarExpedientePanel')}.hide();" actionListener="#{frmMantTblExpedientePacientes.seleccionar}">
+                    <a4j:commandButton image="/img/icons/edit.gif" render="@form, panelMessage" oncomplete="#{rich:component('buscarExpedientePanel')}.hide();" actionListener="#{frmMantTblExpedientePacientes.seleccionar}">
                     </a4j:commandButton>
                 </h:column>   
             </rich:dataTable>
@@ -157,7 +157,7 @@
                     <td align="left">Código:</td>
                     <td align="left">
                         <h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.numExpediente}" id="numExpediente" onkeypress="return filterInput(1, event, false, '');">
-                            <a4j:ajax event="change" listener="#{frmMantTblExpedientePacientes.searchExpedienteByNum}" render="@form panelMessage"/>
+                            <a4j:ajax event="change" listener="#{frmMantTblExpedientePacientes.searchExpedienteByNum}" render="@form,panelMessage"/>
                         </h:inputText>
                         <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                         <a4j:commandButton value="..." onclick="#{rich:component('buscarExpedientePanel')}.show(); return false;">
@@ -198,7 +198,7 @@
                     </td>
                     <td align="left">Edad del Paciente:</td>
                     <td align="left">
-                        <h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.edadPaciente}"/>
+                        <h:outputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.edadPaciente}"/>
                     </td>
                 </tr>
                 <tr>

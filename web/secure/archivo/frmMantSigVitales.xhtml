@@ -9,59 +9,238 @@ and open the template in the editor.
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:rich="http://richfaces.org/rich"
-      xmlns:a4j="http://richfaces.org/a4j">
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
     <ui:composition template="/templates/main.xhtml">
         <ui:define name="title">
           <h:outputText value="#{messages['default.windowTitle']}--Administración de Signos Vitales" escape="false"></h:outputText>  
         </ui:define>
         <ui:define name="body">
+            <style>
+                .label {         
+                    font-weight: bold;         
+                }         
+                .rf-dg, .rf-dg-c{
+                    border:none;
+                    border-radius: 5px;
+                }         
+                .pbody {         
+                    width: 200px;
+                    border-radius: 5px;
+                } 
+            </style>
+           <script type="text/javascript">
+		$(document).ready(function(){
+			$('#scrollbar1').tinyscrollbar();	
+		});
+            </script>
             <h:form id="form">
-              <table>
-                 <tr>
-                    <td>Número de Expediente</td>
-                    <td><h:outputText value="#{frmMantSigVitales.tblConsultas.numExpediente}" style="font-weight: bold"/>
-                        <h:inputHidden value="#{frmMantSigVitales.tblConsultas.numExpediente}" /></td>
-                </tr> <tr>
-                    <td>Nombre del Paciente</td>
-                    <td><h:outputText value="#{frmMantSigVitales.tblConsultas.tblExpediente.nomPaciente} #{frmMantSigVitales.tblConsultas.tblExpediente.priApePaciente} #{frmMantSigVitales.tblConsultas.tblExpediente.secApePaciente} #{frmMantSigVitales.tblConsultas.tblExpediente.terApePaciente}" style="font-weight: bold"/>
-                        <h:inputHidden value="#{frmMantSigVitales.tblConsultas.tblExpediente.nomPaciente} #{frmMantSigVitales.tblConsultas.tblExpediente.priApePaciente} #{frmMantSigVitales.tblConsultas.tblExpediente.secApePaciente} #{frmMantSigVitales.tblConsultas.tblExpediente.terApePaciente}"/></td>
-                </tr>
+                <rich:popupPanel id="buscarConsultaPanel" modal="true" autosized="true" resizeable="false" domElementAttachment="form">
+                    <f:facet name="header">
+                        <h:outputText value="Seleccionar consulta"/>
+                    </f:facet>
+                    <f:facet name="controls">
+                        <h:outputLink value="#" onclick="#{rich:component('buscarConsultaPanel')}.hide(); return false;" style="color:white;font-weight: bold;">
+                            Cerrar
+                        </h:outputLink>
+                    </f:facet>
+                    <table>
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Expediente:" for="numExpediente1">
+                                </h:outputLabel>
+                            </td>
+                            <td>
+                                <h:inputText value="#{consultasPagadasSearchCriteria.numExpediente}" id="numExpediente1">
+                                </h:inputText>
+                            </td>
+                            <td>
+                                <h:outputLabel value="DUI:" for="dui1">
+                                </h:outputLabel>
+                            </td>
+                            <td>
+                                <h:inputText value="#{consultasPagadasSearchCriteria.dui}" id="dui1">
+                                </h:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Nombres:" for="nombres1">
+                                </h:outputLabel>
+                            </td>
+                            <td>
+                                <h:inputText value="#{consultasPagadasSearchCriteria.nombres}" id="nombres1">
+                                </h:inputText>
+                            </td>
+                            <td>
+                                <h:outputLabel value="Primer Ape:" for="primerApellido1">
+                                </h:outputLabel>
+                            </td>
+                            <td>
+                                <h:inputText value="#{consultasPagadasSearchCriteria.primerApellido}" id="primerApellido1">
+                                </h:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Segundo ape:" for="segundoApellido1">
+                                </h:outputLabel>
+                            </td>
+                            <td>
+                                <h:inputText value="#{consultasPagadasSearchCriteria.segundoApellido}" id="segundoApellido1">
+                                </h:inputText>
+                            </td>
+                            <td>
+                                <h:outputLabel value="Tercer ape:" for="tercerApellido1">
+                                </h:outputLabel>
+                            </td>
+                            <td>
+                                <h:inputText value="#{consultasPagadasSearchCriteria.tercerApellido}" id="tercerApellido1">
+                                </h:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" align="center">
+                                <a4j:commandButton value="Buscar" actionListener="#{frmMantSigVitales.buscar}" render="sigVitalesTable" type="submit"/>
+                            </td>                        
+                        </tr>
+                    </table>
+                <rich:dataTable value="#{consultasPagadasDataModel}" var="sigVitales" rows="10" id="sigVitalesTable">
+                <f:facet name="header">
+                    <rich:columnGroup>
+                      <h:column>
+                        <h:outputText value="Numero"/>
+                      </h:column>
+                      <h:column>
+                        <h:outputText value="Fecha"/>
+                      </h:column>
+                      <h:column>
+                        <h:outputText value="Expediente"/>
+                      </h:column>                  
+                        <h:column>
+                        <h:outputText value="Paciente"/>
+                      </h:column>
+                      <h:column></h:column>
+                      <h:column></h:column>
+                    </rich:columnGroup>
+                  </f:facet>
+                    <h:column>
+                        <h:outputText value="#{sigVitales.numConsulta}">
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <h:outputText value="#{sigVitales.fecConsulta}">
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <h:outputText value="#{sigVitales.tblExpediente.numExpediente}">
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <h:outputText value="#{sigVitales.tblExpediente.nomPaciente} #{sigVitales.tblExpediente.priApePaciente} #{sigVitales.tblExpediente.secApePaciente} #{sigVitales.tblExpediente.terApePaciente}">
+                        </h:outputText>
+                    </h:column>    
+                    <h:column>
+                        <a4j:commandButton image="/img/icons/edit.gif" render="@form, panelMessage" oncomplete="#{rich:component('buscarConsultaPanel')}.hide();" actionListener="#{frmMantSigVitales.seleccionar}">
+                        </a4j:commandButton>
+                    </h:column>
+                </rich:dataTable>
+            </rich:popupPanel>            
+                
+            <table>
                 <tr>
-                    <td>Número de Consulta</td>
-                    <td><h:outputText value="#{frmMantSigVitales.tblConsultas.numConsulta}" style="font-weight: bold"/>
-                        <h:inputHidden value="#{frmMantSigVitales.tblConsultas.numConsulta}" /></td>
-                </tr>
-                <tr>
-                    <td>Fecha de Consulta</td>
-                    <td><h:inputText value="#{frmMantSigVitales.tblConsultas.fecConsulta}" /></td>              
-                </tr>
-                <tr>
-                    <td>Temperatura (°C)</td>
-                    <td><h:inputText value="#{frmMantSigVitales.tblConsultas.temPaciente}"/></td>
-                </tr>
-                <tr>
-                    <td>Pulso (ppm)</td>
-                    <td><h:inputText value="#{frmMantSigVitales.tblConsultas.pulPaciente}"/></td>
-                </tr>
-                <tr>
-                    <td>Presión </td>
-                    <td><h:inputText value="#{frmMantSigVitales.tblConsultas.preArterial}"/></td>
-                </tr>
-                <tr>
-                    <td>Peso (Lbrs.)</td>
-                    <td><h:inputText value="#{frmMantSigVitales.tblConsultas.pesPaciente}"/></td>
-                </tr>
-                <tr>
-                    <td>Talla (Mtrs)</td>
-                    <td><h:inputText value="#{frmMantSigVitales.tblConsultas.talPaciente}"/></td>
-                </tr>
-                  <tr>
-                      <td colspan="4" align="center">
-                          <a4j:commandButton value="Guardar" actionListener="#{frmMantSigVitales.guardar}" render="form, panelMessage" />
-                          <a4j:commandButton value="Regresar" action="frmCatAreas.jsf?faces-redirect=true" immediate="true"/>
-                      </td>
-                  </tr>
-              </table>
+                    <td style="border-right: 2px; border-color: red;" valign="top">
+                    <table>
+                         <tr>
+                             <td align="left">Número de Expediente</td>
+                            <td align="left">
+                                <h:inputText value="#{frmMantSigVitales.tblConsulta.numExpediente}" style="font-weight: bold"/>
+                                <h:outputLabel value="*" style="color: red; font-weight: bold"/>
+                                <a4j:commandButton value="..." onclick="#{rich:component('buscarConsultaPanel')}.show(); return false;">
+                                </a4j:commandButton>
+                            </td>
+                        </tr> 
+                        <tr>
+                            <td align="left">Nombre del Paciente</td>
+                            <td align="left">
+                                <h:outputText value="#{frmMantSigVitales.tblConsulta.tblExpediente.nomPaciente} #{frmMantSigVitales.tblConsulta.tblExpediente.priApePaciente} #{frmMantSigVitales.tblConsulta.tblExpediente.secApePaciente} #{frmMantSigVitales.tblConsulta.tblExpediente.terApePaciente}" style="font-weight: bold"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">Número de Consulta</td>
+                            <td align="left">
+                                <h:outputText value="#{frmMantSigVitales.tblConsulta.numConsulta}" style="font-weight: bold"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">Fecha de Consulta</td>
+                            <td align="left">
+                                <h:outputText value="#{frmMantSigVitales.tblConsulta.fecConsulta}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">Temperatura (°C)</td>
+                            <td align="left">
+                                <h:inputText value="#{frmMantSigVitales.tblConsulta.temPaciente}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">Pulso (ppm)</td>
+                            <td align="left">
+                                <h:inputText value="#{frmMantSigVitales.tblConsulta.pulPaciente}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">Presión </td>
+                            <td align="left">
+                                <h:inputText value="#{frmMantSigVitales.tblConsulta.preArterial}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">Peso (Lbrs.)</td>
+                            <td align="left">
+                                <h:inputText value="#{frmMantSigVitales.tblConsulta.pesPaciente}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">Talla (Mtrs)</td>
+                            <td align="left">
+                                <h:inputText value="#{frmMantSigVitales.tblConsulta.talPaciente}"/>
+                            </td>
+                        </tr>
+                          <tr>
+                              <td colspan="4" align="center">
+                                  <a4j:commandButton value="Guardar" actionListener="#{frmMantSigVitales.guardar}" render="form, panelMessage" />
+                                  <a4j:commandButton value="Cancelar"/>
+                              </td>
+                          </tr>
+                      </table>
+                    </td>
+                    <td valign="top">
+                        <rich:dataGrid value="#{consultasPagadasDataModel}" var="sigVitales1" columns="1" elements="3" id="sigVitalesGrid">
+                            <rich:panel bodyClass="pbody">
+                                <table cellpadding="0" cellspacing="0">
+                                    <tr>
+                                      <td>
+                                        <h:outputText value="#{sigVitales1.tblExpediente.nomPaciente} #{sigVitales1.tblExpediente.priApePaciente} #{sigVitales1.tblExpediente.secApePaciente} #{sigVitales1.tblExpediente.terApePaciente}"/>
+                                      </td>
+                                      <td>
+                                        <a4j:commandButton image="/img/icons/edit.gif" render="@form, panelMessage" actionListener="#{frmMantSigVitales.seleccionarFromDataGrid}">
+                                        </a4j:commandButton>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td colspan="3">
+                                          <h:outputText value="#{fn:substring(sigVitales1.obsCliPaciente,0,30)} ..." title="#{sigVitales1.obsCliPaciente}" />
+                                      </td>
+                                    </tr>
+                                </table>
+                            </rich:panel>
+                            <rich:dataScroller></rich:dataScroller>
+                        </rich:dataGrid>                        
+                    </td>
+                   </tr>
+                </table>
             </h:form>
         </ui:define>
     </ui:composition>
