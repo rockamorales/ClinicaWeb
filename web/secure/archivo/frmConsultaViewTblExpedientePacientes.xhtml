@@ -21,7 +21,11 @@
                     <td><h:outputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.numExpediente}" style="font-weight: bold"/>
                         <h:inputHidden value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.numExpediente}" /></td>
                     <td>Fecha de Registro:</td>
-                    <td><h:outputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.fecRegExpediente}"/></td>
+                    <td>
+                        <h:outputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.fecRegExpediente}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </td>
                 </tr>
                 <tr>
                     <td>Nombre del Paciente:</td>
