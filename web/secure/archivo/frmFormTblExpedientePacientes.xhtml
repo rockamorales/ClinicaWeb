@@ -22,12 +22,14 @@
                 <tr>
                     <td align="left">Código:</td>
                     <td align="left">
-                        <h:inputHidden value="#{tblExpedientePacienteForm.tblExpedientePacientes.numExpediente}" id="numExpediente"/>
-                        <h:outputText value="#{tblExpedientePacienteForm.tblExpedientePacientes.numExpediente}" style="font-weight: bold"/>
+                        <h:inputHidden value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.numExpediente}" id="numExpediente"/>
+                        <h:outputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.numExpediente}" style="font-weight: bold"/>
                     </td>
                     <td align="left">Fecha de Registro:</td>
                     <td align="left">
-                        <h:outputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.fecRegExpediente}"/>
+                        <h:outputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.fecRegExpediente}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                        </h:outputText>
                     </td>
                 </tr>
                 <tr>
