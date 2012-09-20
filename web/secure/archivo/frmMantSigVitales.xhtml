@@ -218,11 +218,18 @@ and open the template in the editor.
                     </td>
                     <td valign="top">
                         <rich:dataGrid value="#{consultasPagadasDataModel}" var="sigVitales1" columns="1" elements="3" id="sigVitalesGrid">
-                            <rich:panel bodyClass="pbody">
                                 <table cellpadding="0" cellspacing="0">
                                     <tr>
                                       <td>
                                         <h:outputText value="#{sigVitales1.tblExpediente.nomPaciente} #{sigVitales1.tblExpediente.priApePaciente} #{sigVitales1.tblExpediente.secApePaciente} #{sigVitales1.tblExpediente.terApePaciente}"/>
+                                      </td>
+                                      <td>
+                                        <h:outputText value="#{sigVitales1.catTipoConsulta.nomTipConsulta}"/>
+                                      </td>
+                                      <td>
+                                        <h:outputText value="#{sigVitales1.fecConsulta}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                        </h:outputText>
                                       </td>
                                       <td>
                                         <a4j:commandButton image="/img/icons/edit.gif" render="@form, panelMessage" actionListener="#{frmMantSigVitales.seleccionarFromDataGrid}">
@@ -230,14 +237,16 @@ and open the template in the editor.
                                       </td>
                                     </tr>
                                     <tr>
-                                      <td colspan="3">
-                                          <h:outputText value="#{fn:substring(sigVitales1.obsCliPaciente,0,30)} ..." title="#{sigVitales1.obsCliPaciente}" />
+                                      <td colspan="6">
+                                          <h:outputText value="#{fn:substring(sigVitales1.obsCliPaciente,0,30)} ..." title="#{sigVitales1.obsCliPaciente}"/>
                                       </td>
                                     </tr>
                                 </table>
-                            </rich:panel>
-                            <rich:dataScroller></rich:dataScroller>
-                        </rich:dataGrid>                        
+                            <hr/>
+                            <f:facet name="footer" >
+                                <rich:dataScroller></rich:dataScroller>
+                            </f:facet>
+                        </rich:dataGrid>
                     </td>
                    </tr>
                 </table>

@@ -76,7 +76,7 @@ public class FrmMantSigVitales extends PageBase{
 
    public void seleccionarFromDataGrid(ActionEvent ae){
     try{
-        UIDataGrid table = (UIDataGrid) ae.getComponent().getParent().getParent();
+        UIDataGrid table = (UIDataGrid) ae.getComponent().getParent();
         this.tblConsulta = facade.find(((TblConsultas)table.getRowData()).getNumConsulta());
     }catch(Exception x){
         x.printStackTrace();
