@@ -31,10 +31,11 @@ and open the template in the editor.
             </style>
            <script type="text/javascript">
 		$(document).ready(function(){
-			$('#scrollbar1').tinyscrollbar();	
+			$('#scrollbar1').tinyscrollbar();
 		});
             </script>
             <h:form id="form">
+                <a4j:poll id="poll" interval="5000" enabled="true" render="sigVitalesGrid" actionListener="#{frmMantSigVitales.clear}" />
                 <rich:popupPanel id="buscarConsultaPanel" modal="true" autosized="true" resizeable="false" domElementAttachment="form">
                     <f:facet name="header">
                         <h:outputText value="Seleccionar consulta"/>
@@ -149,7 +150,7 @@ and open the template in the editor.
                 
             <table>
                 <tr>
-                    <td style="border-right: 2px; border-color: red;" valign="top">
+                  <td style="border-right:#000 solid thin;" valign="top">
                     <table>
                          <tr>
                              <td align="left">Número de Expediente</td>
@@ -217,12 +218,14 @@ and open the template in the editor.
                       </table>
                     </td>
                     <td valign="top">
-                        <rich:dataGrid value="#{consultasPagadasDataModel}" var="sigVitales1" columns="1" elements="3" id="sigVitalesGrid">
-                                <table cellpadding="0" cellspacing="0">
+                        <rich:dataGrid value="#{consultasPagadasDataModel}" var="sigVitales1" columns="1" elements="10" id="sigVitalesGrid">
+                            <table cellpadding="0" cellspacing="4">
                                     <tr>
-                                      <td>
-                                        <h:outputText value="#{sigVitales1.tblExpediente.nomPaciente} #{sigVitales1.tblExpediente.priApePaciente} #{sigVitales1.tblExpediente.secApePaciente} #{sigVitales1.tblExpediente.terApePaciente}"/>
+                                     <td colspan="2">
+                                          <h:outputText value="#{sigVitales1.tblExpediente.nomPaciente} #{sigVitales1.tblExpediente.priApePaciente} #{sigVitales1.tblExpediente.secApePaciente} #{sigVitales1.tblExpediente.terApePaciente}" style="font-weight: bold;"/>
                                       </td>
+                                    </tr>
+                                    <tr>
                                       <td>
                                         <h:outputText value="#{sigVitales1.catTipoConsulta.nomTipConsulta}"/>
                                       </td>
@@ -230,19 +233,17 @@ and open the template in the editor.
                                         <h:outputText value="#{sigVitales1.fecConsulta}">
                                             <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                                         </h:outputText>
-                                      </td>
-                                      <td>
-                                        <a4j:commandButton image="/img/icons/edit.gif" render="@form, panelMessage" actionListener="#{frmMantSigVitales.seleccionarFromDataGrid}">
-                                        </a4j:commandButton>
-                                      </td>
+                                      </td>                                        
                                     </tr>
                                     <tr>
-                                      <td colspan="6">
-                                          <h:outputText value="#{fn:substring(sigVitales1.obsCliPaciente,0,30)} ..." title="#{sigVitales1.obsCliPaciente}"/>
+                                      <td colspan="2">
+                                          <h:outputText value="#{fn:substring(sigVitales1.obsCliPaciente,0,30)} ...   " title="#{sigVitales1.obsCliPaciente}"/>
+                                          <a4j:commandLink value="Seleccionar" render="@form, panelMessage" actionListener="#{frmMantSigVitales.seleccionarFromDataGrid}" style="color: blue; font-weight: bold; font-size: smaller">
+                                          </a4j:commandLink>
                                       </td>
                                     </tr>
                                 </table>
-                            <hr/>
+                            <hr size="0" style="border: #000066 solid thin"/>
                             <f:facet name="footer" >
                                 <rich:dataScroller></rich:dataScroller>
                             </f:facet>

@@ -12,6 +12,7 @@ import javax.faces.event.ActionEvent;
 import org.richfaces.component.UIDataGrid;
 import org.richfaces.component.UIDataTable;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
+import sv.com.cormaria.clinica.web.managebeans.datamodels.ConsultasPagadasDataModel;
 import sv.com.cormaria.clinica.web.managebeans.datamodels.ExpedienteDataModel;
 import sv.com.cormaria.servicios.entidades.administracion.TblMovimientosExpediente;
 import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
@@ -53,11 +54,10 @@ public class FrmMantSigVitales extends PageBase{
     
     public void guardar(ActionEvent ae){
         try{
-            if(tblConsulta.getNumConsulta() != null){
-                facade.edit(tblConsulta);
-            }else{
-                facade.create(tblConsulta);
-            }
+            facade.editSigVitalesInfo(tblConsulta);
+            ConsultasPagadasDataModel dataModel = (ConsultasPagadasDataModel) this.getBean("#{consultasPagadasDataModel}", ConsultasPagadasDataModel.class);
+            dataModel.clear();
+            this.addInfo("La informacion ha sido guardada sin problemas", "La informacion ha sido guardada sin problemas");
         }catch(Exception x){
             x.printStackTrace();
             this.addError(x.getMessage(), x.getMessage());
@@ -88,12 +88,7 @@ public class FrmMantSigVitales extends PageBase{
    public void buscar(ActionEvent ae){
       ExpedienteDataModel model = (ExpedienteDataModel) this.getBean("#{expedienteDataModel}", ExpedienteDataModel.class);
       model.clear();
-   }
-   
-   public void nuevoTraslado(ActionEvent ae){
-       this.tblConsulta = new TblConsultas();
-   }
-    
+   }    
     
     public void searchExpedienteByNum(){
       try{
@@ -106,5 +101,8 @@ public class FrmMantSigVitales extends PageBase{
       }
    }
     
-   
+   public void clear(ActionEvent ae){
+        ConsultasPagadasDataModel dataModel = (ConsultasPagadasDataModel) this.getBean("#{consultasPagadasDataModel}", ConsultasPagadasDataModel.class);
+        dataModel.clear();
+   }
 }
