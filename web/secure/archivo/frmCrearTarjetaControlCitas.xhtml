@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+    <ui:composition 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j"
+      template="/templates/main.xhtml">
+      <ui:define name="title">
+        <h:outputText value="#{messages['default.windowTitle']}--Modificacion de expediente" escape="false"></h:outputText>
+      </ui:define>
+      <ui:define name="body">
+         <h:form id="tblExpedienteForm">
+            <rich:popupPanel id="buscarExpedientePanel" modal="true" autosized="true" resizeable="false" domElementAttachment="form">
+                <f:facet name="header">
+                    <h:outputText value="Seleccionar expediente"/>
+                </f:facet>
+                <f:facet name="controls">
+                    <h:outputLink value="#" onclick="#{rich:component('buscarExpedientePanel')}.hide(); return false;" style="color:white;font-weight: bold;">
+                        Cerrar
+                    </h:outputLink>
+                </f:facet>
+                <table>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Expediente:" for="numExpediente1">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.numExpediente}" id="numExpediente1">
+                            </h:inputText>
+                        </td>
+                        <td>
+                            <h:outputLabel value="DUI:" for="dui1">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.dui}" id="dui1">
+                            </h:inputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Nombres:" for="nombres1">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.nombres}" id="nombres1">
+                            </h:inputText>
+                        </td>
+                        <td>
+                            <h:outputLabel value="Primer Ape:" for="primerApellido1">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.primerApellido}" id="primerApellido1">
+                            </h:inputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Segundo ape:" for="segundoApellido1">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.segundoApellido}" id="segundoApellido1">
+                            </h:inputText>
+                        </td>
+                        <td>
+                            <h:outputLabel value="Tercer ape:" for="tercerApellido1">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.tercerApellido}" id="tercerApellido1">
+                            </h:inputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" align="center">
+                            <a4j:commandButton value="Buscar" actionListener="#{frmCrearTarjetaControlCitas.buscar}" render="tblExpedientePacientesTable" type="submit"/>
+                        </td>                        
+                    </tr>
+                  </table>
+                  <rich:dataTable value="#{expedienteDataModel}" var="tblExpedientePacientes" rows="10" id="tblExpedientePacientesTable">
+                    <f:facet name="header">
+                        <rich:columnGroup>
+                          <h:column>
+                            <h:outputText value="Expediente"/>
+                          </h:column>
+                          <h:column>
+                            <h:outputText value="Nombres"/>
+                          </h:column>
+                          <h:column>
+                            <h:outputText value="Primer Apellido"/>
+                          </h:column>   
+                            <h:column>
+                            <h:outputText value="Segundo Apellido"/>
+                           </h:column> 
+                            <h:column>
+                            <h:outputText value="Sexo"/>
+                          </h:column>
+                            <h:column>
+                            <h:outputText value="Fecha de Nacimiento"/>
+                          </h:column>
+                            <h:column>
+                            <h:outputText value="DUI"/>
+                          </h:column>
+                          <h:column>
+                            <h:outputText value="Ver"/>
+                          </h:column>
+                        </rich:columnGroup>
+                      </f:facet>
+                    <h:column>
+                        <h:outputText value="#{tblExpedientePacientes.numExpediente}">
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <h:outputText value="#{tblExpedientePacientes.nomPaciente}">
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <h:outputText value="#{tblExpedientePacientes.priApePaciente}">
+                        </h:outputText>
+                    </h:column>   
+                    <h:column>
+                        <h:outputText value="#{tblExpedientePacientes.secApePaciente}">
+                        </h:outputText>
+                    </h:column>   
+                    <h:column>
+                        <h:outputText value="#{tblExpedientePacientes.catSexo.nomSexPaciente}">
+                        </h:outputText>
+                    </h:column>  
+                    <h:column>
+                        <h:outputText value="#{tblExpedientePacientes.fecNacPaciente}">
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <h:outputText value="#{tblExpedientePacientes.numDui}">
+                      </h:outputText>
+                    </h:column>  
+                    <h:column> 
+                        <a4j:commandButton image="/img/icons/edit.gif" render="@form, panelMessage" oncomplete="#{rich:component('buscarExpedientePanel')}.hide();" actionListener="#{frmCrearTarjetaControlCitas.seleccionar}">
+                        </a4j:commandButton>
+                    </h:column>   
+                </rich:dataTable>
+            </rich:popupPanel>
+              <h3>Crear tarjeta de control de citas</h3>
+              <hr/>
+              <table>
+                <tr>
+                    <td align="left">Expediente:</td>
+                    <td align="left" colspan="3">
+                        <h:inputText value="#{frmCrearTarjetaControlCitas.tblExpediente.numExpediente}" id="numExpediente">
+                            <a4j:ajax event="change" listener="#{frmCrearTarjetaControlCitas.searchExpedienteByNum}" render="@form"/>
+                        </h:inputText>
+                        <a4j:commandButton value="..." onclick="#{rich:component('buscarExpedientePanel')}.show(); return false;">
+                        </a4j:commandButton>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Nombres:</td>
+                    <td align="left">
+                        <h:outputText value="#{frmCrearTarjetaControlCitas.tblExpediente.nomPaciente}"/>
+                    </td>
+                    <td align="left">Apellidos:</td>
+                    <td align="left">
+                        <h:outputText value="#{frmCrearTarjetaControlCitas.tblExpediente.priApePaciente} #{frmCrearTarjetaControlCitas.tblExpediente.secApePaciente} #{frmCrearTarjetaControlCitas.tblExpediente.terApePaciente}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Fecha de Nacimiento:</td>
+                    <td align="left">
+                        <h:outputText value="#{frmCrearTarjetaControlCitas.tblExpediente.fecNacPaciente}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </td>
+                    <td align="left">Edad del Paciente:</td>
+                    <td align="left">
+                        <h:outputText value="#{frmCrearTarjetaControlCitas.tblExpediente.edadPaciente}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left"># de Tarjeta:</td>
+                    <td align="left" colspan="3">
+                        <h:inputText value="#{frmCrearTarjetaControlCitas.tblTarjetaControlCitas.numTarjeta}" size="10" />
+                    </td>
+                </tr>
+                <tr>
+                  <td colspan="4" align="center">
+                      <a4j:commandButton value="Asignar" actionListener="#{frmCrearTarjetaControlCitas.asignar}" render="@form, panelMessage" />
+                      <a4j:commandButton value="Crear nueva consulta" actionListener="#{frmCrearTarjetaControlCitas.nuevaTarjeta}" render="@form, panelMessage" />
+                      <h:commandButton value="Cancelar" action="/inicio.jsf"/>
+                  </td>
+                </tr>
+              </table>
+           </h:form>
+        </ui:define>
+    </ui:composition>
