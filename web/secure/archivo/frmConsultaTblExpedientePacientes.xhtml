@@ -23,7 +23,7 @@ and open the template in the editor.
                             </h:outputLabel>
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.numExpediente}" id="numExpediente">
+                            <h:inputText value="#{expedientesSearchCriteria.numExpediente}" id="numExpediente" maxlength="11" onkeypress="return filterInput(1, event, false, '');">
                             </h:inputText>
                         </td>
                         <td>
@@ -31,7 +31,7 @@ and open the template in the editor.
                             </h:outputLabel>
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.dui}" id="dui">
+                            <h:inputText value="#{expedientesSearchCriteria.dui}" id="dui" maxlength="9" onkeypress="return filterInput(1, event, false, '');">
                             </h:inputText>
                         </td>
                     </tr>
@@ -41,7 +41,7 @@ and open the template in the editor.
                             </h:outputLabel>
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.nombres}" id="nombres">
+                            <h:inputText value="#{expedientesSearchCriteria.nombres}" id="nombres" maxlength="30" onkeypress="return filterInput(0, event, false, ' ');">
                             </h:inputText>
                         </td>
                         <td>
@@ -49,7 +49,7 @@ and open the template in the editor.
                             </h:outputLabel>
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.primerApellido}" id="primerApellido">
+                            <h:inputText value="#{expedientesSearchCriteria.primerApellido}" id="primerApellido" maxlength="15" onkeypress="return filterInput(0, event, false, ' ');">
                             </h:inputText>
                         </td>
                     </tr>
@@ -59,7 +59,7 @@ and open the template in the editor.
                             </h:outputLabel>
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.segundoApellido}" id="segundoApellido">
+                            <h:inputText value="#{expedientesSearchCriteria.segundoApellido}" id="segundoApellido" maxlength="15" onkeypress="return filterInput(0, event, false, ' ');">
                             </h:inputText>
                         </td>
                         <td>
@@ -67,7 +67,7 @@ and open the template in the editor.
                             </h:outputLabel>
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.tercerApellido}" id="tercerApellido">
+                            <h:inputText value="#{expedientesSearchCriteria.tercerApellido}" id="tercerApellido" maxlength="15" onkeypress="return filterInput(0, event, false, ' ');">
                             </h:inputText>
                         </td>
                     </tr>
