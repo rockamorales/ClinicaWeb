@@ -16,8 +16,6 @@
         </ui:define>
         <ui:define name="body">
             <h:form id="tblExpedienteForm">
-              <h3>Informacion general del paciente</h3>
-              <hr/>
               <table>
                 <tr>
                     <td align="left">Código:</td>
@@ -179,13 +177,13 @@
                         <td align="left">Enfermedades cronicas:</td>
                         <td align="left">
                             <h:inputTextarea value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.enfCroPaciente}" rows="2"  onkeypress="return filterInput(0, event, false, ' ');">
-                                <f:validateLength maximum="250" ></f:validateLength>
+                                <f:validateLength maximum="300" ></f:validateLength>
                             </h:inputTextarea>
                         </td>
                         <td align="left">Alergias:</td>
                         <td align="left">
                             <h:inputTextarea value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.alePaciente}" rows="2" onkeypress="return filterInput(2, event, false, ' ');">
-                                <f:validateLength maximum="250" ></f:validateLength>
+                                <f:validateLength maximum="300" ></f:validateLength>
                             </h:inputTextarea>
                         </td>
                   </tr>
