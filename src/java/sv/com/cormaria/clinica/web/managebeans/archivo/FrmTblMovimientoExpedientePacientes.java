@@ -129,19 +129,35 @@ public class FrmTblMovimientoExpedientePacientes extends PageBase{
        this.tblExpedientePacientes = new TblExpedientePacientes();
    }
    
+   public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getTblExpedientePacientes().getNumExpediente() == null || this.getTblExpedientePacientes().getNumExpediente() <= 0){
+          isValid = false;
+          this.addError("Porfavor ingrese o seleccione el número de Expediente de paciente", "Por favor ingrese o seleccione el número de Expediente de paciente");
+       }
+       
+       return isValid;
+     
+   }
+   
    public void generarMovimiento(ActionEvent ae){
        try{
-           if (tblMovimientosExpediente.getNumTransaccion()!=null && tblMovimientosExpediente.getNumTransaccion()>0){
-               tblMovimientosExpediente.setNumExpediente(this.getTblExpedientePacientes().getNumExpediente());
-               movimientoExpediente.edit(tblMovimientosExpediente);
-           }else{
-            if (this.getSessionBean().getUsuario()!=null && this.getSessionBean().getUsuario().getEmpleado()!=null){
-                tblMovimientosExpediente = movimientoExpediente.generarMovimiento(tblExpedientePacientes, tblMovimientosExpediente, this.getSessionBean().getUsuario().getEmpleado().getNumEmpleado());
-                this.addInfo("El traslado ha sido generado sin problemas", "El traslado ha sido generado sin problemas");
-            }else{
-                this.addError("El usuario con el que ha ingresado a la aplicacion no tiene un codigo de empleado asociado", "El usuario con el que ha ingresado a la aplicacion no tiene un codigo de empleado asociado");
-            }
+           if (!validar()){
+               return;
            }
+            if (tblMovimientosExpediente.getNumTransaccion()!=null && tblMovimientosExpediente.getNumTransaccion()>0){
+                tblMovimientosExpediente.setNumExpediente(this.getTblExpedientePacientes().getNumExpediente());
+                movimientoExpediente.edit(tblMovimientosExpediente);
+            }else{
+                if (this.getSessionBean().getUsuario()!=null && this.getSessionBean().getUsuario().getEmpleado()!=null){
+                    tblMovimientosExpediente = movimientoExpediente.generarMovimiento(tblExpedientePacientes, tblMovimientosExpediente, this.getSessionBean().getUsuario().getEmpleado().getNumEmpleado());
+                    this.addInfo("El traslado ha sido generado sin problemas", "El traslado ha sido generado sin problemas");
+                }else{
+                    this.addError("El usuario con el que ha ingresado a la aplicacion no tiene un codigo de empleado asociado", "El usuario con el que ha ingresado a la aplicacion no tiene un codigo de empleado asociado");
+                }
+            }
+           
        }catch(Exception ex){
            ex.printStackTrace();
            this.addError(ex.getMessage(), ex.getMessage());

@@ -155,9 +155,10 @@
                 <tr>
                     <td align="left">Expediente:</td>
                     <td align="left">
-                        <h:inputText value="#{frmTblMovimientoExpedientePacientes.tblExpedientePacientes.numExpediente}" id="numExpediente">
+                        <h:inputText value="#{frmTblMovimientoExpedientePacientes.tblExpedientePacientes.numExpediente}" id="numExpediente" maxlength="11" onkeypress="return filterInput(1, event, false, '');">
                             <a4j:ajax event="change" listener="#{frmTblMovimientoExpedientePacientes.searchExpedienteByNum}" render="@form"/>
                         </h:inputText>
+                        <h:outputLabel value="*" style="color:red;font-weight: bold;"/>                        
                         <a4j:commandButton value="..." onclick="#{rich:component('buscarExpedientePanel')}.show(); return false;">
                         </a4j:commandButton>
                     </td>
@@ -185,7 +186,7 @@
                     </td>
                     <td align="left">Edad del Paciente:</td>
                     <td align="left">
-                        <h:outputText value="#{frmTblMovimientoExpedientePacientes.tblExpedientePacientes.edaPaciente}"/>
+                        <h:outputText value="#{frmTblMovimientoExpedientePacientes.tblExpedientePacientes.edadPaciente}"/>
                     </td>
                 </tr>
                 <tr>
