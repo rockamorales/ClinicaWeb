@@ -130,8 +130,37 @@ public class FrmGenerarConsulta extends PageBase{
         this.tblMedicosList = tblMedicosList;
     }
 
+       public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getTblExpediente().getNumExpediente() == null || this.getTblExpediente().getNumExpediente() <= 0){
+          isValid = false;
+          this.addError("Porfavor ingrese o seleccione el número de Expediente de paciente", "Por favor ingrese o seleccione el número de Expediente de paciente");
+       }
+       
+       if (this.getTblConsultas().getCodTipConsulta() == null || this.getTblConsultas().getCodTipConsulta() == -1){
+           isValid = false;
+           this.addError("Porfavor ingrese el tipo de Consulta", "Porfavor ingrese el tipo de Consulta");
+       }
+       
+       if (this.getTblConsultas().getCodEspecialidad() == null || this.getTblConsultas().getCodEspecialidad() == -1){
+           isValid = false;
+           this.addError("Porfavor ingrese la especialidad", "Porfavor ingrese la especialidad");
+       }
+       
+       if (this.getTblConsultas().getNumMedico() == null || this.getTblConsultas().getNumMedico() == -1){
+           isValid = false;
+           this.addError("Porfavor ingrese el Doctor", "Porfavor ingrese el Doctor");
+       }
+       
+       return isValid;
+       }
+    
     public void generarConsulta(ActionEvent ae){
       try{
+          if (!validar()){
+              return;
+           }
           if (tblConsultas.getNumConsulta()!=null && tblConsultas.getNumConsulta() > 0){
               //Si se actualiza la consulta, se tiene que considerar actualizar el comprobante de 
               //donacion asociado.
