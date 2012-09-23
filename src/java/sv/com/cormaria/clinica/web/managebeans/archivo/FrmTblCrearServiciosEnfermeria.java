@@ -84,8 +84,39 @@ public class FrmTblCrearServiciosEnfermeria extends PageBase{
         this.tblServiciosEnfermeria = tblServiciosEnfermeria;
     }
     
+    
+       public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getTblExpediente().getNumExpediente() == null || this.getTblExpediente().getNumExpediente() <= 0){
+          isValid = false;
+          this.addError("Porfavor ingrese o seleccione el número de Expediente de paciente", "Por favor ingrese o seleccione el número de Expediente de paciente");
+       }
+       
+       if (this.getTblServiciosEnfermeria().getCodServEnfermeria() == null || getTblServiciosEnfermeria().getCodServEnfermeria() == -1){
+           isValid = false;
+           this.addError("Porfavor seleccione el tipo de consulta", "Porfavor seleccione el tipo de consulta");
+       }
+       /*
+       if (this.getTblServiciosEnfermeria().getMedAplicados() == ""){
+           isValid = false;
+           this.addError("Porfavor introduzca los medicamentos aplicados", "Porfavor introduzca los medicamentos aplicados");
+       }
+       
+       if (this.getTblServiciosEnfermeria().getObsSerEnfermeria() == ""){
+           isValid = false;
+           this.addError("Porfavor ingrese las observaciones", "Porfavor ingrese las observaciones");
+       }
+       */
+       return isValid;
+       }    
+    
+    
     public void crearServiciosEnfermeria(ActionEvent ae){
       try{
+          if (!validar()){
+              return;
+           }          
           if (tblServiciosEnfermeria.getNumSerEnfermeria()!=null && tblServiciosEnfermeria.getNumSerEnfermeria() > 0){
               //Si se actualiza la consulta, se tiene que considerar actualizar el comprobante de 
               //donacion asociado.
