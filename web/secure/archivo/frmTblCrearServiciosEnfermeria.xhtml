@@ -78,7 +78,7 @@
                     </tr>
                     <tr>
                         <td colspan="4" align="center">
-                            <a4j:commandButton value="Buscar" actionListener="#{frmGenerarConsulta.buscar}" render="tblExpedientePacientesTable" type="submit"/>
+                            <a4j:commandButton value="Buscar" actionListener="#{frmTblCrearServiciosEnfermeria.buscar}" render="tblExpedientePacientesTable" type="submit"/>
                         </td>                        
                     </tr>
                   </table>
@@ -140,84 +140,83 @@
                       </h:outputText>
                     </h:column>  
                     <h:column> 
-                        <a4j:commandButton image="/img/icons/edit.gif" render="@form, panelMessage" oncomplete="#{rich:component('buscarExpedientePanel')}.hide();" actionListener="#{frmGenerarConsulta.seleccionar}">
+                        <a4j:commandButton image="/img/icons/edit.gif" render="@form, panelMessage" oncomplete="#{rich:component('buscarExpedientePanel')}.hide();" actionListener="#{frmTblCrearServiciosEnfermeria.seleccionar}">
                         </a4j:commandButton>
                     </h:column>   
                 </rich:dataTable>
             </rich:popupPanel>
-              <h3>Generacion de consulta</h3>
+              <h3>Creacion de servicio de enfermeria</h3>
               <hr/>
               <table>
                 <tr>
                     <td align="left">Expediente:</td>
                     <td align="left">
-                        <h:inputText value="#{frmGenerarConsulta.tblExpediente.numExpediente}" id="numExpediente">
-                            <a4j:ajax event="change" listener="#{frmGenerarConsulta.searchExpedienteByNum}" render="@form"/>
+                        <h:inputText value="#{frmTblCrearServiciosEnfermeria.tblExpediente.numExpediente}" id="numExpediente">
+                            <a4j:ajax event="change" listener="#{frmTblCrearServiciosEnfermeria.searchExpedienteByNum}" render="@form"/>
                         </h:inputText>
                         <a4j:commandButton value="..." onclick="#{rich:component('buscarExpedientePanel')}.show(); return false;">
                         </a4j:commandButton>
                     </td>
                     <td align="left"># Consulta:</td>
                     <td align="left">
-                        <h:outputText value="#{frmGenerarConsulta.tblConsultas.numConsulta}" id="numConsulta">
+                        <h:outputText value="#{frmTblCrearServiciosEnfermeria.tblServiciosEnfermeria.numSerEnfermeria}" id="numSerEnfermeria">
                         </h:outputText>
                     </td>
                 </tr>
                 <tr>
                     <td align="left">Nombres:</td>
                     <td align="left">
-                        <h:outputText value="#{frmGenerarConsulta.tblExpediente.nomPaciente}"/>
+                        <h:outputText value="#{frmTblCrearServiciosEnfermeria.tblExpediente.nomPaciente}"/>
                     </td>
                     <td align="left">Apellidos:</td>
                     <td align="left">
-                        <h:outputText value="#{frmGenerarConsulta.tblExpediente.priApePaciente} #{frmGenerarConsulta.tblExpediente.secApePaciente} #{frmGenerarConsulta.tblExpediente.terApePaciente}"/>
+                        <h:outputText value="#{frmTblCrearServiciosEnfermeria.tblExpediente.priApePaciente} #{frmTblCrearServiciosEnfermeria.tblExpediente.secApePaciente} #{frmTblCrearServiciosEnfermeria.tblExpediente.terApePaciente}"/>
                     </td>
                 </tr>
                 <tr>
                     <td align="left">Fecha de Nacimiento:</td>
                     <td align="left">
-                        <h:outputText value="#{frmGenerarConsulta.tblExpediente.fecNacPaciente}">
+                        <h:outputText value="#{frmTblCrearServiciosEnfermeria.tblExpediente.fecNacPaciente}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </td>
                     <td align="left">Edad del Paciente:</td>
                     <td align="left">
-                        <h:outputText value="#{frmGenerarConsulta.tblExpediente.edaPaciente}"/>
+                        <h:outputText value="#{frmTblCrearServiciosEnfermeria.tblExpediente.edadPaciente}"/>
                     </td>
                 </tr>
                 <tr>
                     <td align="left">Tipo consulta:</td>
                     <td align="left">
-                        <h:selectOneMenu value="#{frmGenerarConsulta.tblConsultas.codTipConsulta}" id="codTipConsulta">
-                            <f:selectItems value="#{frmGenerarConsulta.catTipoConsultaList}"/>
+                        <h:selectOneMenu value="#{frmTblCrearServiciosEnfermeria.tblServiciosEnfermeria.codServEnfermeria}" id="codServEnfermeria">
+                            <f:selectItems value="#{frmTblCrearServiciosEnfermeria.tipoServiciosList}" var="tipoServicio" itemLabel="#{tipoServicio.nomSerEnfermeria}" itemValue="#{tipoServicio.codSerEnfermeria}"/>
                         </h:selectOneMenu>
                     </td>
-                    <td align="left">Especialidad:</td>
+                    <td align="left">Fecha:</td>
                     <td align="left">
-                        <h:selectOneMenu value="#{frmGenerarConsulta.tblConsultas.codEspecialidad}" id="codEspecialidad">
-                            <f:selectItems value="#{frmGenerarConsulta.catEspecialidadList}"/>
-                        </h:selectOneMenu>
+                        <h:outputText value="#{frmTblCrearServiciosEnfermeria.tblServiciosEnfermeria.fecSerEnfermeria}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                        </h:outputText>
                     </td>                    
                 </tr> 
                 <tr>
-                    <td align="left">Dr:</td>
+                    <td align="left">Medicamentos Aplicados:</td>
                     <td colspan="3" align="left">
-                        <h:selectOneMenu value="#{frmGenerarConsulta.tblConsultas.numMedico}" id="numMedico">
-                            <f:selectItems value="#{frmGenerarConsulta.tblMedicosList}" var="medico" itemLabel="#{medico.nomMedico} #{medico.priApeMedico} #{medico.secApeMedico} #{medico.terApeMedico}" itemValue="#{medico.numMedico}" />
-                        </h:selectOneMenu>
+                        <h:inputTextarea value="#{frmTblCrearServiciosEnfermeria.tblServiciosEnfermeria.medAplicados}" id="medAplicados" rows="3" cols="70">
+                        </h:inputTextarea>
                     </td>
                 </tr>
                 <tr>
                     <td align="left">Observaciones:</td>
-                    <td align="left" colspan="3">
-                        <h:inputTextarea value="#{frmGenerarConsulta.tblConsultas.obsCliPaciente}" id="observaciones" rows="2" cols="40">
+                    <td colspan="3" align="left">
+                        <h:inputTextarea value="#{frmTblCrearServiciosEnfermeria.tblServiciosEnfermeria.obsSerEnfermeria}" id="obsSerEnfermeria" rows="3" cols="70">
                         </h:inputTextarea>
                     </td>
                 </tr>  
                 <tr>
                   <td colspan="4" align="center">
-                      <a4j:commandButton value="Generar consulta" actionListener="#{frmGenerarConsulta.generarConsulta}" render="@form, panelMessage"/>
-                      <a4j:commandButton value="Crear nueva consulta" actionListener="#{frmGenerarConsulta.nuevaConsulta}" render="@form, panelMessage" />
+                      <a4j:commandButton value="Crear servicio" actionListener="#{frmTblCrearServiciosEnfermeria.crearServiciosEnfermeria}" render="@form, panelMessage"/>
+                      <a4j:commandButton value="Crear nuevo servicio" actionListener="#{frmTblCrearServiciosEnfermeria.nuevoServicio}" render="@form, panelMessage" />
                        <h:commandButton value="Cancelar" action="/inicio.jsf"/>
                   </td>
                 </tr>

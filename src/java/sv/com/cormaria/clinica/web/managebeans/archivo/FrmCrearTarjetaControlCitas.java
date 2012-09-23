@@ -76,10 +76,10 @@ public class FrmCrearTarjetaControlCitas extends PageBase{
     }
   }
   
-   public void buscar(ActionEvent ae){
-      ExpedienteDataModel model = (ExpedienteDataModel) this.getBean("#{expedienteDataModel}", ExpedienteDataModel.class);
-      model.clear();
-   }
+  public void buscar(ActionEvent ae){
+     ExpedienteDataModel model = (ExpedienteDataModel) this.getBean("#{expedienteDataModel}", ExpedienteDataModel.class);
+     model.clear();
+  }
    
    public void asignarNuevo(ActionEvent ae){
        this.tblExpediente = new TblExpedientePacientes();
