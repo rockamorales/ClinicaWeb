@@ -92,12 +92,12 @@ public class FrmCrearTarjetaControlCitas extends PageBase{
        
        if (this.getTblExpediente().getNumExpediente() == null || this.getTblExpediente().getNumExpediente() <= 0){
           isValid = false;
-          this.addError("Porfavor ingrese o seleccione el número de Expediente de paciente", "Por favor ingrese o seleccione el número de Expediente de paciente");
+          this.addError("Por favor ingrese o seleccione el número de Expediente de paciente", "Por favor ingrese o seleccione el número de Expediente de paciente");
        } 
        
        if (this.getTblTarjeta().getNumTarjeta() == null || this.getTblTarjeta().getNumTarjeta() <= 0){
           isValid = false;
-          this.addError("Porfavor ingrese el número de tarjeta", "Porfavor ingrese el número de tarjeta");
+          this.addError("Por favor ingrese el número de tarjeta", "Por favor ingrese el número de tarjeta");
       }
        
        return isValid;
