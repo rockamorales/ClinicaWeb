@@ -40,6 +40,7 @@ import sv.com.cormaria.servicios.facades.catalogos.CatParentescoResponsableFacad
 import sv.com.cormaria.servicios.facades.catalogos.CatTipoConsultaFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatUbicacionFisicaFacadeLocal;
 import sv.com.cormaria.servicios.facades.administracion.TblMedicoFacadeLocal;
+import sv.com.cormaria.servicios.helpers.ValidationUtils;
 
 /**
  *
@@ -247,9 +248,28 @@ public class FrmMantTblExpedientePacientes extends PageBase {
             this.addError("Por favor ingrese la fecha de nacimiento del paciente", "Por favor ingrese la fecha de nacimiento del paciente");
             isValid = false;
         }
+        
         if (tblExpedientePacientes.getFecNacPaciente().compareTo(new java.util.Date())>=0){
             this.addError("Fecha invalida: la fecha no puede ser mayor o igual a la fecha actual ", "Fecha invalida: la fecha no puede ser mayor o igual a la fecha actual");
             isValid = false;
+        }
+        if (tblExpedientePacientes.getEdadPaciente() >= 18){
+            if (tblExpedientePacientes.getNumDui()==null || tblExpedientePacientes.getNumDui().trim().equals("")){
+            this.addError("Por favor ingrese el número de DUI del paciente", "Por favor ingrese el número de DUI del paciente");
+            isValid = false;
+            }
+            
+            if (ValidationUtils.validarDUI(tblExpedientePacientes.getNumDui())== false) {
+            this.addError("El número de DUI del paciente NO ES VALIDO", "El número de DUI del paciente NO ES VALIDO");
+            this.addInfo("Ingrese nuevamente el DUI del paciente" , "Ingrese nuevamente el DUI del paciente");
+            isValid = false;
+            }
+        }
+        
+        if (tblExpedientePacientes.getEdadPaciente() < 18){
+            if (tblExpedientePacientes.getNumDui()!=null){
+                      tblExpedientePacientes.setNumDui(null);
+            }
         }
         if (tblExpedientePacientes.getCodOcupacion()<0 ){
             this.addError("Ingrese la ocupacion del paciente ", "Ingrese la ocupacion del paciente");
