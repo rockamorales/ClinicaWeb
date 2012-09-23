@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <ui:composition template="/templates/main.xhtml">
+        <ui:define name="title">
+          <h:outputText value="#{messages['default.windowTitle']}--Consulta de servicios de enfermeria" escape="false"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h3>Consultar Servicios de enfermeria</h3>
+            <hr></hr>
+            <h:form>
+                <table>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Expediente:" for="numExpediente">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{serviciosEnfermeriaSearchCriteria.numExpediente}" id="numExpediente" maxlength="11" onkeypress="return filterInput(1, event, false, '');">
+                            </h:inputText>
+                        </td>
+                        <td>
+                            <h:outputLabel value="DUI:" for="dui">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{serviciosEnfermeriaSearchCriteria.dui}" id="dui" maxlength="9" onkeypress="return filterInput(1, event, false, '');">
+                            </h:inputText>
+                        </td>
+                        <td>
+                            <h:outputLabel value="Tipo Servicio:" for="codTipoServicio">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:selectOneMenu value="#{serviciosEnfermeriaSearchCriteria.codTipoServicio}" id="codTipoServicio">
+                                <f:selectItems value="#{frmConsultaTblServiciosEnfermeria.tipoServiciosList}" var="tipoServicio" itemLabel="#{tipoServicio.nomSerEnfermeria}" itemValue="#{tipoServicio.codSerEnfermeria}" />
+                            </h:selectOneMenu>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Nombres:" for="nombres">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{serviciosEnfermeriaSearchCriteria.nombres}" id="nombres" maxlength="30" onkeypress="return filterInput(0, event, false, ' %');">
+                            </h:inputText>
+                        </td>
+                        <td>
+                            <h:outputLabel value="Primer Ape:" for="primerApellido">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{serviciosEnfermeriaSearchCriteria.primerApellido}" id="primerApellido" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
+                            </h:inputText>
+                        </td>
+                        <td>
+                            <h:outputLabel value="Segundo ape:" for="segundoApellido">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{serviciosEnfermeriaSearchCriteria.segundoApellido}" id="segundoApellido" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
+                            </h:inputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Tercer ape:" for="tercerApellido">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{serviciosEnfermeriaSearchCriteria.tercerApellido}" id="tercerApellido" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
+                            </h:inputText>
+                        </td>
+                        <td>
+                            <h:outputLabel value="Estados:" for="estados">
+                            </h:outputLabel>
+                        </td>
+                        <td colspan="3">
+                            <h:selectManyCheckbox value="#{serviciosEnfermeriaSearchCriteria.estados}" id="estados">
+                                <f:selectItem itemLabel="CREADO" itemValue="CREADO" />
+                                <f:selectItem itemLabel="PAGADO" itemValue="PAGADO" />
+                                <f:selectItem itemLabel="APLICADO" itemValue="APLICADO" />
+                            </h:selectManyCheckbox>
+                        </td>
+                    </tr>
+                    <tr>
+                    </tr>
+                    <tr>
+                        <td colspan="4" align="center">
+                            <a4j:commandButton value="Buscar" actionListener="#{frmConsultaTblServiciosEnfermeria.buscar}" render="tblServiciosEnfermeria" type="submit"/>
+                        </td>                        
+                    </tr>
+                </table>
+                <rich:dataTable value="#{serviciosEnfermeriaDataModel}" var="servicio" rows="20" id="tblServiciosEnfermeria">
+                <f:facet name="header">
+                    <rich:columnGroup>
+                      <h:column>
+                        <h:outputText value="Expediente"/>
+                      </h:column>
+                      <h:column>
+                        <h:outputText value="Nombres"/>
+                      </h:column>
+                      <h:column>
+                        <h:outputText value="Primer Apellido"/>
+                      </h:column>   
+                        <h:column>
+                        <h:outputText value="Segundo Apellido"/>
+                       </h:column> 
+                        <h:column>
+                        <h:outputText value="Fecha de Nacimiento"/>
+                      </h:column>
+                      <h:column>
+                        <h:outputText value="Fecha servicio"/>
+                      </h:column>
+                      <h:column>
+                        <h:outputText value="Tipo servicio"/>
+                      </h:column>
+                      <h:column>
+                        <h:outputText value="Estado"/>
+                      </h:column>
+                      <h:column>
+                        <h:outputText value="Ver"/>
+                      </h:column>
+                    </rich:columnGroup>
+                  </f:facet>
+                <h:column>
+                    <h:outputText value="#{servicio.numExpediente}">
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <h:outputText value="#{servicio.expediente.nomPaciente}">
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <h:outputText value="#{servicio.expediente.priApePaciente}">
+                    </h:outputText>
+                </h:column>   
+                <h:column>
+                    <h:outputText value="#{servicio.expediente.secApePaciente}">
+                    </h:outputText>
+                </h:column>   
+                <h:column>
+                    <h:outputText value="#{servicio.expediente.fecNacPaciente}">
+                        <f:convertDateTime pattern="dd/mm/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </h:column>  
+                <h:column>
+                    <h:outputText value="#{servicio.fecSerEnfermeria}">
+                        <f:convertDateTime pattern="dd/mm/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </h:column>  
+                <h:column>
+                    <h:outputText value="#{servicio.tipoServicio.nomSerEnfermeria}">
+                    </h:outputText>
+                </h:column>  
+                <h:column>
+                    <h:outputText value="#{servicio.estSerEnfermeria}">
+                    </h:outputText>
+                </h:column>
+                <h:column> 
+                    <h:outputLink value="frmConsultaViewTblServiciosEnfermeria.jsf">
+                        <f:param name="numSerEnfermeria" value="#{servicio.numSerEnfermeria}"/>
+                        <f:param name="faces-redirect" value="true"/>
+                        <h:graphicImage url="/img/icons/edit.gif"  style="border: 0">
+                        </h:graphicImage>
+                    </h:outputLink>
+                </h:column>   
+            </rich:dataTable>
+      </h:form>
+     </ui:define>
+  </ui:composition>
+</html>
