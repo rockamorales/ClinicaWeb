@@ -153,6 +153,11 @@ public class FrmGenerarConsulta extends PageBase{
            this.addError("Porfavor ingrese el Doctor", "Porfavor ingrese el Doctor");
        }
        
+       if (this.getTblConsultas().getObsCliPaciente() == ""){
+           isValid = false;
+           this.addError("Porfavor ingrese las observaciones", "Porfavor ingrese las observaciones");
+       }
+       
        return isValid;
        }
     
