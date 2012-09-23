@@ -4,24 +4,15 @@
  */
 package sv.com.cormaria.clinica.web.managebeans.archivo;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-import javax.faces.model.SelectItem;
 import org.richfaces.component.UIDataTable;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
 import sv.com.cormaria.clinica.web.managebeans.datamodels.ExpedienteDataModel;
-import sv.com.cormaria.servicios.entidades.administracion.TblMedico;
-import sv.com.cormaria.servicios.entidades.administracion.TblMovimientosExpediente;
 import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
 import sv.com.cormaria.servicios.entidades.archivo.TblTarjetaControlCitas;
-import sv.com.cormaria.servicios.entidades.catalogos.CatEspecialidad;
-import sv.com.cormaria.servicios.entidades.catalogos.CatTipoConsulta;
-import sv.com.cormaria.servicios.entidades.consultasmedicas.TblConsultas;
-import sv.com.cormaria.servicios.facades.administracion.TblMedicoFacadeLocal;
 import sv.com.cormaria.servicios.facades.archivo.TblExpedientePacientesFacadeLocal;
 import sv.com.cormaria.servicios.facades.archivo.TblTarjetaControlCitasFacadeLocal;
 
@@ -47,6 +38,14 @@ public class FrmCrearTarjetaControlCitas extends PageBase{
      * Creates a new instance of FrmGenerarConsulta
      */
     public FrmCrearTarjetaControlCitas() {
+    }
+
+    public TblTarjetaControlCitas getTblTarjeta() {
+        return tblTarjeta;
+    }
+
+    public void setTblTarjeta(TblTarjetaControlCitas tblTarjeta) {
+        this.tblTarjeta = tblTarjeta;
     }
 
     public TblExpedientePacientes getTblExpediente() {
@@ -82,18 +81,19 @@ public class FrmCrearTarjetaControlCitas extends PageBase{
       model.clear();
    }
    
-   public void nuevaConsulta(ActionEvent ae){
+   public void asignarNuevo(ActionEvent ae){
        this.tblExpediente = new TblExpedientePacientes();
+       this.tblTarjeta = new TblTarjetaControlCitas();
    }
    
     public void asignar(ActionEvent ae){
         try{
              tblTarjeta.setNumExpediente(tblExpediente.getNumExpediente());
              tblTarjetaFacadeLocal.create(this.tblTarjeta);
+             this.addInfo("La tarjeta ha sido asignada", "La tarjeta ha sido asignada");
         }catch(Exception x){
             x.printStackTrace();
             this.addError(x.getMessage(), x.getMessage());
         }
-    }
-   
+    }   
 }
