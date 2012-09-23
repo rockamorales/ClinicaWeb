@@ -137,12 +137,12 @@ public class FrmTblMovimientoExpedientePacientes extends PageBase{
           this.addError("Porfavor ingrese o seleccione el número de Expediente de paciente", "Por favor ingrese o seleccione el número de Expediente de paciente");
        } 
        
-       if (this.getTblMovimientosExpediente().getCodTipTransaccion() == -1){
+       if (this.getTblMovimientosExpediente().getCodTipTransaccion() == null || this.getTblMovimientosExpediente().getCodTipTransaccion() == -1){
            isValid = false;
            this.addError("Porfavor seleccione el tipo de movimiento", "Porfavor seleccione el tipo de movimiento");
        }
        
-       if (this.getTblMovimientosExpediente().getCodArea() == null || this.getTblMovimientosExpediente().getCodArea() == -1){
+       if (this.getTblMovimientosExpediente().getCatCodArea() == null || this.getTblMovimientosExpediente().getCatCodArea() == -1){
            isValid = false;
            this.addError("Porfavor ingrese el área destino", "Porfavor ingrese el área destino");
        }
