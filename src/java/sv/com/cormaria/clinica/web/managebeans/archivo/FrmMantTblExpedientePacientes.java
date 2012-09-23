@@ -29,7 +29,9 @@ import sv.com.cormaria.servicios.entidades.catalogos.CatUbicacionFisica;
 import sv.com.cormaria.servicios.entidades.colecturia.TblComprobanteDonacion;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblConsultas;
 import sv.com.cormaria.servicios.entidades.administracion.TblMedico;
+import sv.com.cormaria.servicios.entidades.administracion.TblMovimientosExpediente;
 import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
+import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.archivo.TblExpedientePacientesFacadeLocal;
 import sv.com.cormaria.servicios.facades.archivo.TblTarjetaControlCitasFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatEspecialidadFacadeLocal;
@@ -40,6 +42,8 @@ import sv.com.cormaria.servicios.facades.catalogos.CatParentescoResponsableFacad
 import sv.com.cormaria.servicios.facades.catalogos.CatTipoConsultaFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatUbicacionFisicaFacadeLocal;
 import sv.com.cormaria.servicios.facades.administracion.TblMedicoFacadeLocal;
+import sv.com.cormaria.servicios.facades.administracion.TblMovimientosExpedienteFacadeLocal;
+import sv.com.cormaria.servicios.helpers.ValidationUtils;
 
 /**
  *
@@ -78,6 +82,9 @@ public class FrmMantTblExpedientePacientes extends PageBase {
     
     @EJB
     private TblTarjetaControlCitasFacadeLocal tblTarjetaControlCitasfacade;
+ 
+    @EJB
+    private TblMovimientosExpedienteFacadeLocal tblMovimientosExpediente;
    
     private Integer numExpediente;
     private List<SelectItem> catSexoList = new ArrayList<SelectItem>();
@@ -86,6 +93,7 @@ public class FrmMantTblExpedientePacientes extends PageBase {
     private List<SelectItem> catParentescoResponsableList = new ArrayList<SelectItem>();
     private List<SelectItem> catUbicacionFisicaList = new ArrayList<SelectItem>();
     private List<TblTarjetaControlCitas> tblTarjetaControlCitasList = new ArrayList<TblTarjetaControlCitas>();
+    private List<TblMovimientosExpediente> tblMovimientosExpedienteList = new ArrayList<TblMovimientosExpediente>();
 
     public GenerarConsultaInf getGeneracionConsultaInf() {
         return generacionConsultaInf;
@@ -93,6 +101,21 @@ public class FrmMantTblExpedientePacientes extends PageBase {
 
     public void setGeneracionConsultaInf(GenerarConsultaInf generacionConsultaInf) {
         this.generacionConsultaInf = generacionConsultaInf;
+    }
+
+    public List<TblMovimientosExpediente> getTblMovimientosExpedienteList() {
+        if (tblMovimientosExpedienteList.isEmpty()){
+            try{
+                tblMovimientosExpedienteList = tblMovimientosExpediente.findByNumExpediente(this.getTblExpedientePacientes().getNumExpediente());
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+        }
+        return tblMovimientosExpedienteList;
+    }
+
+    public void setTblMovimientosExpedienteList(List<TblMovimientosExpediente> tblMovimientosExpedienteList) {
+        this.tblMovimientosExpedienteList = tblMovimientosExpedienteList;
     }
     
     public List<TblTarjetaControlCitas> getTblTarjetaControlCitasList() {
@@ -103,7 +126,6 @@ public class FrmMantTblExpedientePacientes extends PageBase {
                 }
                 catch(Exception ex){
                     ex.printStackTrace();
-
                 }
             }
         }
@@ -247,9 +269,28 @@ public class FrmMantTblExpedientePacientes extends PageBase {
             this.addError("Por favor ingrese la fecha de nacimiento del paciente", "Por favor ingrese la fecha de nacimiento del paciente");
             isValid = false;
         }
+        
         if (tblExpedientePacientes.getFecNacPaciente().compareTo(new java.util.Date())>=0){
             this.addError("Fecha invalida: la fecha no puede ser mayor o igual a la fecha actual ", "Fecha invalida: la fecha no puede ser mayor o igual a la fecha actual");
             isValid = false;
+        }
+        if (tblExpedientePacientes.getEdadPaciente() >= 18){
+            if (tblExpedientePacientes.getNumDui()==null || tblExpedientePacientes.getNumDui().trim().equals("")){
+            this.addError("Por favor ingrese el número de DUI del paciente", "Por favor ingrese el número de DUI del paciente");
+            isValid = false;
+            }
+            
+            if (ValidationUtils.validarDUI(tblExpedientePacientes.getNumDui())== false) {
+            this.addError("El número de DUI del paciente NO ES VALIDO", "El número de DUI del paciente NO ES VALIDO");
+            this.addInfo("Ingrese nuevamente el DUI del paciente" , "Ingrese nuevamente el DUI del paciente");
+            isValid = false;
+            }
+        }
+        
+        if (tblExpedientePacientes.getEdadPaciente() < 18){
+            if (tblExpedientePacientes.getNumDui()!=null){
+                      tblExpedientePacientes.setNumDui(null);
+            }
         }
         if (tblExpedientePacientes.getCodOcupacion()<0 ){
             this.addError("Ingrese la ocupacion del paciente ", "Ingrese la ocupacion del paciente");

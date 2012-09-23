@@ -24,6 +24,21 @@
 <h:outputScript name="js/jquery.maskedinput-1.2.2.js" target="head"></h:outputScript>
 <h:outputScript name="js/jquery.tinyscrollbar.min.js" target="head"></h:outputScript>
 <ui:include src="/templates/header.xhtml" />
+<script type="text/javascript" lang="javascript">
+   //<![CDATA[
+    $(".mayuculas").bind('keypress', function (e) { 
+        alert("Here..")
+        if (e.which >= 97) {
+          if (e.which <= 122){
+            var newKey = e.which - 32; 
+            // I have tried setting those 
+            e.keyCode = newKey; 
+            e.charCode = newKey; 
+          }
+        } 
+    });    
+   //]]>
+</script>
 <table class="left_menu" cellpadding="0" cellspacing="0" border="0">
     <tbody>
         <tr>
