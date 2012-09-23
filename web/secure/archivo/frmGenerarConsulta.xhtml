@@ -214,7 +214,8 @@
                 <tr>
                     <td align="left">Observaciones:</td>
                     <td align="left" colspan="3">
-                        <h:inputTextarea value="#{frmGenerarConsulta.tblConsultas.obsCliPaciente}" id="observaciones" rows="2" cols="40">
+                        <h:inputTextarea value="#{frmGenerarConsulta.tblConsultas.obsCliPaciente}" id="observaciones" rows="2" cols="40" >
+                            <f:validateLength maximum="300" ></f:validateLength>
                         </h:inputTextarea>
                     </td>
                 </tr>  
