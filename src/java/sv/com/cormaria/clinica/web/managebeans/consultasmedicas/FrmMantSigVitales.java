@@ -52,8 +52,21 @@ public class FrmMantSigVitales extends PageBase{
         this.tblConsulta = tblConsulta;
     }
     
+   public boolean validar(){
+       boolean isValid = true;
+       if (this.getTblConsulta().getNumConsulta() == null || this.getTblConsulta().getNumConsulta() <= 0){
+          isValid = false;
+          this.addError("Porfavor ingrese o seleccione el número de Expediente de paciente", "Por favor ingrese o seleccione el número de Expediente de paciente");
+       }
+     
+       return isValid;
+   }
+    
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }            
             facade.editSigVitalesInfo(tblConsulta);
             ConsultasPagadasDataModel dataModel = (ConsultasPagadasDataModel) this.getBean("#{consultasPagadasDataModel}", ConsultasPagadasDataModel.class);
             dataModel.clear();

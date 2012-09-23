@@ -8,8 +8,8 @@
       xmlns:a4j="http://richfaces.org/a4j"
       template="/templates/main.xhtml">
         <f:metadata>
-	  <f:viewParam name="numExpediente" value="#{frmMantTblExpedientePacientes.numExpediente}"/>
-	  <f:event listener="#{frmMantTblExpedientePacientes.init}" type="preRenderView"></f:event>
+	  <f:viewParam name="numExpediente" value="#{frmMantEditTblExpedientePacientes.numExpediente}"/>
+	  <f:event listener="#{frmMantEditTblExpedientePacientes.init}" type="preRenderView"></f:event>
 	</f:metadata>
         <ui:define name="title">
           <h:outputText value="#{messages['default.windowTitle']}--Modificacion de expediente" escape="false"></h:outputText>
@@ -82,7 +82,7 @@
                     </tr>
                     <tr>
                         <td colspan="4" align="center">
-                            <a4j:commandButton value="Buscar" actionListener="#{frmMantTblExpedientePacientes.buscar}" render="tblExpedientePacientesTable" type="submit"/>
+                            <a4j:commandButton value="Buscar" actionListener="#{frmMantEditTblExpedientePacientes.buscar}" render="tblExpedientePacientesTable" type="submit"/>
                         </td>                        
                     </tr>
                 </table>
@@ -144,7 +144,7 @@
                   </h:outputText>
                 </h:column>  
                 <h:column> 
-                    <a4j:commandButton image="/img/icons/edit.gif" render="@form, panelMessage" oncomplete="#{rich:component('buscarExpedientePanel')}.hide();" actionListener="#{frmMantTblExpedientePacientes.seleccionar}">
+                    <a4j:commandButton image="/img/icons/edit.gif" render="@form, panelMessage" oncomplete="#{rich:component('buscarExpedientePanel')}.hide();" actionListener="#{frmMantEditTblExpedientePacientes.seleccionar}">
                     </a4j:commandButton>
                 </h:column>   
             </rich:dataTable>
@@ -155,8 +155,8 @@
                 <tr>
                     <td align="left">Código:</td>
                     <td align="left">
-                        <h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.numExpediente}" id="numExpediente" onkeypress="return filterInput(1, event, false, '');">
-                            <a4j:ajax event="change" listener="#{frmMantTblExpedientePacientes.searchExpedienteByNum}" render="@form,panelMessage"/>
+                        <h:inputText value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.numExpediente}" id="numExpediente" onkeypress="return filterInput(1, event, false, '');">
+                            <a4j:ajax event="change" listener="#{frmMantEditTblExpedientePacientes.searchExpedienteByNum}" render="@form,panelMessage"/>
                         </h:inputText>
                         <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                         <a4j:commandButton value="..." onclick="#{rich:component('buscarExpedientePanel')}.show(); return false;">
@@ -164,57 +164,59 @@
                     </td>
                     <td align="left">Fecha de Registro:</td>
                     <td align="left">
-                        <h:outputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.fecRegExpediente}"/>
+                        <h:outputText value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.fecRegExpediente}"/>
                     </td>
                 </tr>
                 <tr>
                     <td align="left">Nombre del Paciente:</td>
                     <td align="left">
-                        <h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.nomPaciente}" size="30" maxlength ="30" onkeypress="return filterInput(0, event, false, ' ');"/>
+                        <h:inputText value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.nomPaciente}" size="30" maxlength ="30" onkeypress="return filterInput(0, event, false, ' ');"/>
                         <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                     </td>
                     <td align="left">Primer Apellido:</td>
                     <td align="left">
-                        <h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.priApePaciente}" maxlength ="15" onkeypress="return filterInput(0, event, false, ' ');"/>
+                        <h:inputText value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.priApePaciente}" maxlength ="15" onkeypress="return filterInput(0, event, false, ' ');"/>
                         <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                     </td>
                 </tr>
                 <tr>
                     <td align="left">Segundo Apellido:</td>
                     <td align="left">
-                        <h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.secApePaciente}" maxlength ="15" onkeypress="return filterInput(0, event, false, ' ');"/>
+                        <h:inputText value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.secApePaciente}" maxlength ="15" onkeypress="return filterInput(0, event, false, ' ');"/>
                     </td>
                     <td align="left">
                         <h:outputText value="Tercer Apellido:" id="terApePacienteLabel">
                         </h:outputText>
                     </td>
                     <td align="left">
-                        <h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.terApePaciente}" id="terApePaciente" maxlength ="15" onkeypress="return filterInput(0, event, false, ' ');"/>
+                        <h:inputText value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.terApePaciente}" id="terApePaciente" maxlength ="15" onkeypress="return filterInput(0, event, false, ' ');"/>
                     </td>
                 </tr>
                 <tr>
                     <td align="left">Fecha de Nacimiento:</td>
                     <td align="left">
-                        <rich:calendar value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.fecNacPaciente}" datePattern="dd/MM/yyyy" enableManualInput="true"/>
+                        <rich:calendar value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.fecNacPaciente}" datePattern="dd/MM/yyyy" enableManualInput="true"/>
                         <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                     </td>
                     <td align="left">Edad del Paciente:</td>
                     <td align="left">
-                        <h:outputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.edadPaciente}"/>
+                        <h:outputText value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.edadPaciente}"/>
                     </td>
                 </tr>
                 <tr>
                     <td align="left">Ocupacion:</td>
                     <td align="left">
-                        <h:selectOneMenu value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.codOcupacion}">
-                             <f:selectItems value="#{frmMantTblExpedientePacientes.catOcupacionList}"/>
+                        <h:selectOneMenu value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.codOcupacion}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue="-1" ></f:selectItem>
+                             <f:selectItems value="#{frmMantEditTblExpedientePacientes.catOcupacionList}"/>
                         </h:selectOneMenu>
                         <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                     </td>
                     <td align="left">Sexo:</td>
                     <td align="left">
-                        <h:selectOneMenu id="codSexPaciente" value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.codSexPaciente}">
-                            <f:selectItems value="#{frmMantTblExpedientePacientes.catSexoList}"/>
+                        <h:selectOneMenu id="codSexPaciente" value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.codSexPaciente}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue="-1" ></f:selectItem>
+                            <f:selectItems value="#{frmMantEditTblExpedientePacientes.catSexoList}"/>
                         </h:selectOneMenu>
                         <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                     </td>
@@ -222,18 +224,19 @@
                  <tr>
                         <td align="left">Estado Civil:</td>
                         <td align="left">
-                            <h:selectOneMenu id="codEstCivil" value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.codEstCivil}" >
-                                <f:selectItems value="#{frmMantTblExpedientePacientes.catEstadoCivilList}"/>
+                            <h:selectOneMenu id="codEstCivil" value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.codEstCivil}" >
+                                <f:selectItem itemLabel="Seleccionar" itemValue="-1" ></f:selectItem>
+                                <f:selectItems value="#{frmMantEditTblExpedientePacientes.catEstadoCivilList}"/>
                             </h:selectOneMenu>
                             <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                         </td>
                         <td align="left">Numero de Dui:</td>
-                        <td align="left"><h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.numDui}" size="9" maxlength ="9" onkeypress="return filterInput(1, event, false, '');"/></td>
+                        <td align="left"><h:inputText value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.numDui}" size="9" maxlength ="9" onkeypress="return filterInput(1, event, false, '');"/></td>
                  </tr>
                  <tr>
                         <td align="left">Dirección del Paciente:</td>
                         <td colspan="3" align="left">
-                            <h:inputTextarea value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.dirPaciente}" rows="2" cols="100" onkeypress="return filterInput(2, event, false, '.,#/ °- ');">
+                            <h:inputTextarea value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.dirPaciente}" rows="2" cols="100" onkeypress="return filterInput(2, event, false, '.,#/ °- ');">
                                 <f:validateLength maximum="250" ></f:validateLength>
                             </h:inputTextarea>
                             <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
@@ -242,38 +245,39 @@
                  <tr>
                         <td align="left">Lugar de Procedencia del Paciente:</td>
                         <td align="left">
-                            <h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.lugProcPaciente}" size="30" maxlength ="30" onkeypress="return filterInput(0, event, false, ' ');">
+                            <h:inputText value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.lugProcPaciente}" size="30" maxlength ="30" onkeypress="return filterInput(0, event, false, ' ');">
                             </h:inputText>
                             <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                         </td>
                         <td align="left">Telefono del Paciente:</td>
-                        <td align="left"><h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.telPaciente}" size="8" maxlength ="8" onkeypress="return filterInput(1, event, false, '');"/></td>
+                        <td align="left"><h:inputText value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.telPaciente}" size="8" maxlength ="8" onkeypress="return filterInput(1, event, false, '');"/></td>
                  </tr>
                  <tr>
                         <td align="left">Nombre del Padre:</td>
                         <td colspan="3" align="left">
-                            <h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.nomPadPaciente}" size="100" maxlength ="100" onkeypress="return filterInput(0, event, false, ' ');"/>
+                            <h:inputText value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.nomPadPaciente}" size="100" maxlength ="100" onkeypress="return filterInput(0, event, false, ' ');"/>
                         </td>
                  </tr>
                  <tr>
                         <td align="left">Nombre de la Madre:</td>
                         <td colspan="3" align="left">
-                            <h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.nomMadPaciente}" size="100" maxlength ="100" onkeypress="return filterInput(0, event, false, ' ');"/>
+                            <h:inputText value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.nomMadPaciente}" size="100" maxlength ="100" onkeypress="return filterInput(0, event, false, ' ');"/>
                         </td>
                  </tr>
                  <tr> 
                      <td align="left"><h:outputText id="nomConPacienteLabel" value="Nombre de Conyuge de Paciente:"></h:outputText></td>
-                     <td colspan="3" align="left"><h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.nomConPaciente}" id="nomConPaciente" size="100" maxlength ="100" onkeypress="return filterInput(0, event, false, ' ');"/></td>
+                     <td colspan="3" align="left"><h:inputText value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.nomConPaciente}" id="nomConPaciente" size="100" maxlength ="100" onkeypress="return filterInput(0, event, false, ' ');"/></td>
                  </tr>
                  <tr>
                         <td align="left">Nombre del Responsable del Paciente:</td>
-                        <td align="left"><h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.nomResPaciente}" size="30" maxlength ="30" onkeypress="return filterInput(0, event, false, ' ');" />
+                        <td align="left"><h:inputText value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.nomResPaciente}" size="30" maxlength ="30" onkeypress="return filterInput(0, event, false, ' ');" />
                         <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                         </td>
                         <td align="left">Parentesco del Resp.:</td>
                         <td align="left">
-                            <h:selectOneMenu value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.codParResponsable}"  >
-                                <f:selectItems value="#{frmMantTblExpedientePacientes.catParentescoResponsableList}"/>                 
+                            <h:selectOneMenu value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.codParResponsable}"  >
+                                <f:selectItem itemLabel="Seleccionar" itemValue="-1" ></f:selectItem>
+                                <f:selectItems value="#{frmMantEditTblExpedientePacientes.catParentescoResponsableList}"/>                 
                             </h:selectOneMenu>
                             <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                         </td>                    
@@ -281,27 +285,28 @@
                  <tr>
                         <td align="left">Direccion del Responsable del Paciente:</td>
                         <td align="left">
-                            <h:inputTextarea value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.dirResPaciente}" rows="2" onkeypress="return filterInput(1, event, false, '.,#/ °- ');">
+                            <h:inputTextarea value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.dirResPaciente}" rows="2" onkeypress="return filterInput(1, event, false, '.,#/ °- ');">
                                 <f:validateLength maximum="250"/>
                             </h:inputTextarea>
                         </td>
                         <td align="left">Telefono del Resp. del Paciente:</td>
                         <td align="left">
-                            <h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.telResPaciente}" size="8" maxlength ="8" onkeypress="return filterInput(1, event, false, '');" />
+                            <h:inputText value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.telResPaciente}" size="8" maxlength ="8" onkeypress="return filterInput(1, event, false, '');" />
                         </td>
                  </tr>
                  <tr>
                         <td align="left">Estado:</td>
                         <td align="left">
-                            <h:selectOneMenu value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.estPaciente}" >
+                            <h:selectOneMenu value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.estPaciente}" >
                                 <f:selectItem itemValue="ACTIVO" itemLabel="Activo"/>
                                 <f:selectItem itemValue="INACTIVO" itemLabel="Inactivo"/>
                             </h:selectOneMenu>
                         </td>
                         <td align="left">Ubicacion Exp.:</td>
                         <td align="left">
-                            <h:selectOneMenu value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.codUbiFisica}" >
-                               <f:selectItems value="#{frmMantTblExpedientePacientes.catUbicacionFisicaList}"/>                 
+                            <h:selectOneMenu value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.codUbiFisica}" >
+                                <f:selectItem itemLabel="Seleccionar" itemValue="-1" ></f:selectItem>
+                               <f:selectItems value="#{frmMantEditTblExpedientePacientes.catUbicacionFisicaList}"/>                 
                             </h:selectOneMenu>
                             <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                         </td>
@@ -309,20 +314,20 @@
                   <tr>
                         <td align="left">Enfermedades cronicas:</td>
                         <td align="left">
-                            <h:inputTextarea value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.enfCroPaciente}" rows="2" onkeypress="return filterInput(2, event, false, ' ');">
+                            <h:inputTextarea value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.enfCroPaciente}" rows="2" onkeypress="return filterInput(2, event, false, ' ');">
                                 <f:validateLength maximum="300" ></f:validateLength>
                             </h:inputTextarea>
                         </td>
                         <td align="left">Alergias:</td>
                         <td align="left">
-                            <h:inputTextarea value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.alePaciente}" rows="2" onkeypress="return filterInput(2, event, false, ' ');">
+                            <h:inputTextarea value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.alePaciente}" rows="2" onkeypress="return filterInput(2, event, false, ' ');">
                                 <f:validateLength maximum="300" ></f:validateLength>
                             </h:inputTextarea>
                         </td>
                   </tr>
                   <tr>
                       <td colspan="4" align="center">
-                          <a4j:commandButton value="Guardar" actionListener="#{frmMantTblExpedientePacientes.guardar}" render="@form, panelMessage" />
+                          <a4j:commandButton value="Guardar" actionListener="#{frmMantEditTblExpedientePacientes.guardar}" render="@form, panelMessage" />
                       </td>
                   </tr>
               </table>
