@@ -86,8 +86,31 @@ public class FrmCrearTarjetaControlCitas extends PageBase{
        this.tblTarjeta = new TblTarjetaControlCitas();
    }
    
+   
+      public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getTblExpediente().getNumExpediente() == null || this.getTblExpediente().getNumExpediente() <= 0){
+          isValid = false;
+          this.addError("Porfavor ingrese o seleccione el número de Expediente de paciente", "Por favor ingrese o seleccione el número de Expediente de paciente");
+       } 
+       
+       if (this.getTblTarjeta().getNumTarjeta() == null || this.getTblTarjeta().getNumTarjeta() <= 0){
+          isValid = false;
+          this.addError("Porfavor ingrese el número de tarjeta", "Porfavor ingrese el número de tarjeta");
+      }
+       
+       return isValid;
+     
+   }
+   
+   
     public void asignar(ActionEvent ae){
         try{
+            
+             if (!validar()){
+               return;
+             }            
              tblTarjeta.setNumExpediente(tblExpediente.getNumExpediente());
              tblTarjetaFacadeLocal.create(this.tblTarjeta);
              this.addInfo("La tarjeta ha sido asignada", "La tarjeta ha sido asignada");
