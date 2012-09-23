@@ -42,6 +42,7 @@ import sv.com.cormaria.servicios.facades.catalogos.CatParentescoResponsableFacad
 import sv.com.cormaria.servicios.facades.catalogos.CatTipoConsultaFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatUbicacionFisicaFacadeLocal;
 import sv.com.cormaria.servicios.facades.administracion.TblMedicoFacadeLocal;
+import sv.com.cormaria.servicios.facades.administracion.TblMovimientosExpedienteFacadeLocal;
 import sv.com.cormaria.servicios.helpers.ValidationUtils;
 
 /**
