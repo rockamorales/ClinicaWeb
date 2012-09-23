@@ -29,7 +29,9 @@ import sv.com.cormaria.servicios.entidades.catalogos.CatUbicacionFisica;
 import sv.com.cormaria.servicios.entidades.colecturia.TblComprobanteDonacion;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblConsultas;
 import sv.com.cormaria.servicios.entidades.administracion.TblMedico;
+import sv.com.cormaria.servicios.entidades.administracion.TblMovimientosExpediente;
 import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
+import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.archivo.TblExpedientePacientesFacadeLocal;
 import sv.com.cormaria.servicios.facades.archivo.TblTarjetaControlCitasFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatEspecialidadFacadeLocal;
@@ -40,6 +42,7 @@ import sv.com.cormaria.servicios.facades.catalogos.CatParentescoResponsableFacad
 import sv.com.cormaria.servicios.facades.catalogos.CatTipoConsultaFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatUbicacionFisicaFacadeLocal;
 import sv.com.cormaria.servicios.facades.administracion.TblMedicoFacadeLocal;
+import sv.com.cormaria.servicios.facades.administracion.TblMovimientosExpedienteFacadeLocal;
 
 /**
  *
@@ -78,6 +81,9 @@ public class FrmMantTblExpedientePacientes extends PageBase {
     
     @EJB
     private TblTarjetaControlCitasFacadeLocal tblTarjetaControlCitasfacade;
+ 
+    @EJB
+    private TblMovimientosExpedienteFacadeLocal tblMovimientosExpediente;
    
     private Integer numExpediente;
     private List<SelectItem> catSexoList = new ArrayList<SelectItem>();
@@ -86,6 +92,7 @@ public class FrmMantTblExpedientePacientes extends PageBase {
     private List<SelectItem> catParentescoResponsableList = new ArrayList<SelectItem>();
     private List<SelectItem> catUbicacionFisicaList = new ArrayList<SelectItem>();
     private List<TblTarjetaControlCitas> tblTarjetaControlCitasList = new ArrayList<TblTarjetaControlCitas>();
+    private List<TblMovimientosExpediente> tblMovimientosExpedienteList = new ArrayList<TblMovimientosExpediente>();
 
     public GenerarConsultaInf getGeneracionConsultaInf() {
         return generacionConsultaInf;
@@ -93,6 +100,21 @@ public class FrmMantTblExpedientePacientes extends PageBase {
 
     public void setGeneracionConsultaInf(GenerarConsultaInf generacionConsultaInf) {
         this.generacionConsultaInf = generacionConsultaInf;
+    }
+
+    public List<TblMovimientosExpediente> getTblMovimientosExpedienteList() {
+        if (tblMovimientosExpedienteList.isEmpty()){
+            try{
+                tblMovimientosExpedienteList = tblMovimientosExpediente.findByNumExpediente(this.getTblExpedientePacientes().getNumExpediente());
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+        }
+        return tblMovimientosExpedienteList;
+    }
+
+    public void setTblMovimientosExpedienteList(List<TblMovimientosExpediente> tblMovimientosExpedienteList) {
+        this.tblMovimientosExpedienteList = tblMovimientosExpedienteList;
     }
     
     public List<TblTarjetaControlCitas> getTblTarjetaControlCitasList() {
@@ -103,7 +125,6 @@ public class FrmMantTblExpedientePacientes extends PageBase {
                 }
                 catch(Exception ex){
                     ex.printStackTrace();
-
                 }
             }
         }

@@ -123,38 +123,45 @@
                   </table>
                </rich:tab>
                <rich:tab header="Historial de movimientos">
-                    <rich:dataTable value="#{frmMantTblExpedientePacientes.tblMovimientosExpedienteList}" var="tblTarjetaCitas" rows="10" id="tblDetalleComprobanteDonacionTable">
+                    <rich:dataTable value="#{frmMantTblExpedientePacientes.tblMovimientosExpedienteList}" var="tblMovimiento" rows="10">
                         <f:facet name="header">
                             <rich:columnGroup>
                               <h:column>
-                                <h:outputText value="No. Tarjeta"/>
+                                <h:outputText value="Origen"/>
                               </h:column>
                               <h:column>
-                                <h:outputText value="Fecha de Expedicion"/>
+                                <h:outputText value="Destino"/>
                               </h:column>
                               <h:column>
-                                <h:outputText value="Activo?"/>
+                                <h:outputText value="Tipo mov."/>
                               </h:column>
                               <h:column>
-                                <h:outputText value="Pagado?"/>
+                                <h:outputText value="Fecha mov."/>
+                              </h:column>
+                              <h:column>
+                                <h:outputText value="Registrado por"/>
                               </h:column>
                             </rich:columnGroup>
                       </f:facet>
                       <h:column>
-                         <h:outputText value="#{tblTarjetaCitas.numTarjeta}">   
+                          <h:outputText value="#{tblMovimiento.catAreaOrigen.nomArea}">   
                          </h:outputText>
                       </h:column>
                       <h:column>
-                          <h:outputText value="#{tblTarjetaCitas.fecExpTarjeta}">
-                              <f:convertDateTime pattern="dd/MM/yyyy"/>
+                          <h:outputText value="#{tblMovimiento.catAreaDestino.nomArea}">
                           </h:outputText>
                       </h:column>     
                       <h:column>
-                          <h:outputText value="#{tblTarjetaCitas.actTarjeta}">
+                          <h:outputText value="#{tblMovimiento.tipTransaccion.nomTipTransaccion}">
                          </h:outputText>
                       </h:column>
                       <h:column>
-                          <h:outputText value="#{tblTarjetaCitas.estTarjeta}">
+                          <h:outputText value="#{tblMovimiento.fecTransaccion}">
+                              <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                         </h:outputText>
+                      </h:column>     
+                      <h:column>
+                          <h:outputText value="#{tblMovimiento.registradoPor.nomEmpleado} #{tblMovimiento.registradoPor.priApeEmpleado} #{tblMovimiento.registradoPor.secApeEmpleado} #{tblMovimiento.registradoPor.terApeEmpleado}">
                          </h:outputText>
                       </h:column>     
                   </rich:dataTable>                   
@@ -183,7 +190,7 @@
                       </h:column>
                       <h:column>
                           <h:outputText value="#{tblTarjetaCitas.fecExpTarjeta}">
-                              <f:convertDateTime pattern="dd/MM/yyyy"/>
+                              <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
                           </h:outputText>
                       </h:column>     
                       <h:column>

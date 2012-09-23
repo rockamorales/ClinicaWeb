@@ -11,6 +11,10 @@
    Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 */
 
+.mayusculas{
+    text-transform: uppercase;
+}
+
 .rich-mpnl-controls {
 	z-index: 1;
 }
