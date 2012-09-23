@@ -193,12 +193,14 @@
                     <td align="left">Tipo mov:</td>
                     <td align="left">
                         <h:selectOneMenu value="#{frmTblMovimientoExpedientePacientes.tblMovimientosExpediente.codTipTransaccion}" id="codTipTransaccion">
+                            <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem>                            
                             <f:selectItems value="#{frmTblMovimientoExpedientePacientes.tipoTransaccionList}" var="tipo" itemLabel="#{tipo.nomTipTransaccion}" itemValue="#{tipo.codTipTransaccion}"/>
                         </h:selectOneMenu>
                     </td>
                     <td align="left">Destino:</td>
                     <td align="left">
                         <h:selectOneMenu value="#{frmTblMovimientoExpedientePacientes.tblMovimientosExpediente.catCodArea}" id="catCodArea">
+                            <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem>
                             <f:selectItems value="#{frmTblMovimientoExpedientePacientes.areasList}" var="area" itemLabel="#{area.nomArea}" itemValue="#{area.codArea}"/>
                         </h:selectOneMenu>
                     </td>

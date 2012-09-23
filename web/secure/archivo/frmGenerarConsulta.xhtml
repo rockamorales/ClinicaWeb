@@ -190,12 +190,14 @@
                     <td align="left">Tipo consulta:</td>
                     <td align="left">
                         <h:selectOneMenu value="#{frmGenerarConsulta.tblConsultas.codTipConsulta}" id="codTipConsulta">
+                            <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem>
                             <f:selectItems value="#{frmGenerarConsulta.catTipoConsultaList}"/>
                         </h:selectOneMenu>
                     </td>
                     <td align="left">Especialidad:</td>
                     <td align="left">
                         <h:selectOneMenu value="#{frmGenerarConsulta.tblConsultas.codEspecialidad}" id="codEspecialidad">
+                            <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem>
                             <f:selectItems value="#{frmGenerarConsulta.catEspecialidadList}"/>
                         </h:selectOneMenu>
                     </td>                    
@@ -204,6 +206,7 @@
                     <td align="left">Dr:</td>
                     <td colspan="3" align="left">
                         <h:selectOneMenu value="#{frmGenerarConsulta.tblConsultas.numMedico}" id="numMedico">
+                            <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem>
                             <f:selectItems value="#{frmGenerarConsulta.tblMedicosList}" var="medico" itemLabel="#{medico.nomMedico} #{medico.priApeMedico} #{medico.secApeMedico} #{medico.terApeMedico}" itemValue="#{medico.numMedico}" />
                         </h:selectOneMenu>
                     </td>
