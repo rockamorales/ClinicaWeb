@@ -47,14 +47,14 @@ import sv.com.cormaria.servicios.facades.administracion.TblMedicoFacadeLocal;
  */
 @ManagedBean
 @ViewScoped
-public class FrmMantTblExpedientePacientes extends PageBase {
+public class FrmMantEditTblExpedientePacientes extends PageBase {
     private TblExpedientePacientes tblExpedientePacientes = new TblExpedientePacientes();
 
     @ManagedProperty(value="#{generarConsultaInf}")
     private GenerarConsultaInf generacionConsultaInf;
 
-    /** Creates a new instance of frmMantTblExpedientePacientes */
-    public FrmMantTblExpedientePacientes() {
+    /** Creates a new instance of frmMantEditTblExpedientePacientes */
+    public FrmMantEditTblExpedientePacientes() {
     }
     
     @EJB
@@ -275,7 +275,9 @@ public class FrmMantTblExpedientePacientes extends PageBase {
         if (tblExpedientePacientes.getCodParResponsable()<0 ) {
             this.addError("Ingrese el Parentesco del Responsable del paciente ", "Ingrese el Parentesco del Responsable del paciente ");
             isValid = false;
-        }         
+        }  
+       
+        
         if (tblExpedientePacientes.getDirPaciente()==null || tblExpedientePacientes.getDirPaciente().trim().equals("")){
             this.addError("Ingrese la dirección del paciente ", "Ingrese la dirección del paciente");
             isValid = false;
@@ -346,7 +348,7 @@ public class FrmMantTblExpedientePacientes extends PageBase {
       try{
           this.tblExpedientePacientes = facade.find(this.tblExpedientePacientes.getNumExpediente());
           if (this.tblExpedientePacientes==null){
-              this.addError("No se encontro informacion para el numero de expediente", "No se encontro informacion para el numero de expediente");
+              this.addError("No se encontro información para el número de expediente", "No se encontro información para el número de expediente");
           }
       }catch(Exception ex){
           this.addError(ex.getMessage(), ex.getMessage());
