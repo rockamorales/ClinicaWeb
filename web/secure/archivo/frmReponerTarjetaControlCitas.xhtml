@@ -151,9 +151,10 @@
                 <tr>
                     <td align="left">Expediente:</td>
                     <td align="left" colspan="3">
-                        <h:inputText value="#{frmCrearTarjetaControlCitas.tblExpediente.numExpediente}" id="numExpediente">
+                        <h:inputText value="#{frmCrearTarjetaControlCitas.tblExpediente.numExpediente}" id="numExpediente" maxlength="11" onkeypress="return filterInput(1, event, false, '');">
                             <a4j:ajax event="change" listener="#{frmCrearTarjetaControlCitas.searchExpedienteByNum}" render="@form"/>
                         </h:inputText>
+                        <h:outputLabel value="*" style="color:red;font-weight: bold;"/>                        
                         <a4j:commandButton value="..." onclick="#{rich:component('buscarExpedientePanel')}.show(); return false;">
                         </a4j:commandButton>
                     </td>
@@ -183,7 +184,8 @@
                 <tr>
                     <td align="left"># de Tarjeta:</td>
                     <td align="left" colspan="3">
-                        <h:inputText value="#{frmCrearTarjetaControlCitas.tblTarjeta.numTarjeta}" size="10" />
+                        <h:inputText value="#{frmCrearTarjetaControlCitas.tblTarjeta.numTarjeta}" size="10" maxlength="11" onkeypress="return filterInput(1, event, false, '');"/>
+                        <h:outputLabel value="*" style="color:red;font-weight: bold;"/>                        
                     </td>
                 </tr>
                 <tr>
