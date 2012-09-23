@@ -151,13 +151,14 @@
                 <tr>
                     <td align="left">Expediente:</td>
                     <td align="left">
-                        <h:inputText value="#{frmTblCrearServiciosEnfermeria.tblExpediente.numExpediente}" id="numExpediente">
+                        <h:inputText value="#{frmTblCrearServiciosEnfermeria.tblExpediente.numExpediente}" id="numExpediente" maxlength="11" onkeypress="return filterInput(1, event, false, '');">
                             <a4j:ajax event="change" listener="#{frmTblCrearServiciosEnfermeria.searchExpedienteByNum}" render="@form"/>
                         </h:inputText>
+                        <h:outputLabel value="*" style="color:red;font-weight: bold;"/>                        
                         <a4j:commandButton value="..." onclick="#{rich:component('buscarExpedientePanel')}.show(); return false;">
                         </a4j:commandButton>
                     </td>
-                    <td align="left"># Consulta:</td>
+                    <td align="left">Número de Servicio:</td>
                     <td align="left">
                         <h:outputText value="#{frmTblCrearServiciosEnfermeria.tblServiciosEnfermeria.numSerEnfermeria}" id="numSerEnfermeria">
                         </h:outputText>
@@ -189,8 +190,10 @@
                     <td align="left">Tipo consulta:</td>
                     <td align="left">
                         <h:selectOneMenu value="#{frmTblCrearServiciosEnfermeria.tblServiciosEnfermeria.codServEnfermeria}" id="codServEnfermeria">
+                            <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem>                             
                             <f:selectItems value="#{frmTblCrearServiciosEnfermeria.tipoServiciosList}" var="tipoServicio" itemLabel="#{tipoServicio.nomSerEnfermeria}" itemValue="#{tipoServicio.codSerEnfermeria}"/>
                         </h:selectOneMenu>
+                        <h:outputLabel value="*" style="color:red;font-weight: bold;"/>                        
                     </td>
                     <td align="left">Fecha:</td>
                     <td align="left">
@@ -199,20 +202,26 @@
                         </h:outputText>
                     </td>                    
                 </tr> 
+                  <!--
                 <tr>
                     <td align="left">Medicamentos Aplicados:</td>
                     <td colspan="3" align="left">
                         <h:inputTextarea value="#{frmTblCrearServiciosEnfermeria.tblServiciosEnfermeria.medAplicados}" id="medAplicados" rows="3" cols="70">
+                            <f:validateLength maximum="300" ></f:validateLength>                            
                         </h:inputTextarea>
+                        <h:outputLabel value="*" style="color:red;font-weight: bold;"/>                        
                     </td>
                 </tr>
                 <tr>
                     <td align="left">Observaciones:</td>
-                    <td colspan="3" align="left">
+                    <td colspan="3" align="left" valign="top" >
                         <h:inputTextarea value="#{frmTblCrearServiciosEnfermeria.tblServiciosEnfermeria.obsSerEnfermeria}" id="obsSerEnfermeria" rows="3" cols="70">
+                            <f:validateLength maximum="300" ></f:validateLength>                             
                         </h:inputTextarea>
+                        <h:outputLabel value="*" style="color:red;font-weight: bold;"/>                        
                     </td>
-                </tr>  
+                </tr> 
+                  -->
                 <tr>
                   <td colspan="4" align="center">
                       <a4j:commandButton value="Crear servicio" actionListener="#{frmTblCrearServiciosEnfermeria.crearServiciosEnfermeria}" render="@form, panelMessage"/>
