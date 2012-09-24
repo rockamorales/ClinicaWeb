@@ -10,7 +10,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import sv.com.cormaria.clinica.web.managebeans.dataproviders.ClinicaDataProvider;
 import sv.com.cormaria.servicios.entidades.archivo.TblServiciosEnfermeria;
-import sv.com.cormaria.servicios.exceptions.ClinicaModelValidationException;
 
 /**
  *
@@ -18,15 +17,17 @@ import sv.com.cormaria.servicios.exceptions.ClinicaModelValidationException;
  */
 @ManagedBean
 @ViewScoped
-public class ServiciosEnfermeriaDataModel extends ClinicaDataModel<TblServiciosEnfermeria, Integer> {
+public class ServiciosEnfermeriaPagadosDataModel extends ClinicaDataModel<TblServiciosEnfermeria, Integer> {
 
-    @ManagedProperty(value="#{serviciosEnfermeriaDataProvider}")
+    @ManagedProperty(value="#{serviciosEnfermeriaPagadosDataProvider}")
     ClinicaDataProvider<TblServiciosEnfermeria, Integer> dataProvider;
     
+    @Override
     public ClinicaDataProvider<TblServiciosEnfermeria, Integer> getDataProvider() {
         return dataProvider;
     }
 
+    @Override
     public void setDataProvider(ClinicaDataProvider<TblServiciosEnfermeria, Integer> dataProvider) {
         this.dataProvider = dataProvider;
     }

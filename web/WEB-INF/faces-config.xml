@@ -38,7 +38,20 @@
       </list-entries>
   </managed-property>
  </managed-bean>
- 
+ <managed-bean>
+  <managed-bean-name>serviciosEnfermeriaPagadosSearchCriteria</managed-bean-name>
+  <managed-bean-class>sv.com.cormaria.servicios.criteria.ServiciosEnfermeriaSearchCriteria</managed-bean-class>
+  <managed-bean-scope>view</managed-bean-scope>
+  <managed-property>
+      <display-name>estados</display-name>
+      <property-name>estados</property-name>
+      <property-class>java.util.List</property-class>
+      <list-entries>
+          <value>PAGADO</value>
+          <value-class>java.lang.String</value-class>
+      </list-entries>
+  </managed-property>
+ </managed-bean> 
  <managed-bean>
     <managed-bean-name>serviciosEnfermeriaSearchCriteria</managed-bean-name>
     <managed-bean-class>sv.com.cormaria.servicios.criteria.ServiciosEnfermeriaSearchCriteria</managed-bean-class>

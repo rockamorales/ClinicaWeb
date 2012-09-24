@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <ui:composition template="/templates/main.xhtml">
+        <ui:define name="title">
+          <h:outputText value="#{messages['default.windowTitle']}--Atencion de servicios de enfermeria" escape="false"></h:outputText>  
+        </ui:define>
+        <ui:define name="body">
+            <style>
+                .label {         
+                    font-weight: bold;         
+                }         
+                .rf-dg, .rf-dg-c{
+                    border:none;
+                    border-radius: 5px;
+                }         
+                .pbody {         
+                    width: 200px;
+                    border-radius: 5px;
+                } 
+            </style>
+            <h3>Atencion de servicios de enfermeria</h3>
+            <hr></hr>
+            <h:form id="form">
+                <a4j:poll id="poll" interval="5000" enabled="true" render="serviciosEnfermeriaGrid" actionListener="#{frmAtencionServiciosEnfermeria.clear}" />
+            <table>
+                <tr>
+                  <td style="border-right:#000 solid thin;" valign="top">
+                    <table>
+                         <tr>
+                             <td align="left">Número de Expediente:</td>
+                            <td align="left">
+                                <h:outputText value="#{frmAtencionServiciosEnfermeria.tblServicioEnfermeria.numExpediente}" style="font-weight: bold"/>
+                            </td>
+                            <td align="left">Nombre del Paciente:</td>
+                            <td align="left">
+                                <h:outputText value="#{frmAtencionServiciosEnfermeria.tblServicioEnfermeria.expediente.nomPaciente} #{frmAtencionServiciosEnfermeria.tblServicioEnfermeria.expediente.priApePaciente} #{frmAtencionServiciosEnfermeria.tblServicioEnfermeria.expediente.secApePaciente} #{frmAtencionServiciosEnfermeria.tblServicioEnfermeria.expediente.terApePaciente}" style="font-weight: bold"/>
+                            </td>
+                        </tr> 
+                        <tr>
+                            <td align="left">Numero de servicio:</td>
+                            <td align="left">
+                                <h:outputText value="#{frmAtencionServiciosEnfermeria.tblServicioEnfermeria.numSerEnfermeria}" style="font-weight: bold"/>
+                            </td>
+                            <td align="left">Fecha de registro:</td>
+                            <td align="left">
+                                <h:outputText value="#{frmAtencionServiciosEnfermeria.tblServicioEnfermeria.fecSerEnfermeria}">
+                                </h:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">Tipo consulta</td>
+                            <td align="left">
+                                <h:outputText value="#{frmAtencionServiciosEnfermeria.tblServicioEnfermeria.tipoServicio.nomSerEnfermeria}"/>
+                            </td>
+                            <td align="left">Estado:</td>
+                            <td align="left">
+                                <h:outputText value="#{frmAtencionServiciosEnfermeria.tblServicioEnfermeria.estSerEnfermeria}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">Medicamentos aplicados:</td>
+                            <td align="left" colspan="3">
+                                <h:inputTextarea value="#{frmAtencionServiciosEnfermeria.tblServicioEnfermeria.medAplicados}"  cols="50" rows="3">
+                                </h:inputTextarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">Observaciones:</td>
+                            <td align="left" colspan="3">
+                                <h:inputTextarea value="#{frmAtencionServiciosEnfermeria.tblServicioEnfermeria.obsSerEnfermeria}" cols="50" rows="3">
+                                </h:inputTextarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" align="center">
+                                <a4j:commandButton value="Guardar" actionListener="#{frmAtencionServiciosEnfermeria.guardar}" render="@form, panelMessage" onclick="if(!confirm('Al guardar, el sistema le cambiara el estado al servicio y ya no podra modificarlo nuevamente. Esta seguro(a) que desea guardar la informacion?')){return false;} return true;"/>
+                                <a4j:commandButton value="Cancelar"/>
+                            </td>
+                        </tr>
+                      </table>
+                    </td>
+                    <td valign="top">
+                        <rich:dataGrid value="#{serviciosEnfermeriaPagadosDataModel}" var="servicio" columns="1" elements="10" id="serviciosEnfermeriaGrid">
+                            <table cellpadding="0" cellspacing="4">
+                                    <tr>
+                                     <td colspan="2">
+                                          <h:outputText value="#{servicio.expediente.nomPaciente} #{servicio.expediente.priApePaciente} #{servicio.expediente.secApePaciente} #{servicio.expediente.terApePaciente}" style="font-weight: bold;"/>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <h:outputText value="#{servicio.tipoServicio.nomSerEnfermeria}"/>
+                                      </td>
+                                      <td>
+                                        <h:outputText value="#{servicio.fecSerEnfermeria}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                      </td>                                        
+                                    </tr>
+                                    <tr>
+                                      <td colspan="2">
+                                          <a4j:commandLink value="Seleccionar" render="@form, panelMessage" actionListener="#{frmAtencionServiciosEnfermeria.seleccionarFromDataGrid}" style="color: blue; font-weight: bold; font-size: smaller">
+                                          </a4j:commandLink>
+                                      </td>
+                                    </tr>
+                                </table>
+                            <hr size="0" style="border: #000066 solid thin"/>
+                            <f:facet name="footer" >
+                                <rich:dataScroller></rich:dataScroller>
+                            </f:facet>
+                        </rich:dataGrid>
+                    </td>
+                   </tr>
+                </table>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

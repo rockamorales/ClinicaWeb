@@ -14,8 +14,6 @@ import org.richfaces.component.UIDataTable;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
 import sv.com.cormaria.clinica.web.managebeans.datamodels.ConsultasPagadasDataModel;
 import sv.com.cormaria.clinica.web.managebeans.datamodels.ExpedienteDataModel;
-import sv.com.cormaria.servicios.entidades.administracion.TblMovimientosExpediente;
-import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblConsultas;
 import sv.com.cormaria.servicios.facades.consultasmedicas.TblConsultasFacadeLocal;
 

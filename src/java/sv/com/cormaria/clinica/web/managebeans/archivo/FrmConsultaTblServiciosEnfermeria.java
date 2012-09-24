@@ -53,5 +53,4 @@ public class FrmConsultaTblServiciosEnfermeria extends PageBase {
         ServiciosEnfermeriaDataModel model = (ServiciosEnfermeriaDataModel) this.getBean("#{serviciosEnfermeriaDataModel}", ServiciosEnfermeriaDataModel.class);
         model.clear();
     }
-
 }
