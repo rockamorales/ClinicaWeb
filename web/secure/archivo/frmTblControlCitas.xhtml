@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <ui:composition template="/templates/main.xhtml">
+        <ui:define name="title">
+          <h:outputText value="#{messages['default.windowTitle']}--Administración de Signos Vitales" escape="false"></h:outputText>  
+        </ui:define>
+        <ui:define name="body">
+           <h:outputScript name="js/jquery.ui.core.js" target="head"></h:outputScript>
+	   <h:outputScript name="js/jquery.ui.widget.js" target="head"></h:outputScript>
+	   <h:outputScript name="js/jquery.ui.tabs.js" target="head"></h:outputScript>
+	   <h:outputScript name="js/jquery.ui.dialog.js" target="head"></h:outputScript>
+           <script>
+            // increase the default animation speed to exaggerate the effect
+            $.fx.speeds._default = 1000;
+            $(function() {
+                    $( "#dialog" ).dialog({
+                            autoOpen: false,
+                            show: "blind",
+                            hide: "explode"
+                    });
+
+                    //$( "#opener" ).click(function() {
+                    //        $( "#dialog" ).dialog( "open" );
+                    //        return false;
+                    //});
+            });
+            function openDialog(param){
+                
+                //position = jQuery(param).position();
+                //left1 = position.left;
+                //top1 = position.top;
+                 //$( '#dialog' ).dialog( "option", "position",[left1,top1]);
+
+                $( '#dialog' ).dialog( 'open');
+                //$(param).position({ 
+                //    my:        "left top", 
+                //    at:        "left bottom", 
+                //    of:        param, // or $("#otherdiv) 
+                //    collision: "fit" 
+                //}) 
+                //$( '#dialog' ).dialog('option','position',[left1, top1]);
+                return false;
+            }
+            </script>
+
+            <style>
+                .rf-p{
+                    border-left: none;
+                    border-right: none;
+                    border-bottom: none;
+                    border-top: none;
+                    height: 100%;
+                    padding: 0;
+                }
+                .rf-p-hdr{
+                    border-left: none;
+                    border-right: none;
+                    border-bottom: none;
+                    border-top: none;
+                }
+                .rf-p-b-sch{
+                    padding: 0
+                }
+                .rf-p-b{
+                    border-left: none;
+                    border-right: none;
+                    border-bottom: none;
+                    border-top: none;
+                    height: 100%;
+                }
+                .rf-p-b-sch-oomonth{
+                    background-image: none; 
+                    background-color: #ACBECE;
+                }
+            </style>
+            <h:form>
+                <rich:tabPanel>
+                    <rich:tab header="Mes">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <a4j:commandButton value="Anterior" actionListener="#{frmTblControlCitas.previous}" render="@form"></a4j:commandButton>
+                                    </td>
+                                    <td>
+                                        <h1><h:outputText value="#{frmTblControlCitas.monthName}"></h:outputText></h1>
+                                    </td>
+                                    <td>
+                                        <a4j:commandButton value="Siguiente" actionListener="#{frmTblControlCitas.next}" render="@form"></a4j:commandButton>
+                                    </td>
+                                    <td>
+                                        <a4j:commandButton value="Anterior" actionListener="#{frmTblControlCitas.previousYear}" render="@form"></a4j:commandButton>
+                                    </td>
+                                    <td>
+                                        <h1><h:outputText value="#{frmTblControlCitas.year}"></h:outputText></h1>
+                                    </td>
+                                    <td>
+                                        <a4j:commandButton value="Siguiente" actionListener="#{frmTblControlCitas.nextYear}" render="@form"></a4j:commandButton>
+                                    </td>
+                                 </tr>
+                            </table>
+                        <table cellpadding="0" cellspacing="0" width="100%" style="height: 700px">
+                            <tr style="height: 15px;" align="center">
+                                <td valign="bottom" style="border-right: #000066 solid thin; border-bottom:#000066 solid 1px;" >
+                                </td>
+                                <td style="border-right: #000066 solid thin;border-bottom:#000066 solid 1px;" valign="bottom">
+                                    Domingo
+                                </td>
+                                <td style="border-right: #000066 solid thin;border-bottom:#000066 solid 1px;" valign="bottom">
+                                    Lunes
+                                </td>
+                                <td style="border-right: #000066 solid thin;border-bottom:#000066 solid 1px;" valign="bottom">
+                                    Martes
+                                </td>
+                                <td style="border-right: #000066 solid thin;border-bottom:#000066 solid 1px;" valign="bottom">
+                                    Miercoles
+                                </td>
+                                <td style="border-right: #000066 solid thin;border-bottom:#000066 solid 1px;" valign="bottom">
+                                    Jueves
+                                </td>
+                                <td style="border-right: #000066 solid thin;border-bottom:#000066 solid 1px;" valign="bottom">
+                                    Viernes
+                                </td>
+                                <td style="border-right: #000066 solid thin;border-bottom:#000066 solid 1px;" valign="bottom">
+                                    Sabado
+                                </td>
+                            </tr>
+                                <a4j:repeat value="#{frmTblControlCitas.monthWeeks}" var="week">
+                                    <tr>
+                                        <!-- writing-mode: vertical-rl; -webkit-transform: rotate(180deg);-moz-transform: rotate(180deg);-ms-transform: rotate(180deg);-o-transform: rotate(90deg); transform: rotate(90deg);-->
+                                        <td width="10px;" style="border-left: #000066 solid thin; border-top: #000066 solid 1px; border-bottom: #000066 solid 1px; border-right: #000066 solid thin;">
+                                            <rich:panel header="#{week.weekOfYear}">
+                                                #{week.startDay}/#{week.monthForStartDay} - #{week.endDay}/#{week.monthForEndDay}
+                                            </rich:panel>
+                                        </td>
+                                        <a4j:repeat value="#{week.daysOfWeek}" var="day">
+                                            <td style="border-top: #000066 solid 1px; border-bottom: #000066 solid 1px; border-right: #000066 solid thin; width: 150px;" valign="top">
+                                                <table cellpadding="0" cellspacing="0" style="height: 100%;width: 100%">
+                                                    <tr>
+                                                        <td style="height: 100%;width: 100%">
+                                                            <rich:panel styleClass="#{day.selectedMonth != day.month?'rf-p-b-sch-oomonth':'' }" bodyClass="rf-p-b-sch" id="schedulePanel">
+                                                                <f:facet name="header">
+                                                                    <h:outputText value="#{day.day} de #{day.monthStrShort}" rendered="#{day.firstDayOfMonth || day.lastDayOfMonth}"/>
+                                                                    <h:outputText value="#{day.day}" rendered="#{!day.firstDayOfMonth and !day.lastDayOfMonth}"/>
+                                                                </f:facet>
+                                                                <fieldset style="border-radius: 5px;background-color: #e0eeee; padding: 0">
+                                                                    <h:outputText value="8:30 Roberto Carlos ..." style="font-size: smaller; font-family: sans-serif; font-weight: bold;"></h:outputText>
+                                                                </fieldset>
+                                                                <fieldset style="border-radius: 5px;background-color: #e0eeee; padding: 0">
+                                                                    <h:outputText value="8:30 Roberto Carlos ..." style="font-size: smaller; font-family: sans-serif; font-weight: bold;"></h:outputText>
+                                                                </fieldset>
+                                                                <fieldset style="border-radius: 5px;background-color: #e0eeee; padding: 0">
+                                                                    <h:outputText value="8:30 Roberto Carlos ..." style="font-size: smaller; font-family: sans-serif; font-weight: bold;"></h:outputText>
+                                                                </fieldset>
+                                                                <fieldset style="border-radius: 5px;background-color: #e0eeee; padding: 0">
+                                                                    <h:outputText value="8:30 Roberto Carlos ..." style="font-size: smaller; font-family: sans-serif; font-weight: bold;"></h:outputText>
+                                                                </fieldset>
+                                                                <fieldset style="border-radius: 5px;background-color: #e0eeee; padding: 0">
+                                                                    <h:outputText value="8:30 Roberto Carlos ..." style="font-size: smaller; font-family: sans-serif; font-weight: bold;"></h:outputText>
+                                                                </fieldset>
+                                                                <a4j:commandLink value="Mas">
+                                                                    <rich:componentControl event="click" 
+                                                                                           operation="show" 
+                                                                                           target="daySchedulePanel">
+                                                                        <a4j:param 
+                                                                            name="event" 
+                                                                            value="event" 
+                                                                            noEscape="true" />                 
+                                                                        <rich:hashParam>                     
+                                                                            <a4j:param noEscape="true" name="top"
+                                                                                       value="jQuery(#{rich:element('schedulePanel')}).offset().top" />
+                                                                            <a4j:param noEscape="true" name="left" value="jQuery(#{rich:element('schedulePanel')}).offset().left"/>
+                                                                        </rich:hashParam>
+                                                                    </rich:componentControl>
+                                                                </a4j:commandLink>
+                                                            </rich:panel>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </a4j:repeat>
+                                    </tr>
+                                </a4j:repeat>
+                        </table>
+                    </rich:tab>                       
+                    <rich:tab header="Semana">
+                        
+                    </rich:tab>
+                    <rich:tab header="Dia">
+                        
+                    </rich:tab>
+                </rich:tabPanel>
+                <rich:popupPanel autosized="true" domElementAttachment="form" modal="false" id="daySchedulePanel">
+                    <f:facet name="header">
+                        <h:outputText value="Programacion"/>
+                    </f:facet>
+                    <f:facet name="controls">
+                        <h:outputLink value="#" class="closeButton" onclick="#{rich:component('daySchedulePanel')}.hide(); return false;" style="color:white;font-weight: bold;">
+                            Cerrar
+                        </h:outputLink>
+                    </f:facet>
+                    <fieldset style="border-radius: 5px;background-color: #e0eeee; padding-left: 0; padding-top: 0; padding-bottom: 0; padding-right: 4px; text-align: left;">
+                        <h:outputText value=" 8:30 Roberto Carlos Morales Villatoro" style="font-size: small; font-family: sans-serif; font-weight: bold;"></h:outputText>
+                    </fieldset>
+                    <fieldset style="border-radius: 5px;background-color: #e0eeee; padding-left: 0; padding-top: 0; padding-bottom: 0; padding-right: 4px; text-align: left;">
+                        <h:outputText value=" 9:00 Teresa Elizabeth Lazo Herrera" style="font-size: small; font-family: sans-serif; font-weight: bold;"></h:outputText>
+                    </fieldset>
+                    <fieldset style="border-radius: 5px;background-color: #e0eeee; padding-left: 0; padding-top: 0; padding-bottom: 0; padding-right: 4px; text-align: left;">
+                        <h:outputText value=" 9:30 Juan Carlos Castillo Benitez" style="font-size: small; font-family: sans-serif; font-weight: bold;"></h:outputText>
+                    </fieldset>
+                    <fieldset style="border-radius: 5px;background-color: #e0eeee; padding-left: 0; padding-top: 0; padding-bottom: 0; padding-right: 4px; text-align: left;">
+                        <h:outputText value=" 10:00 Edwin Enrique Estrada Martinez" style="font-size: small; font-family: sans-serif; font-weight: bold;"></h:outputText>
+                    </fieldset>
+                    <fieldset style="border-radius: 5px;background-color: #e0eeee; padding-left: 0; padding-top: 0; padding-bottom: 0; padding-right: 4px; text-align: left;">
+                        <h:outputText value=" 10:30 Erik Roberto Morales Lazo" style="font-size: small; font-family: sans-serif; font-weight: bold;"></h:outputText>
+                    </fieldset>
+                </rich:popupPanel>
+            </h:form>
+            <rich:hotKey key="esc" selector=".closeButton">
+                <rich:componentControl target="daySchedulePanel" operation="hide" /> 
+            </rich:hotKey>
+        </ui:define>
+    </ui:composition>
+</html>
