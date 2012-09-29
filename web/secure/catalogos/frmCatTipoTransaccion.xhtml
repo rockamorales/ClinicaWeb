@@ -15,7 +15,12 @@ and open the template in the editor.
           <h:outputText value="#{messages['default.windowTitle']}--Administración de Tipo de Transaccions" escape="false"></h:outputText>  
         </ui:define>
         <ui:define name="body">
+            <h3>Catálogo de tipo de transacción</h3>
+            <hr></hr>
             <h:form>
+                <h:outputLink value="frmMantCatTipotransaccion.jsf">
+                    Agregar Nuevo Registro
+                </h:outputLink>
             <rich:dataTable value="#{frmCatTipoTransaccion.catTipoTransaccionList}" var="catTipoTransaccion" rows="10" id="catTipoTransaccionTable">
             <f:facet name="header">
                 <rich:columnGroup>

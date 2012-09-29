@@ -15,7 +15,12 @@ and open the template in the editor.
           <h:outputText value="#{messages['default.windowTitle']}--Administración de Carisma" escape="false"></h:outputText>  
         </ui:define>
         <ui:define name="body">
+            <h3>Catálogo de entidades de la Fundación CARISMA</h3>
+            <hr></hr>
             <h:form>
+                <h:outputLink value="frmMantCatCarisma.jsf">
+                    Agregar Nuevo Registro
+                </h:outputLink>
             <rich:dataTable value="#{frmCatCarisma.catCarismaList}" var="catCarisma" rows="10" id="catCarismaTable">
             <f:facet name="header">
                 <rich:columnGroup>
