@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+    <ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j"
+      template="/templates/main.xhtml">
+        <ui:define name="title">
+          <h:outputText value="#{messages['default.windowTitle']}--Administración de Sexo" escape="false"></h:outputText>  
+        </ui:define>
+        <ui:define name="body">
+            <h3>Catálogo de Médicos</h3>
+            <hr></hr>
+            <h:form>
+                <h:outputLink value="frmMantTblMedico.jsf">
+                    Agregar Nuevo Registro
+                </h:outputLink>
+                <rich:dataTable value="#{frmTblMedico.tblMedicoList}" var="tblMedico" rows="10" id="tblMedicoTable">
+            <f:facet name="header">
+                <rich:columnGroup>
+                  <h:column>
+                    <h:outputText value="Código"/>
+                  </h:column>
+                  <h:column>
+                    <h:outputText value="Nombre"/>
+                  </h:column>
+                  <h:column>
+                    <h:outputText value="Descripcion"/>
+                  </h:column>                  
+                    <h:column>
+                    <h:outputText value="Estado"/>
+                  </h:column>
+                 <h:column>
+                    <h:outputText value=""/>
+                  </h:column>
+                  <h:column>
+                    <h:outputText value=""/>
+                  </h:column>
+                </rich:columnGroup>
+              </f:facet>
+                <h:column>
+                    <h:outputText value="#{tblMedico.numMedico}">
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <h:outputText value="#{tblMedico.nomMedico} #{tblMedico.priApeMedico} #{tblMedico.secApeMedico} #{tblMedico.terApeMedico}">
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <h:outputText value="#{tblMedico.catEspecialidad.nomEspecialidad}">
+                    </h:outputText>
+                </h:column>   
+                <h:column>
+                    <h:outputText value="#{tblMedico.actMedico}">
+                    </h:outputText>
+                </h:column>   
+                <h:column>
+                    
+                    <h:outputLink value="frmMantTblMedico.jsf">
+                        <f:param name="numMedico" value="#{tblMedico.numMedico}"/>
+                        <f:param name="faces-redirect" value="true"/>
+                        <h:graphicImage url="/img/icons/edit.gif" style="border:0">
+                            
+                        </h:graphicImage>
+                    </h:outputLink>
+                </h:column>
+                <h:column>
+                    <a4j:commandLink actionListener="#{frmTblMedico.delete}" render="tblMedicoTable" onclick="if(!confirm('Esta seguro que desea eliminar al Médico: #{tblMedico.nomMedico} #{tblMedico.priApeMedico} #{tblMedico.secApeMedico} #{tblMedico.terApeMedico}')){return false;}">
+                        <h:graphicImage url="/img/icons/delete.gif" style="border:0"/>
+                     </a4j:commandLink>
+                  
+                   
+                </h:column>                
+            </rich:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:decorate>

@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import org.richfaces.component.UIDataTable;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
@@ -20,7 +21,7 @@ import sv.com.cormaria.servicios.facades.catalogos.CatTurnosFacadeLocal;
  * @author Schumy
  */
 @ManagedBean (name = "frmCatTurnos")
-@RequestScoped
+@ViewScoped
 public class FrmCatTurnos extends PageBase {
     private CatTurnos catTurnos = new CatTurnos();
     @EJB
