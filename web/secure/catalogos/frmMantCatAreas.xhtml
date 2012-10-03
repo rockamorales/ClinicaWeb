@@ -27,8 +27,10 @@ and open the template in the editor.
                         <h:inputHidden value="#{frmMantCatAreas.catAreas.codArea}" /></td>
                 </tr>
                 <tr>
-                    <td>Nombre</td>
-                    <td><h:inputText value="#{frmMantCatAreas.catAreas.nomArea}" /></td>
+                    <td>Nombre</td>              
+                    <td><h:inputText value="#{frmMantCatAreas.catAreas.nomArea}" maxlength="30" onkeypress="return filterInput(0, event, false, '');"/>
+                        <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
                     <td>Estado</td>
                     <td>
                         <h:selectOneMenu value="#{frmMantCatAreas.catAreas.actArea}" >

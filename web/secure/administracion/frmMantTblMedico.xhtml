@@ -33,65 +33,84 @@ and open the template in the editor.
 
                 <tr>
                     <td align="left">Nombre:</td>
-                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.nomMedico}"/></td>
+                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.nomMedico}" maxlength="30" onkeypress="return filterInput(0, event, false, ' ');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
                     <td align="left">Primer Apellido:</td>
-                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.priApeMedico}"/></td>
+                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.priApeMedico}" maxlength="15" onkeypress="return filterInput(0, event, false, ' ');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
                 </tr>
                 <tr>
                     <td align="left">Segundo Apellido:</td>
-                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.secApeMedico}"/></td>
+                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.secApeMedico}" maxlength="15" onkeypress="return filterInput(0, event, false, ' ');"/></td>
                     <td align="left">Tercer Apellido:</td>
-                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.terApeMedico}"/></td>
+                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.terApeMedico}" maxlength="15" onkeypress="return filterInput(0, event, false, ' ');"/></td>
                 </tr>  
                 <tr>
                     <td align="left">Tipo de Servicio:</td>
                     <td align="left">
                         <h:selectOneMenu value="#{frmMantTblMedico.tblMedico.codTipServicio}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem> 
                             <f:selectItems value="#{frmMantTblMedico.catTipoServicioList}"/>
                         </h:selectOneMenu>
                     </td>
                     <td align="left">Especialidad:</td>
                     <td align="left">
                         <h:selectOneMenu value="#{frmMantTblMedico.tblMedico.codEspecialidad}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem> 
                             <f:selectItems value="#{frmMantTblMedico.catEspecialidadList}"/>
                         </h:selectOneMenu>
                     </td>
                 </tr>                    
                 <tr>
                     <td align="left">Numero de Junta:</td>
-                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.numJunta}"/></td>
+                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.numJunta}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
                     <td align="left">Fecha Ingreso a la Clinica:</td>
-                    <td align="left"><rich:calendar value="#{frmMantTblMedico.tblMedico.fecIngMedico}" datePattern="dd/MM/yyyy"/></td>
+                    <td align="left"><rich:calendar value="#{frmMantTblMedico.tblMedico.fecIngMedico}" datePattern="dd/MM/yyyy"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
                 </tr> 
                 <tr>
                     <td align="left">Direccion Personal:</td>
-                    <td align="left" colspan="3"><h:inputText value="#{frmMantTblMedico.tblMedico.dirPerMedico}" size="79"/></td>
+                    <td align="left" colspan="3"><h:inputTextarea styleClass="mayusculas" value="#{frmMantTblMedico.tblMedico.dirPerMedico}" rows="2" cols="80" onkeypress="return filterInput(2, event, false, ' #,.');"/>
+                   
+                        <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
                 </tr>
                 <tr>
                     <td align="left">Telefono Fijo:</td>
-                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.telPerMedico}"/></td>
+                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.telPerMedico}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/></td>
                     <td align="left">Telefono Celular:</td>
-                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.telCelMedico}"/></td>
+                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.telCelMedico}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/></td>
                 </tr> 
                 <tr>
                     <td align="left">DUI:</td>
-                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.duiMedico}"/></td>
+                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.duiMedico}" maxlength="9" onkeypress="return filterInput(1, event, false, '');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
                     <td align="left">NIT:</td>
-                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.nitMedico}"/></td>
+                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.nitMedico}" maxlength="14" onkeypress="return filterInput(1, event, false, '');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
                 </tr> 
                 <tr>
                     <td align="left">Direccion Clinica</td>
-                    <td align="left" colspan="3"><h:inputText value="#{frmMantTblMedico.tblMedico.dirCliMedico}" size="79"/></td>
+                    <td align="left" colspan="3"><h:inputTextarea styleClass="mayusculas" value="#{frmMantTblMedico.tblMedico.dirCliMedico}" rows="2" cols="80" onkeypress="return filterInput(2, event, false, ' #,.');"/></td>
                 </tr>
                 <tr>
                     <td align="left">Telefono Clinica:</td>
-                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.telCliMedico}"/></td>
+                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.telCliMedico}" maxlength="250" onkeypress="return filterInput(1, event, false, ' #,.');"/></td>
                     <td align="left">Valor Consulta:</td>
-                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.valConMedico}"/></td>
+                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.valConMedico}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
                 </tr>   
                 <tr>
                     <td align="left">Correo Electronico:</td>
-                    <td align="left" colspan="3"><h:inputText value="#{frmMantTblMedico.tblMedico.corMedico}" size="79"/></td>
+                    <td align="left" colspan="3"><h:inputText value="#{frmMantTblMedico.tblMedico.corMedico}" size="79" maxlength="100" onkeypress="return filterInput(2, event, false, '@.');"/></td>
                 </tr>                   
                   <tr>
                       <td colspan="4" align="center">

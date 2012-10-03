@@ -28,7 +28,9 @@ and open the template in the editor.
                 </tr>
                 <tr>
                     <td>Nombre</td>
-                    <td><h:inputText value="#{frmMantCatCarisma.catCarisma.nomCarisma}" /></td>
+                    <td><h:inputText value="#{frmMantCatCarisma.catCarisma.nomCarisma}" maxlength="50" onkeypress="return filterInput(0, event, false, '');"/>
+                        <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
                     <td>Estado</td>
                     <td>
                         <h:selectOneMenu value="#{frmMantCatCarisma.catCarisma.actCarisma}" >
