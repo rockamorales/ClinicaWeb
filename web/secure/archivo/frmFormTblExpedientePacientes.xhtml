@@ -100,7 +100,11 @@
                             <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                         </td>
                         <td align="left">Numero de Dui:</td>
-                        <td align="left"><h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.numDui}" size="9" maxlength="9" onkeypress="return filterInput(1, event, false, '');"/></td>
+                        <td align="left"><h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.numDui}" id="numDui" size="9" maxlength="9" onkeypress="return filterInput(1, event, false, '');">
+                            </h:inputText>
+                            <rich:tooltip  target="numDui" showEvent="focus" value="Ingrese el numero de dui" />
+                            
+                        </td>
                  </tr>
                  <tr>
                         <td align="left">Dirección del Paciente:</td>
@@ -135,13 +139,18 @@
                  </tr>
                  <tr> 
                      <td align="left"><h:outputText id="nomConPacienteLabel" value="Nombre de Conyuge de Paciente:"></h:outputText></td>
-                     <td colspan="3" align="left"><h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.nomConPaciente}" id="nomConPaciente" size="100" maxlength="100" onkeypress="return filterInput(0, event, false, ' ');"/></td>
+                     <td colspan="3" align="left">
+                         <h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.nomConPaciente}" id="nomConPaciente" size="100" maxlength="100" onkeypress="return filterInput(0, event, false, ' ');"/>
+                     </td>
                  </tr>
                  <tr>
                         <td align="left">Nombre del Responsable del Paciente:</td>
-                        <td align="left"><h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.nomResPaciente}" size="30"  maxlength="30" alt="Indique un Nombre y un Apellido" onkeypress="return filterInput(0, event, false, ' ');" />
+                        <td colspan="3" align="left">
+                            <h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.nomResPaciente}" size="100"  maxlength="100" alt="Indique un Nombre y un Apellido" onkeypress="return filterInput(0, event, false, ' ');" />
                         <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                         </td>
+                 </tr>
+                 <tr>
                         <td align="left">Parentesco del Resp.:</td>
                         <td align="left">
                             <h:selectOneMenu value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.codParResponsable}" >
@@ -149,20 +158,20 @@
                                 <f:selectItems value="#{frmMantTblExpedientePacientes.catParentescoResponsableList}"/>                 
                             </h:selectOneMenu>
                             <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
-                        </td>                    
-                 </tr>
-                 <tr>
-                        <td align="left">Direccion del Responsable del Paciente:</td>
-                        <td align="left">
-                            <h:inputTextarea value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.dirResPaciente}" rows="2" onkeypress="return filterInput(2, event, false, '.,#/°- ');">
-                                <f:validateLength maximum="250"/>
-                            </h:inputTextarea>
-                        </td>
+                        </td> 
                         <td align="left">Telefono del Resp. del Paciente:</td>
                         <td align="left">
                             <h:inputText styleClass="cl-tel-inp" value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.telResPaciente}" size="8" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/>
                         </td>
                  </tr>
+                  <tr>
+                     <td align="left">Direccion del Responsable del Paciente:</td>
+                        <td colspan="3" align="left">
+                            <h:inputTextarea value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.dirResPaciente}" rows="2" cols="100" onkeypress="return filterInput(2, event, false, '.,#/°- ');">
+                                <f:validateLength maximum="250"/>
+                            </h:inputTextarea>
+                        </td> 
+                  </tr>
                  <tr>
                         <td align="left">Estado:</td>
                         <td align="left">
@@ -182,14 +191,16 @@
                  </tr>
                   <tr>
                         <td align="left">Enfermedades cronicas:</td>
-                        <td align="left">
-                            <h:inputTextarea value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.enfCroPaciente}" rows="2"  onkeypress="return filterInput(0, event, false, ' ');">
+                        <td colspan="3" align="left">
+                            <h:inputTextarea value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.enfCroPaciente}" rows="2" cols="100" onkeypress="return filterInput(0, event, false, ' ');">
                                 <f:validateLength maximum="300" ></f:validateLength>
                             </h:inputTextarea>
                         </td>
+                       </tr>
+                  <tr>
                         <td align="left">Alergias:</td>
-                        <td align="left">
-                            <h:inputTextarea value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.alePaciente}" rows="2" onkeypress="return filterInput(2, event, false, ' ');">
+                        <td colspan="3" align="left">
+                            <h:inputTextarea value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.alePaciente}" rows="2" cols="100" onkeypress="return filterInput(2, event, false, ' ');">
                                 <f:validateLength maximum="300" ></f:validateLength>
                             </h:inputTextarea>
                         </td>
