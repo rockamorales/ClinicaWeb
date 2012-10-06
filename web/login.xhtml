@@ -23,7 +23,7 @@
                                 <h:outputLabel for="j_username" value="Usuario: "  ></h:outputLabel>
                             </td>
                             <td>
-                                <h:inputText value="#{frmLogin.usuario}" id="j_username" required="true" alt="Ingrese el Usuario" > 
+                                <h:inputText value="#{frmLogin.usuario}" title="Por favor ingrese su codigo de usuario" id="j_username" required="true" alt="Ingrese el Usuario" > 
                                 </h:inputText>
                                 <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                             </td>
@@ -33,7 +33,7 @@
                                 <h:outputLabel for="j_password" value="Contraseña: "></h:outputLabel>
                             </td>
                             <td>
-                                <h:inputSecret value="#{frmLogin.contrasena}" id="j_password" alt="Ingrese su contraseña" >
+                                <h:inputSecret title="Por favor ingrese la contraseña" value="#{frmLogin.contrasena}" id="j_password" alt="Ingrese su contraseña" >
                                 </h:inputSecret>
                                 <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                             </td>
