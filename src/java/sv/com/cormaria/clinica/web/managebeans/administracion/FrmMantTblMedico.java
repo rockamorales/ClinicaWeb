@@ -103,8 +103,31 @@ public class FrmMantTblMedico extends PageBase{
         this.tblMedico = tblMedico;
     }
     
+    
+   public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getTblMedico().getCodTipServicio() == null || this.getTblMedico().getCodTipServicio() <= 0){
+          isValid = false;
+          this.addError("Porfavor seleccione el tipo de servicio", "Porfavor seleccione el tipo de servicio");
+       } 
+       
+       if (this.getTblMedico().getCodEspecialidad() == null || this.getTblMedico().getCodEspecialidad() <= 0){
+           isValid = false;
+           this.addError("Porfavor seleccione la especialidad", "Porfavor seleccione la especialidad");
+       }
+
+       
+       return isValid;
+     
+   }    
+    
+    
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }            
             if(tblMedico.getNumMedico() != null){
                 facade.edit(tblMedico);
             }else{

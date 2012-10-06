@@ -23,23 +23,26 @@ and open the template in the editor.
               <table>
                 <tr>
                     <td>Código</td>
-                    <td><h:inputText value="#{frmMantCatTipoTransaccion.catTipoTransaccion.codTipTransaccion}" /></td>
+                    <td><h:outputText value="#{frmMantCatTipoTransaccion.catTipoTransaccion.codTipTransaccion}" style="font-weight: bold"/>
+                        <h:inputHidden value="#{frmMantCatTipoTransaccion.catTipoTransaccion.codTipTransaccion}" /></td>
+                </tr>
+                <tr>    
                     <td>Nombre</td>
                     <td><h:inputText value="#{frmMantCatTipoTransaccion.catTipoTransaccion.nomTipTransaccion}" /></td>
-                </tr>
-                <tr>
-                    <td>Descripción</td>
-                    <td><h:inputText value="#{frmMantCatTipoTransaccion.catTipoTransaccion.desTipTransaccion}" /></td>
                     <td>Estado</td>
                     <td>
                         <h:selectOneMenu value="#{frmMantCatTipoTransaccion.catTipoTransaccion.actTipTransaccion}" >
                             <f:selectItem itemValue="ACTIVO" itemLabel="Activo"/>
                             <f:selectItem itemValue="INACTIVO" itemLabel="Inactivo"/>
                         </h:selectOneMenu>
-                    </td>
+                    </td>                    
+                </tr>
+                <tr>
+                    <td>Descripción</td>
+                    <td colspan="3"><h:inputTextarea value="#{frmMantCatTipoTransaccion.catTipoTransaccion.desTipTransaccion}" rows="3" cols="60"/></td>
                 </tr>
                   <tr>
-                      <td>
+                      <td colspan="4" align="center">
                           <a4j:commandButton value="Guardar" actionListener="#{frmMantCatTipoTransaccion.guardar}" render="form, panelMessage" />
                           <a4j:commandButton value="Nuevo" actionListener="#{frmMantCatTipoTransaccion.nuevo}" render="form"/>
                           <a4j:commandButton value="Regresar" action="frmCatTipoTransaccion.jsf?faces-redirect=true" immediate="true"/>

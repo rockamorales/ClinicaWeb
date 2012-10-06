@@ -15,7 +15,12 @@ and open the template in the editor.
           <h:outputText value="#{messages['default.windowTitle']}--Administración de Consultorios" escape="false"></h:outputText>  
         </ui:define>
         <ui:define name="body">
+            <h3>Catálogo de Consultorios</h3>
+            <hr></hr>
             <h:form>
+                <h:outputLink value="frmMantCatConsultorio.jsf">
+                    Agregar Nuevo Registro
+                </h:outputLink>
             <rich:dataTable value="#{frmCatConsultorio.catConsultorioList}" var="catConsultorio" rows="10" id="catConsultorioTable">
             <f:facet name="header">
                 <rich:columnGroup>

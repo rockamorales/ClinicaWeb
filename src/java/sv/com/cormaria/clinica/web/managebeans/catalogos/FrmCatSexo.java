@@ -4,6 +4,7 @@
  */
 package sv.com.cormaria.clinica.web.managebeans.catalogos;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;

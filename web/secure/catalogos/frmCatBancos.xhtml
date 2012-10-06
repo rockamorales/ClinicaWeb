@@ -15,7 +15,12 @@ and open the template in the editor.
           <h:outputText value="#{messages['default.windowTitle']}--Administración de Bancos" escape="false"></h:outputText>  
         </ui:define>
         <ui:define name="body">
+            <h3>Catálogo de Bancos</h3>
+            <hr></hr>
             <h:form>
+                <h:outputLink value="frmMantCatBancos.jsf">
+                    Agregar Nuevo Registro
+                </h:outputLink>
             <rich:dataTable value="#{frmCatBancos.catBancosList}" var="catBancos" rows="10" id="catBancosTable">
             <f:facet name="header">
                 <rich:columnGroup>

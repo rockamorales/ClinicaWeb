@@ -20,7 +20,7 @@ import sv.com.cormaria.servicios.facades.administracion.TblMedicoFacadeLocal;
  *
  * @author Mackk
  */
-@ManagedBean (name = "frmTblMedico")
+@ManagedBean (name = "frmTblMedico1")
 @RequestScoped
 public class FrmTblMedico extends PageBase {
     private TblMedico cblMedico = new TblMedico();

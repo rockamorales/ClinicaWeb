@@ -22,7 +22,9 @@ and open the template in the editor.
                     <td><h:outputText value="#{frmMantCatUbicacionFisica.catUbicacionFisica.codUbiFisica}" />
                         <h:inputHidden value="#{frmMantCatUbicacionFisica.catUbicacionFisica.codUbiFisica}" /></td>
                     <td>Nombre</td>
-                    <td><h:inputText value="#{frmMantCatUbicacionFisica.catUbicacionFisica.estUbiFisica}" /></td>
+                    <td><h:inputText value="#{frmMantCatUbicacionFisica.catUbicacionFisica.estUbiFisica}" maxlength="30" onkeypress="return filterInput(0, event, false, '');"/>
+                        <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
                 </tr>
                 <tr>
                     <td>Año</td>

@@ -15,7 +15,12 @@ and open the template in the editor.
           <h:outputText value="#{messages['default.windowTitle']}--Administración de EstCivils" escape="false"></h:outputText>  
         </ui:define>
         <ui:define name="body">
+            <h3>Catálogo de estados civiles</h3>
+            <hr></hr>
             <h:form>
+                <h:outputLink value="frmMantCatEstadoCivil.jsf">
+                    Agregar Nuevo Registro
+                </h:outputLink>
             <rich:dataTable value="#{frmCatEstadoCivil.catEstadoCivilList}" var="catEstadoCivil" rows="10" id="catEstadoCivilTable">
             <f:facet name="header">
                 <rich:columnGroup>
