@@ -29,11 +29,14 @@ and open the template in the editor.
                     <h:outputText value="Nombre"/>
                   </h:column>
                   <h:column>
-                    <h:outputText value="Descripcion"/>
+                    <h:outputText value="Fecha de Registro"/>
                   </h:column>                  
                     <h:column>
-                    <h:outputText value="Estado"/>
+                    <h:outputText value="Teléfono"/>
                   </h:column>
+                    <h:column>
+                    <h:outputText value="DUI"/>
+                  </h:column>                    
                  <h:column>
                     <h:outputText value=""/>
                   </h:column>
@@ -47,25 +50,13 @@ and open the template in the editor.
                     </h:outputText>
                 </h:column>
                 <h:column>
-                    <h:outputText value="#{tblEmpleado.fecRegEmpleado}">
+                    <h:outputText value="#{tblEmpleado.nomEmpleado} #{tblEmpleado.priApeEmpleado} #{tblEmpleado.secApeEmpleado} #{tblEmpleado.terApeEmpleado}">
                     </h:outputText>
                 </h:column>
                 <h:column>
-                    <h:outputText value="#{tblEmpleado.nomEmpleado}">
+                    <h:outputText value="#{tblEmpleado.fecRegEmpleado}">
                     </h:outputText>
                 </h:column> 
-                <h:column>
-                    <h:outputText value="#{tblEmpleado.priApeEmpleado}">
-                    </h:outputText>
-                </h:column>   
-                <h:column>
-                    <h:outputText value="#{tblEmpleado.secApeEmpleado}">
-                    </h:outputText>
-                </h:column>   
-                <h:column>
-                    <h:outputText value="#{tblEmpleado.terApeEmpleado}">
-                    </h:outputText>
-                </h:column>  
                 <h:column>
                     <h:outputText value="#{tblEmpleado.telEmpleado}">
                     </h:outputText>
