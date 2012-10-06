@@ -53,7 +53,8 @@ public class FrmTblControlCitas extends PageBase {
     
     private List<MonthDay> monthDays = new ArrayList<MonthDay>();
     private List<MonthWeek> monthWeeks = new ArrayList<MonthWeek>();
-        
+    
+    private boolean yearAndMonthApplied = false;
     private String addedFecCita;
     
     private String addedNumCita;
@@ -263,14 +264,14 @@ public class FrmTblControlCitas extends PageBase {
     public void init(){
           try{
             if (addedFecCita!=null && !addedFecCita.trim().equals("")){
-                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                Date fecha = format.parse(addedFecCita);
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(fecha);
-                this.setYear(cal.get(Calendar.YEAR));
-                this.setMonth(cal.get(Calendar.MONTH));
-                addedFecCita=null;
-                addedNumCita=null;
+                if (yearAndMonthApplied){
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                    Date fecha = format.parse(addedFecCita);
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(fecha);
+                    this.setYear(cal.get(Calendar.YEAR));
+                    this.setMonth(cal.get(Calendar.MONTH));
+                }
                 //cita.setFecCita(format.parse(addedFecCita));
             }
           }catch(Exception ex){
