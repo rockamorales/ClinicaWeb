@@ -9,17 +9,23 @@ and open the template in the editor.
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:rich="http://richfaces.org/rich"
-      xmlns:a4j="http://richfaces.org/a4j">
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
     <ui:composition template="/templates/main.xhtml">
+        <f:metadata>
+            <f:viewParam name="numCita" value="#{frmTblControlCitas.addedNumCita}"/>
+	  <f:viewParam name="fecCita" value="#{frmTblControlCitas.addedFecCita}">
+          </f:viewParam>
+	  <f:event listener="#{frmTblControlCitas.init}" type="preRenderView"></f:event>
+	</f:metadata>
         <ui:define name="title">
           <h:outputText value="#{messages['default.windowTitle']}--Administración de Signos Vitales" escape="false"></h:outputText>  
         </ui:define>
         <ui:define name="body">
-           <h:outputScript name="js/jquery.ui.core.js" target="head"></h:outputScript>
-	   <h:outputScript name="js/jquery.ui.widget.js" target="head"></h:outputScript>
-	   <h:outputScript name="js/jquery.ui.tabs.js" target="head"></h:outputScript>
-	   <h:outputScript name="js/jquery.ui.dialog.js" target="head"></h:outputScript>
+           <h:outputScript name="js/jquery-ui.min.js" target="head"></h:outputScript>
            <script>
+            $(document).ready(function() {$(".rfpbschhighlight").effect('highlight', {}, 5000)});
+            $(document).ready(function() {$(".rfpbschhighlightr").effect('highlight', {'color':'#ED1C24'}, 5000)});
             // increase the default animation speed to exaggerate the effect
             $.fx.speeds._default = 1000;
             $(function() {
@@ -85,7 +91,7 @@ and open the template in the editor.
             </style>
             <h:form>
                 <rich:tabPanel>
-                    <rich:tab header="Mes">
+                    <rich:tab header="Mes" name="mes">
                             <table>
                                 <tr>
                                     <td>
@@ -108,7 +114,7 @@ and open the template in the editor.
                                     </td>
                                  </tr>
                             </table>
-                        <table cellpadding="0" cellspacing="0" width="100%" style="height: 700px">
+                        <table cellpadding="0" cellspacing="0" width="100%" style="height: 100%">
                             <tr style="height: 15px;" align="center">
                                 <td valign="bottom" style="border-right: #000066 solid thin; border-bottom:#000066 solid 1px;" >
                                 </td>
@@ -146,42 +152,46 @@ and open the template in the editor.
                                             <td style="border-top: #000066 solid 1px; border-bottom: #000066 solid 1px; border-right: #000066 solid thin; width: 150px;" valign="top">
                                                 <table cellpadding="0" cellspacing="0" style="height: 100%;width: 100%">
                                                     <tr>
-                                                        <td style="height: 100%;width: 100%">
-                                                            <rich:panel styleClass="#{day.selectedMonth != day.month?'rf-p-b-sch-oomonth':'' }" bodyClass="rf-p-b-sch" id="schedulePanel">
+                                                        <td style="height: 100%;width: 100%" valign="top">
+                                                            <rich:panel styleClass="#{day.selectedMonth != day.month?'rf-p-b-sch-oomonth':'' }" bodyClass="rf-p-b-sch #{day.dayDateStr==frmTblControlCitas.addedFecCita?'rfpbschhighlight':'' }" id="schedulePanel">
                                                                 <f:facet name="header">
                                                                     <h:outputText value="#{day.day} de #{day.monthStrShort}" rendered="#{day.firstDayOfMonth || day.lastDayOfMonth}"/>
                                                                     <h:outputText value="#{day.day}" rendered="#{!day.firstDayOfMonth and !day.lastDayOfMonth}"/>
                                                                 </f:facet>
-                                                                <fieldset style="border-radius: 5px;background-color: #e0eeee; padding: 0">
-                                                                    <h:outputText value="8:30 Roberto Carlos ..." style="font-size: smaller; font-family: sans-serif; font-weight: bold;"></h:outputText>
-                                                                </fieldset>
-                                                                <fieldset style="border-radius: 5px;background-color: #e0eeee; padding: 0">
-                                                                    <h:outputText value="8:30 Roberto Carlos ..." style="font-size: smaller; font-family: sans-serif; font-weight: bold;"></h:outputText>
-                                                                </fieldset>
-                                                                <fieldset style="border-radius: 5px;background-color: #e0eeee; padding: 0">
-                                                                    <h:outputText value="8:30 Roberto Carlos ..." style="font-size: smaller; font-family: sans-serif; font-weight: bold;"></h:outputText>
-                                                                </fieldset>
-                                                                <fieldset style="border-radius: 5px;background-color: #e0eeee; padding: 0">
-                                                                    <h:outputText value="8:30 Roberto Carlos ..." style="font-size: smaller; font-family: sans-serif; font-weight: bold;"></h:outputText>
-                                                                </fieldset>
-                                                                <fieldset style="border-radius: 5px;background-color: #e0eeee; padding: 0">
-                                                                    <h:outputText value="8:30 Roberto Carlos ..." style="font-size: smaller; font-family: sans-serif; font-weight: bold;"></h:outputText>
-                                                                </fieldset>
-                                                                <a4j:commandLink value="Mas">
-                                                                    <rich:componentControl event="click" 
-                                                                                           operation="show" 
-                                                                                           target="daySchedulePanel">
-                                                                        <a4j:param 
-                                                                            name="event" 
-                                                                            value="event" 
-                                                                            noEscape="true" />                 
-                                                                        <rich:hashParam>                     
-                                                                            <a4j:param noEscape="true" name="top"
-                                                                                       value="jQuery(#{rich:element('schedulePanel')}).offset().top" />
-                                                                            <a4j:param noEscape="true" name="left" value="jQuery(#{rich:element('schedulePanel')}).offset().left"/>
-                                                                        </rich:hashParam>
-                                                                    </rich:componentControl>
-                                                                </a4j:commandLink>
+                                                                <a4j:repeat value="#{day.citas}" var="cita">
+                                                                    <fieldset style="border-radius: 5px;background-color: #e0eeee; padding: 0" class="#{cita.numCita==frmTblControlCitas.addedNumCita?'rfpbschhighlightr':''} #{day.dayDateStr==frmTblControlCitas.addedFecCita and cita.numCita!=frmTblControlCitas.addedNumCita?'rfpbschhighlight':'' }">
+                                                                        <table cellpadding="0" cellspacing="0" width="100%">
+                                                                            <tr>
+                                                                                <td align="left">
+                                                                                    <h:outputText value="#{cita.horCitaStr} " style="font-size: smaller; font-family: sans-serif; font-weight: bold;">
+                                                                                    </h:outputText>
+                                                                                    <h:outputText value="#{fn:substring(cita.expediente.nombreCompleto,0,8)} ..." title="#{cita.expediente.nombreCompleto}" style="font-size: smaller; font-family: sans-serif; font-weight: bold;"></h:outputText>
+                                                                                </td>
+                                                                                <td align="right">
+                                                                                    <h:commandLink>
+                                                                                        <h:graphicImage url="/img/icons/delete.gif" style="border: 0; height: 13px; width: 13px;"></h:graphicImage>
+                                                                                    </h:commandLink>
+                                                                                    <h:outputLink value="frmMantTblProgramacionCitas.jsf">
+                                                                                        <f:param name="numCita" value="#{cita.numCita}">
+                                                                                        </f:param>
+                                                                                        <h:graphicImage url="/img/icons/edit.gif" style="border: 0; height: 13px; width: 13px;">
+                                                                                        </h:graphicImage>
+                                                                                    </h:outputLink>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </fieldset>
+                                                                </a4j:repeat>
+                                                                <div align="center">
+                                                                    <a4j:commandLink value="Mas" actionListener="#{frmMantTblProgramacionCitas.mostrarTodas}" oncomplete="#{rich:component('daySchedulePanel')}.show(event,{top:jQuery(#{rich:element('schedulePanel')}).offset().top, left:jQuery(#{rich:element('schedulePanel')}).offset().left})" rendered="#{day.scheduleCount > 5}">
+                                                                    </a4j:commandLink>
+                                                                    <h:outputText value=" | " rendered="#{day.scheduleCount > 5}"/>
+                                                                    <h:outputLink value="frmMantTblProgramacionCitas.jsf">
+                                                                        Agregar
+                                                                        <f:param name="fecCita" value="#{day.dayDateStr}">
+                                                                        </f:param>
+                                                                    </h:outputLink>
+                                                                </div>
                                                             </rich:panel>
                                                         </td>
                                                     </tr>
@@ -192,10 +202,10 @@ and open the template in the editor.
                                 </a4j:repeat>
                         </table>
                     </rich:tab>                       
-                    <rich:tab header="Semana">
+                    <rich:tab header="Semana" name="semana">
                         
                     </rich:tab>
-                    <rich:tab header="Dia">
+                    <rich:tab header="Dia" name="dia">
                         
                     </rich:tab>
                 </rich:tabPanel>

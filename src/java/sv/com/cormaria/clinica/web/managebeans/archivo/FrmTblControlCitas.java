@@ -4,13 +4,26 @@
  */
 package sv.com.cormaria.clinica.web.managebeans.archivo;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
+import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
+import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
+import sv.com.cormaria.servicios.entidades.archivo.TblProgramacionCitas;
+import sv.com.cormaria.servicios.enums.EstadoProgramacionCitas;
+import sv.com.cormaria.servicios.facades.archivo.TblExpedientePacientesFacadeLocal;
+import sv.com.cormaria.servicios.facades.archivo.TblProgramacionCitasFacadeLocal;
+import sv.com.cormaria.servicios.helpers.MonthDay;
+import sv.com.cormaria.servicios.helpers.MonthWeek;
 
 /**
  *
@@ -18,11 +31,20 @@ import javax.faces.event.ActionEvent;
  */
 @ManagedBean
 @ViewScoped
-public class FrmTblControlCitas {
+public class FrmTblControlCitas extends PageBase {
 
     /**
      * Creates a new instance of FrmTblControlCitas
      */
+    private TblProgramacionCitas cita = new TblProgramacionCitas();
+    private List<TblProgramacionCitas> citasList = new ArrayList<TblProgramacionCitas>();
+    @EJB
+    private TblProgramacionCitasFacadeLocal programacionCitasFacade;
+
+    @EJB
+    private TblExpedientePacientesFacadeLocal expedienteFacade;
+    
+    private TblExpedientePacientes expediente = new TblExpedientePacientes();
     private int month = Calendar.getInstance().get(Calendar.MONTH);
     private int year = Calendar.getInstance().get(Calendar.YEAR);
     private String daysOfWeekStr[] = {"Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"};
@@ -31,60 +53,104 @@ public class FrmTblControlCitas {
     
     private List<MonthDay> monthDays = new ArrayList<MonthDay>();
     private List<MonthWeek> monthWeeks = new ArrayList<MonthWeek>();
+        
+    private String addedFecCita;
+    
+    private String addedNumCita;
+
     
     public FrmTblControlCitas() {
     }
 
-    public List<MonthWeek> getMonthWeeks() {
-        System.out.println("Ejecutanto getMonthWeeks");
-        monthWeeks.clear();
-        Calendar calStart = Calendar.getInstance();
-        calStart.set(Calendar.HOUR_OF_DAY, 0);
-        calStart.set(Calendar.MINUTE, 0);
-        calStart.set(Calendar.SECOND, 0);
-        calStart.setFirstDayOfWeek(Calendar.SUNDAY);
-        System.out.println(calStart.getTime());        
-        calStart.set(Calendar.MONTH, this.getMonth());
-        calStart.set(Calendar.DAY_OF_MONTH, calStart.getActualMinimum(Calendar.DAY_OF_MONTH));
-        System.out.println(calStart.getTime());
-        System.out.println(calStart.get(Calendar.DAY_OF_WEEK));
-        calStart.add(Calendar.DAY_OF_MONTH, -1*(calStart.get(Calendar.DAY_OF_WEEK)-1));
-        System.out.println(calStart.getTime());
+    public String getAddedFecCita() {
+        return addedFecCita;
+    }
 
-        Calendar calEnd = Calendar.getInstance();
-        calEnd.set(Calendar.HOUR_OF_DAY, 0);
-        calEnd.set(Calendar.MINUTE, 0);
-        calEnd.set(Calendar.SECOND, 0);
-        System.out.println(calEnd.getTime());        
-        calEnd.setFirstDayOfWeek(Calendar.SUNDAY);
-        calEnd.set(Calendar.MONTH, this.getMonth());
-        calEnd.set(Calendar.DAY_OF_MONTH, calEnd.getActualMaximum(Calendar.DAY_OF_MONTH));
-        System.out.println(calEnd.getTime());
-        System.out.println(calEnd.get(Calendar.DAY_OF_WEEK));
-        calEnd.add(Calendar.DAY_OF_MONTH, (7-calEnd.get(Calendar.DAY_OF_WEEK)));
-        System.out.println(calEnd.getTime());
-        
-        //cal.set
-        
-        int week = calStart.get(Calendar.WEEK_OF_YEAR);
-        Calendar cal = Calendar.getInstance();
-        cal.setFirstDayOfWeek(Calendar.SUNDAY);
-        cal.setTime(calStart.getTime());
-        cal.add(Calendar.DAY_OF_MONTH, 6);
-        MonthWeek weekObj = new MonthWeek(week, calStart.getTime(), cal.getTime(), this.getMonth());
-        this.monthWeeks.add(weekObj);
-        for (; calStart.getTime().before(calEnd.getTime()) || calStart.getTime().equals(calEnd.getTime());){
-            System.out.println(week);
-            System.out.println(calStart.get(Calendar.WEEK_OF_YEAR));
-            if (week != calStart.get(Calendar.WEEK_OF_YEAR)){
-                cal.setTime(calStart.getTime());
-                cal.add(Calendar.DAY_OF_MONTH, 6);
-                weekObj = new MonthWeek(calStart.get(Calendar.WEEK_OF_YEAR), calStart.getTime(), cal.getTime(), this.getMonth());
-                this.monthWeeks.add(weekObj);
-                week = calStart.get(Calendar.WEEK_OF_YEAR);
+    public void setAddedFecCita(String addedFecCita) {
+        this.addedFecCita = addedFecCita;
+    }
+
+    public String getAddedNumCita() {
+        return addedNumCita;
+    }
+
+    public void setAddedNumCita(String addNumCita) {
+        this.addedNumCita = addNumCita;
+    }
+    
+    public List<TblProgramacionCitas> getCitasList() {
+        if (citasList.isEmpty()){
+            
+            
+        }
+        return citasList;
+    }
+
+    public void setCitasList(List<TblProgramacionCitas> citasList) {
+        this.citasList = citasList;
+    }
+
+    public TblProgramacionCitas getCita() {
+        return cita;
+    }
+
+    public void setCita(TblProgramacionCitas cita) {
+        this.cita = cita;
+    }
+    
+    public List<MonthWeek> getMonthWeeks() {
+        monthWeeks.clear();
+        try{
+            Calendar calStart = Calendar.getInstance();
+            calStart.set(Calendar.YEAR, this.getYear());
+            calStart.set(Calendar.HOUR_OF_DAY, 0);
+            calStart.set(Calendar.MINUTE, 0);
+            calStart.set(Calendar.SECOND, 0);
+            calStart.set(Calendar.MILLISECOND, 0);
+            calStart.setFirstDayOfWeek(Calendar.SUNDAY);
+            calStart.set(Calendar.MONTH, this.getMonth());
+            calStart.set(Calendar.DAY_OF_MONTH, calStart.getActualMinimum(Calendar.DAY_OF_MONTH));
+            calStart.add(Calendar.DAY_OF_MONTH, -1*(calStart.get(Calendar.DAY_OF_WEEK)-1));
+
+            Calendar calEnd = Calendar.getInstance();
+            calEnd.set(Calendar.YEAR, this.getYear());
+            calEnd.set(Calendar.HOUR_OF_DAY, 0);
+            calEnd.set(Calendar.MINUTE, 0);
+            calEnd.set(Calendar.SECOND, 0);
+            calStart.set(Calendar.MILLISECOND, 0);
+            calEnd.setFirstDayOfWeek(Calendar.SUNDAY);
+            calEnd.set(Calendar.MONTH, this.getMonth());
+            calEnd.set(Calendar.DAY_OF_MONTH, calEnd.getActualMaximum(Calendar.DAY_OF_MONTH));
+            calEnd.add(Calendar.DAY_OF_MONTH, (7-calEnd.get(Calendar.DAY_OF_WEEK)));
+            Map<Date, MonthDay> dayScheduleList = programacionCitasFacade.findScheduleByRange(calStart.getTime(), calEnd.getTime());
+
+            int week = calStart.get(Calendar.WEEK_OF_YEAR);
+            Calendar cal = Calendar.getInstance();
+            cal.setFirstDayOfWeek(Calendar.SUNDAY);
+            cal.setTime(calStart.getTime());
+            cal.add(Calendar.DAY_OF_MONTH, 6);
+            MonthDay current = dayScheduleList.get(calStart.getTime());
+            MonthWeek weekObj = new MonthWeek(week, calStart.getTime(), cal.getTime(), this.getMonth());
+            this.monthWeeks.add(weekObj);
+            for (; calStart.getTime().before(calEnd.getTime()) || calStart.getTime().equals(calEnd.getTime());){
+                if (week != calStart.get(Calendar.WEEK_OF_YEAR)){
+                    cal.setTime(calStart.getTime());
+                    cal.add(Calendar.DAY_OF_MONTH, 6);
+                    weekObj = new MonthWeek(calStart.get(Calendar.WEEK_OF_YEAR), calStart.getTime(), cal.getTime(), this.getMonth());
+                    this.monthWeeks.add(weekObj);
+                    week = calStart.get(Calendar.WEEK_OF_YEAR);
+                }
+                if (current!=null){
+                    weekObj.addDayOfWeek(new MonthDay(calStart.get(Calendar.DAY_OF_MONTH), calStart.get(Calendar.DAY_OF_WEEK), daysOfWeekStr[calStart.get(Calendar.DAY_OF_WEEK)-1], calStart.get(Calendar.MONTH), calStart.get(Calendar.YEAR), this.monthStrShort[calStart.get(Calendar.MONTH)], this.monthStr[calStart.get(Calendar.MONTH)], this.getMonth(), calStart.getTime(), current.getCitas(), current.getScheduleCount()));
+                }else{
+                    weekObj.addDayOfWeek(new MonthDay(calStart.get(Calendar.DAY_OF_MONTH), calStart.get(Calendar.DAY_OF_WEEK), daysOfWeekStr[calStart.get(Calendar.DAY_OF_WEEK)-1], calStart.get(Calendar.MONTH), calStart.get(Calendar.YEAR), this.monthStrShort[calStart.get(Calendar.MONTH)], this.monthStr[calStart.get(Calendar.MONTH)], this.getMonth(), calStart.getTime(), new ArrayList<TblProgramacionCitas>(), 0));                
+                }
+                calStart.add(Calendar.DAY_OF_MONTH, 1);
+                current = dayScheduleList.get(calStart.getTime());
             }
-            weekObj.addDayOfWeek(new MonthDay(calStart.get(Calendar.DAY_OF_MONTH), calStart.get(Calendar.DAY_OF_WEEK), daysOfWeekStr[calStart.get(Calendar.DAY_OF_WEEK)-1], calStart.get(Calendar.MONTH), calStart.get(Calendar.YEAR), this.monthStrShort[calStart.get(Calendar.MONTH)], this.monthStr[calStart.get(Calendar.MONTH)], this.getMonth()));
-            calStart.add(Calendar.DAY_OF_MONTH, 1);
+        }catch(Exception ex){
+            ex.printStackTrace();
+            this.addError(ex.getMessage(), ex.getMessage());
         }
         return monthWeeks;
     }
@@ -93,6 +159,15 @@ public class FrmTblControlCitas {
         this.monthWeeks = monthWeeks;
     }
 
+    public TblExpedientePacientes getExpediente() {
+        return expediente;
+    }
+
+    public void setExpediente(TblExpedientePacientes expediente) {
+        System.out.println("Setting expediente: "+expediente.getNumExpediente());
+        this.expediente = expediente;
+    }
+    
     public int getMonth() {
         return month;
     }
@@ -137,4 +212,71 @@ public class FrmTblControlCitas {
             this.setMonth(this.getMonth()+1);
         }
     }
+    
+    public void nextYear(ActionEvent ae){
+        this.setYear(this.getYear()+1);
+    }
+
+    public void previousYear(ActionEvent ae){
+            this.setYear(this.getYear()-1);
+    }
+    
+    public void agregarCita(ActionEvent ae){
+        cita.setNumCita(null);
+        cita.setFecOtoCita(null);
+        cita.setEstCita(EstadoProgramacionCitas.PROGRAMADA);
+    }
+    
+    public void guardar(ActionEvent ae){
+        try{
+            if (cita.getNumCita()!=null && cita.getNumCita()>0){
+                this.programacionCitasFacade.create(cita);
+            }else{
+                this.programacionCitasFacade.edit(cita);
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+            this.addError(ex.getMessage(), ex.getMessage());
+        }    
+    }
+
+    
+    public List<TblExpedientePacientes> autocomplete(String text){
+        try{
+            return expedienteFacade.findByPrefix(text);
+        }catch(Exception ex){
+            ex.printStackTrace();
+            this.addError(ex.getMessage(), ex.getMessage());
+        }
+        return new ArrayList<TblExpedientePacientes>();
+    }
+    
+    public void find(){
+        System.out.println("Expediente seleccionado: "+expediente.getNumExpediente());
+    }
+    
+    public void change(ValueChangeEvent vce){
+        
+        System.out.println("vce: "+expediente.getNumExpediente());
+    }
+    
+    public void init(){
+          try{
+            if (addedFecCita!=null && !addedFecCita.trim().equals("")){
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                Date fecha = format.parse(addedFecCita);
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(fecha);
+                this.setYear(cal.get(Calendar.YEAR));
+                this.setMonth(cal.get(Calendar.MONTH));
+                addedFecCita=null;
+                addedNumCita=null;
+                //cita.setFecCita(format.parse(addedFecCita));
+            }
+          }catch(Exception ex){
+              //Me vale madre si hay un error
+          }
+        
+    }    
+
 }
