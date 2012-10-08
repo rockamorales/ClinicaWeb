@@ -168,9 +168,9 @@ and open the template in the editor.
                                                                                     <h:outputText value="#{fn:substring(cita.expediente.nombreCompleto,0,8)} ..." title="#{cita.expediente.nombreCompleto}" style="font-size: smaller; font-family: sans-serif; font-weight: bold;"></h:outputText>
                                                                                 </td>
                                                                                 <td align="right">
-                                                                                    <h:commandLink>
+                                                                                    <a4j:commandLink actionListener="#{frmTblControlCitas.eliminar}" render="schedulePanel">
                                                                                         <h:graphicImage url="/img/icons/delete.gif" style="border: 0; height: 13px; width: 13px;"></h:graphicImage>
-                                                                                    </h:commandLink>
+                                                                                    </a4j:commandLink>
                                                                                     <h:outputLink value="frmMantTblProgramacionCitas.jsf">
                                                                                         <f:param name="numCita" value="#{cita.numCita}">
                                                                                         </f:param>
@@ -183,7 +183,7 @@ and open the template in the editor.
                                                                     </fieldset>
                                                                 </a4j:repeat>
                                                                 <div align="center">
-                                                                    <a4j:commandLink value="Mas" actionListener="#{frmMantTblProgramacionCitas.mostrarTodas}" oncomplete="#{rich:component('daySchedulePanel')}.show(event,{top:jQuery(#{rich:element('schedulePanel')}).offset().top, left:jQuery(#{rich:element('schedulePanel')}).offset().left})" rendered="#{day.scheduleCount > 5}">
+                                                                    <a4j:commandLink value="Mas" actionListener="#{frmTblControlCitas.mostrarTodas}" oncomplete="#{rich:component('daySchedulePanel')}.show(event,{top:jQuery(#{rich:element('schedulePanel')}).offset().top, left:jQuery(#{rich:element('schedulePanel')}).offset().left})" rendered="#{day.scheduleCount > 5}" render="daySchedulePanel">
                                                                     </a4j:commandLink>
                                                                     <h:outputText value=" | " rendered="#{day.scheduleCount > 5}"/>
                                                                     <h:outputLink value="frmMantTblProgramacionCitas.jsf">
@@ -218,21 +218,32 @@ and open the template in the editor.
                             Cerrar
                         </h:outputLink>
                     </f:facet>
-                    <fieldset style="border-radius: 5px;background-color: #e0eeee; padding-left: 0; padding-top: 0; padding-bottom: 0; padding-right: 4px; text-align: left;">
-                        <h:outputText value=" 8:30 Roberto Carlos Morales Villatoro" style="font-size: small; font-family: sans-serif; font-weight: bold;"></h:outputText>
-                    </fieldset>
-                    <fieldset style="border-radius: 5px;background-color: #e0eeee; padding-left: 0; padding-top: 0; padding-bottom: 0; padding-right: 4px; text-align: left;">
-                        <h:outputText value=" 9:00 Teresa Elizabeth Lazo Herrera" style="font-size: small; font-family: sans-serif; font-weight: bold;"></h:outputText>
-                    </fieldset>
-                    <fieldset style="border-radius: 5px;background-color: #e0eeee; padding-left: 0; padding-top: 0; padding-bottom: 0; padding-right: 4px; text-align: left;">
-                        <h:outputText value=" 9:30 Juan Carlos Castillo Benitez" style="font-size: small; font-family: sans-serif; font-weight: bold;"></h:outputText>
-                    </fieldset>
-                    <fieldset style="border-radius: 5px;background-color: #e0eeee; padding-left: 0; padding-top: 0; padding-bottom: 0; padding-right: 4px; text-align: left;">
-                        <h:outputText value=" 10:00 Edwin Enrique Estrada Martinez" style="font-size: small; font-family: sans-serif; font-weight: bold;"></h:outputText>
-                    </fieldset>
-                    <fieldset style="border-radius: 5px;background-color: #e0eeee; padding-left: 0; padding-top: 0; padding-bottom: 0; padding-right: 4px; text-align: left;">
-                        <h:outputText value=" 10:30 Erik Roberto Morales Lazo" style="font-size: small; font-family: sans-serif; font-weight: bold;"></h:outputText>
-                    </fieldset>
+                    <a4j:region id="scheduleList">
+                        <a4j:repeat value="#{frmTblControlCitas.citasList}" var="cita1">
+                            <fieldset style="border-radius: 5px;background-color: #e0eeee; padding-left: 0; padding-top: 0; padding-bottom: 0; padding-right: 4px; text-align: left;">
+                                <table cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <td align="left">
+                                            <h:outputText value="#{cita1.horCitaStr} " style="font-size: smaller; font-family: sans-serif; font-weight: bold;">
+                                            </h:outputText>
+                                            <h:outputText value="#{cita1.expediente.nombreCompleto}" title="#{cita1.expediente.nombreCompleto}" style="font-size: smaller; font-family: sans-serif; font-weight: bold;"></h:outputText>
+                                        </td>
+                                        <td align="right">
+                                            <a4j:commandLink actionListener="#{frmTblControlCitas.eliminar}" render="scheduleList, panelMessage">
+                                                <h:graphicImage url="/img/icons/delete.gif" style="border: 0;"></h:graphicImage>
+                                            </a4j:commandLink>
+                                            <h:outputLink value="frmMantTblProgramacionCitas.jsf">
+                                                <f:param name="numCita" value="#{cita1.numCita}">
+                                                </f:param>
+                                                <h:graphicImage url="/img/icons/edit.gif" style="border: 0;">
+                                                </h:graphicImage>
+                                            </h:outputLink>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </fieldset>
+                        </a4j:repeat>
+                    </a4j:region>
                 </rich:popupPanel>
             </h:form>
             <rich:hotKey key="esc" selector=".closeButton">

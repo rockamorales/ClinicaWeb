@@ -16,6 +16,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
+import org.richfaces.component.UIRepeat;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
 import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
 import sv.com.cormaria.servicios.entidades.archivo.TblProgramacionCitas;
@@ -53,7 +54,6 @@ public class FrmTblControlCitas extends PageBase {
     
     private List<MonthDay> monthDays = new ArrayList<MonthDay>();
     private List<MonthWeek> monthWeeks = new ArrayList<MonthWeek>();
-    
     private boolean yearAndMonthApplied = false;
     private String addedFecCita;
     
@@ -80,10 +80,6 @@ public class FrmTblControlCitas extends PageBase {
     }
     
     public List<TblProgramacionCitas> getCitasList() {
-        if (citasList.isEmpty()){
-            
-            
-        }
         return citasList;
     }
 
@@ -257,27 +253,55 @@ public class FrmTblControlCitas extends PageBase {
     }
     
     public void change(ValueChangeEvent vce){
-        
         System.out.println("vce: "+expediente.getNumExpediente());
     }
     
     public void init(){
           try{
             if (addedFecCita!=null && !addedFecCita.trim().equals("")){
-                if (yearAndMonthApplied){
+                if (!yearAndMonthApplied){
                     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                     Date fecha = format.parse(addedFecCita);
                     Calendar cal = Calendar.getInstance();
                     cal.setTime(fecha);
                     this.setYear(cal.get(Calendar.YEAR));
                     this.setMonth(cal.get(Calendar.MONTH));
+                    yearAndMonthApplied = true;
                 }
                 //cita.setFecCita(format.parse(addedFecCita));
             }
           }catch(Exception ex){
               //Me vale madre si hay un error
           }
-        
     }    
-
+    
+    public void mostrarTodas(ActionEvent ae){
+        try{
+            System.out.println("Source: "+ae.getComponent().getParent().getClass());
+            System.out.println("Source: "+ae.getComponent().getParent().getParent().getClass());
+            UIRepeat repeat = (UIRepeat)ae.getComponent().getParent().getParent();
+            MonthDay day = (MonthDay) repeat.getRowData();
+            System.out.println("Day: "+day.getDayDate());
+            citasList = programacionCitasFacade.findByDay(day.getDayDate());
+            System.out.println("Cantidad de citas: "+citasList.size());
+        }catch(Exception ex){
+            ex.printStackTrace();
+            this.addError(ex.getMessage(), ex.getMessage());
+        }
+    }
+    
+    public void eliminar(ActionEvent ae){
+        try{
+            UIRepeat repeat = (UIRepeat)ae.getComponent().getParent();
+            TblProgramacionCitas cita = (TblProgramacionCitas) repeat.getRowData();
+            programacionCitasFacade.remove(cita);
+            citasList = programacionCitasFacade.findByDay(cita.getFecCita());
+            //TODO: Una forma mas eficiente de hacer esto podria ser extrayendo la lista de citas para el dia en donde se ha eliminado
+            // y actualizar la lista de citas de dicho dia. En este momento en cada llamada al metodo getMonthWeeks se construye la estructura 
+            // del calendario
+        }catch(Exception ex){
+            ex.printStackTrace();
+            this.addError(ex.getMessage(), ex.getMessage());
+        }
+    }
 }

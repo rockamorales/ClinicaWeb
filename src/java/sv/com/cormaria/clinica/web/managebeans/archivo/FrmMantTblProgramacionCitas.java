@@ -14,7 +14,6 @@ import javax.faces.event.ActionEvent;
 import org.richfaces.component.UIDataTable;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
 import sv.com.cormaria.clinica.web.managebeans.datamodels.ExpedienteDataModel;
-import sv.com.cormaria.servicios.entidades.administracion.TblEmpleado;
 import sv.com.cormaria.servicios.entidades.administracion.TblMedico;
 import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
 import sv.com.cormaria.servicios.entidades.archivo.TblProgramacionCitas;
@@ -67,6 +66,7 @@ public class FrmMantTblProgramacionCitas extends PageBase{
     private List<CatEspecialidad> especialidadList = new ArrayList<CatEspecialidad>();
     private List<CatConsultorio> consultoriosList = new ArrayList<CatConsultorio>();
     private List<TblMedico> medicosList = new ArrayList<TblMedico>();
+    private boolean applied = false;
 
     public String getFecCita() {
         return fecCita;
@@ -154,30 +154,32 @@ public class FrmMantTblProgramacionCitas extends PageBase{
     }
     
     public void init(){
-      if (numCita!=null && numCita > 0){
-          try{
-              cita = citasFacade.find(numCita);
-              expediente = cita.getExpediente();
-          }catch(Exception ex){
-              ex.printStackTrace();
-              this.addError(ex.getMessage(), ex.getMessage());
-          }
-      }else{
-          try{
-            if (fecCita!=null && !fecCita.trim().equals("")){
-                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                cita.setFecCita(format.parse(fecCita));
-            }
-            if (horCita!=null && !horCita.trim().equals("")){
-                SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-                cita.setHorCita(format.parse(horCita));
+        if (!applied){
+            if (numCita!=null && numCita > 0){
+                try{
+                    cita = citasFacade.find(numCita);
+                    expediente = cita.getExpediente();
+                }catch(Exception ex){
+                    ex.printStackTrace();
+                    this.addError(ex.getMessage(), ex.getMessage());
+                }
+            }else{
+                try{
+                  if (fecCita!=null && !fecCita.trim().equals("")){
+                      SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                      cita.setFecCita(format.parse(fecCita));
+                  }
+                  if (horCita!=null && !horCita.trim().equals("")){
+                      SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+                      cita.setHorCita(format.parse(horCita));
 
+                  }
+                }catch(Exception ex){
+                    //Me vale madre si hay un error
+                }
             }
-          }catch(Exception ex){
-              //Me vale madre si hay un error
-          }
-          
-      }
+            applied = true;
+       }
     }    
 
     public void seleccionar(ActionEvent ae){
