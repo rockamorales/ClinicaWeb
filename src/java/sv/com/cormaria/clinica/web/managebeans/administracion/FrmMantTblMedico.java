@@ -116,8 +116,7 @@ public class FrmMantTblMedico extends PageBase{
            isValid = false;
            this.addError("Porfavor seleccione la especialidad", "Porfavor seleccione la especialidad");
        }
-
-       
+      
        return isValid;
      
    }    

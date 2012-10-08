@@ -28,6 +28,11 @@ public class FrmCatAreas extends PageBase {
     
     private List<CatAreas> catAreasList= new ArrayList<CatAreas>();
 
+    public FrmCatAreas() {
+    }
+
+    
+    
     public CatAreas getCatAreas() {
         return catAreas;
     }

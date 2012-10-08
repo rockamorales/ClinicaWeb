@@ -19,48 +19,89 @@ and open the template in the editor.
    
         </f:metadata>
         <ui:define name="body">
+            <h3>Agregar Empleado</h3>
+            <hr></hr>
             <h:form id="form">
               <table>
                 <tr>
                     <td>Código</td>
                     <td><h:outputText value="#{frmMantTblEmpleado.tblEmpleado.numEmpleado}" style="font-weight: bold"/>
                         <h:inputHidden value="#{frmMantTblEmpleado.tblEmpleado.numEmpleado}" /></td>
+                    <td align="left">Estado:</td>
+                    <td align="left">
+                        <h:outputText value="#{frmMantTblEmplñeado.tblEmpleado.actEmpleado}" style="font-weight: bold"></h:outputText>
+                    </td>
+                </tr>
+                <tr>  
                     <td>Fecha de Registro</td>
-                    <td><rich:calendar value="#{frmMantTblEmpleado.tblEmpleado.fecRegEmpleado}" style="font-weight: bold">
-                        </rich:calendar>  
+                    <td><rich:calendar value="#{frmMantTblEmpleado.tblEmpleado.fecRegEmpleado}" datePattern="dd/MM/yyyy">
+                        </rich:calendar>
+                        <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                    
+                    <td align="left">Profesion:</td>
+                    <td align="left">
+                        <h:selectOneMenu value="#{frmMantTblEmpleado.tblEmpleado.codProfesion}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem> 
+                            <f:selectItems value="#{frmMantTblEmpleado.catProfesionesList}"/>
+                        </h:selectOneMenu>
                     </td>
                 </tr>
                 <tr>
-                    <td>Nombre Empleado</td>
-                    <td><h:inputText value="#{frmMantTblEmpleado.tblEmpleado.nomEmpleado}" /></td>
-                    <td>Primer Apellido</td>
-                    <td><h:inputText value="#{frmMantTblEmpleado.tblEmpleado.priApeEmpleado}" /></td>
-                    <tr>    
-                    <td>Segundo Apellido</td>
-                    <td><h:inputText value="#{frmMantTblEmpleado.tblEmpleado.secApeEmpleado}" /></td>
-                    <td>Tercer Apellido</td>
-                    <td><h:inputText value="#{frmMantTblEmpleado.tblEmpleado.terApeEmpleado}" /></td>
-                    </tr>
-                    <tr>
-                    <td>Direccion</td>
-                    <td colspan="3"><h:inputText value="#{frmMantTblEmpleado.tblEmpleado.dirEmpleado}"/></td>
-                    </tr>
-                    <tr>
-                    <td>Telefono</td>
-                    <td><h:inputText value="#{frmMantTblEmpleado.tblEmpleado.telEmpleado}" /></td>
-                    <td>Celular</td>
-                    <td><h:inputText value="#{frmMantTblEmpleado.tblEmpleado.celEmpleado}" /></td>
-                    </tr>
-                    <tr>
-                    <td>NIT</td>
-                    <td><h:inputText value="#{frmMantTblEmpleado.tblEmpleado.nitEmpleado}" /></td>
-                    <td>DUI</td>
-                    <td><h:inputText value="#{frmMantTblEmpleado.tblEmpleado.duiEmpleado}" /></td>
-                    </tr>
-                    <tr>
-                    
-                    </tr>
-                    
+                    <td align="left">Tipo de Servicio:</td>
+                    <td align="left">
+                        <h:selectOneMenu value="#{frmMantTblEmpleado.tblEmpleado.codTipServicio}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem> 
+                            <f:selectItems value="#{frmMantTblEmpleado.catTipoServicioList}"/>
+                        </h:selectOneMenu>
+                    </td>
+                    <td align="left">Area:</td>
+                    <td align="left">
+                        <h:selectOneMenu value="#{frmMantTblEmpleado.tblEmpleado.codArea}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem> 
+                            <f:selectItems value="#{frmMantTblEmpleado.catAreasList}"/>
+                        </h:selectOneMenu>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Nombre Empleado:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblEmpleado.tblEmpleado.nomEmpleado}" maxlength="30" onkeypress="return filterInput(0, event, false, ' ');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                    <td align="left">Primer Apellido:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblEmpleado.tblEmpleado.priApeEmpleado}" maxlength="15" onkeypress="return filterInput(0, event, false, ' ');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                </tr>  
+                <tr>
+                    <td align="left">Segundo Apellido:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblEmpleado.tblEmpleado.secApeEmpleado}" maxlength="15" onkeypress="return filterInput(0, event, false, ' ');"/></td>
+                    <td align="left">Tercer Apellido:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblEmpleado.tblEmpleado.terApeEmpleado}" maxlength="15" onkeypress="return filterInput(0, event, false, ' ');"/></td>
+                </tr> 
+                <tr>
+                    <td align="left">Direccion Personal:</td>
+                    <td align="left" colspan="3"><h:inputTextarea styleClass="mayusculas" value="#{frmMantTblEmpleado.tblEmpleado.dirEmpleado}" rows="2" cols="80" onkeypress="return filterInput(2, event, false, ' #,.');"/>
+                        <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                </tr>  
+                   <tr>
+                    <td align="left">Telefono Fijo:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblEmpleado.tblEmpleado.telEmpleado}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/></td>
+                    <td align="left">Telefono Celular:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblEmpleado.tblEmpleado.celEmpleado}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/></td>
+                </tr>                
+               <tr>
+                    <td align="left">DUI:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblEmpleado.tblEmpleado.duiEmpleado}" maxlength="9" onkeypress="return filterInput(1, event, false, '');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                    <td align="left">NIT:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblEmpleado.tblEmpleado.nitEmpleado}" maxlength="14" onkeypress="return filterInput(1, event, false, '');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                </tr> 
+
                     <tr>
                     <td>Estado</td>
                     <td>
@@ -70,7 +111,6 @@ and open the template in the editor.
                         </h:selectOneMenu>
                     </td>
                     </tr>
-                </tr>
                   <tr>
                       <td colspan="4" align="center">
                           <a4j:commandButton value="Guardar" actionListener="#{frmMantTblEmpleado.guardar}" render="form, panelMessage" />

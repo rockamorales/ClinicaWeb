@@ -12,31 +12,30 @@ and open the template in the editor.
       xmlns:a4j="http://richfaces.org/a4j">
     <ui:composition template="/templates/main.xhtml">
         <ui:define name="title">
-          <h:outputText value="#{messages['default.windowTitle']}--Administración de Empleados" escape="false"></h:outputText>  
+          <h:outputText value="#{messages['default.windowTitle']}--Administración de Beneficiarios" escape="false"></h:outputText>  
         </ui:define>
         <ui:define name="body">
+            <h3>Administración de Beneficiarios</h3>
+            <hr></hr>
             <h:form>
-                <h:outputLink value="frmMantTblEmpleado.jsf">
-                    Agregar Nuevo Empleado
+                <h:outputLink value="frmMantTblBeneficiarios.jsf">
+                    Agregar Nuevo Registro
                 </h:outputLink>
-                <rich:dataTable value="#{frmTblEmpleado.tblEmpleadoList}" var="tblEmpleado" rows="10" id="tblEmpleadoTable">
+                <rich:dataTable value="#{frmTblBeneficiarios.tblBeneficiariosList}" var="tblBeneficiarios" rows="10" id="tblBeneficiariosTable">
             <f:facet name="header">
                 <rich:columnGroup>
                   <h:column>
-                    <h:outputText value="Numero de Empleado"/>
+                    <h:outputText value="Código"/>
                   </h:column>
                   <h:column>
                     <h:outputText value="Nombre"/>
                   </h:column>
                   <h:column>
-                    <h:outputText value="Fecha de Registro"/>
+                    <h:outputText value="Telefono"/>
                   </h:column>                  
                     <h:column>
-                    <h:outputText value="Teléfono"/>
+                    <h:outputText value="NIT"/>
                   </h:column>
-                    <h:column>
-                    <h:outputText value="DUI"/>
-                  </h:column>                    
                  <h:column>
                     <h:outputText value=""/>
                   </h:column>
@@ -46,29 +45,25 @@ and open the template in the editor.
                 </rich:columnGroup>
               </f:facet>
                 <h:column>
-                    <h:outputText value="#{tblEmpleado.numEmpleado}">
+                    <h:outputText value="#{tblBeneficiarios.numBeneficiario}">
                     </h:outputText>
                 </h:column>
                 <h:column>
-                    <h:outputText value="#{tblEmpleado.nomEmpleado} #{tblEmpleado.priApeEmpleado} #{tblEmpleado.secApeEmpleado} #{tblEmpleado.terApeEmpleado}">
+                    <h:outputText value="#{tblBeneficiarios.nomBeneficiario}">
                     </h:outputText>
                 </h:column>
                 <h:column>
-                    <h:outputText value="#{tblEmpleado.fecRegEmpleado}">
+                    <h:outputText value="#{tblBeneficiarios.telBeneficiario}">
                     </h:outputText>
-                </h:column> 
+                </h:column>   
                 <h:column>
-                    <h:outputText value="#{tblEmpleado.telEmpleado}">
+                    <h:outputText value="#{tblBeneficiarios.nitBeneficiario}">
                     </h:outputText>
-                </h:column>  
-                <h:column>
-                    <h:outputText value="#{tblEmpleado.duiEmpleado}">
-                    </h:outputText>
-                </h:column>  
+                </h:column>   
                 <h:column>
                     
-                    <h:outputLink value="frmMantTblEmpleado.jsf">
-                        <f:param name="numEmpleado" value="#{tblEmpleado.numEmpleado}"/>
+                    <h:outputLink value="frmManttblBeneficiarios.jsf">
+                        <f:param name="numBeneficiario" value="#{tblBeneficiarios.numBeneficiario}"/>
                         <f:param name="faces-redirect" value="true"/>
                         <h:graphicImage url="/img/icons/edit.gif">
                             
@@ -76,9 +71,9 @@ and open the template in the editor.
                     </h:outputLink>
                 </h:column>
                 <h:column>
-                    <a4j:commandLink actionListener="#{frmTblEmpleado.delete}" render="@form" onclick="if(!confirm('Esta seguro que desea eliminar el Empleado: #{tblEmpleado.nomEmpleado} #{tblEmpleado.priApeEmpleado}')){return false;}">
+                    <a4j:commandLink actionListener="#{frmTblBeneficiarios.delete}" render="tblBeneficiariosTable" onclick="if(!confirm('Esta seguro que desea eliminar el área: #{tblBeneficiarios.nomBanco}')){return false;}">
                         <h:graphicImage url="/img/icons/delete.gif"/>
-                        <f:setPropertyActionListener target="#{frmTblEmpleado.tblEmpleado}" value="#{tblEmpleado}"/>
+                        <f:setPropertyActionListener target="#{frmTblBeneficiarios.tblBeneficiarios}" value="#{tblBeneficiarios}"/>
                     </a4j:commandLink>
                   
                    
