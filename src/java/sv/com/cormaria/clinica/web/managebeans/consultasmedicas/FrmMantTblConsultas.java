@@ -10,18 +10,30 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+import javax.persistence.NoResultException;
 import org.richfaces.component.UIDataGrid;
 import org.richfaces.component.UIDataTable;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
 import sv.com.cormaria.clinica.web.managebeans.datamodels.ConsultasPagadasDataModel;
 import sv.com.cormaria.clinica.web.managebeans.datamodels.ConsultasSignosVitalesDataModel;
 import sv.com.cormaria.clinica.web.managebeans.datamodels.ExpedienteDataModel;
+import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
+import sv.com.cormaria.servicios.entidades.catalogos.CatExamenesMedicos;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblConsultas;
+import sv.com.cormaria.servicios.entidades.consultasmedicas.TblDetalleOrdenLaboratorio;
+import sv.com.cormaria.servicios.entidades.consultasmedicas.TblDetalleOrdenLaboratorioPK;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblDetalleReceta;
+import sv.com.cormaria.servicios.entidades.consultasmedicas.TblDetalleRecetaPK;
+import sv.com.cormaria.servicios.entidades.consultasmedicas.TblOrdenLaboratorio;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblRecetaMedica;
 import sv.com.cormaria.servicios.entidades.farmacia.TblProducto;
+import sv.com.cormaria.servicios.enums.EstadoRecetaMedica;
+import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
+import sv.com.cormaria.servicios.facades.catalogos.CatExamenesMedicosFacadeLocal;
 import sv.com.cormaria.servicios.facades.consultasmedicas.TblConsultasFacadeLocal;
+import sv.com.cormaria.servicios.facades.consultasmedicas.TblDetalleOrdenLaboratorioFacadeLocal;
 import sv.com.cormaria.servicios.facades.consultasmedicas.TblDetalleRecetaFacadeLocal;
+import sv.com.cormaria.servicios.facades.consultasmedicas.TblOrdenLaboratorioFacadeLocal;
 import sv.com.cormaria.servicios.facades.consultasmedicas.TblRecetaMedicaFacadeLocal;
 import sv.com.cormaria.servicios.facades.farmacia.TblProductoFacadeLocal;
 
@@ -46,15 +58,31 @@ public class FrmMantTblConsultas extends PageBase {
     private TblDetalleRecetaFacadeLocal tblDetalleRecetaFacade;    
 
     @EJB
+    private TblDetalleOrdenLaboratorioFacadeLocal tblDetalleOrdenLabFacade;
+
+    @EJB
+    private TblOrdenLaboratorioFacadeLocal tblOrdenLabFacade;
+    
+    @EJB
     private TblProductoFacadeLocal tblProductoFacade;
+
+    @EJB
+    private CatExamenesMedicosFacadeLocal catExamenesFacade;
     
     private TblRecetaMedica recetaMedica = new TblRecetaMedica();
     
     private List<TblDetalleReceta> detalleReceta = new ArrayList<TblDetalleReceta>();
 
+    private List<TblDetalleOrdenLaboratorio> detalleOrdenLabList = new ArrayList<TblDetalleOrdenLaboratorio>();
+
+    private TblDetalleOrdenLaboratorio detalleOrdenLab = new TblDetalleOrdenLaboratorio();
+
+    private TblOrdenLaboratorio ordenLab = new TblOrdenLaboratorio();
+    
     private TblDetalleReceta receta = new TblDetalleReceta();
     
     private List<TblProducto> productosList = new ArrayList<TblProducto>();
+    private List<CatExamenesMedicos> examenesList = new ArrayList<CatExamenesMedicos>();
     
     private Integer numConsulta;
     
@@ -71,6 +99,54 @@ public class FrmMantTblConsultas extends PageBase {
 
     public void setConsulta(TblConsultas consulta) {
         this.consulta = consulta;
+    }
+
+    public List<CatExamenesMedicos> getExamenesList() {
+        if (examenesList.isEmpty()){
+            try{
+                examenesList=catExamenesFacade.findAll();
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+        }
+        return examenesList;
+    }
+
+    public void setExamenesList(List<CatExamenesMedicos> examenesList) {
+        this.examenesList = examenesList;
+    }
+
+    public List<TblDetalleOrdenLaboratorio> getDetalleOrdenLabList() {
+        if (detalleOrdenLabList.isEmpty()){
+            try{
+                if (this.getOrdenLab().getNumOrdLaboratorio()!=null && this.getOrdenLab().getNumOrdLaboratorio()>0){
+                    detalleOrdenLabList = tblDetalleOrdenLabFacade.findByNumOrdenLaboratorio(this.getOrdenLab().getNumOrdLaboratorio());
+                }
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+        }
+        return detalleOrdenLabList;
+    }
+
+    public void setDetalleOrdenLabList(List<TblDetalleOrdenLaboratorio> detalleOrdenLabList) {
+        this.detalleOrdenLabList = detalleOrdenLabList;
+    }
+
+    public TblDetalleOrdenLaboratorio getDetalleOrdenLab() {
+        return detalleOrdenLab;
+    }
+
+    public void setDetalleOrdenLab(TblDetalleOrdenLaboratorio detalleOrdenLab) {
+        this.detalleOrdenLab = detalleOrdenLab;
+    }
+
+    public TblOrdenLaboratorio getOrdenLab() {
+        return ordenLab;
+    }
+
+    public void setOrdenLab(TblOrdenLaboratorio ordenLab) {
+        this.ordenLab = ordenLab;
     }
 
     public List<TblProducto> getProductosList() {
@@ -132,6 +208,7 @@ public class FrmMantTblConsultas extends PageBase {
     public void guardar(ActionEvent ae){
         try{
             consulta = tblConsultasFacade.edit(consulta);
+            this.addInfo("La informacion ha sido guardada", "La informacion ha sido guardada");
         }catch(Exception ex){
             ex.printStackTrace();
             this.addError(ex.getMessage(), ex.getMessage());
@@ -142,7 +219,8 @@ public class FrmMantTblConsultas extends PageBase {
         if (numConsulta != null && numConsulta >0){
             try{
                 consulta = tblConsultasFacade.find(numConsulta);
-                recetaMedica = tblRecetaMedicaFacade.findByNumExpediente(consulta.getNumConsulta());
+                recetaMedica = tblRecetaMedicaFacade.findByNumConsulta(consulta.getNumConsulta());
+                ordenLab = tblOrdenLabFacade.findByNumConsulta(consulta.getNumConsulta());
             }catch(Exception ex){
                 ex.printStackTrace();
                 this.addError(ex.getMessage(), ex.getMessage());
@@ -155,6 +233,8 @@ public class FrmMantTblConsultas extends PageBase {
     try{
         UIDataTable table = (UIDataTable) ae.getComponent().getParent().getParent();
         this.consulta = tblConsultasFacade.find(((TblConsultas)table.getRowData()).getNumConsulta());
+        recetaMedica = tblRecetaMedicaFacade.findByNumConsulta(consulta.getNumConsulta());
+        ordenLab = tblOrdenLabFacade.findByNumConsulta(consulta.getNumConsulta());
     }catch(Exception x){
         x.printStackTrace();
         this.addError(x.getMessage(), x.getMessage());
@@ -165,13 +245,84 @@ public class FrmMantTblConsultas extends PageBase {
     try{
         UIDataGrid table = (UIDataGrid) ae.getComponent().getParent();
         this.consulta = tblConsultasFacade.find(((TblConsultas)table.getRowData()).getNumConsulta());
-        
+        try{
+            recetaMedica = tblRecetaMedicaFacade.findByNumConsulta(consulta.getNumConsulta());
+        }catch(Exception ex){
+            
+        }
+        try{
+            ordenLab = tblOrdenLabFacade.findByNumConsulta(consulta.getNumConsulta());
+        }catch(Exception ex){
+            
+        }
     }catch(Exception x){
         x.printStackTrace();
         this.addError(x.getMessage(), x.getMessage());
     }
    }
    
+   public void agregarDetalleReceta(ActionEvent ae){
+       try{
+           TblDetalleRecetaPK pk = receta.getTblDetalleRecetaPK();
+           pk.setNumReceta(recetaMedica.getNumReceta());
+           tblDetalleRecetaFacade.create(receta);
+           this.addInfo("La informacion ha sido guardada", "La informacion ha sido guardada");
+           this.detalleReceta.clear();
+       }catch(Exception ex){
+           ex.printStackTrace();
+          this.addError(ex.getMessage(), ex.getMessage());
+       }
+   }
+
+   public void agregarDetalleOrdenLab(ActionEvent ae){
+       try{
+           TblDetalleOrdenLaboratorioPK pk = detalleOrdenLab.getTblDetalleOrdenLaboratorioPK();
+           pk.setNumOrdLaboratorio(ordenLab.getNumOrdLaboratorio());
+           tblDetalleOrdenLabFacade.create(detalleOrdenLab);
+           this.addInfo("La informacion ha sido guardada", "La informacion ha sido guardada");
+           this.detalleOrdenLabList.clear();
+       }catch(Exception ex){
+           ex.printStackTrace();
+          this.addError(ex.getMessage(), ex.getMessage());
+       }
+   }
+   
+   
+   public void guardarReceta(ActionEvent ae){
+      try{
+          if (recetaMedica.getNumReceta()!=null && recetaMedica.getNumReceta()>0){
+            recetaMedica = tblRecetaMedicaFacade.edit(recetaMedica);
+          }else{
+            recetaMedica.setEstReceta(EstadoRecetaMedica.CREADA);
+            recetaMedica.setNumConsulta(this.consulta.getNumConsulta());
+            recetaMedica.setNumExpediente(this.consulta.getNumExpediente());
+            recetaMedica.setNumMedico(this.consulta.getNumMedico());
+            recetaMedica = tblRecetaMedicaFacade.create(recetaMedica);
+          }
+          this.addInfo("La informacion ha sido guardada", "La informacion ha sido guardada");
+      }catch(Exception ex){
+          ex.printStackTrace();
+          this.addError(ex.getMessage(), ex.getMessage());
+      }
+   }
+
+   public void guardarOrdenLab(ActionEvent ae){
+      try{
+          if (ordenLab.getNumOrdLaboratorio()!=null && ordenLab.getNumOrdLaboratorio()>0){
+            ordenLab = tblOrdenLabFacade.edit(ordenLab);
+          }else{
+            ordenLab.setNumConsulta(this.consulta.getNumConsulta());
+            ordenLab.setNumExpediente(this.consulta.getNumExpediente());
+            ordenLab.setNumMedico(this.consulta.getNumMedico());
+            ordenLab = tblOrdenLabFacade.create(ordenLab);
+          }
+          this.addInfo("La informacion ha sido guardada", "La informacion ha sido guardada");
+      }catch(Exception ex){
+          ex.printStackTrace();
+          this.addError(ex.getMessage(), ex.getMessage());
+      }
+   }
+
    
    public void buscar(ActionEvent ae){
       ExpedienteDataModel model = (ExpedienteDataModel) this.getBean("#{expedienteDataModel}", ExpedienteDataModel.class);
@@ -189,9 +340,34 @@ public class FrmMantTblConsultas extends PageBase {
       }
    }
     
-    
     public void clear(ActionEvent ae){
         ConsultasSignosVitalesDataModel dataModel = (ConsultasSignosVitalesDataModel) this.getBean("#{consultasSignosVitalesDataModel}", ConsultasSignosVitalesDataModel.class);
         dataModel.clear();
-    }    
+    } 
+    
+    public void delete(ActionEvent ae){
+        try{
+            UIDataTable table = (UIDataTable) ae.getComponent().getParent().getParent();
+            receta = (TblDetalleReceta) table.getRowData();
+            tblDetalleRecetaFacade.remove(receta);
+            this.detalleReceta.clear();
+            this.addInfo("Se ha eliminado el medicamento de la receta", "Se ha eliminado el medicamento de la receta");
+        }catch(Exception x){
+            x.printStackTrace();
+            this.addError(x.getMessage(), x.getMessage());
+        }
+    }
+
+    public void deleteDetalleOrdenLab(ActionEvent ae){
+        try{
+            UIDataTable table = (UIDataTable) ae.getComponent().getParent().getParent();
+            detalleOrdenLab = (TblDetalleOrdenLaboratorio) table.getRowData();
+            tblDetalleOrdenLabFacade.remove(detalleOrdenLab);
+            this.detalleOrdenLabList.clear();
+            this.addInfo("Se ha eliminado el examen de la orden de laboratorio", "Se ha eliminado el examen de la orden de laboratorio");
+        }catch(Exception x){
+            x.printStackTrace();
+            this.addError(x.getMessage(), x.getMessage());
+        }
+    }
 }

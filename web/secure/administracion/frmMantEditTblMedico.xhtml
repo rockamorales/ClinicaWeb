@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <ui:composition template="/templates/main.xhtml">
+        <ui:define name="title">
+          <h:outputText value="#{messages['default.windowTitle']}--Administración de Medicos" escape="false"></h:outputText>  
+        </ui:define>
+        <f:metadata>
+            <f:viewParam name="numMedico" value="#{frmMantTblMedico.numMedico}"/>
+   
+        </f:metadata>
+        <ui:define name="body">
+            <h3>Modificar Médico</h3>
+            <hr></hr>
+            <h:form id="form">
+              <table>
+                <tr>
+                    <td align="left">Código:</td>
+                    <td align="left"><h:outputText value="#{frmMantTblMedico.tblMedico.numMedico}" style="font-weight: bold"/>
+                        <h:inputHidden value="#{frmMantTblMedico.tblMedico.numMedico}" /></td>
+                    <td align="left">Estado:</td>
+                    <td align="left">
+                        <h:outputText value="#{frmMantTblMedico.tblMedico.actMedico}" style="font-weight: bold"></h:outputText>
+                    </td>                        
+                </tr>
+
+                <tr>
+                    <td align="left">Nombre:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.nomMedico}" maxlength="30" onkeypress="return filterInput(0, event, false, ' ');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                    <td align="left">Primer Apellido:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.priApeMedico}" maxlength="15" onkeypress="return filterInput(0, event, false, ' ');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Segundo Apellido:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.secApeMedico}" maxlength="15" onkeypress="return filterInput(0, event, false, ' ');"/></td>
+                    <td align="left">Tercer Apellido:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.terApeMedico}" maxlength="15" onkeypress="return filterInput(0, event, false, ' ');"/></td>
+                </tr>  
+                <tr>
+                    <td align="left">Tipo de Servicio:</td>
+                    <td align="left">
+                        <h:selectOneMenu value="#{frmMantTblMedico.tblMedico.codTipServicio}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem> 
+                            <f:selectItems value="#{frmMantTblMedico.catTipoServicioList}"/>
+                        </h:selectOneMenu>
+                    </td>
+                    <td align="left">Especialidad:</td>
+                    <td align="left">
+                        <h:selectOneMenu value="#{frmMantTblMedico.tblMedico.codEspecialidad}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem> 
+                            <f:selectItems value="#{frmMantTblMedico.catEspecialidadList}"/>
+                        </h:selectOneMenu>
+                    </td>
+                </tr>                    
+                <tr>
+                    <td align="left">Numero de Junta:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.numJunta}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                    <td align="left">Fecha Ingreso a la Clinica:</td>
+                    <td align="left"><rich:calendar value="#{frmMantTblMedico.tblMedico.fecIngMedico}" datePattern="dd/MM/yyyy"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                </tr> 
+                <tr>
+                    <td align="left">Dirección Personal:</td>
+                    <td align="left" colspan="3"><h:inputTextarea styleClass="mayusculas" value="#{frmMantTblMedico.tblMedico.dirPerMedico}" rows="2" cols="80" onkeypress="return filterInput(2, event, false, ' #,.');"/>
+                   
+                        <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Telefono Fijo:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.telPerMedico}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/></td>
+                    <td align="left">Telefono Celular:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.telCelMedico}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/></td>
+                </tr> 
+                <tr>
+                    <td align="left">DUI:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.duiMedico}" maxlength="9" onkeypress="return filterInput(1, event, false, '');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                    <td align="left">NIT:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.nitMedico}" maxlength="14" onkeypress="return filterInput(1, event, false, '');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                </tr> 
+                <tr>
+                    <td align="left">Direccion Clínica</td>
+                    <td align="left" colspan="3"><h:inputTextarea styleClass="mayusculas" value="#{frmMantTblMedico.tblMedico.dirCliMedico}" rows="2" cols="80" onkeypress="return filterInput(2, event, false, ' #,.');"/></td>
+                </tr>
+                <tr>
+                    <td align="left">Telefono Clínica:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.telCliMedico}" maxlength="250" onkeypress="return filterInput(1, event, false, ' #,.');"/></td>
+                    <td align="left">Valor Consulta:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblMedico.tblMedico.valConMedico}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                </tr>   
+                <tr>
+                    <td align="left">Correo Electrónico:</td>
+                    <td align="left" colspan="3"><h:inputText value="#{frmMantTblMedico.tblMedico.corMedico}" size="79" maxlength="100" onkeypress="return filterInput(2, event, false, '@.');"/></td>
+                </tr>                   
+                  <tr>
+                      <td colspan="4" align="center">
+                          <a4j:commandButton value="Guardar" actionListener="#{frmMantTblMedico.guardar}" render="form, panelMessage" />
+                          <a4j:commandButton value="Nuevo" actionListener="#{frmMantTblMedico.nuevo}" render="form"/>
+                          <a4j:commandButton value="Regresar" action="frmTblMedico.jsf?faces-redirect=true" immediate="true"/>
+                      </td>
+                  </tr>
+              </table>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
