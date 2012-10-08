@@ -248,12 +248,12 @@ public class FrmMantTblConsultas extends PageBase {
         try{
             recetaMedica = tblRecetaMedicaFacade.findByNumConsulta(consulta.getNumConsulta());
         }catch(Exception ex){
-            
+            recetaMedica = new TblRecetaMedica();
         }
         try{
             ordenLab = tblOrdenLabFacade.findByNumConsulta(consulta.getNumConsulta());
         }catch(Exception ex){
-            
+            ordenLab = new TblOrdenLaboratorio();            
         }
     }catch(Exception x){
         x.printStackTrace();
