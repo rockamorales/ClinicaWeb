@@ -45,60 +45,86 @@
                                 </h:outputLabel>
                             </td>
                             <td>
-                                <h:inputText value="#{consultasSigVitalesSearchCriteria.numExpediente}" id="numExpediente1">
-                                </h:inputText>
+                                <h:outputText value="#{frmMantTblConsultas.receta.tblDetalleRecetaPK.numReceta}" id="numReceta">
+                                </h:outputText>
                             </td>
                             <td>
                                 <h:outputLabel value="Estado de receta:" for="estReceta">
                                 </h:outputLabel>
                             </td>
                             <td>
-                                <h:inputText value="#{consultasSigVitalesSearchCriteria.dui}" id="dui1">
-                                </h:inputText>
+                                <h:outputText value="#{frmMantTblConsultas.recetaMedica.estReceta}" id="estReceta">
+                                </h:outputText>
                             </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h:outputLabel value="Nombres:" for="nombres1">
-                                </h:outputLabel>
-                            </td>
-                            <td>
-                                <h:inputText value="#{consultasSigVitalesSearchCriteria.nombres}" id="nombres1">
-                                </h:inputText>
-                            </td>
-                            <td>
-                                <h:outputLabel value="Primer Ape:" for="primerApellido1">
-                                </h:outputLabel>
-                            </td>
-                            <td>
-                                <h:inputText value="#{consultasSigVitalesSearchCriteria.primerApellido}" id="primerApellido1">
-                                </h:inputText>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h:outputLabel value="Segundo ape:" for="segundoApellido1">
-                                </h:outputLabel>
-                            </td>
-                            <td>
-                                <h:inputText value="#{consultasSigVitalesSearchCriteria.segundoApellido}" id="segundoApellido1">
-                                </h:inputText>
-                            </td>
-                            <td>
-                                <h:outputLabel value="Tercer ape:" for="tercerApellido1">
-                                </h:outputLabel>
-                            </td>
-                            <td>
-                                <h:inputText value="#{consultasSigVitalesSearchCriteria.tercerApellido}" id="tercerApellido1">
-                                </h:inputText>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" align="center">
-                                <a4j:commandButton value="Buscar" actionListener="#{frmMantTblConsultas.buscar}" render="sigVitalesTable" type="submit"/>
-                            </td>                        
                         </tr>
                     </table>
+                    <fieldset style="border-radius: 5px; border-color: #000066">
+                        <legend><b>Medicamentos contribuibles/No Contribuibles</b></legend>
+                        <table>
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Cantidad:" for="canDetReceta">
+                                    </h:outputLabel>
+                                </td>
+                                <td>
+                                    <h:inputText value="#{frmMantTblConsultas.receta.canDetReceta}" id="canDetReceta">
+                                    </h:inputText>
+                                </td>
+                                <td>
+                                    <h:outputLabel value="Producto:" for="numProducto">
+                                    </h:outputLabel>
+                                </td>
+                                <td>
+                                    <h:selectOneMenu value="#{frmMantTblConsultas.receta.tblDetalleRecetaPK.numProducto}" id="numProducto">
+                                        <f:selectItem itemValue="-1" itemLabel="-- Seleccione un producto --" />
+                                        <f:selectItems value="#{frmMantTblConsultas.productosList}" var="producto" itemLabel="#{producto.nomProducto}" itemValue="#{producto.numProducto}"/>
+                                        <a4j:ajax event="change" oncomplete="#{rich:element('precio')}.value=#{producto.preFinProducto}"/>
+                                    </h:selectOneMenu>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Dosis:" for="canDetReceta">
+                                    </h:outputLabel>
+                                </td>
+                                <td>
+                                    <h:inputText value="#{frmMantTblConsultas.receta.dosDetReceta}" id="dosDetReceta">
+                                    </h:inputText>
+                                </td>
+                                <td>
+                                    <h:outputLabel value="Frecuencia:" for="freDetReceta">
+                                    </h:outputLabel>
+                                </td>
+                                <td>
+                                    <h:inputText value="#{frmMantTblConsultas.receta.freDetReceta}" id="freDetReceta">
+                                    </h:inputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Duracion:" for="durTratamiento">
+                                    </h:outputLabel>
+                                </td>
+                                <td>
+                                    <h:inputText value="#{frmMantTblConsultas.receta.durTratamiento}" id="durTratamiento">
+                                    </h:inputText>
+                                </td>
+                                <td>
+                                    <h:outputLabel value="Precio:" for="precio">
+                                    </h:outputLabel>
+                                </td>
+                                <td>
+                                    <h:outputText id="precio">
+                                    </h:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" align="center">
+                                    <a4j:commandButton value="Agregar" actionListener="#{frmMantTblConsultas.agregarDetalleReceta}" render="agregarMedicamentoPanel" type="submit"/>
+                                </td>                        
+                            </tr>
+                        </table>
+                    </fieldset>
             </rich:popupPanel>
                 
                 <rich:popupPanel id="buscarConsultaPanel" modal="true" autosized="true" resizeable="false" domElementAttachment="form">
@@ -431,7 +457,7 @@
                                         <table width="100%">
                                             <tr>
                                                 <td align="right">
-                                                    <a4j:commandButton value="Agregar Medicamento"/>
+                                                    <a4j:commandButton value="Agregar Medicamento" onclick="#{rich:component('agregarMedicamentoPanel')}.show(); return false;"/>
                                                 </td>
                                             </tr>
                                         </table>

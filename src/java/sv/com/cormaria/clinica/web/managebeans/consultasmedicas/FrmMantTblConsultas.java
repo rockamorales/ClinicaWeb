@@ -19,9 +19,11 @@ import sv.com.cormaria.clinica.web.managebeans.datamodels.ExpedienteDataModel;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblConsultas;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblDetalleReceta;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblRecetaMedica;
+import sv.com.cormaria.servicios.entidades.farmacia.TblProducto;
 import sv.com.cormaria.servicios.facades.consultasmedicas.TblConsultasFacadeLocal;
 import sv.com.cormaria.servicios.facades.consultasmedicas.TblDetalleRecetaFacadeLocal;
 import sv.com.cormaria.servicios.facades.consultasmedicas.TblRecetaMedicaFacadeLocal;
+import sv.com.cormaria.servicios.facades.farmacia.TblProductoFacadeLocal;
 
 /**
  *
@@ -42,12 +44,17 @@ public class FrmMantTblConsultas extends PageBase {
 
     @EJB
     private TblDetalleRecetaFacadeLocal tblDetalleRecetaFacade;    
+
+    @EJB
+    private TblProductoFacadeLocal tblProductoFacade;
     
     private TblRecetaMedica recetaMedica = new TblRecetaMedica();
     
     private List<TblDetalleReceta> detalleReceta = new ArrayList<TblDetalleReceta>();
 
     private TblDetalleReceta receta = new TblDetalleReceta();
+    
+    private List<TblProducto> productosList = new ArrayList<TblProducto>();
     
     private Integer numConsulta;
     
@@ -64,6 +71,21 @@ public class FrmMantTblConsultas extends PageBase {
 
     public void setConsulta(TblConsultas consulta) {
         this.consulta = consulta;
+    }
+
+    public List<TblProducto> getProductosList() {
+        if (productosList.isEmpty()){
+            try{
+                productosList = tblProductoFacade.findMedicamentos();
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+        }
+        return productosList;
+    }
+
+    public void setProductosList(List<TblProducto> productosList) {
+        this.productosList = productosList;
     }
 
     public List<TblDetalleReceta> getDetalleReceta() {
