@@ -17,9 +17,9 @@ and open the template in the editor.
         <ui:define name="body">
             <h:form>
                 <h:outputLink value="frmMantTblEmpleado.jsf">
-                    Agregar Nuevo Registro
+                    Agregar Nuevo Empleado
                 </h:outputLink>
-            <rich:dataTable value="#{frmTblEmpleado.tblEmpleadoList}" var="tblEmpleado" rows="10" id="tblEmpleadoTable">
+                <rich:dataTable value="#{frmTblEmpleado.tblEmpleadoList}" var="tblEmpleado" rows="10" id="tblEmpleadoTable">
             <f:facet name="header">
                 <rich:columnGroup>
                   <h:column>
@@ -76,7 +76,7 @@ and open the template in the editor.
                     </h:outputLink>
                 </h:column>
                 <h:column>
-                    <a4j:commandLink actionListener="#{frmTblEmpleado.delete}" render="tblEmpleadoTable" onclick="if(!confirm('Esta seguro que desea eliminar el Empleado: #{tblEmpleado.nomEmpleado} #{tblEmpleado.priApeEmpleado}')){return false;}">
+                    <a4j:commandLink actionListener="#{frmTblEmpleado.delete}" render="@form" onclick="if(!confirm('Esta seguro que desea eliminar el Empleado: #{tblEmpleado.nomEmpleado} #{tblEmpleado.priApeEmpleado}')){return false;}">
                         <h:graphicImage url="/img/icons/delete.gif"/>
                         <f:setPropertyActionListener target="#{frmTblEmpleado.tblEmpleado}" value="#{tblEmpleado}"/>
                     </a4j:commandLink>
