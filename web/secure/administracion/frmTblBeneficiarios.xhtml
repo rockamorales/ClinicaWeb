@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <ui:composition template="/templates/main.xhtml">
+        <ui:define name="title">
+          <h:outputText value="#{messages['default.windowTitle']}--Administración de Beneficiarios" escape="false"></h:outputText>  
+        </ui:define>
+        <ui:define name="body">
+            <h3>Administración de Beneficiarios</h3>
+            <hr></hr>
+            <h:form>
+                <h:outputLink value="frmMantTblBeneficiarios.jsf">
+                    Agregar Nuevo Registro
+                </h:outputLink>
+                <rich:dataTable value="#{frmTblBeneficiarios.tblBeneficiariosList}" var="tblBeneficiarios" rows="10" id="tblBeneficiariosTable">
+            <f:facet name="header">
+                <rich:columnGroup>
+                  <h:column>
+                    <h:outputText value="Código"/>
+                  </h:column>
+                  <h:column>
+                    <h:outputText value="Nombre"/>
+                  </h:column>
+                  <h:column>
+                    <h:outputText value="Telefono"/>
+                  </h:column>                  
+                    <h:column>
+                    <h:outputText value="NIT"/>
+                  </h:column>
+                 <h:column>
+                    <h:outputText value=""/>
+                  </h:column>
+                  <h:column>
+                    <h:outputText value=""/>
+                  </h:column>
+                </rich:columnGroup>
+              </f:facet>
+                <h:column>
+                    <h:outputText value="#{tblBeneficiarios.numBeneficiario}">
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <h:outputText value="#{tblBeneficiarios.nomBeneficiario}">
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <h:outputText value="#{tblBeneficiarios.telBeneficiario}">
+                    </h:outputText>
+                </h:column>   
+                <h:column>
+                    <h:outputText value="#{tblBeneficiarios.nitBeneficiario}">
+                    </h:outputText>
+                </h:column>   
+                <h:column>
+                    
+                    <h:outputLink value="frmManttblBeneficiarios.jsf">
+                        <f:param name="numBeneficiario" value="#{tblBeneficiarios.numBeneficiario}"/>
+                        <f:param name="faces-redirect" value="true"/>
+                        <h:graphicImage url="/img/icons/edit.gif">
+                            
+                        </h:graphicImage>
+                    </h:outputLink>
+                </h:column>
+                <h:column>
+                    <a4j:commandLink actionListener="#{frmTblBeneficiarios.delete}" render="tblBeneficiariosTable" onclick="if(!confirm('Esta seguro que desea eliminar el área: #{tblBeneficiarios.nomBanco}')){return false;}">
+                        <h:graphicImage url="/img/icons/delete.gif"/>
+                        <f:setPropertyActionListener target="#{frmTblBeneficiarios.tblBeneficiarios}" value="#{tblBeneficiarios}"/>
+                    </a4j:commandLink>
+                  
+                   
+                </h:column>                
+            </rich:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

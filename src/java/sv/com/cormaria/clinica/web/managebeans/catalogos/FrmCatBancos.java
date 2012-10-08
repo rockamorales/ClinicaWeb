@@ -28,6 +28,9 @@ public class FrmCatBancos extends PageBase {
     
     private List<CatBancos> catBancosList= new ArrayList<CatBancos>();
 
+    public FrmCatBancos() {
+    }
+    
     public CatBancos getCatBancos() {
         return catBancos;
     }
