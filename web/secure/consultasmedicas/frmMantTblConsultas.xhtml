@@ -38,94 +38,161 @@
                             Cerrar
                         </h:outputLink>
                     </f:facet>
-                    <table>
-                        <tr>
-                            <td>
-                                <h:outputLabel value="Numero de receta:" for="numReceta">
-                                </h:outputLabel>
-                            </td>
-                            <td>
-                                <h:outputText value="#{frmMantTblConsultas.receta.tblDetalleRecetaPK.numReceta}" id="numReceta">
-                                </h:outputText>
-                            </td>
-                            <td>
-                                <h:outputLabel value="Estado de receta:" for="estReceta">
-                                </h:outputLabel>
-                            </td>
-                            <td>
-                                <h:outputText value="#{frmMantTblConsultas.recetaMedica.estReceta}" id="estReceta">
-                                </h:outputText>
-                            </td>
-                        </tr>
-                    </table>
-                    <fieldset style="border-radius: 5px; border-color: #000066">
-                        <legend><b>Medicamentos contribuibles/No Contribuibles</b></legend>
+                    <a4j:outputPanel id="detalleRecetaForm">
                         <table>
                             <tr>
                                 <td>
-                                    <h:outputLabel value="Cantidad:" for="canDetReceta">
+                                    <h:outputLabel value="Numero de receta:" for="numReceta">
                                     </h:outputLabel>
                                 </td>
                                 <td>
-                                    <h:inputText value="#{frmMantTblConsultas.receta.canDetReceta}" id="canDetReceta">
-                                    </h:inputText>
+                                    <h:outputText value="#{frmMantTblConsultas.receta.tblDetalleRecetaPK.numReceta}" id="numReceta">
+                                    </h:outputText>
                                 </td>
                                 <td>
-                                    <h:outputLabel value="Producto:" for="numProducto">
+                                    <h:outputLabel value="Estado de receta:" for="estReceta">
                                     </h:outputLabel>
                                 </td>
                                 <td>
-                                    <h:selectOneMenu value="#{frmMantTblConsultas.receta.tblDetalleRecetaPK.numProducto}" id="numProducto">
-                                        <f:selectItem itemValue="-1" itemLabel="-- Seleccione un producto --" />
-                                        <f:selectItems value="#{frmMantTblConsultas.productosList}" var="producto" itemLabel="#{producto.nomProducto}" itemValue="#{producto.numProducto}"/>
-                                        <a4j:ajax event="change" oncomplete="#{rich:element('precio')}.value=#{producto.preFinProducto}"/>
-                                    </h:selectOneMenu>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h:outputLabel value="Dosis:" for="canDetReceta">
-                                    </h:outputLabel>
-                                </td>
-                                <td>
-                                    <h:inputText value="#{frmMantTblConsultas.receta.dosDetReceta}" id="dosDetReceta">
-                                    </h:inputText>
-                                </td>
-                                <td>
-                                    <h:outputLabel value="Frecuencia:" for="freDetReceta">
-                                    </h:outputLabel>
-                                </td>
-                                <td>
-                                    <h:inputText value="#{frmMantTblConsultas.receta.freDetReceta}" id="freDetReceta">
-                                    </h:inputText>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h:outputLabel value="Duracion:" for="durTratamiento">
-                                    </h:outputLabel>
-                                </td>
-                                <td>
-                                    <h:inputText value="#{frmMantTblConsultas.receta.durTratamiento}" id="durTratamiento">
-                                    </h:inputText>
-                                </td>
-                                <td>
-                                    <h:outputLabel value="Precio:" for="precio">
-                                    </h:outputLabel>
-                                </td>
-                                <td>
-                                    <h:outputText id="precio">
+                                    <h:outputText value="#{frmMantTblConsultas.recetaMedica.estReceta}" id="estReceta">
                                     </h:outputText>
                                 </td>
                             </tr>
+                        </table>
+                        <fieldset style="border-radius: 5px; border-color: #000066">
+                            <legend><b>Medicamentos contribuibles/No Contribuibles</b></legend>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <h:outputLabel value="Cantidad:" for="canDetReceta">
+                                        </h:outputLabel>
+                                    </td>
+                                    <td>
+                                        <h:inputText value="#{frmMantTblConsultas.receta.canDetReceta}" id="canDetReceta">
+                                        </h:inputText>
+                                    </td>
+                                    <td>
+                                        <h:outputLabel value="Producto:" for="numProducto">
+                                        </h:outputLabel>
+                                    </td>
+                                    <td>
+                                        <h:selectOneMenu value="#{frmMantTblConsultas.receta.tblDetalleRecetaPK.numProducto}" id="numProducto">
+                                            <f:selectItem itemValue="-1" itemLabel="-- Seleccione un producto --" />
+                                            <f:selectItems value="#{frmMantTblConsultas.productosList}" var="producto" itemLabel="#{producto.nomProducto}" itemValue="#{producto.numProducto}"/>
+                                            <a4j:ajax event="change" onbegin="#{rich:element('precio')}.value='#{producto.preFinProducto}'; return false;"/>
+                                        </h:selectOneMenu>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h:outputLabel value="Dosis:" for="canDetReceta">
+                                        </h:outputLabel>
+                                    </td>
+                                    <td>
+                                        <h:inputText value="#{frmMantTblConsultas.receta.dosDetReceta}" id="dosDetReceta">
+                                        </h:inputText>
+                                    </td>
+                                    <td>
+                                        <h:outputLabel value="Frecuencia:" for="freDetReceta">
+                                        </h:outputLabel>
+                                    </td>
+                                    <td>
+                                        <h:inputText value="#{frmMantTblConsultas.receta.freDetReceta}" id="freDetReceta">
+                                        </h:inputText>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h:outputLabel value="Duracion:" for="durTratamiento">
+                                        </h:outputLabel>
+                                    </td>
+                                    <td>
+                                        <h:inputText value="#{frmMantTblConsultas.receta.durTratamiento}" id="durTratamiento">
+                                        </h:inputText>
+                                    </td>
+                                    <td>
+                                        <h:outputLabel value="Precio:" for="precio">
+                                        </h:outputLabel>
+                                    </td>
+                                    <td>
+                                        <h:outputText id="precio">
+                                        </h:outputText>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" align="center">
+                                        <a4j:commandButton value="Agregar" actionListener="#{frmMantTblConsultas.agregarDetalleReceta}" render="@form, panelMessage" type="submit"/>
+                                    </td>                        
+                                </tr>
+                            </table>
+                    </fieldset>
+                 </a4j:outputPanel>
+            </rich:popupPanel>
+
+             <rich:popupPanel id="agregarOrdenLabPanel" modal="true" autosized="true" resizeable="false" domElementAttachment="form">
+                    <f:facet name="header">
+                        <h:outputText value="Agregar detalle de orden de lab"/>
+                    </f:facet>
+                    <f:facet name="controls">
+                        <h:outputLink value="#" onclick="#{rich:component('agregarOrdenLabPanel')}.hide(); return false;" style="color:white;font-weight: bold;">
+                            Cerrar
+                        </h:outputLink>
+                    </f:facet>
+                    <a4j:outputPanel id="detalleOrdenLabForm">
+                        <table>
                             <tr>
-                                <td colspan="4" align="center">
-                                    <a4j:commandButton value="Agregar" actionListener="#{frmMantTblConsultas.agregarDetalleReceta}" render="agregarMedicamentoPanel" type="submit"/>
-                                </td>                        
+                                <td>
+                                    <h:outputLabel value="Numero de ordenn:" for="numOrdLaboratorio">
+                                    </h:outputLabel>
+                                </td>
+                                <td>
+                                    <h:outputText value="#{frmMantTblConsultas.ordenLab.numOrdLaboratorio}" id="numOrdLaboratorio">
+                                    </h:outputText>
+                                </td>
+                                <td>
+                                    <h:outputLabel value="Correlativo:" for="corDetLaboratorio">
+                                    </h:outputLabel>
+                                </td>
+                                <td>
+                                    <h:outputText value="#{frmMantTblConsultas.detalleOrdenLab.corDetLaboratorio}" id="corDetLaboratorio">
+                                    </h:outputText>
+                                </td>
                             </tr>
                         </table>
+                        <fieldset style="border-radius: 5px; border-color: #000066">
+                            <legend><b>Orden</b></legend>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <h:outputLabel value="Tipo Examen:" for="codExaMedico">
+                                        </h:outputLabel>
+                                    </td>
+                                    <td>
+                                        <h:selectOneMenu value="#{frmMantTblConsultas.detalleOrdenLab.tblDetalleOrdenLaboratorioPK.codExaMedico}" id="codExaMedico">
+                                            <f:selectItem itemValue="-1" itemLabel="-- Seleccione un examen --" />
+                                            <f:selectItems value="#{frmMantTblConsultas.examenesList}" var="examen" itemLabel="#{examen.nomExaMedico}" itemValue="#{examen.codExaMedico}"/>
+                                        </h:selectOneMenu>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h:outputLabel value="Descripcion:" for="obsDetLaboratorio">
+                                        </h:outputLabel>
+                                    </td>
+                                    <td>
+                                        <h:inputTextarea value="#{frmMantTblConsultas.detalleOrdenLab.obsDetLaboratorio}" id="obsDetLaboratorio" cols="50"/>
+                                    </td>                                    
+                                </tr>
+                                <tr>
+                                    <td colspan="4" align="center">
+                                        <a4j:commandButton value="Agregar" actionListener="#{frmMantTblConsultas.agregarDetalleOrdenLab}" render="@form, panelMessage" type="submit"/>
+                                    </td>                        
+                                </tr>
+                            </table>
                     </fieldset>
+                 </a4j:outputPanel>
             </rich:popupPanel>
+                
                 
                 <rich:popupPanel id="buscarConsultaPanel" modal="true" autosized="true" resizeable="false" domElementAttachment="form">
                     <f:facet name="header">
@@ -391,80 +458,174 @@
                                         <table>
                                             <tr>
                                                 <td>
-                                                    <h:inputTextarea value="#{frmMantTblConsultas.recetaMedica.preLibReceta}" id="preLibReceta" cols="90"/>
+                                                    <h:outputLabel value="Prescripcion libre:" for="preLibReceta"/>
+                                                </td>
+                                                <td>
+                                                    <h:inputTextarea value="#{frmMantTblConsultas.recetaMedica.preLibReceta}" id="preLibReceta" cols="50"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h:outputLabel value="Otras recomendaciones:" for="otrRecomendaciones"/>
+                                                </td>
+                                                <td>
+                                                    <h:inputTextarea value="#{frmMantTblConsultas.recetaMedica.otrRecomendaciones}" id="otrRecomendaciones" cols="50"/>
                                                 </td>
                                             </tr>
                                         </table>
                                   </fieldset>
                                   <fieldset style="border-radius: 5px; border-color: #000066">
-                                      <legend><b>Prescripcion libre</b></legend>
-                                      <rich:dataTable value="#{frmMantTblConsultas.detalleReceta}" var="detalleReceta" rows="10" id="tblDetalleRecetasTable">
-                                            <f:facet name="header">
-                                                <rich:columnGroup>
-                                                  <h:column>
-                                                    <h:outputText value="Cantidad"/>
-                                                  </h:column>
-                                                  <h:column>
-                                                    <h:outputText value="Producto"/>
-                                                  </h:column>
-                                                  <h:column>
-                                                    <h:outputText value="Dosis"/>
-                                                  </h:column>   
-                                                  <h:column>
-                                                    <h:outputText value="Frecuencia"/>
-                                                  </h:column> 
-                                                  <h:column>
-                                                    <h:outputText value="Duracion"/>
-                                                  </h:column>
-                                                  <h:column>
-                                                    <h:outputText value="Precio"/>
-                                                  </h:column>
-                                                  <h:column>
-                                                    <h:outputText value=""/>
-                                                  </h:column>
-                                                </rich:columnGroup>
-                                              </f:facet>
+                                     <legend><b>Medicamentos contribuibles/No Contribuibles</b></legend>
+                                     <center>
+                                        <rich:dataTable value="#{frmMantTblConsultas.detalleReceta}" var="detalleReceta" rows="10" id="tblDetalleRecetasTable">
+                                              <f:facet name="header">
+                                                  <rich:columnGroup>
+                                                    <h:column>
+                                                      <h:outputText value="Cantidad"/>
+                                                    </h:column>
+                                                    <h:column>
+                                                      <h:outputText value="Producto"/>
+                                                    </h:column>
+                                                    <h:column>
+                                                      <h:outputText value="Dosis"/>
+                                                    </h:column>   
+                                                    <h:column>
+                                                      <h:outputText value="Frecuencia"/>
+                                                    </h:column> 
+                                                    <h:column>
+                                                      <h:outputText value="Duracion"/>
+                                                    </h:column>
+                                                    <h:column>
+                                                      <h:outputText value="Precio"/>
+                                                    </h:column>
+                                                    <h:column>
+                                                      <h:outputText value=""/>
+                                                    </h:column>
+                                                  </rich:columnGroup>
+                                                </f:facet>
+                                                <h:column>
+                                                    <h:outputText value="#{detalleReceta.canDetReceta}">
+                                                    </h:outputText>
+                                                </h:column>
+                                                <h:column>
+                                                    <h:outputText value="#{detalleReceta.tblProducto.nomProducto}">
+                                                    </h:outputText>
+                                                </h:column>
+                                                <h:column>
+                                                    <h:outputText value="#{detalleReceta.dosDetReceta}">
+                                                    </h:outputText>
+                                                </h:column>   
+                                                <h:column>
+                                                    <h:outputText value="#{detalleReceta.freDetReceta}">
+                                                    </h:outputText>
+                                                </h:column>   
+                                                <h:column>
+                                                    <h:outputText value="#{detalleReceta.durTratamiento}">
+                                                    </h:outputText>
+                                                </h:column>  
+                                                <h:column>
+                                                    <h:outputText value="#{detalleReceta.tblProducto.preFinProducto}">
+                                                    </h:outputText>
+                                                </h:column>  
                                               <h:column>
-                                                  <h:outputText value="#{detalleReceta.canDetReceta}">
-                                                  </h:outputText>
-                                              </h:column>
-                                              <h:column>
-                                                  <h:outputText value="#{detalleReceta.tblProducto.nomProducto}">
-                                                  </h:outputText>
-                                              </h:column>
-                                              <h:column>
-                                                  <h:outputText value="#{detalleReceta.dosDetReceta}">
-                                                  </h:outputText>
-                                              </h:column>   
-                                              <h:column>
-                                                  <h:outputText value="#{detalleReceta.freDetReceta}">
-                                                  </h:outputText>
-                                              </h:column>   
-                                              <h:column>
-                                                  <h:outputText value="#{detalleReceta.durTratamiento}">
-                                                  </h:outputText>
-                                              </h:column>  
-                                              <h:column>
-                                                  <h:outputText value="#{detalleReceta.tblProducto.preFinProducto}">
-                                                  </h:outputText>
-                                              </h:column>  
-                                            <h:column>
-                                                <a4j:commandLink actionListener="#{frmMantTblConsultas.delete}" render="tblDetalleRecetasTable" onclick="if(!confirm('Esta seguro que desea eliminar el producto: #{detalleReceta.tblProducto.nomProducto}')){return false;}">
-                                                    <h:graphicImage url="/img/icons/delete.gif"  style="border: 0"/>
-                                                </a4j:commandLink>
-                                            </h:column>     
-                                        </rich:dataTable>
-                                        <table width="100%">
-                                            <tr>
-                                                <td align="right">
-                                                    <a4j:commandButton value="Agregar Medicamento" onclick="#{rich:component('agregarMedicamentoPanel')}.show(); return false;"/>
-                                                </td>
-                                            </tr>
-                                        </table>
+                                                  <a4j:commandLink actionListener="#{frmMantTblConsultas.delete}" render="@form, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar el producto: #{detalleReceta.tblProducto.nomProducto}')){return false;}">
+                                                      <h:graphicImage url="/img/icons/delete.gif"  style="border: 0"/>
+                                                  </a4j:commandLink>
+                                              </h:column>     
+                                          </rich:dataTable>
+                                          <table width="100%">
+                                              <tr>
+                                                  <td align="right">
+                                                      <a4j:commandButton value="Agregar Medicamento" onclick="#{rich:component('agregarMedicamentoPanel')}.show(); return false;" rendered="#{frmMantTblConsultas.recetaMedica.numReceta!=null and frmMantTblConsultas.recetaMedica.numReceta gt 0}"/>
+                                                  </td>
+                                              </tr>
+                                          </table>
+                                    </center>
                                   </fieldset>
+                                  <center>
+                                      <a4j:commandButton value="Guardar receta" actionListener="#{frmMantTblConsultas.guardarReceta}" render="@form, panelMessage"/>
+                                  </center>
                               </rich:tab>
                               <rich:tab header="Examenes de lab">
-                                  
+                                  <table>  
+                                      <tr>
+                                          <td>
+                                              <h:outputLabel value="No. de orden: " />
+                                          </td>
+                                          <td>
+                                              <h:outputText value="#{frmMantTblConsultas.ordenLab.numOrdLaboratorio}" />
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                            <td>
+                                                <h:outputLabel value="Diagnostico del resultado:" for="diaLaboratorio"/>
+                                            </td>
+                                            <td>
+                                                <h:inputTextarea value="#{frmMantTblConsultas.ordenLab.diaLaboratorio}" id="diaLaboratorio" cols="50"/>
+                                            </td>
+                                      </tr>
+                                      <tr>
+                                          <td>
+                                              <h:outputLabel value="Indicaciones:" for="indLaboratorio"/>
+                                          </td>
+                                          <td>
+                                              <h:inputTextarea value="#{frmMantTblConsultas.ordenLab.indLaboratorio}" id="indLaboratorio" cols="50"/>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td>
+                                              <h:outputLabel value="Observaciones:" for="obsLaboratorio"/>
+                                          </td>
+                                          <td>
+                                              <h:inputTextarea value="#{frmMantTblConsultas.ordenLab.obsLaboratorio}" id="obsLaboratorio" cols="50"/>
+                                          </td>
+                                      </tr>
+                                    </table>
+                                  <rich:dataTable value="#{frmMantTblConsultas.detalleOrdenLabList}" var="detalleOrdenLab" rows="10" id="tblDetalleOrdenLabTable">
+                                              <f:facet name="header">
+                                                  <rich:columnGroup>
+                                                    <h:column>
+                                                      <h:outputText value="Correlativo"/>
+                                                    </h:column>
+                                                    <h:column>
+                                                      <h:outputText value="Tipo examen"/>
+                                                    </h:column>
+                                                    <h:column>
+                                                      <h:outputText value="Descripcion"/>
+                                                    </h:column>   
+                                                    <h:column>
+                                                      <h:outputText value=""/>
+                                                    </h:column>
+                                                  </rich:columnGroup>
+                                                </f:facet>
+                                                <h:column>
+                                                    <h:outputText value="#{detalleOrdenLab.corDetLaboratorio}">
+                                                    </h:outputText>
+                                                </h:column>
+                                                <h:column>
+                                                    <h:outputText value="#{detalleOrdenLab.catExamenesMedicos.nomExaMedico}">
+                                                    </h:outputText>
+                                                </h:column>
+                                                <h:column>
+                                                    <h:outputText value="#{detalleOrdenLab.obsDetLaboratorio}">
+                                                    </h:outputText>
+                                                </h:column>   
+                                              <h:column>
+                                                  <a4j:commandLink actionListener="#{frmMantTblConsultas.deleteDetalleOrdenLab}" render="@form, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar el producto: #{detalleReceta.tblProducto.nomProducto}')){return false;}">
+                                                      <h:graphicImage url="/img/icons/delete.gif"  style="border: 0"/>
+                                                  </a4j:commandLink>
+                                              </h:column>     
+                                          </rich:dataTable>
+                                    <center>
+                                          <table width="100%">
+                                              <tr>
+                                                  <td align="right">
+                                                      <a4j:commandButton value="Agregar Orden de laboratorio" onclick="#{rich:component('agregarOrdenLabPanel')}.show(); return false;" rendered="#{frmMantTblConsultas.ordenLab.numOrdLaboratorio!=null and frmMantTblConsultas.ordenLab.numOrdLaboratorio > 0}"/>
+                                                  </td>
+                                              </tr>
+                                          </table>
+                                        <a4j:commandButton value="Guardar Orden de laboratorio" actionListener="#{frmMantTblConsultas.guardarOrdenLab}" render="@form, panelMessage"/>
+                                    </center>
                               </rich:tab>
                               <rich:tab header="Referencia">
                                   
