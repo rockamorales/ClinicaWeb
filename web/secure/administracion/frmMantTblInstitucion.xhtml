@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <ui:composition template="/templates/main.xhtml">
+        <ui:define name="title">
+          <h:outputText value="#{messages['default.windowTitle']}--Administración de Institucions" escape="false"></h:outputText>  
+        </ui:define>
+        <f:metadata>
+            <f:viewParam name="numInstitucion" value="#{frmMantTblInstitucion.numInstitucion}"/>
+   
+        </f:metadata>
+        <ui:define name="body">
+            <h3>Agregar Institucion</h3>
+            <hr></hr>
+            <h:form id="form">
+              <table>
+                <tr>
+                    <td align="left">Código:</td>
+                    <td align="left"><h:outputText value="#{frmMantTblInstitucion.tblInstitucion.numInstitucion}" style="font-weight: bold"/>
+                        <h:inputHidden value="#{frmMantTblInstitucion.tblInstitucion.numInstitucion}" /></td>
+                    <td align="left">Estado:</td>
+                    <td align="left">
+                        <h:outputText value="#{frmMantTblInstitucion.tblInstitucion.actInstitucion}" style="font-weight: bold"></h:outputText>
+                    </td>                        
+                </tr>
+
+                <tr>
+                    <td align="left">Nombre Comercial:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.nomComInstitucion}" maxlength="100" onkeypress="return filterInput(2, event, false, ' ');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Razon Social:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.razSocInstitucion}" maxlength="100" onkeypress="return filterInput(2, event, false, ' ');"/></td>
+                </tr>  
+                <tr>
+                    <td align="left">Cod Rubro:</td>
+                    <td align="left">
+                        <h:selectOneMenu value="#{frmMantTblInstitucion.tblInstitucion.codRubro}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem> 
+                            <f:selectItems value="#{frmMantTblInstitucion.catRubroList}"/>
+                        </h:selectOneMenu>
+                    </td>
+
+                </tr>                    
+                <tr>
+                    <td align="left">NRC:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.nrcInstitucion}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                    <td align="left">Fecha de Registro:</td>
+                    <td align="left"><rich:calendar value="#{frmMantTblInstitucion.tblInstitucion.fecIngInstitucion}" datePattern="dd/MM/yyyy"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                </tr> 
+                <tr>
+                    <td align="left">Direccion :</td>
+                    <td align="left" colspan="3"><h:inputTextarea styleClass="mayusculas" value="#{frmMantTblInstitucion.tblInstitucion.dirInstitucion}" rows="2" cols="80" onkeypress="return filterInput(2, event, false, ' #,.');"/>
+                        <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Telefono Fijo:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.telInstitucion}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/></td>
+                    
+                </tr> 
+                <tr>
+                    <td align="left">Giro:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.girInstitucion}" maxlength="9" onkeypress="return filterInput(1, event, false, '');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                    <td align="left">NIT:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.nitInstitucion}" maxlength="14" onkeypress="return filterInput(1, event, false, '');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                </tr> 
+                <tr>
+                    <td align="left">Nombre contacto</td>
+                    <td align="left" colspan="3"><h:inputTextarea value="#{frmMantTblInstitucion.tblInstitucion.nomConInstitucion}" rows="2" cols="80" onkeypress="return filterInput(2, event, false, ' #,.');"/></td>
+                </tr>
+                <tr>
+                    <td align="left">Telefono Contacto:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.celConInstitucion}" maxlength="250" onkeypress="return filterInput(1, event, false, ' #,.');"/></td>
+                    <td align="left">Es donante:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.esDonante}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                    <td align="left">Es proveedor:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.esProveedor}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                </tr>   
+                 
+                  <tr>
+                      <td colspan="4" align="center">
+                          <a4j:commandButton value="Guardar" actionListener="#{frmMantTblInstitucion.guardar}" render="form, panelMessage" />
+                          <a4j:commandButton value="Nuevo" actionListener="#{frmMantTblInstitucion.nuevo}" render="form"/>
+                          <a4j:commandButton value="Regresar" action="frmTblInstitucion.jsf?faces-redirect=true" immediate="true"/>
+                      </td>
+                  </tr>
+              </table>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+
+COD_RUBRO
+FEC_REG_INSTITUTCION
+NOM_COM_INSTITUCION
+RAZ_SOC_INSTITUCION
+DIR_INSTITUCION
+TEL_INSTITUCION
+NIT_INSTITUCION
+NRC_INSTITUCION
+GIR_INSTITUCION
+NOM_CON_INSTITUCION
+CEL_CON_INSTITUCION
+ES_DONANTE
+ES_PROVEEDOR
+ACT_INSTITUCION
