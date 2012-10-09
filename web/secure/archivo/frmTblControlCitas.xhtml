@@ -203,6 +203,93 @@ and open the template in the editor.
                         </table>
                     </rich:tab>                       
                     <rich:tab header="Semana" name="semana">
+                        <table cellpadding="0" cellspacing="0" width="100%" style="height: 100%">
+                            <tr style="height: 15px;" align="center">
+                                <td valign="bottom" style="border-right: #000066 solid thin; border-bottom:#000066 solid 1px;" >
+                                </td>
+                                <td style="border-right: #000066 solid thin;border-bottom:#000066 solid 1px;" valign="bottom">
+                                    Domingo
+                                </td>
+                                <td style="border-right: #000066 solid thin;border-bottom:#000066 solid 1px;" valign="bottom">
+                                    Lunes
+                                </td>
+                                <td style="border-right: #000066 solid thin;border-bottom:#000066 solid 1px;" valign="bottom">
+                                    Martes
+                                </td>
+                                <td style="border-right: #000066 solid thin;border-bottom:#000066 solid 1px;" valign="bottom">
+                                    Miercoles
+                                </td>
+                                <td style="border-right: #000066 solid thin;border-bottom:#000066 solid 1px;" valign="bottom">
+                                    Jueves
+                                </td>
+                                <td style="border-right: #000066 solid thin;border-bottom:#000066 solid 1px;" valign="bottom">
+                                    Viernes
+                                </td>
+                                <td style="border-right: #000066 solid thin;border-bottom:#000066 solid 1px;" valign="bottom">
+                                    Sabado
+                                </td>
+                            </tr>
+                                <!--<a4j:repeat value="#{frmTblControlCitas.selectedWeek}" var="week">-->
+                            <tr>
+                                <!-- writing-mode: vertical-rl; -webkit-transform: rotate(180deg);-moz-transform: rotate(180deg);-ms-transform: rotate(180deg);-o-transform: rotate(90deg); transform: rotate(90deg);-->
+                                <td width="10px;" style="border-left: #000066 solid thin; border-top: #000066 solid 1px; border-bottom: #000066 solid 1px; border-right: #000066 solid thin;">
+                                    <rich:panel header="#{frmTblControlCitas.selectedWeek.weekOfYear}">
+                                        #{frmTblControlCitas.selectedWeek.startDay}/#{frmTblControlCitas.selectedWeek.monthForStartDay} - #{frmTblControlCitas.selectedWeek.endDay}/#{frmTblControlCitas.selectedWeek.monthForEndDay}
+                                    </rich:panel>
+                                </td>
+                                <a4j:repeat value="#{frmTblControlCitas.selectedWeek.daysOfWeek}" var="day">
+                                    <td style="border-top: #000066 solid 1px; border-bottom: #000066 solid 1px; border-right: #000066 solid thin; width: 150px;" valign="top">
+                                        <table cellpadding="0" cellspacing="0" style="height: 100%;width: 100%">
+                                            <tr>
+                                                <td style="height: 100%;width: 100%" valign="top">
+                                                    <rich:panel styleClass="#{day.selectedMonth != day.month?'rf-p-b-sch-oomonth':'' }" bodyClass="rf-p-b-sch #{day.dayDateStr==frmTblControlCitas.addedFecCita?'rfpbschhighlight':'' }" id="schedulePanelWeek">
+                                                        <f:facet name="header">
+                                                            <h:outputText value="#{day.day} de #{day.monthStrShort}" rendered="#{day.firstDayOfMonth || day.lastDayOfMonth}"/>
+                                                            <h:outputText value="#{day.day}" rendered="#{!day.firstDayOfMonth and !day.lastDayOfMonth}"/>
+                                                        </f:facet>
+                                                        <a4j:repeat value="#{day.citas}" var="cita">
+                                                            <fieldset style="border-radius: 5px;background-color: #e0eeee; padding: 0" class="#{cita.numCita==frmTblControlCitas.addedNumCita?'rfpbschhighlightr':''} #{day.dayDateStr==frmTblControlCitas.addedFecCita and cita.numCita!=frmTblControlCitas.addedNumCita?'rfpbschhighlight':'' }">
+                                                                <table cellpadding="0" cellspacing="0" width="100%">
+                                                                    <tr>
+                                                                        <td align="left">
+                                                                            <h:outputText value="#{cita.horCitaStr} " style="font-size: smaller; font-family: sans-serif; font-weight: bold;">
+                                                                            </h:outputText>
+                                                                            <h:outputText value="#{fn:substring(cita.expediente.nombreCompleto,0,8)} ..." title="#{cita.expediente.nombreCompleto}" style="font-size: smaller; font-family: sans-serif; font-weight: bold;"></h:outputText>
+                                                                        </td>
+                                                                        <td align="right">
+                                                                            <a4j:commandLink actionListener="#{frmTblControlCitas.eliminar}" render="schedulePanelWeek">
+                                                                                <h:graphicImage url="/img/icons/delete.gif" style="border: 0; height: 13px; width: 13px;"></h:graphicImage>
+                                                                            </a4j:commandLink>
+                                                                            <h:outputLink value="frmMantTblProgramacionCitas.jsf">
+                                                                                <f:param name="numCita" value="#{cita.numCita}">
+                                                                                </f:param>
+                                                                                <h:graphicImage url="/img/icons/edit.gif" style="border: 0; height: 13px; width: 13px;">
+                                                                                </h:graphicImage>
+                                                                            </h:outputLink>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </fieldset>
+                                                        </a4j:repeat>
+                                                        <div align="center">
+                                                            <a4j:commandLink value="Mas" actionListener="#{frmTblControlCitas.mostrarTodas}" oncomplete="#{rich:component('daySchedulePanelWeek')}.show(event,{top:jQuery(#{rich:element('schedulePanelWeek')}).offset().top, left:jQuery(#{rich:element('schedulePanelWeek')}).offset().left})" rendered="#{day.scheduleCount > 5}" render="schedulePanelWeek">
+                                                            </a4j:commandLink>
+                                                            <h:outputText value=" | " rendered="#{day.scheduleCount > 5}"/>
+                                                            <h:outputLink value="frmMantTblProgramacionCitas.jsf">
+                                                                Agregar
+                                                                <f:param name="fecCita" value="#{day.dayDateStr}">
+                                                                </f:param>
+                                                            </h:outputLink>
+                                                        </div>
+                                                    </rich:panel>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </a4j:repeat>
+                            </tr>
+                           <!-- </a4j:repeat> -->
+                        </table>
                         
                     </rich:tab>
                     <rich:tab header="Dia" name="dia">

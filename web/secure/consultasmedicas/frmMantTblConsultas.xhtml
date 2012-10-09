@@ -628,7 +628,72 @@
                                     </center>
                               </rich:tab>
                               <rich:tab header="Referencia">
-                                  
+                                  <table>
+                                      <tr> 
+                                          <td>
+                                              <h:outputLabel value="No. Referencia:" for="numReferencia"/>
+                                          </td>
+                                          <td>
+                                              <h:outputText value="#{frmMantTblConsultas.referencia.numReferencia}" id="numReferencia" style="font-weight: bold;"/>
+                                          </td>
+                                          <td>
+                                              <h:outputLabel value="Medico:" />
+                                          </td>
+                                          <td>
+                                              <h:selectOneMenu value="#{frmMantTblConsultas.referencia.numMedico}" id="numMedico" >
+                                                  <f:selectItem itemValue="-1" itemLabel="-- Seleccione el medico --" />
+                                                  <f:selectItems value="#{frmMantTblConsultas.tblMedicoList}" var="medico" itemValue="#{medico.numMedico}" itemLabel="#{medico.nomMedico} #{medico.priApeMedico} #{medico.secApeMedico} #{medico.terApeMedico}"/>
+                                              </h:selectOneMenu>
+                                          </td>
+                                      </tr>
+                                      <tr> 
+                                          <td>
+                                              <h:outputLabel value="Diagnostico:" for="diaReferencia"/>
+                                          </td>
+                                          <td colspan="3">
+                                              <h:inputTextarea value="#{frmMantTblConsultas.referencia.diaReferencia}" id="diaReferencia" cols="90"/>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td>
+                                              <h:outputLabel value="Motivo referencia:" />
+                                          </td>
+                                          <td colspan="3">
+                                              <h:inputTextarea value="#{frmMantTblConsultas.referencia.motReferencia}" id="motReferencia" cols="90"/>
+                                          </td>
+                                      </tr>
+                                      <tr> 
+                                          <td>
+                                              <h:outputLabel value="Tipo referencia:" for="codTipReferencia"/>
+                                          </td>
+                                          <td>
+                                              <h:selectOneMenu value="#{frmMantTblConsultas.referencia.codTipReferencia}" id="codTipReferencia" >
+                                                  <f:selectItem itemValue="-1" itemLabel="-- Seleccione tipo --" />
+                                                  <f:selectItems value="#{frmMantTblConsultas.tiposReferenciasList}" var="tipoReferencia" itemValue="#{tipoReferencia.codTipReferencia}" itemLabel="#{tipoReferencia.nomTipReferencia}"/>
+                                              </h:selectOneMenu>
+                                          </td>
+                                          <td>
+                                              <h:outputLabel value="Especialidad:" />
+                                          </td>
+                                          <td>
+                                              <h:selectOneMenu value="#{frmMantTblConsultas.referencia.codEspecialidad}" id="codEspecialidad" >
+                                                  <f:selectItem itemValue="-1" itemLabel="-- Seleccione especialidad --" />
+                                                  <f:selectItems value="#{frmMantTblConsultas.especialidadesList}" var="especialidad" itemValue="#{especialidad.codEspecialidad}" itemLabel="#{especialidad.nomEspecialidad}"/>
+                                              </h:selectOneMenu>
+                                          </td>
+                                      </tr>
+                                      <tr> 
+                                          <td>
+                                              <h:outputLabel value="Medico al que refiere:" for="refA"/>
+                                          </td>
+                                          <td colspan="3">
+                                              <h:inputText value="#{frmMantTblConsultas.referencia.refA}" id="refA" size="90"/>
+                                          </td>
+                                      </tr>
+                                  </table>
+                                  <center>
+                                    <a4j:commandButton value="Guardar referencia" actionListener="#{frmMantTblConsultas.guardarReferencia}" render="@form, panelMessage"/>
+                                  </center>
                               </rich:tab>
                           </rich:tabPanel>
                           <center>
