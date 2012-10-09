@@ -523,4 +523,23 @@ public class FrmMantTblConsultas extends PageBase {
             this.addError(x.getMessage(), x.getMessage());
         }
     }
+    
+    public void finalizarConsulta(ActionEvent ae){
+        try{
+            tblConsultasFacade.finalizarConsulta(consulta.getNumConsulta());
+            this.detalleOrdenLabList.clear();            
+            this.detalleReceta.clear();
+            consulta = new TblConsultas();
+            referencia = new TblReferencia();
+            recetaMedica = new TblRecetaMedica();
+            ordenLab = new TblOrdenLaboratorio();            
+            detalleReceta.clear();
+            detalleOrdenLabList.clear();
+            ConsultasSignosVitalesDataModel dataModel = (ConsultasSignosVitalesDataModel) this.getBean("#{consultasSignosVitalesDataModel}", ConsultasSignosVitalesDataModel.class);
+            dataModel.clear();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            this.addError(ex.getMessage(), ex.getMessage());
+        }
+    }
 }
