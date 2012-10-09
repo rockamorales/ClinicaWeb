@@ -46,14 +46,16 @@ public class FrmTblControlCitas extends PageBase {
     private TblExpedientePacientesFacadeLocal expedienteFacade;
     
     private TblExpedientePacientes expediente = new TblExpedientePacientes();
-    private int month = Calendar.getInstance().get(Calendar.MONTH);
+    private int month = 0;
     private int year = Calendar.getInstance().get(Calendar.YEAR);
+    private int week = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
     private String daysOfWeekStr[] = {"Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"};
     private String monthStrShort[] = {"Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"};
     private String monthStr[] = {"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
     
     private List<MonthDay> monthDays = new ArrayList<MonthDay>();
     private List<MonthWeek> monthWeeks = new ArrayList<MonthWeek>();
+    private MonthWeek selectedWeek;
     private boolean yearAndMonthApplied = false;
     private String addedFecCita;
     
@@ -61,8 +63,80 @@ public class FrmTblControlCitas extends PageBase {
 
     
     public FrmTblControlCitas() {
+        Calendar cal = Calendar.getInstance();
+        cal.setFirstDayOfWeek(Calendar.SUNDAY);
+        this.setWeek(cal.get(Calendar.WEEK_OF_YEAR));
     }
 
+    public int getWeek() {
+        return week;
+    }
+
+    public void setWeek(int week) {
+        this.week = week;
+    }
+
+    public MonthWeek getSelectedWeek() {
+        try{
+            System.out.println("Week: "+this.getWeek());
+            Calendar calStart = Calendar.getInstance();
+            calStart.setFirstDayOfWeek(Calendar.SUNDAY);
+            calStart.set(Calendar.YEAR, this.getYear());
+            calStart.set(Calendar.HOUR_OF_DAY, 0);
+            calStart.set(Calendar.MINUTE, 0);
+            calStart.set(Calendar.SECOND, 0);
+            calStart.set(Calendar.MILLISECOND, 0);
+            calStart.set(Calendar.WEEK_OF_YEAR, this.getWeek());
+            calStart.set(Calendar.DAY_OF_WEEK, calStart.getActualMinimum(Calendar.DAY_OF_WEEK));
+            Calendar calEnd = Calendar.getInstance();
+            calEnd.setFirstDayOfWeek(Calendar.SUNDAY);
+            calEnd.set(Calendar.YEAR, this.getYear());
+            calEnd.set(Calendar.HOUR_OF_DAY, 0);
+            calEnd.set(Calendar.MINUTE, 0);
+            calEnd.set(Calendar.SECOND, 0);
+            calEnd.set(Calendar.MILLISECOND, 0);
+            calEnd.set(Calendar.WEEK_OF_YEAR, this.getWeek());
+            calEnd.set(Calendar.DAY_OF_WEEK, calEnd.getActualMaximum(Calendar.DAY_OF_WEEK));
+            System.out.println("Week: "+this.getWeek());
+            System.out.println("Cal start: "+calStart.getTime());
+            System.out.println("Cal end: "+calEnd.getTime());
+            Map<Date, MonthDay> dayScheduleList = programacionCitasFacade.findScheduleByRange(calStart.getTime(), calEnd.getTime());
+            this.setMonth(calStart.get(Calendar.MONTH));
+            //Calendar cal = Calendar.getInstance();
+            //cal.setFirstDayOfWeek(Calendar.SUNDAY);
+            //cal.setTime(calStart.getTime());
+            //cal.add(Calendar.DAY_OF_MONTH, 6);
+            MonthDay current = dayScheduleList.get(calStart.getTime());
+            selectedWeek = new MonthWeek(week, calStart.getTime(), calEnd.getTime(), this.getMonth());
+            
+            for (; calStart.getTime().before(calEnd.getTime()) || calStart.getTime().equals(calEnd.getTime());){
+                /*if (week != calStart.get(Calendar.WEEK_OF_YEAR)){
+                    cal.setTime(calStart.getTime());
+                    cal.add(Calendar.DAY_OF_MONTH, 6);
+                    weekObj = new MonthWeek(calStart.get(Calendar.WEEK_OF_YEAR), calStart.getTime(), cal.getTime(), this.getMonth());
+                    this.monthWeeks.add(weekObj);
+                    week = calStart.get(Calendar.WEEK_OF_YEAR);
+                }*/
+                if (current!=null){
+                    selectedWeek.addDayOfWeek(new MonthDay(calStart.get(Calendar.DAY_OF_MONTH), calStart.get(Calendar.DAY_OF_WEEK), daysOfWeekStr[calStart.get(Calendar.DAY_OF_WEEK)-1], calStart.get(Calendar.MONTH), calStart.get(Calendar.YEAR), this.monthStrShort[calStart.get(Calendar.MONTH)], this.monthStr[calStart.get(Calendar.MONTH)], this.getMonth(), calStart.getTime(), current.getCitas(), current.getScheduleCount()));
+                }else{
+                    selectedWeek.addDayOfWeek(new MonthDay(calStart.get(Calendar.DAY_OF_MONTH), calStart.get(Calendar.DAY_OF_WEEK), daysOfWeekStr[calStart.get(Calendar.DAY_OF_WEEK)-1], calStart.get(Calendar.MONTH), calStart.get(Calendar.YEAR), this.monthStrShort[calStart.get(Calendar.MONTH)], this.monthStr[calStart.get(Calendar.MONTH)], this.getMonth(), calStart.getTime(), new ArrayList<TblProgramacionCitas>(), 0));
+                }
+                calStart.add(Calendar.DAY_OF_MONTH, 1);
+                current = dayScheduleList.get(calStart.getTime());
+            }
+            return selectedWeek;
+        }catch(Exception ex){
+            ex.printStackTrace();
+            this.addError(ex.getMessage(), ex.getMessage());
+        }
+        return selectedWeek;
+    }
+
+    public void setSelectedWeek(MonthWeek selectedWeek) {
+        this.selectedWeek = selectedWeek;
+    }
+    
     public String getAddedFecCita() {
         return addedFecCita;
     }
@@ -114,7 +188,7 @@ public class FrmTblControlCitas extends PageBase {
             calEnd.set(Calendar.HOUR_OF_DAY, 0);
             calEnd.set(Calendar.MINUTE, 0);
             calEnd.set(Calendar.SECOND, 0);
-            calStart.set(Calendar.MILLISECOND, 0);
+            calEnd.set(Calendar.MILLISECOND, 0);
             calEnd.setFirstDayOfWeek(Calendar.SUNDAY);
             calEnd.set(Calendar.MONTH, this.getMonth());
             calEnd.set(Calendar.DAY_OF_MONTH, calEnd.getActualMaximum(Calendar.DAY_OF_MONTH));

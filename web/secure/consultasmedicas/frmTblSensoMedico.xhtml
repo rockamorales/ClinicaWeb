@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j"
+      template="/templates/main.xhtml">
+        <ui:define name="title">
+          <h:outputText value="#{messages['default.windowTitle']}-- Listado de consultas" escape="false"></h:outputText>  
+        </ui:define>
+        <ui:define name="body">
+            <h:form>
+                <fieldset style="border-radius: 5px;border-color: #000066">
+                    <legend>Buscar</legend>
+                    <table>
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Medico:" for="numMedico"></h:outputLabel>
+                            </td>
+                            <td>
+                                <h:selectOneMenu value="#{consultasSensoMedico.numMedico}" id="numMedico">
+                                    <f:selectItem itemValue="-1" itemLabel="-- Mostrar Todos --" />
+                                    <f:selectItems value="#{frmTblSensoMedico.medicosList}" var="medico" itemValue="#{medico.numMedico}" itemLabel="#{medico.nomMedico} #{medico.priApeMedico} #{medico.secApeMedico} #{medico.terApeMedico}"/>
+                                </h:selectOneMenu>
+                            </td>
+                            <td>
+                                <h:outputLabel value="JVPM:" for="jvpm"></h:outputLabel>
+                            </td>
+                            <td>
+                                <h:inputText id="jvpm" value="#{consultasSensoMedico.jvpm}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Fecha:" for="fechaConsulta"></h:outputLabel>
+                            </td>
+                            <td>
+                                <rich:calendar value="#{consultasSensoMedico.fechaConsulta}" id="fechaConsulta"/>
+                            </td>
+                            <td>
+                                <h:outputLabel value="Especialidad" for=""></h:outputLabel>
+                            </td>
+                            <td>
+                                <h:selectOneMenu value="#{consultasSensoMedico.codEspecialidad}" id="codEspecialidad">
+                                    <f:selectItem itemValue="-1" itemLabel="-- Mostrar todas --" />
+                                    <f:selectItems value="#{frmTblSensoMedico.catEspecialidadList}" var="especialidad" itemLabel="#{especialidad.nomEspecialidad}" itemValue="#{especialidad.codEspecialidad}"/>
+                                </h:selectOneMenu>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <a4j:commandButton value="Buscar" actionListener="#{frmTblSensoMedico.buscar}" render="@form, panelMessage"></a4j:commandButton>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>   
+                <rich:dataTable value="#{consultasSensoMedicoDataModel}" var="consulta" rows="30" id="consultasTable">
+              <f:facet name="header">
+                <rich:columnGroup>
+                  <h:column>
+                    <h:outputText value="Expediente"/>
+                  </h:column>
+                  <h:column>
+                    <h:outputText value="Paciente"/>
+                  </h:column>
+                  <h:column>
+                    <h:outputText value="Peso"/>
+                  </h:column>
+                  <h:column>
+                    <h:outputText value="Edad"/>
+                  </h:column>
+                  <h:column>
+                    <h:outputText value="Sexo"/>
+                  </h:column>
+                  <h:column>
+                    <h:outputText value="1a Consulta"/>
+                  </h:column>
+                  <h:column>
+                    <h:outputText value="Subsecuente"/>
+                  </h:column>
+                  <h:column>
+                    <h:outputText value="Referencia"/>
+                  </h:column>
+                  <h:column>
+                    <h:outputText value="Diagnostico"/>
+                  </h:column>
+                  <h:column>
+                    <h:outputText value="Fecha consulta"/>
+                  </h:column>
+                  <h:column>
+                    <h:outputText value="U/R"/>
+                  </h:column>
+                </rich:columnGroup>
+              </f:facet>
+                <h:column>
+                    <h:outputText value="#{consulta.numExpediente}">
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <h:outputText value="#{consulta.tblExpediente.nomPaciente} #{consulta.tblExpediente.priApePaciente} #{consulta.tblExpediente.secApePaciente} #{consulta.tblExpediente.terApePaciente}">
+                    </h:outputText>
+                </h:column>   
+                <h:column>
+                    <h:outputText value="#{consulta.pesPaciente} Lb">
+                    </h:outputText>
+                </h:column>   
+                <h:column>
+                    <h:outputText value="#{consulta.tblExpediente.edadPaciente}">
+                    </h:outputText>
+                </h:column>   
+                <h:column>
+                    <h:outputText value="#{consulta.tblExpediente.catSexo.nomSexPaciente}">
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <h:outputText value="Ok" rendered="#{consulta.codTipConsulta==3}">
+                    </h:outputText>
+                    <h:outputText value="No" rendered="#{consulta.codTipConsulta==4}">
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <h:outputText value="Ok" rendered="#{consulta.codTipConsulta==4}">
+                    </h:outputText>
+                    <h:outputText value="No" rendered="#{consulta.codTipConsulta==3}">
+                    </h:outputText>
+                </h:column>   
+                <h:column>
+                    <h:outputText value="No">
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <h:outputText value="#{consulta.diaPaciente}">
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <h:outputText value="#{consulta.fecConsulta}">
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    
+                </h:column>
+                <f:facet name="footer">
+                    <rich:dataScroller/>
+                </f:facet>
+            </rich:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
