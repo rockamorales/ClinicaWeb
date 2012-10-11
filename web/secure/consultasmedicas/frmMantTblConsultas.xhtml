@@ -402,7 +402,8 @@
                                               <h:outputLabel value="Anamnesis:" for="anaPaciente"></h:outputLabel>
                                           </td>
                                           <td style="vertical-align: top">
-                                              <h:inputTextarea value="#{frmMantTblConsultas.consulta.anaPaciente}" id="anaPaciente" rows="3" cols="70"></h:inputTextarea>
+                                              <h:inputTextarea value="#{frmMantTblConsultas.consulta.anaPaciente}" id="anaPaciente" rows="3" cols="70" maxlength="1000" onkeypress="return filterInput(2, event, false, ' ,.()áéíóú');"></h:inputTextarea>
+                                              <h:outputLabel value="*" style="color:red;font-weight: bold;"/> 
                                           </td>
                                       </tr>
                                       <tr>
@@ -410,7 +411,8 @@
                                               <h:outputLabel value="Examen fisico:" for="anaPaciente"></h:outputLabel>
                                           </td>
                                           <td style="vertical-align: top">
-                                              <h:inputTextarea value="#{frmMantTblConsultas.consulta.exaFisPaciente}" id="exaFisPaciente" rows="3" cols="70"></h:inputTextarea>
+                                              <h:inputTextarea value="#{frmMantTblConsultas.consulta.exaFisPaciente}" id="exaFisPaciente" rows="3" cols="70" maxlength="500" onkeypress="return filterInput(2, event, false, ' ,.()áéíóú');"></h:inputTextarea>
+                                              <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                                           </td>
                                       </tr>
                                       <tr>
@@ -418,7 +420,8 @@
                                               <h:outputLabel value="Diagnostico" for="diaPaciente"></h:outputLabel>
                                           </td>
                                           <td style="vertical-align: top">
-                                              <h:inputTextarea value="#{frmMantTblConsultas.consulta.diaPaciente}" id="diaPaciente" rows="3" cols="70"></h:inputTextarea>
+                                              <h:inputTextarea value="#{frmMantTblConsultas.consulta.diaPaciente}" id="diaPaciente" rows="3" cols="70" maxlength="500" onkeypress="return filterInput(2, event, false, ' ,.()áéíóú');"></h:inputTextarea>
+                                              <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                                           </td>
                                       </tr>
                                       <tr>
