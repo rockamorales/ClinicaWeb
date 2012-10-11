@@ -16,9 +16,10 @@ and open the template in the editor.
         </ui:define>
         <f:metadata>
             <f:viewParam name="numInstitucion" value="#{frmMantTblInstitucion.numInstitucion}"/>
-   
         </f:metadata>
+        
         <ui:define name="body">
+            <hr></hr>
             <h3>Agregar Institucion</h3>
             <hr></hr>
             <h:form id="form">
@@ -59,7 +60,7 @@ and open the template in the editor.
                     <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                     </td>
                     <td align="left">Fecha de Registro:</td>
-                    <td align="left"><rich:calendar value="#{frmMantTblInstitucion.tblInstitucion.fecIngInstitucion}" datePattern="dd/MM/yyyy"/>
+                    <td align="left"><rich:calendar value="#{frmMantTblInstitucion.tblInstitucion.fecRegInstitutcion}" datePattern="dd/MM/yyyy"/>
                     <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                     </td>
                 </tr> 
@@ -113,18 +114,3 @@ and open the template in the editor.
         </ui:define>
     </ui:composition>
 </html>
-
-COD_RUBRO
-FEC_REG_INSTITUTCION
-NOM_COM_INSTITUCION
-RAZ_SOC_INSTITUCION
-DIR_INSTITUCION
-TEL_INSTITUCION
-NIT_INSTITUCION
-NRC_INSTITUCION
-GIR_INSTITUCION
-NOM_CON_INSTITUCION
-CEL_CON_INSTITUCION
-ES_DONANTE
-ES_PROVEEDOR
-ACT_INSTITUCION
