@@ -42,7 +42,7 @@ public class FrmTblMedico extends PageBase {
     public List<TblMedico> getTblMedicoList() {
         if (tblMedicoList.isEmpty()){
             try{
-                tblMedicoList = tblMedicoFacade.findAll();
+                tblMedicoList = tblMedicoFacade.findActive();
             }catch(Exception ex){
                 ex.printStackTrace();
             }
@@ -57,11 +57,11 @@ public class FrmTblMedico extends PageBase {
 
 
 
-    public void delete(ActionEvent ae){
+    public void desactivar(ActionEvent ae){
         try{
             UIDataTable table = (UIDataTable) ae.getComponent().getParent().getParent();
             tblMedico = (TblMedico) table.getRowData();
-            tblMedicoFacade.remove(tblMedico);
+            tblMedicoFacade.desactivar(tblMedico);
             tblMedicoList.clear();
         }catch(Exception x){
             x.printStackTrace();

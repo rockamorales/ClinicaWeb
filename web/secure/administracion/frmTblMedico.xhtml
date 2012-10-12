@@ -68,9 +68,9 @@ and open the template in the editor.
                     </h:outputLink>
                 </h:column>
                 <h:column>
-                    <a4j:commandLink actionListener="#{frmTblMedico.desactivar}" render="@form" onclick="if(!confirm('Esta seguro que desea eliminar el registro: #{tblMedico.nomMedico}')){return false;}">
+                    <a4j:commandLink actionListener="#{frmTblMedico.desactivar}" render="@form, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar el registro: #{tblMedico.nomMedico}')){return false;}">
                         <h:graphicImage url="/img/icons/delete.gif" style="border: 0"/>
-                        <f:setPropertyActionListener target="#{frmTblMedico.tblMedicos}" value="#{tblMedico}"/>
+                        <f:setPropertyActionListener target="#{frmTblMedico.tblMedico}" value="#{tblMedico}"/>
                     </a4j:commandLink>
                   
                    
