@@ -38,12 +38,10 @@ and open the template in the editor.
                     <td align="left">Nombre Comercial:</td>
                     <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.nomComInstitucion}" maxlength="100" onkeypress="return filterInput(2, event, false, ' ');"/>
                     <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
-                    </td>
-                </tr>
-                <tr>
                     <td align="left">Razon Social:</td>
                     <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.razSocInstitucion}" maxlength="100" onkeypress="return filterInput(2, event, false, ' .,');"/></td>
-                </tr>  
+                    </td>
+                </tr>
                 <tr>
                     <td align="left">Cod Rubro:</td>
                     <td align="left">
@@ -52,17 +50,20 @@ and open the template in the editor.
                             <f:selectItems value="#{frmMantTblInstitucion.catRubroList}"/>
                         </h:selectOneMenu>
                     </td>
-
+                    <td align="left">Fecha de Registro:</td>
+                    <td align="left"><rich:calendar value="#{frmMantTblInstitucion.tblInstitucion.fecRegInstitutcion}" datePattern="dd/MM/yyyy"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
                 </tr>                    
                 <tr>
                     <td align="left">NRC:</td>
                     <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.nrcInstitucion}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/>
                     <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                     </td>
-                    <td align="left">Fecha de Registro:</td>
-                    <td align="left"><rich:calendar value="#{frmMantTblInstitucion.tblInstitucion.fecRegInstitutcion}" datePattern="dd/MM/yyyy"/>
+                    <td align="left">NIT:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.nitInstitucion}" maxlength="14" onkeypress="return filterInput(1, event, false, '');"/>
                     <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
-                    </td>
+                    </td>                    
                 </tr> 
                 <tr>
                     <td align="left">Direccion :</td>
@@ -73,25 +74,20 @@ and open the template in the editor.
                 <tr>
                     <td align="left">Telefono Fijo:</td>
                     <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.telInstitucion}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/></td>
-                    
-                </tr> 
-                <tr>
                     <td align="left">Giro:</td>
                     <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.girInstitucion}" maxlength="9" onkeypress="return filterInput(2, event, false, '');"/>
                     <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
-                    </td>
-                    <td align="left">NIT:</td>
-                    <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.nitInstitucion}" maxlength="14" onkeypress="return filterInput(1, event, false, '');"/>
-                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
-                    </td>
+                    </td>                    
                 </tr> 
                 <tr>
                     <td align="left">Nombre contacto</td>
-                    <td align="left" colspan="3"><h:inputTextarea value="#{frmMantTblInstitucion.tblInstitucion.nomConInstitucion}" rows="2" cols="80" onkeypress="return filterInput(2, event, false, ' #,.');"/></td>
+                    <td align="left" colspan="3"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.nomConInstitucion}" size="45" onkeypress="return filterInput(2, event, false, ' #,.');"/></td>
                 </tr>
                 <tr>
                     <td align="left">Telefono Contacto:</td>
                     <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.celConInstitucion}" maxlength="250" onkeypress="return filterInput(1, event, false, ' #,.');"/></td>
+                    <td align="left">Correo Electronico:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.corConInstitucion}" maxlength="250" onkeypress="return filterInput(2, event, false, '@.');"/></td>
                 </tr>
                 <tr>   
                     <td align="left">Es donante:</td>
