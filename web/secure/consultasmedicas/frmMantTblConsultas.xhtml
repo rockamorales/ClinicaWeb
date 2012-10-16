@@ -29,7 +29,9 @@
             <hr></hr>
             <h:form id="form">
                 <a4j:poll id="poll" interval="5000" enabled="true" render="consultasMedicasGrid" actionListener="#{frmMantTblConsultas.clear}" />
-                <rich:popupPanel id="agregarMedicamentoPanel" modal="true" autosized="true" resizeable="false" domElementAttachment="form">
+                <rich:jQuery query="focus().select()" selector="#detalleRecetaForm :input:visible:enabled:first" name="focusInput"/>
+                <rich:jQuery query="focus().select()" selector="#detalleOrdenLabForm :input:visible:enabled:first" name="focusInputOrdenLab"/>
+                <rich:popupPanel id="agregarMedicamentoPanel" modal="true" styleClass="makeFocus" autosized="true" resizeable="false" domElementAttachment="form" onshow="focusInput();controlTab('#detalleRecetaForm')">
                     <f:facet name="header">
                         <h:outputText value="Agregar medicamento a receta medica"/>
                     </f:facet>
@@ -129,7 +131,7 @@
                  </a4j:outputPanel>
             </rich:popupPanel>
 
-             <rich:popupPanel id="agregarOrdenLabPanel" modal="true" autosized="true" resizeable="false" domElementAttachment="form">
+             <rich:popupPanel id="agregarOrdenLabPanel" modal="true" autosized="true" resizeable="false" domElementAttachment="form" onshow="focusInputOrdenLab();controlTab('#detalleOrdenLabForm')">
                     <f:facet name="header">
                         <h:outputText value="Agregar detalle de orden de lab"/>
                     </f:facet>
@@ -142,19 +144,11 @@
                         <table>
                             <tr>
                                 <td>
-                                    <h:outputLabel value="Numero de ordenn:" for="numOrdLaboratorio">
+                                    <h:outputLabel value="Numero de orden:" for="numOrdLaboratorio">
                                     </h:outputLabel>
                                 </td>
                                 <td>
-                                    <h:outputText value="#{frmMantTblConsultas.ordenLab.numOrdLaboratorio}" id="numOrdLaboratorio">
-                                    </h:outputText>
-                                </td>
-                                <td>
-                                    <h:outputLabel value="Correlativo:" for="corDetLaboratorio">
-                                    </h:outputLabel>
-                                </td>
-                                <td>
-                                    <h:outputText value="#{frmMantTblConsultas.detalleOrdenLab.corDetLaboratorio}" id="corDetLaboratorio">
+                                    <h:outputText value="#{frmMantTblConsultas.ordenLab.numOrdLaboratorio}" id="numOrdLaboratorio" style="font-weight: bold;">
                                     </h:outputText>
                                 </td>
                             </tr>
@@ -163,29 +157,24 @@
                             <legend><b>Orden</b></legend>
                             <table>
                                 <tr>
-                                    <td>
-                                        <h:outputLabel value="Tipo Examen:" for="codExaMedico">
-                                        </h:outputLabel>
+                                    <td colspan="2">
+                                      <div style="height:400px;overflow-y: auto;">
+                                        <a4j:repeat value="#{frmMantTblConsultas.categoriaExamenesList}" var="categoria">
+                                            <fieldset style="border-radius: 5px;">
+                                                <legend>#{categoria.nomExaCat}</legend>
+                                                <rich:dataGrid value="#{categoria.catExamenesMedicos}" var="examen" columns="4" elements="60" style="padding: 0; margin: 0;">
+                                                  <!--<h:panelGrid columns="2" style="padding: 0; margin: 0;"> -->
+                                                  <table cellpadding="0" cellspacing="0"><tr><td><h:selectBooleanCheckbox value="#{frmMantTblConsultas.selectedExamenes[examen.codExaMedico]}" id="exaMedicoSelected"/></td><td><h:outputLabel for="exaMedicoSelected" value="#{examen.nomExaMedico}" title="#{examen.desExaMedico}" style="font-weight: bold; font-size: smaller;#{frmMantTblConsultas.selectedExamenes[examen.codExaMedico]?'color:red':''}"/></td></tr></table>
+                                                  <!--</h:panelGrid>-->
+                                                </rich:dataGrid>
+                                            </fieldset>
+                                        </a4j:repeat>
+                                      </div>
                                     </td>
-                                    <td>
-                                        <h:selectOneMenu value="#{frmMantTblConsultas.detalleOrdenLab.tblDetalleOrdenLaboratorioPK.codExaMedico}" id="codExaMedico">
-                                            <f:selectItem itemValue="-1" itemLabel="-- Seleccione un examen --" />
-                                            <f:selectItems value="#{frmMantTblConsultas.examenesList}" var="examen" itemLabel="#{examen.nomExaMedico}" itemValue="#{examen.codExaMedico}"/>
-                                        </h:selectOneMenu>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <h:outputLabel value="Descripcion:" for="obsDetLaboratorio">
-                                        </h:outputLabel>
-                                    </td>
-                                    <td>
-                                        <h:inputTextarea value="#{frmMantTblConsultas.detalleOrdenLab.obsDetLaboratorio}" id="obsDetLaboratorio" cols="50"/>
-                                    </td>                                    
                                 </tr>
                                 <tr>
                                     <td colspan="4" align="center">
-                                        <a4j:commandButton value="Agregar" actionListener="#{frmMantTblConsultas.agregarDetalleOrdenLab}" render="@form, panelMessage" type="submit"/>
+                                        <a4j:commandButton value="Agregar" actionListener="#{frmMantTblConsultas.agregarDetalleOrdenLab}" render="detalleOrdenLabGrid, detalleOrdenLabForm, panelMessage" type="submit"/>
                                     </td>                        
                                 </tr>
                             </table>
@@ -402,7 +391,7 @@
                                               <h:outputLabel value="Anamnesis:" for="anaPaciente"></h:outputLabel>
                                           </td>
                                           <td style="vertical-align: top">
-                                              <h:inputTextarea value="#{frmMantTblConsultas.consulta.anaPaciente}" id="anaPaciente" rows="3" cols="70" maxlength="1000" onkeypress="return filterInput(2, event, false, ' ,.()áéíóú');"></h:inputTextarea>
+                                              <h:inputTextarea value="#{frmMantTblConsultas.consulta.anaPaciente}" id="anaPaciente" rows="3" cols="90" maxlength="1000" onkeypress="return filterInput(2, event, false, ' ,.()áéíóú');"></h:inputTextarea>
                                               <h:outputLabel value="*" style="color:red;font-weight: bold;"/> 
                                           </td>
                                       </tr>
@@ -411,7 +400,7 @@
                                               <h:outputLabel value="Examen fisico:" for="anaPaciente"></h:outputLabel>
                                           </td>
                                           <td style="vertical-align: top">
-                                              <h:inputTextarea value="#{frmMantTblConsultas.consulta.exaFisPaciente}" id="exaFisPaciente" rows="3" cols="70" maxlength="500" onkeypress="return filterInput(2, event, false, ' ,.()áéíóú');"></h:inputTextarea>
+                                              <h:inputTextarea value="#{frmMantTblConsultas.consulta.exaFisPaciente}" id="exaFisPaciente" rows="3" cols="90" maxlength="500" onkeypress="return filterInput(2, event, false, ' ,.()áéíóú');"></h:inputTextarea>
                                               <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                                           </td>
                                       </tr>
@@ -420,7 +409,7 @@
                                               <h:outputLabel value="Diagnostico" for="diaPaciente"></h:outputLabel>
                                           </td>
                                           <td style="vertical-align: top">
-                                              <h:inputTextarea value="#{frmMantTblConsultas.consulta.diaPaciente}" id="diaPaciente" rows="3" cols="70" maxlength="500" onkeypress="return filterInput(2, event, false, ' ,.()áéíóú');"></h:inputTextarea>
+                                              <h:inputTextarea value="#{frmMantTblConsultas.consulta.diaPaciente}" id="diaPaciente" rows="3" cols="90" maxlength="500" onkeypress="return filterInput(2, event, false, ' ,.()áéíóú');"></h:inputTextarea>
                                               <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                                           </td>
                                       </tr>
@@ -429,7 +418,7 @@
                                               <h:outputLabel value="Observaciones adicionales:" for="diaPaciente"></h:outputLabel>
                                           </td>
                                           <td style="vertical-align: top">
-                                              <h:inputTextarea value="#{frmMantTblConsultas.consulta.obsCliPaciente}" id="obsCliPaciente" rows="3" cols="70"></h:inputTextarea>
+                                              <h:inputTextarea value="#{frmMantTblConsultas.consulta.obsCliPaciente}" id="obsCliPaciente" rows="3" cols="90"></h:inputTextarea>
                                           </td>
                                       </tr>
                                       <tr>
@@ -464,7 +453,7 @@
                                                     <h:outputLabel value="Prescripcion libre:" for="preLibReceta"/>
                                                 </td>
                                                 <td>
-                                                    <h:inputTextarea value="#{frmMantTblConsultas.recetaMedica.preLibReceta}" id="preLibReceta" cols="50"/>
+                                                    <h:inputTextarea value="#{frmMantTblConsultas.recetaMedica.preLibReceta}" id="preLibReceta" cols="90"/>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -472,7 +461,7 @@
                                                     <h:outputLabel value="Otras recomendaciones:" for="otrRecomendaciones"/>
                                                 </td>
                                                 <td>
-                                                    <h:inputTextarea value="#{frmMantTblConsultas.recetaMedica.otrRecomendaciones}" id="otrRecomendaciones" cols="50"/>
+                                                    <h:inputTextarea value="#{frmMantTblConsultas.recetaMedica.otrRecomendaciones}" id="otrRecomendaciones" cols="90"/>
                                                 </td>
                                             </tr>
                                         </table>
@@ -564,7 +553,7 @@
                                                 <h:outputLabel value="Diagnostico del resultado:" for="diaLaboratorio"/>
                                             </td>
                                             <td>
-                                                <h:inputTextarea value="#{frmMantTblConsultas.ordenLab.diaLaboratorio}" id="diaLaboratorio" cols="50"/>
+                                                <h:inputTextarea value="#{frmMantTblConsultas.ordenLab.diaLaboratorio}" id="diaLaboratorio" cols="90"/>
                                             </td>
                                       </tr>
                                       <tr>
@@ -572,7 +561,7 @@
                                               <h:outputLabel value="Indicaciones:" for="indLaboratorio"/>
                                           </td>
                                           <td>
-                                              <h:inputTextarea value="#{frmMantTblConsultas.ordenLab.indLaboratorio}" id="indLaboratorio" cols="50"/>
+                                              <h:inputTextarea value="#{frmMantTblConsultas.ordenLab.indLaboratorio}" id="indLaboratorio" cols="90"/>
                                           </td>
                                       </tr>
                                       <tr>
@@ -580,45 +569,17 @@
                                               <h:outputLabel value="Observaciones:" for="obsLaboratorio"/>
                                           </td>
                                           <td>
-                                              <h:inputTextarea value="#{frmMantTblConsultas.ordenLab.obsLaboratorio}" id="obsLaboratorio" cols="50"/>
+                                              <h:inputTextarea value="#{frmMantTblConsultas.ordenLab.obsLaboratorio}" id="obsLaboratorio" cols="90"/>
                                           </td>
                                       </tr>
                                     </table>
-                                  <rich:dataTable value="#{frmMantTblConsultas.detalleOrdenLabList}" var="detalleOrdenLab" rows="10" id="tblDetalleOrdenLabTable">
-                                              <f:facet name="header">
-                                                  <rich:columnGroup>
-                                                    <h:column>
-                                                      <h:outputText value="Correlativo"/>
-                                                    </h:column>
-                                                    <h:column>
-                                                      <h:outputText value="Tipo examen"/>
-                                                    </h:column>
-                                                    <h:column>
-                                                      <h:outputText value="Descripcion"/>
-                                                    </h:column>   
-                                                    <h:column>
-                                                      <h:outputText value=""/>
-                                                    </h:column>
-                                                  </rich:columnGroup>
-                                                </f:facet>
-                                                <h:column>
-                                                    <h:outputText value="#{detalleOrdenLab.corDetLaboratorio}">
-                                                    </h:outputText>
-                                                </h:column>
-                                                <h:column>
-                                                    <h:outputText value="#{detalleOrdenLab.catExamenesMedicos.nomExaMedico}">
-                                                    </h:outputText>
-                                                </h:column>
-                                                <h:column>
-                                                    <h:outputText value="#{detalleOrdenLab.obsDetLaboratorio}">
-                                                    </h:outputText>
-                                                </h:column>   
-                                              <h:column>
-                                                  <a4j:commandLink actionListener="#{frmMantTblConsultas.deleteDetalleOrdenLab}" render="@form, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar el producto: #{detalleReceta.tblProducto.nomProducto}')){return false;}">
-                                                      <h:graphicImage url="/img/icons/delete.gif"  style="border: 0"/>
-                                                  </a4j:commandLink>
-                                              </h:column>     
-                                          </rich:dataTable>
+                                    <div style="height: 150px; overflow-y: auto;">
+                                        <rich:dataGrid value="#{frmMantTblConsultas.detalleOrdenLabList}" var="ordenLab" columns="4" elements="20" style="padding: 0; margin: 0;" id="detalleOrdenLabGrid">
+                                            <!--<h:panelGrid columns="3" style="padding: 0; margin: 0;"> -->
+                                            <table cellspacing="0" cellpadding="0"><tr><td><h:graphicImage url="/img/icons/verify.gif" style="border: 0"/></td><td><h:outputLabel value="#{ordenLab.catExamenesMedicos.nomExaMedico}" title="#{ordenLab.catExamenesMedicos.desExaMedico}" style="font-weight: bold;font-size:smaller;"/></td><td><a4j:commandLink actionListener="#{frmMantTblConsultas.deleteDetalleOrdenLab}" render="detalleOrdenLabGrid, detalleOrdenLabForm, panelMessage"><h:graphicImage url="/img/icons/delete.gif" style="border: 0"/></a4j:commandLink></td></tr></table>
+                                            <!--</h:panelGrid>-->
+                                        </rich:dataGrid>
+                                    </div>
                                     <center>
                                           <table width="100%">
                                               <tr>
@@ -643,10 +604,7 @@
                                               <h:outputLabel value="Medico:" />
                                           </td>
                                           <td>
-                                              <h:selectOneMenu value="#{frmMantTblConsultas.referencia.numMedico}" id="numMedico" >
-                                                  <f:selectItem itemValue="-1" itemLabel="-- Seleccione el medico --" />
-                                                  <f:selectItems value="#{frmMantTblConsultas.tblMedicoList}" var="medico" itemValue="#{medico.numMedico}" itemLabel="#{medico.nomMedico} #{medico.priApeMedico} #{medico.secApeMedico} #{medico.terApeMedico}"/>
-                                              </h:selectOneMenu>
+                                              <h:outputText value="#{frmMantTblConsultas.consulta.tblMedico.nomMedico} #{frmMantTblConsultas.consulta.tblMedico.priApeMedico} #{frmMantTblConsultas.consulta.tblMedico.secApeMedico} #{frmMantTblConsultas.consulta.tblMedico.terApeMedico}" style="font-weight: bold;"/>
                                           </td>
                                       </tr>
                                       <tr> 
