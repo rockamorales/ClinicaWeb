@@ -82,11 +82,46 @@ public class FrmMantTblInstitucion extends PageBase{
     public boolean validar(){
        boolean isValid = true;
        
-       if (this.getTblInstitucion().getCodRubro() == null) {
+       if (this.getTblInstitucion().getNomComInstitucion() == ""){
+           isValid = false;
+           this.addError("Por favor Introduzca el Nombre Comercial", "Por favor Introduzca el Nombre Comercial");
+       }
+       
+       if (this.getTblInstitucion().getCodRubro() == null || this.getTblInstitucion().getCodRubro() == -1){
           isValid = false;
           this.addError("Por favor seleccione el Rubro", "Por favor seleccione el Rubro");
        } 
 
+       if (this.getTblInstitucion().getNrcInstitucion() == null || this.getTblInstitucion().getNrcInstitucion() <= 0){
+           isValid = false;
+           this.addError("Por favor introduzca el NRC", "Por favor introduzca el NRC");
+       }
+       
+       if (this.getTblInstitucion().getDirInstitucion() == ""){
+           isValid = false;
+           this.addError("Por favor introduzca la dirección", "Por favor introduzca la dirección");
+       }
+
+       if (this.getTblInstitucion().getGirInstitucion() == ""){
+           isValid = false;
+           this.addError("Por favor introduzca el giro", "Por favor introduzca el giro");
+       }      
+       
+       if (this.getTblInstitucion().getNomConInstitucion() == ""){
+           isValid = false;
+           this.addError("Por favor introduzca el nombre del contacto", "Por favor introduzca el nombre del contacto");
+       }       
+       
+       if (this.getTblInstitucion().getCelConInstitucion() == null || this.getTblInstitucion().getCelConInstitucion() <= 0){
+           isValid = false;
+           this.addError("Por favor introduzca el telefono del contacto", "Por favor introduzca el telefono del contacto");
+       }
+       
+       if (!this.getTblInstitucion().getEsDonante() && !this.getTblInstitucion().getEsProveedor()){
+           isValid = false;
+           this.addError("Por favor selecciones si es proveedor o Donante", "Por favor selecciones si es proveedor o Donante");
+       }
+       
        return isValid;
   }    
     
