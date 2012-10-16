@@ -39,7 +39,7 @@ public class FrmTblInstitucion extends PageBase {
     public List<TblInstitucion> getTblInstitucionList() {
         if (tblInstitucionList.isEmpty()){
           try{
-            tblInstitucionList = tblInstitucionFacade.findAll();
+            tblInstitucionList = tblInstitucionFacade.findActive();
           }catch(Exception x) {
               x.printStackTrace();
           }
@@ -51,11 +51,11 @@ public class FrmTblInstitucion extends PageBase {
         this.tblInstitucionList = tblInstitucionList;
     }
 
-    public void delete(ActionEvent ae){
+    public void desactivar(ActionEvent ae){
         try{
             UIDataTable table = (UIDataTable) ae.getComponent().getParent().getParent();
             tblInstitucion = (TblInstitucion) table.getRowData();
-            tblInstitucionFacade.remove(tblInstitucion);
+            tblInstitucionFacade.desactivar(tblInstitucion);
             tblInstitucionList.clear();
         }catch(Exception x){
             x.printStackTrace();

@@ -5,7 +5,9 @@
 package sv.com.cormaria.clinica.web.managebeans.consultasmedicas;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -22,6 +24,7 @@ import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
 import sv.com.cormaria.servicios.entidades.catalogos.CatEspecialidad;
 import sv.com.cormaria.servicios.entidades.catalogos.CatExamenesMedicos;
 import sv.com.cormaria.servicios.entidades.catalogos.CatTipoReferencia;
+import sv.com.cormaria.servicios.entidades.consultasmedicas.CatCategoriaExamenes;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblConsultas;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblDetalleOrdenLaboratorio;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblDetalleOrdenLaboratorioPK;
@@ -34,6 +37,7 @@ import sv.com.cormaria.servicios.entidades.farmacia.TblProducto;
 import sv.com.cormaria.servicios.enums.EstadoRecetaMedica;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.administracion.TblMedicoFacadeLocal;
+import sv.com.cormaria.servicios.facades.catalogos.CatCategoriaExamenesFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatEspecialidadFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatExamenesMedicosFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatTipoReferenciaFacadeLocal;
@@ -78,6 +82,9 @@ public class FrmMantTblConsultas extends PageBase {
     private CatExamenesMedicosFacadeLocal catExamenesFacade;
 
     @EJB
+    private CatCategoriaExamenesFacadeLocal catCategoriaExamenesFacade;
+
+    @EJB
     private CatEspecialidadFacadeLocal catEspecialidadFacade;
     
     @EJB
@@ -96,6 +103,7 @@ public class FrmMantTblConsultas extends PageBase {
     private List<TblMedico> tblMedicoList = new ArrayList<TblMedico>();
 
     private List<TblDetalleOrdenLaboratorio> detalleOrdenLabList = new ArrayList<TblDetalleOrdenLaboratorio>();
+    private List<CatCategoriaExamenes> categoriaExamenesList = new ArrayList<CatCategoriaExamenes>();
 
     private TblDetalleOrdenLaboratorio detalleOrdenLab = new TblDetalleOrdenLaboratorio();
 
@@ -104,6 +112,8 @@ public class FrmMantTblConsultas extends PageBase {
     private TblDetalleReceta receta = new TblDetalleReceta();
 
     private TblReferencia referencia = new TblReferencia();
+    
+    private Map<Integer, Boolean> selectedExamenes = new HashMap<Integer, Boolean>();
     
     private List<TblProducto> productosList = new ArrayList<TblProducto>();
     private List<CatTipoReferencia> tiposReferenciasList = new ArrayList<CatTipoReferencia>();
@@ -117,6 +127,34 @@ public class FrmMantTblConsultas extends PageBase {
      * Creates a new instance of FrmMantTblConsultas
      */
     public FrmMantTblConsultas() {
+    }
+
+    public Map<Integer, Boolean> getSelectedExamenes() {
+        if (selectedExamenes.isEmpty()){
+            for (TblDetalleOrdenLaboratorio detalleOrden : detalleOrdenLabList) {
+                selectedExamenes.put(detalleOrden.getTblDetalleOrdenLaboratorioPK().getCodExaMedico(), Boolean.TRUE);
+            }
+        }
+        return selectedExamenes;
+    }
+
+    public void setSelectedExamenes(Map<Integer, Boolean> selectedExamenes) {
+        this.selectedExamenes = selectedExamenes;
+    }
+
+    public List<CatCategoriaExamenes> getCategoriaExamenesList() {
+        if (categoriaExamenesList.isEmpty()){
+            try{
+                categoriaExamenesList = catCategoriaExamenesFacade.findAll();
+            }catch(Exception ex){
+                
+            }
+        }
+        return categoriaExamenesList;
+    }
+
+    public void setCategoriaExamenesList(List<CatCategoriaExamenes> categoriaExamenesList) {
+        this.categoriaExamenesList = categoriaExamenesList;
     }
 
     public TblConsultas getConsulta() {
@@ -300,21 +338,31 @@ public class FrmMantTblConsultas extends PageBase {
                 consulta = tblConsultasFacade.find(numConsulta);
                 try{
                     referencia = tblReferenciaFacade.findByNumConsulta(consulta.getNumConsulta());
+                    if (referencia == null){
+                        referencia = new TblReferencia();
+                    }
                 }catch(Exception ex){
                     referencia = new TblReferencia();
                 }
                 try{
                     recetaMedica = tblRecetaMedicaFacade.findByNumConsulta(consulta.getNumConsulta());
+                    if (recetaMedica == null){
+                        recetaMedica = new TblRecetaMedica();
+                    }
                 }catch(Exception ex){
                     recetaMedica = new TblRecetaMedica();
                 }
                 try{
                     ordenLab = tblOrdenLabFacade.findByNumConsulta(consulta.getNumConsulta());
+                    if (ordenLab == null){
+                        ordenLab = new TblOrdenLaboratorio();
+                    }
                 }catch(Exception ex){
                     ordenLab = new TblOrdenLaboratorio();            
                 }
                 detalleReceta.clear();
                 detalleOrdenLabList.clear();
+                this.selectedExamenes.clear();
             }catch(Exception ex){
                 ex.printStackTrace();
                 this.addError(ex.getMessage(), ex.getMessage());
@@ -329,21 +377,31 @@ public class FrmMantTblConsultas extends PageBase {
             this.consulta = tblConsultasFacade.find(((TblConsultas)table.getRowData()).getNumConsulta());
             try{
                 referencia = tblReferenciaFacade.findByNumConsulta(consulta.getNumConsulta());
+                if (referencia == null){
+                    referencia = new TblReferencia();
+                }
             }catch(Exception ex){
                 referencia = new TblReferencia();
             }
             try{
                 recetaMedica = tblRecetaMedicaFacade.findByNumConsulta(consulta.getNumConsulta());
+                if (recetaMedica == null){
+                    recetaMedica = new TblRecetaMedica();
+                }
             }catch(Exception ex){
                 recetaMedica = new TblRecetaMedica();
             }
             try{
                 ordenLab = tblOrdenLabFacade.findByNumConsulta(consulta.getNumConsulta());
+                if (ordenLab == null){
+                    ordenLab = new TblOrdenLaboratorio();
+                }
             }catch(Exception ex){
                 ordenLab = new TblOrdenLaboratorio();            
             }
             detalleReceta.clear();
             detalleOrdenLabList.clear();
+            this.selectedExamenes.clear();
         }catch(Exception x){
             x.printStackTrace();
             this.addError(x.getMessage(), x.getMessage());
@@ -356,21 +414,31 @@ public class FrmMantTblConsultas extends PageBase {
         this.consulta = tblConsultasFacade.find(((TblConsultas)table.getRowData()).getNumConsulta());
         try{
             referencia = tblReferenciaFacade.findByNumConsulta(consulta.getNumConsulta());
+            if (referencia == null){
+                referencia = new TblReferencia();
+            }
         }catch(Exception ex){
             referencia = new TblReferencia();
         }
         try{
             recetaMedica = tblRecetaMedicaFacade.findByNumConsulta(consulta.getNumConsulta());
+            if (recetaMedica == null){
+                recetaMedica = new TblRecetaMedica();
+            }
         }catch(Exception ex){
             recetaMedica = new TblRecetaMedica();
         }
         try{
             ordenLab = tblOrdenLabFacade.findByNumConsulta(consulta.getNumConsulta());
+            if (ordenLab == null){
+                ordenLab = new TblOrdenLaboratorio();
+            }
         }catch(Exception ex){
             ordenLab = new TblOrdenLaboratorio();            
         }
         detalleReceta.clear();
         detalleOrdenLabList.clear();
+        this.selectedExamenes.clear();
     }catch(Exception x){
         x.printStackTrace();
         this.addError(x.getMessage(), x.getMessage());
@@ -394,8 +462,15 @@ public class FrmMantTblConsultas extends PageBase {
        try{
            TblDetalleOrdenLaboratorioPK pk = detalleOrdenLab.getTblDetalleOrdenLaboratorioPK();
            pk.setNumOrdLaboratorio(ordenLab.getNumOrdLaboratorio());
-           tblDetalleOrdenLabFacade.create(detalleOrdenLab);
+           List<Integer> examenes = new ArrayList<Integer>();
+           for (Integer exam : selectedExamenes.keySet()) {
+               if (selectedExamenes.get(exam)){
+                   examenes.add(exam);
+               }
+           }
+           tblDetalleOrdenLabFacade.addDetalleOrdenLab(examenes, this.getOrdenLab().getNumOrdLaboratorio());
            this.addInfo("La informacion ha sido guardada", "La informacion ha sido guardada");
+           this.selectedExamenes.clear();
            this.detalleOrdenLabList.clear();
        }catch(Exception ex){
            ex.printStackTrace();
@@ -458,7 +533,6 @@ public class FrmMantTblConsultas extends PageBase {
           this.addError(ex.getMessage(), ex.getMessage());
       }
    }
-
    
    public void buscar(ActionEvent ae){
       ExpedienteDataModel model = (ExpedienteDataModel) this.getBean("#{expedienteDataModel}", ExpedienteDataModel.class);
@@ -473,16 +547,25 @@ public class FrmMantTblConsultas extends PageBase {
           }
         try{
             referencia = tblReferenciaFacade.findByNumConsulta(consulta.getNumConsulta());
+            if (referencia == null){
+                referencia = new TblReferencia();
+            }
         }catch(Exception ex){
             referencia = new TblReferencia();
         }
         try{
             recetaMedica = tblRecetaMedicaFacade.findByNumConsulta(consulta.getNumConsulta());
+            if (recetaMedica == null){
+                recetaMedica = new TblRecetaMedica();
+            }
         }catch(Exception ex){
             recetaMedica = new TblRecetaMedica();
         }
         try{
             ordenLab = tblOrdenLabFacade.findByNumConsulta(consulta.getNumConsulta());
+            if (ordenLab == null){
+                ordenLab = new TblOrdenLaboratorio();
+            }
         }catch(Exception ex){
             ordenLab = new TblOrdenLaboratorio();            
         }
@@ -513,10 +596,11 @@ public class FrmMantTblConsultas extends PageBase {
 
     public void deleteDetalleOrdenLab(ActionEvent ae){
         try{
-            UIDataTable table = (UIDataTable) ae.getComponent().getParent().getParent();
+            UIDataGrid table = (UIDataGrid) ae.getComponent().getParent();
             detalleOrdenLab = (TblDetalleOrdenLaboratorio) table.getRowData();
             tblDetalleOrdenLabFacade.remove(detalleOrdenLab);
             this.detalleOrdenLabList.clear();
+            this.selectedExamenes.clear();
             this.addInfo("Se ha eliminado el examen de la orden de laboratorio", "Se ha eliminado el examen de la orden de laboratorio");
         }catch(Exception x){
             x.printStackTrace();

@@ -27,7 +27,6 @@
 <script type="text/javascript" lang="javascript">
    //<![CDATA[
     $(".mayuculas").bind('keypress', function (e) { 
-        alert("Here..")
         if (e.which >= 97) {
           if (e.which <= 122){
             var newKey = e.which - 32; 
@@ -37,8 +36,37 @@
           }
         } 
     });    
+
+    function controlTab(selector){
+        jQuery(":input:visible:enabled").live("keypress", function(e) {
+                //alert("working, what is the fucking problem?")
+                var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+                 //ENTER PRESSED
+                if (key == 9) {  // 9 for TAB
+                     //FOCUS ELEMENT 
+                    var inputs = jQuery(this).parents("form").eq(0).find(":input:visible:enabled");
+                    //alert(inputs.length);
+                    var idx = inputs.index(this);
+                    //alert(idx);
+                    var move = (e.shiftKey) ? (-1) : (1); // for Shift+TAB
+                    if (idx == inputs.length - 1) {
+                        //jQuery(selector+":not(:button):visible:enabled:first").focus(); 
+                        jQuery(":input:not(:button):visible:enabled:first").focus()
+                        if (jQuery(":input:not(:button):visible:enabled:first").select)
+                            jQuery(":input:not(:button):visible:enabled:first").select();
+                    } else {
+                        //alert(inputs[idx + move].id);
+                        inputs[idx + move].focus(); //  handles submit buttons
+                        if (inputs[idx + move].select)
+                            inputs[idx + move].select();
+                    }
+                    return false;
+                }
+            });
+    }
    //]]>
 </script>
+
 <table class="left_menu" cellpadding="0" cellspacing="0" border="0">
     <tbody>
         <tr>
