@@ -42,7 +42,7 @@ and open the template in the editor.
                 </tr>
                 <tr>
                     <td align="left">Razon Social:</td>
-                    <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.razSocInstitucion}" maxlength="100" onkeypress="return filterInput(2, event, false, ' ');"/></td>
+                    <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.razSocInstitucion}" maxlength="100" onkeypress="return filterInput(2, event, false, ' .,');"/></td>
                 </tr>  
                 <tr>
                     <td align="left">Cod Rubro:</td>
@@ -77,7 +77,7 @@ and open the template in the editor.
                 </tr> 
                 <tr>
                     <td align="left">Giro:</td>
-                    <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.girInstitucion}" maxlength="9" onkeypress="return filterInput(1, event, false, '');"/>
+                    <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.girInstitucion}" maxlength="9" onkeypress="return filterInput(2, event, false, '');"/>
                     <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                     </td>
                     <td align="left">NIT:</td>
@@ -92,13 +92,15 @@ and open the template in the editor.
                 <tr>
                     <td align="left">Telefono Contacto:</td>
                     <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.celConInstitucion}" maxlength="250" onkeypress="return filterInput(1, event, false, ' #,.');"/></td>
+                </tr>
+                <tr>   
                     <td align="left">Es donante:</td>
-                    <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.esDonante}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/>
-                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    <td align="left">
+                       <h:selectBooleanCheckbox value="#{frmMantTblInstitucion.tblInstitucion.esDonante}"> </h:selectBooleanCheckbox>
                     </td>
                     <td align="left">Es proveedor:</td>
-                    <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.esProveedor}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/>
-                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    <td align="left">
+                       <h:selectBooleanCheckbox value="#{frmMantTblInstitucion.tblInstitucion.esProveedor}"></h:selectBooleanCheckbox>
                     </td>
                 </tr>   
                  

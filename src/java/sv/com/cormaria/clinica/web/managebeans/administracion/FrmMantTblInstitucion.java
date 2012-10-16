@@ -42,7 +42,7 @@ public class FrmMantTblInstitucion extends PageBase{
         if (catRubroList.isEmpty()){
             try{
                 List<CatRubro> l = CatRubroFacade.findActive();
-                for (CatRubro catRubro : l) {
+                for (CatRubro catRubro: l) {
                     catRubroList.add(new SelectItem(catRubro.getCodRubro(), catRubro.getNomRubro()));
                 }
             }catch(Exception ex){
@@ -82,7 +82,7 @@ public class FrmMantTblInstitucion extends PageBase{
     public boolean validar(){
        boolean isValid = true;
        
-       if (this.getTblInstitucion().getCodRubro() == null || this.getTblInstitucion().getCodRubro() <=0 ) {
+       if (this.getTblInstitucion().getCodRubro() == null) {
           isValid = false;
           this.addError("Por favor seleccione el Rubro", "Por favor seleccione el Rubro");
        } 
