@@ -12,14 +12,12 @@ and open the template in the editor.
       xmlns:a4j="http://richfaces.org/a4j">
     <ui:composition template="/templates/main.xhtml">
         <ui:define name="title">
-          <h:outputText value="#{messages['default.windowTitle']}--Administración de Beneficiarios" escape="false"></h:outputText>  
+          <h:outputText value="#{messages['default.windowTitle']}--Administracion de Beneficiarios" escape="false"></h:outputText>  
         </ui:define>
         <ui:define name="body">
-            <h3>Administración de Beneficiarios</h3>
-            <hr></hr>
             <h:form>
                 <h:outputLink value="frmMantTblBeneficiarios.jsf">
-                    Agregar Nuevo Registro
+                    Agregar Beneficiarios
                 </h:outputLink>
                 <rich:dataTable value="#{frmTblBeneficiarios.tblBeneficiariosList}" var="tblBeneficiarios" rows="10" id="tblBeneficiariosTable">
             <f:facet name="header">
@@ -29,14 +27,14 @@ and open the template in the editor.
                   </h:column>
                   <h:column>
                     <h:outputText value="Nombre"/>
-                  </h:column>
+                  </h:column>  
                   <h:column>
-                    <h:outputText value="Telefono"/>
-                  </h:column>                  
-                    <h:column>
-                    <h:outputText value="NIT"/>
-                  </h:column>
-                 <h:column>
+                    <h:outputText value="Rubro"/>
+                  </h:column>                    
+                  <h:column>
+                    <h:outputText value="Estado"/>
+                  </h:column>                     
+                  <h:column>
                     <h:outputText value=""/>
                   </h:column>
                   <h:column>
@@ -49,30 +47,29 @@ and open the template in the editor.
                     </h:outputText>
                 </h:column>
                 <h:column>
-                    <h:outputText value="#{tblBeneficiarios.nomBeneficiario}">
+                    <h:outputText value="#{tblBeneficiarios.nomBeneficiario}" rendered="#{tblBeneficiarios.nomBeneficiario != null}">
                     </h:outputText>
-                </h:column>
+                </h:column> 
                 <h:column>
-                    <h:outputText value="#{tblBeneficiarios.telBeneficiario}">
+                    <h:outputText value="#{tblBeneficiarios.girBeneficiario}">
                     </h:outputText>
-                </h:column>   
+                </h:column>                 
                 <h:column>
-                    <h:outputText value="#{tblBeneficiarios.nitBeneficiario}">
+                    <h:outputText value="#{tblBeneficiarios.actBeneficiario}">
                     </h:outputText>
-                </h:column>   
+                </h:column>                                 
                 <h:column>
-                    
-                    <h:outputLink value="frmManttblBeneficiarios.jsf">
-                        <f:param name="numBeneficiario" value="#{tblBeneficiarios.numBeneficiario}"/>
+                    <h:outputLink value="frmMantEditTblBeneficiarios.jsf">
+                        <f:param name="numBeneficiarios" value="#{tblBeneficiarios.numBeneficiario}"/>
                         <f:param name="faces-redirect" value="true"/>
-                        <h:graphicImage url="/img/icons/edit.gif">
+                        <h:graphicImage url="/img/icons/edit.gif" style="border: 0">
                             
                         </h:graphicImage>
                     </h:outputLink>
                 </h:column>
                 <h:column>
-                    <a4j:commandLink actionListener="#{frmTblBeneficiarios.delete}" render="tblBeneficiariosTable" onclick="if(!confirm('Esta seguro que desea eliminar el área: #{tblBeneficiarios.nomBanco}')){return false;}">
-                        <h:graphicImage url="/img/icons/delete.gif"/>
+                    <a4j:commandLink actionListener="#{frmTblBeneficiarios.desactivar}" render="@form, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar el registro: #{tblBeneficiarios.nomBeneficiario}')){return false;}">
+                        <h:graphicImage url="/img/icons/delete.gif" style="border: 0"/>
                         <f:setPropertyActionListener target="#{frmTblBeneficiarios.tblBeneficiarios}" value="#{tblBeneficiarios}"/>
                     </a4j:commandLink>
                   

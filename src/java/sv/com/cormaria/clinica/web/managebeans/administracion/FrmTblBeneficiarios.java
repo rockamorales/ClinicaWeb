@@ -62,4 +62,16 @@ public class FrmTblBeneficiarios extends PageBase {
             this.addError(x.getMessage(), x.getMessage());
         }
     }
+    
+    public void desactivar(ActionEvent ae){
+        try{
+            UIDataTable table = (UIDataTable) ae.getComponent().getParent().getParent();
+            tblBeneficiarios = (TblBeneficiarios) table.getRowData();            
+            tblBeneficiariosFacade.desactivar(tblBeneficiarios.getNumBeneficiario());
+            tblBeneficiariosList.clear();            
+        }catch(Exception x){
+            x.printStackTrace();
+            this.addError(x.getMessage(), x.getMessage());
+        }
+    } 
 }
