@@ -22,7 +22,7 @@ import sv.com.cormaria.servicios.entidades.catalogos.CatTipoPago;
 import sv.com.cormaria.servicios.entidades.colecturia.TblComprobanteDonacion;
 import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonacion;
 import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonacionPK;
-import sv.com.cormaria.servicios.entidades.farmacia.TblProducto;
+import sv.com.cormaria.servicios.entidades.administracion.TblProducto;
 import sv.com.cormaria.servicios.enums.EstadoComprobanteDonacion;
 import sv.com.cormaria.servicios.facades.catalogos.CatBancosFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatCarismaFacadeLocal;
@@ -31,7 +31,7 @@ import sv.com.cormaria.servicios.facades.catalogos.CatTipoDonanteFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatTipoPagoFacadeLocal;
 import sv.com.cormaria.servicios.facades.colecturia.TblComprobanteDonacionFacadeLocal;
 import sv.com.cormaria.servicios.facades.colecturia.TblDetalleComprobanteDonacionFacadeLocal;
-import sv.com.cormaria.servicios.facades.farmacia.TblProductoFacadeLocal;
+import sv.com.cormaria.servicios.facades.administracion.TblProductoFacadeLocal;
 
 /**
  *

@@ -33,7 +33,7 @@ import sv.com.cormaria.servicios.entidades.consultasmedicas.TblDetalleRecetaPK;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblOrdenLaboratorio;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblRecetaMedica;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblReferencia;
-import sv.com.cormaria.servicios.entidades.farmacia.TblProducto;
+import sv.com.cormaria.servicios.entidades.administracion.TblProducto;
 import sv.com.cormaria.servicios.enums.EstadoRecetaMedica;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.administracion.TblMedicoFacadeLocal;
@@ -47,7 +47,7 @@ import sv.com.cormaria.servicios.facades.consultasmedicas.TblDetalleRecetaFacade
 import sv.com.cormaria.servicios.facades.consultasmedicas.TblOrdenLaboratorioFacadeLocal;
 import sv.com.cormaria.servicios.facades.consultasmedicas.TblRecetaMedicaFacadeLocal;
 import sv.com.cormaria.servicios.facades.consultasmedicas.TblReferenciaFacadeLocal;
-import sv.com.cormaria.servicios.facades.farmacia.TblProductoFacadeLocal;
+import sv.com.cormaria.servicios.facades.administracion.TblProductoFacadeLocal;
 
 /**
  *

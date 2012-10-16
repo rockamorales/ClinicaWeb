@@ -91,19 +91,17 @@ public class FrmMantTblBeneficiarios extends PageBase{
             this.addError("Por favor ingrese los nombres del Beneficiario", "Por favor ingrese los nombres del Beneficiario");
             isValid = false;
         }
-       
-        
-      if (tblBeneficiarios.getNitBeneficiario()==null || tblBeneficiarios.getNitBeneficiario().trim().equals("")){
+       if (tblBeneficiarios.getNitBeneficiario()==null || tblBeneficiarios.getNitBeneficiario().trim().equals("")){
             this.addError("Por favor ingrese el número de NIT del Beneficiario", "Por favor ingrese el número de DUI del Beneficiario");
             isValid = false;
-      }
-            
+       }
+       if (tblBeneficiarios.getNitBeneficiario()!=null && !tblBeneficiarios.getNitBeneficiario().trim().equals("")){
             if (ValidationUtils.validarNIT(tblBeneficiarios.getNitBeneficiario())== false) {
-            this.addError("El número de NIT del Beneficiario NO ES VALIDO", "El número de NIT del Beneficiario NO ES VALIDO");
-            this.addInfo("Ingrese nuevamente el NIT del Beneficiario" , "Ingrese nuevamente el NIT del Beneficiario");
-            isValid = false;
+              this.addError("El número de NIT del Beneficiario NO ES VALIDO", "El número de NIT del Beneficiario NO ES VALIDO");
+              this.addInfo("Ingrese nuevamente el NIT del Beneficiario" , "Ingrese nuevamente el NIT del Beneficiario");
+              isValid = false;
             }
-        
+      }
 
        return isValid;
   }    
