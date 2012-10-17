@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <ui:composition template="/templates/main.xhtml">
+        <ui:define name="title">
+          <h:outputText value="#{messages['default.windowTitle']}--Administracion de Productos" escape="false"></h:outputText>  
+        </ui:define>
+        <ui:define name="body">
+            <h:form>
+                <h:outputLink value="frmMantTblProducto.jsf">
+                    Agregar Producto
+                </h:outputLink>
+                <rich:dataTable value="#{frmTblProducto.tblProductoList}" var="tblProducto" rows="10" id="tblProductoTable">
+            <f:facet name="header">
+                <rich:columnGroup>
+                  <h:column>
+                    <h:outputText value="Código"/>
+                  </h:column>
+                  <h:column>
+                    <h:outputText value="Nombre"/>
+                  </h:column>  
+                  <h:column>
+                    <h:outputText value="Tipo"/>
+                  </h:column>                    
+                  <h:column>
+                    <h:outputText value="Estado"/>
+                  </h:column>                     
+                  <h:column>
+                    <h:outputText value=""/>
+                  </h:column>
+                  <h:column>
+                    <h:outputText value=""/>
+                  </h:column>
+                </rich:columnGroup>
+              </f:facet>
+                <h:column>
+                    <h:outputText value="#{tblProducto.numProducto}">
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <h:outputText value="#{tblProducto.nomProducto}" rendered="#{tblProducto.nomProducto != null}">
+                    </h:outputText>
+                </h:column> 
+                <h:column>
+                    <h:outputText value="#{tblProducto.tipoproducto}">
+                    </h:outputText>
+                </h:column>                 
+                <h:column>
+                    <h:outputText value="#{tblProducto.actProducto}">
+                    </h:outputText>
+                </h:column>                                 
+                <h:column>
+                    <h:outputLink value="frmMantEditTblProducto.jsf">
+                        <f:param name="numProducto" value="#{tblProducto.numProducto}"/>
+                        <f:param name="faces-redirect" value="true"/>
+                        <h:graphicImage url="/img/icons/edit.gif" style="border: 0">
+                            
+                        </h:graphicImage>
+                    </h:outputLink>
+                </h:column>
+                <h:column>
+                    <a4j:commandLink actionListener="#{frmTblProducto.desactivar}" render="@form, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar el registro: #{tblProducto.nomProducto}')){return false;}">
+                        <h:graphicImage url="/img/icons/delete.gif" style="border: 0"/>
+                        <f:setPropertyActionListener target="#{frmTblProducto.tblProducto}" value="#{tblProducto}"/>
+                    </a4j:commandLink>
+                  
+                   
+                </h:column>                
+            </rich:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

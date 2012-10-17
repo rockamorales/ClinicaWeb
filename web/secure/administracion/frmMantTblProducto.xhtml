@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <ui:composition template="/templates/main.xhtml">
+        <ui:define name="title">
+          <h:outputText value="#{messages['default.windowTitle']}--Administración de Productos" escape="false"></h:outputText>  
+        </ui:define>
+        <f:metadata>
+            <f:viewParam name="numProducto" value="#{frmMantTblProducto.numProducto}"/>
+        </f:metadata>
+        
+        <ui:define name="body">
+            <hr></hr>
+            <h3>Agregar Producto</h3>
+            <hr></hr>
+            <h:form id="form">
+              <table>
+                <tr>
+                    <td align="left">Código:</td>
+                    <td align="left"><h:outputText value="#{frmMantTblProducto.tblProducto.numProducto}" style="font-weight: bold"/>
+                        <h:inputHidden value="#{frmMantTblProducto.tblProducto.numProducto}" /></td>
+                    <td align="left">Estado:</td>
+                    <td align="left">
+                        <h:outputText value="#{frmMantTblProducto.tblProducto.estProducto}" style="font-weight: bold"></h:outputText>
+                    </td>                        
+                </tr>
+
+                <tr>
+                    <td align="left">Nombre Producto:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.nomProducto}" maxlength="100" onkeypress="return filterInput(2, event, false, ' ');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Nombre Generico de Producto:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.nomgenProducto}" maxlength="100" onkeypress="return filterInput(2, event, false, ' ');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Tipo Producto:</td>
+                    <td align="left">
+                        <h:selectOneMenu value="#{frmMantTblProducto.tblProducto.codTipoProducto}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem> 
+                            <f:selectItems value="#{frmMantTblProducto.catTipoProductoList}"/>
+                        </h:selectOneMenu>
+                    </td>
+
+                </tr>
+                  
+                <tr>
+                    <td align="left">Clasificacion de Producto</td>
+                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.claProducto}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                </tr> 
+                <tr>
+                    <td align="left">Presentacion del producto :</td>
+                    <td align="left" colspan="3"><h:inputTextarea styleClass="mayusculas" value="#{frmMantTblProducto.tblProducto.preProducto}" rows="2" cols="80" onkeypress="return filterInput(2, event, false, ' #,.');"/>
+                        <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Precio PProducto</td>
+                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.telProducto}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/></td>
+                    
+                </tr> 
+                <tr>
+                    <td align="left">Con Producto:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.conProducto}" maxlength="9" onkeypress="return filterInput(2, event, false, '');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                    <td align="left">Fabricacion del Producto:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.fabProducto}" maxlength="14" onkeypress="return filterInput(1, event, false, '');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
+                </tr> 
+                <tr>
+                    <td align="left">Direccion del Producto</td>
+                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.dirProducto}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/></td>
+                </tr>
+                <tr>
+                    <td align="left">Existencias del Producto</td>
+                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.dirProducto}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/></td>
+                </tr>
+                <tr>
+                    <td align="left">Existencias Minimas del Producto</td>
+                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.dirProducto}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/></td>
+                </tr>
+                <tr>
+                    <td align="left">Res del Producto</td>
+                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.dirProducto}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/></td>
+                </tr>
+                  <tr>
+                      <td colspan="4" align="center">
+                          <a4j:commandButton value="Guardar" actionListener="#{frmMantTblProducto.guardar}" render="form, panelMessage" />
+                          <a4j:commandButton value="Nuevo" actionListener="#{frmMantTblProducto.nuevo}" render="form"/>
+                          <a4j:commandButton value="Regresar" action="frmTblProducto.jsf?faces-redirect=true" immediate="true"/>
+                      </td>
+                  </tr>
+              </table>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
