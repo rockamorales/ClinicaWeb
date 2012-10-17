@@ -53,8 +53,24 @@ public class FrmMantCatCarisma extends PageBase{
         this.catCarisma = catCarisma;
     }
     
+       public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getCatCarisma().getNomCarisma() == ""){
+          isValid = false;
+          this.addError("Porfavor ingrese el nombre de la entidad de la Fundación Carisma", "Porfavor ingrese el nombre de la entidad de la Fundación Carisma");
+       } 
+
+       
+       return isValid;
+     
+   }    
+    
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }            
             if(catCarisma.getCodCarisma() != null){
                 facade.edit(catCarisma);
             }else{
