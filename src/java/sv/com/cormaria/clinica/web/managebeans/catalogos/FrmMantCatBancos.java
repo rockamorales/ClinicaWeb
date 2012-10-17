@@ -53,8 +53,22 @@ public class FrmMantCatBancos extends PageBase{
         this.catBancos = catBancos;
     }
     
+       public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getCatBancos().getNomBanco() == ""){
+          isValid = false;
+          this.addError("Porfavor ingrese el nombre del Banco", "Porfavor ingrese el nombre del Banco");
+       }     
+       return isValid;
+   
+   }
+    
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }            
             if(catBancos.getCodBanco() != null){
                 facade.edit(catBancos);
             }else{
