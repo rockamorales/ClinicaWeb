@@ -53,8 +53,24 @@ public class FrmMantCatEstadoCivil extends PageBase{
         this.catEstadoCivil = catEstadoCivil;
     }
     
+       public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getCatEstadoCivil().getNomEstCivil() == ""){
+          isValid = false;
+          this.addError("Porfavor ingrese el nombre del estado civil", "Porfavor ingrese el nombre del estado civil");
+       } 
+
+       
+       return isValid;
+     
+   }    
+    
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }              
             if(catEstadoCivil.getCodEstCivil() != null){
                 facade.edit(catEstadoCivil);
             }else{

@@ -53,8 +53,24 @@ public class FrmMantCatExamenesMedicos extends PageBase{
         this.catExamenesMedicos = catExamenesMedicos;
     }
     
+       public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getCatExamenesMedicos().getNomExaMedico() == ""){
+          isValid = false;
+          this.addError("Porfavor ingrese el nombre del exámen médico", "Porfavor ingrese el nombre del exámen médico");
+       } 
+
+       
+       return isValid;
+     
+   }     
+    
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }              
             if(catExamenesMedicos.getCodExaMedico() != null){
                 facade.edit(catExamenesMedicos);
             }else{

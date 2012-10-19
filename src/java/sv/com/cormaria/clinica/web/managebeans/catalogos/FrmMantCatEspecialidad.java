@@ -78,9 +78,25 @@ public class FrmMantCatEspecialidad extends PageBase{
     public void setCatEspecialidad(CatEspecialidad catEspecialidad) {
         this.catEspecialidad = catEspecialidad;
     }
+
+       public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getCatEspecialidad().getNomEspecialidad() == ""){
+          isValid = false;
+          this.addError("Porfavor ingrese el nombre de la Especialiad", "Porfavor ingrese el nombre el nombre de la Especialiad");
+       } 
+
+       
+       return isValid;
+     
+   }    
     
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }             
             if(catEspecialidad.getCodEspecialidad() != null){
                 facade.edit(catEspecialidad);
             }else{

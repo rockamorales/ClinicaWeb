@@ -53,8 +53,24 @@ public class FrmMantCatProfesiones extends PageBase{
         this.catProfesiones = catProfesiones;
     }
     
+       public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getCatProfesiones().getNomProfesion() == ""){
+          isValid = false;
+          this.addError("Porfavor ingrese el nombre de la profesión", "Porfavor ingrese el nombre de la profesión");
+       } 
+
+       
+       return isValid;
+     
+   }    
+    
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }             
             if(catProfesiones.getCodProfesion() != null){
                 facade.edit(catProfesiones);
             }else{

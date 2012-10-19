@@ -53,8 +53,24 @@ public class FrmMantCatTipoServicio extends PageBase{
         this.catTipoServicio = catTipoServicio;
     }
     
+       public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getCatTipoServicio().getNomTipServicio() == ""){
+          isValid = false;
+          this.addError("Porfavor ingrese el nombre del tipo de servicio", "Porfavor ingrese el nombre del tipo de servicio");
+       } 
+
+       
+       return isValid;
+     
+   }      
+    
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }             
             if(catTipoServicio.getCodTipServicio() != null){
                 facade.edit(catTipoServicio);
             }else{

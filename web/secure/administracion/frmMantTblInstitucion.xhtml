@@ -35,12 +35,17 @@ and open the template in the editor.
 
                 <tr>
                     <td align="left">Nombre Comercial:</td>
-                    <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.nomComInstitucion}" maxlength="100" onkeypress="return filterInput(2, event, false, ' ,.');"/>
-                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
-                    <td align="left">Razon Social:</td>
-                    <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.razSocInstitucion}" maxlength="100" onkeypress="return filterInput(2, event, false, ' .,');"/></td>
-                    </td>
+                    <td align="left" colspan="3"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.nomComInstitucion}" size="77" maxlength="100" onkeypress="return filterInput(0, event, false, ' ');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/></td>
                 </tr>
+                 <tr>
+                    <td align="left">Razon Social:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.razSocInstitucion}" maxlength="100" onkeypress="return filterInput(2, event, false, ' .,');"/></td>  
+                    <td align="left">NRC:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.nrcInstitucion}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>                    
+                </tr> 
                 <tr>
                     <td align="left">Rubro:</td>
                     <td align="left">
@@ -55,10 +60,8 @@ and open the template in the editor.
                     </td>
                 </tr>                    
                 <tr>
-                    <td align="left">NRC:</td>
-                    <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.nrcInstitucion}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/>
-                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
-                    </td>
+                    <td align="left">DUI:</td>
+                    <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.duiInstitucion}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/></td>
                     <td align="left">NIT:</td>
                     <td align="left"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.nitInstitucion}" maxlength="14" onkeypress="return filterInput(1, event, false, '');"/>
                     </td>                    
