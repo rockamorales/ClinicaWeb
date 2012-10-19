@@ -42,14 +42,14 @@ and open the template in the editor.
                 </tr>
                 <tr>
                     <td align="left">Nombre Generico de Producto:</td>
-                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.nomGenProducto}" maxlength="100" onkeypress="return filterInput(2, event, false, ' ');"/>
+                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.nomgenProducto}" maxlength="100" onkeypress="return filterInput(2, event, false, ' ');"/>
                     <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                     </td>
                 </tr>
                 <tr>
                     <td align="left">Tipo Producto:</td>
                     <td align="left">
-                        <h:selectOneMenu value="#{frmMantTblProducto.tblProducto.codTipProducto}">
+                        <h:selectOneMenu value="#{frmMantTblProducto.tblProducto.codTipoProducto}">
                             <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem> 
                             <f:selectItems value="#{frmMantTblProducto.catTipoProductoList}"/>
                         </h:selectOneMenu>
@@ -61,7 +61,7 @@ and open the template in the editor.
                     <td align="left">
                         <h:selectOneMenu value="#{frmMantTblProducto.tblProducto.codCatProducto}">
                             <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem> 
-                            <f:selectItems value="#{frmMantTblProducto.catCategoriaProductoList}"/>
+                            <f:selectItems value="#{frmMantTblProducto.catCatProductoList}"/>
                         </h:selectOneMenu>
                     </td>
 
@@ -69,9 +69,9 @@ and open the template in the editor.
                 <tr>
                     <td align="left">Presentacion del Producto:</td>
                     <td align="left">
-                        <h:selectOneMenu value="#{frmMantTblProducto.tblProducto.codPreProducto}">
+                        <h:selectOneMenu value="#{frmMantTblProducto.tblProducto.preProducto}">
                             <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem> 
-                            <f:selectItems value="#{frmMantTblProducto.catPresentacionProductoList}"/>
+                            <f:selectItems value="#{frmMantTblProducto.catTipoProductoList}"/>
                         </h:selectOneMenu>
                     </td>
 
@@ -129,7 +129,7 @@ and open the template in the editor.
                         </td>
                         <td align="left">Categoria Producto:</td>
                         <td align="left">
-                            <h:selectOneMenu value="#{frmMantTblProducto.tblProducto.codCatProducto}" >
+                            <h:selectOneMenu value="#{frmMantTblProducto.tblProducto.catProducto}" >
                                 <f:selectItem itemLabel="Seleccionar" itemValue="-1" ></f:selectItem>
                                <f:selectItems value="#{frmMantTblProducto.catProductoList}"/>                 
                             </h:selectOneMenu>
