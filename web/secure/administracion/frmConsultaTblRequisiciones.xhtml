@@ -12,7 +12,7 @@ and open the template in the editor.
       xmlns:a4j="http://richfaces.org/a4j">
     <ui:composition template="/templates/main.xhtml">
         <ui:define name="title">
-          <h:outputText value="#{messages['default.windowTitle']}--Administración de Requisiciones" escape="false"></h:outputText>  
+          <h:outputText value="#{messages['default.windowTitle']}--Consulta de requisiciones" escape="false"></h:outputText>  
         </ui:define>
         <ui:define name="body">
           <h:form>
@@ -85,6 +85,8 @@ and open the template in the editor.
                   </h:column>
                   <h:column>
                   </h:column>
+                  <h:column>
+                  </h:column>
                 </rich:columnGroup>
               </f:facet>
                 <h:column>
@@ -93,6 +95,7 @@ and open the template in the editor.
                 </h:column>
                 <h:column>
                     <h:outputText value="#{tblrequisiciones.fecRequisicion}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
                     </h:outputText>
                 </h:column>               
                 <h:column>
@@ -112,13 +115,16 @@ and open the template in the editor.
                     </h:outputText>
                 </h:column>
                 <h:column>
-                    <h:outputLink value="frmMantTblRequisiciones.jsf">
+                    <h:outputLink value="frmViewTblRequisiciones.jsf">
                         <f:param name="numRequisicion" value="#{tblrequisiciones.numRequisicion}"/>
                         <f:param name="faces-redirect" value="true"/>
                         <h:graphicImage url="/img/icons/edit.gif">
                         </h:graphicImage>
                     </h:outputLink>
                 </h:column>
+               <f:facet name="footer">
+                   <rich:dataScroller/>
+               </f:facet>
             </rich:dataTable>
             </h:form>
         </ui:define>

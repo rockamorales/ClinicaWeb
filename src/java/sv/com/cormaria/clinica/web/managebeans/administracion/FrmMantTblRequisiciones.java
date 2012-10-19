@@ -218,4 +218,18 @@ public class FrmMantTblRequisiciones extends PageBase{
             this.addError(x.getMessage(), x.getMessage());
         }
     }    
+    
+    public String modificar(){
+        return "frmMantTblRequisiciones.jsf?faces-redirect=true&numRequisicion="+this.getTblRequisiciones().getNumRequisicion();
+    }
+    
+    public void eliminar(ActionEvent ae){
+        try{
+            this.facade.remove(tblRequisiciones);
+            this.addInfo("El registro ha sido eliminado", "El registro ha sido eliminado");
+        }catch(Exception ex){
+            ex.printStackTrace();
+            this.addError(ex.getMessage(), ex.getMessage());
+        }
+    }
 }
