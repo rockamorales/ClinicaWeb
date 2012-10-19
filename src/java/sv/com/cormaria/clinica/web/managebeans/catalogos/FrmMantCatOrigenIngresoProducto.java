@@ -53,8 +53,24 @@ public class FrmMantCatOrigenIngresoProducto extends PageBase{
         this.catOrigenIngresoProducto = catOrigenIngresoProducto;
     }
     
+       public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getCatOrigenIngresoProducto().getNomOriIngreso() == ""){
+          isValid = false;
+          this.addError("Porfavor ingrese el nombre del Origen del Producto", "Porfavor ingrese el nombre del Origen del Producto");
+       } 
+
+       
+       return isValid;
+     
+   }    
+    
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }             
             if(catOrigenIngresoProducto.getCodOriIngreso() != null){
                 facade.edit(catOrigenIngresoProducto);
             }else{
