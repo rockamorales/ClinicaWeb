@@ -14,9 +14,9 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
 import sv.com.cormaria.servicios.entidades.catalogos.CatEspecialidad;
-import sv.com.cormaria.servicios.entidades.farmacia.TblProducto;
+import sv.com.cormaria.servicios.entidades.administracion.TblProducto;
 import sv.com.cormaria.servicios.facades.catalogos.CatEspecialidadFacadeLocal;
-import sv.com.cormaria.servicios.facades.farmacia.TblProductoFacadeLocal;
+import sv.com.cormaria.servicios.facades.administracion.TblProductoFacadeLocal;
 
 /**
  *

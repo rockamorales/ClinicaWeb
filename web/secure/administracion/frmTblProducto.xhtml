@@ -12,14 +12,14 @@ and open the template in the editor.
       xmlns:a4j="http://richfaces.org/a4j">
     <ui:composition template="/templates/main.xhtml">
         <ui:define name="title">
-          <h:outputText value="#{messages['default.windowTitle']}--Administracion de Beneficiarios" escape="false"></h:outputText>  
+          <h:outputText value="#{messages['default.windowTitle']}--Administracion de Productos" escape="false"></h:outputText>  
         </ui:define>
         <ui:define name="body">
             <h:form>
-                <h:outputLink value="frmMantTblBeneficiarios.jsf">
-                    Agregar Beneficiarios
+                <h:outputLink value="frmMantTblProducto.jsf">
+                    Agregar Producto
                 </h:outputLink>
-                <rich:dataTable value="#{frmTblBeneficiarios.tblBeneficiariosList}" var="tblBeneficiarios" rows="10" id="tblBeneficiariosTable">
+                <rich:dataTable value="#{frmTblProducto.tblProductoList}" var="tblProducto" rows="10" id="tblProductoTable">
             <f:facet name="header">
                 <rich:columnGroup>
                   <h:column>
@@ -29,7 +29,7 @@ and open the template in the editor.
                     <h:outputText value="Nombre"/>
                   </h:column>  
                   <h:column>
-                    <h:outputText value="Rubro"/>
+                    <h:outputText value="Tipo"/>
                   </h:column>                    
                   <h:column>
                     <h:outputText value="Estado"/>
@@ -43,24 +43,24 @@ and open the template in the editor.
                 </rich:columnGroup>
               </f:facet>
                 <h:column>
-                    <h:outputText value="#{tblBeneficiarios.numBeneficiario}">
+                    <h:outputText value="#{tblProducto.numProducto}">
                     </h:outputText>
                 </h:column>
                 <h:column>
-                    <h:outputText value="#{tblBeneficiarios.nomBeneficiario}" rendered="#{tblBeneficiarios.nomBeneficiario != null}">
+                    <h:outputText value="#{tblProducto.nomProducto}" rendered="#{tblProducto.nomProducto != null}">
                     </h:outputText>
                 </h:column> 
                 <h:column>
-                    <h:outputText value="#{tblBeneficiarios.girBeneficiario}">
+                    <h:outputText value="#{tblProducto.tipoproducto}">
                     </h:outputText>
                 </h:column>                 
                 <h:column>
-                    <h:outputText value="#{tblBeneficiarios.actBeneficiario}">
+                    <h:outputText value="#{tblProducto.actProducto}">
                     </h:outputText>
                 </h:column>                                 
                 <h:column>
-                    <h:outputLink value="frmMantEditTblBeneficiarios.jsf">
-                        <f:param name="numBeneficiarios" value="#{tblBeneficiarios.numBeneficiario}"/>
+                    <h:outputLink value="frmMantEditTblProducto.jsf">
+                        <f:param name="numProducto" value="#{tblProducto.numProducto}"/>
                         <f:param name="faces-redirect" value="true"/>
                         <h:graphicImage url="/img/icons/edit.gif" style="border: 0">
                             
@@ -68,9 +68,9 @@ and open the template in the editor.
                     </h:outputLink>
                 </h:column>
                 <h:column>
-                    <a4j:commandLink actionListener="#{frmTblBeneficiarios.desactivar}" render="@form, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar el registro: #{tblBeneficiarios.nomBeneficiario}')){return false;}">
+                    <a4j:commandLink actionListener="#{frmTblProducto.desactivar}" render="@form, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar el registro: #{tblProducto.nomProducto}')){return false;}">
                         <h:graphicImage url="/img/icons/delete.gif" style="border: 0"/>
-                        <f:setPropertyActionListener target="#{frmTblBeneficiarios.tblBeneficiarios}" value="#{tblBeneficiarios}"/>
+                        <f:setPropertyActionListener target="#{frmTblProducto.tblProducto}" value="#{tblProducto}"/>
                     </a4j:commandLink>
                   
                    

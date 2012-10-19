@@ -52,8 +52,24 @@ public class FrmMantCatAreas extends PageBase{
         this.catAreas = catAreas;
     }
     
+       public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getCatAreas().getNomArea() == ""){
+          isValid = false;
+          this.addError("Porfavor ingrese el nombre del área", "Porfavor ingrese el nombre del área");
+       } 
+
+       
+       return isValid;
+     
+   }
+    
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }
             if(catAreas.getCodArea() != null){
                 facade.edit(catAreas);
             }else{
