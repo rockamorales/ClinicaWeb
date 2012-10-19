@@ -52,8 +52,24 @@ public class FrmMantCatRubro extends PageBase{
         this.catRubro = catRubro;
     }
     
+       public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getCatRubro().getNomRubro() == ""){
+          isValid = false;
+          this.addError("Porfavor ingrese el nombre de la catagoria del producto", "Porfavor ingrese el nombre de la catagoria del producto");
+       } 
+
+       
+       return isValid;
+     
+   }    
+    
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }              
             if(catRubro.getCodRubro() != null){
                 facade.edit(catRubro);
             }else{

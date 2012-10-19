@@ -53,8 +53,24 @@ public class FrmMantCatTipoSalida extends PageBase{
         this.catTipoSalida = catTipoSalida;
     }
     
+       public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getCatTipoSalida().getNomTipSalida() == ""){
+          isValid = false;
+          this.addError("Porfavor ingrese el nombre del tipo de salida", "Porfavor ingrese el nombre del tipo de salida");
+       } 
+
+       
+       return isValid;
+     
+   }      
+    
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }             
             if(catTipoSalida.getCodTipSalida() != null){
                 facade.edit(catTipoSalida);
             }else{

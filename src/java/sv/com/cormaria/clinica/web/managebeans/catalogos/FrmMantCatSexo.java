@@ -51,8 +51,24 @@ public class FrmMantCatSexo extends PageBase{
         this.catSexo = catSexo;
     }
     
+       public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getCatSexo().getNomSexPaciente() == ""){
+          isValid = false;
+          this.addError("Porfavor ingrese el nombre del genero", "Porfavor ingrese el nombre del genero");
+       } 
+
+       
+       return isValid;
+     
+   }     
+    
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }              
             if(catSexo.getCodSexPaciente()!= null){
                 facade.edit(catSexo);
             }else{

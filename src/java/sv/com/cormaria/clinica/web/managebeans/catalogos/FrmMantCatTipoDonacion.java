@@ -52,8 +52,24 @@ public class FrmMantCatTipoDonacion extends PageBase{
         this.catTipoDonacion = catTipoDonacion;
     }
     
+       public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getCatTipoDonacion().getNomTipDonacion() == ""){
+          isValid = false;
+          this.addError("Porfavor ingrese el nombre del tipo de donación", "Porfavor ingrese el nombre del tipo de donación");
+       } 
+
+       
+       return isValid;
+     
+   }     
+    
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }             
             if(catTipoDonacion.getCodTipDonacion() != null){
                 facade.edit(catTipoDonacion);
             }else{

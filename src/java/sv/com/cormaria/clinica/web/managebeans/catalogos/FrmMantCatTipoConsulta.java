@@ -51,8 +51,24 @@ public class FrmMantCatTipoConsulta extends PageBase{
         this.catTipoConsulta = catTipoConsulta;
     }
     
+       public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getCatTipoConsulta().getNomTipConsulta() == ""){
+          isValid = false;
+          this.addError("Porfavor ingrese el nombre del tipo de consulta", "Porfavor ingrese el nombre del tipo de consulta");
+       } 
+
+       
+       return isValid;
+     
+   }     
+    
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }             
             if(catTipoConsulta.getCodTipConsulta() != null){
                 facade.edit(catTipoConsulta);
             }else{

@@ -51,8 +51,24 @@ public class FrmMantCatTipoServiciosEnfermeria extends PageBase{
         this.catTipoServiciosEnfermeria = catTipoServiciosEnfermeria;
     }
     
+       public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getCatTipoServiciosEnfermeria().getNomSerEnfermeria() == ""){
+          isValid = false;
+          this.addError("Porfavor ingrese el nombre del servicio de enfermeria", "Porfavor ingrese el nombre del servicio de enfermeria");
+       } 
+
+       
+       return isValid;
+     
+   }      
+    
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }             
             if(catTipoServiciosEnfermeria.getCodSerEnfermeria() != null){
                 facade.edit(catTipoServiciosEnfermeria);
             }else{

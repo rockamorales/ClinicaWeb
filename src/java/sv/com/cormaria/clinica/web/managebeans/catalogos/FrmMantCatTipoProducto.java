@@ -51,9 +51,25 @@ public class FrmMantCatTipoProducto extends PageBase{
     public void setCatTipoProducto(CatTipoProducto catTipoProducto) {
         this.catTipoProducto = catTipoProducto;
     }
+   
+       public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getCatTipoProducto().getNomTipProducto() == ""){
+          isValid = false;
+          this.addError("Porfavor ingrese el nombre tipo de producto", "Porfavor ingrese el nombre tipo de producto");
+       } 
+
+       
+       return isValid;
+     
+   }     
     
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }              
             if(catTipoProducto.getCodTipProducto() != null){
                 facade.edit(catTipoProducto);
             }else{

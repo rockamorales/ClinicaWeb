@@ -53,8 +53,24 @@ public class FrmMantCatTipoRequisicion extends PageBase{
         this.catTipoRequisicion = catTipoRequisicion;
     }
     
+       public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getCatTipoRequisicion().getNomTipRequisicion() == ""){
+          isValid = false;
+          this.addError("Porfavor ingrese el nombre del tipo de requisición", "Porfavor ingrese el nombre del tipo de requisición");
+       } 
+
+       
+       return isValid;
+     
+   }     
+    
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }             
             if(catTipoRequisicion.getCodTipRequisicion() != null){
                 facade.edit(catTipoRequisicion);
             }else{
