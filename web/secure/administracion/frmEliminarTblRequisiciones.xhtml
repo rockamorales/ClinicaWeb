@@ -85,6 +85,8 @@ and open the template in the editor.
                   </h:column>
                   <h:column>
                   </h:column>
+                  <h:column>
+                  </h:column>
                 </rich:columnGroup>
               </f:facet>
                 <h:column>
@@ -112,13 +114,21 @@ and open the template in the editor.
                     </h:outputText>
                 </h:column>
                 <h:column>
-                    <h:outputLink value="frmMantTblRequisiciones.jsf">
+                    <h:outputLink value="frmViewEliminarTblRequisiciones.jsf">
                         <f:param name="numRequisicion" value="#{tblrequisiciones.numRequisicion}"/>
                         <f:param name="faces-redirect" value="true"/>
                         <h:graphicImage url="/img/icons/edit.gif">
                         </h:graphicImage>
                     </h:outputLink>
                 </h:column>
+                <h:column>
+                    <a4j:commandLink actionListener="#{frmTblRequisiciones.delete}" render="tblrequisicionesTable" onclick="if(!confirm('Esta seguro que desea eliminar el Registro: #{tblRequisiciones.numRequisicion}')){return false;}">
+                        <h:graphicImage url="/img/icons/delete.gif"/>
+                    </a4j:commandLink>
+                </h:column>
+               <f:facet name="footer">
+                   <rich:dataScroller/>
+               </f:facet>
             </rich:dataTable>
             </h:form>
         </ui:define>
