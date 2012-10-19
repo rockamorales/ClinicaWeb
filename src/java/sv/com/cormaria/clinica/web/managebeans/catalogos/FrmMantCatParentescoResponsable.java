@@ -53,8 +53,24 @@ public class FrmMantCatParentescoResponsable extends PageBase{
         this.catParentescoResponsable = catParentescoResponsable;
     }
     
+       public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getCatParentescoResponsable().getNomParResponsable() == ""){
+          isValid = false;
+          this.addError("Porfavor ingrese el nombre del parentesco del responsable", "Porfavor ingrese el nombre del parentesco del responsable");
+       } 
+
+       
+       return isValid;
+     
+   }    
+    
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }             
             if(catParentescoResponsable.getCodParResponsable() != null){
                 facade.edit(catParentescoResponsable);
             }else{

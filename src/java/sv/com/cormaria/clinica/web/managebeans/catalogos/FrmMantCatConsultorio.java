@@ -52,9 +52,25 @@ public class FrmMantCatConsultorio extends PageBase{
     public void setCatConsultorio(CatConsultorio catConsultorio) {
         this.catConsultorio = catConsultorio;
     }
+
+       public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getCatConsultorio().getNomConsultorio() == ""){
+          isValid = false;
+          this.addError("Porfavor ingrese el nombre del Consultorio", "Porfavor ingrese el nombre del Consultorio");
+       } 
+
+       
+       return isValid;
+     
+   }      
     
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }             
             if(catConsultorio.getCodConsultorio() != null){
                 facade.edit(catConsultorio);
             }else{

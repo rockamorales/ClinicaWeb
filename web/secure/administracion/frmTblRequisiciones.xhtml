@@ -15,30 +15,77 @@ and open the template in the editor.
           <h:outputText value="#{messages['default.windowTitle']}--Administración de Requisiciones" escape="false"></h:outputText>  
         </ui:define>
         <ui:define name="body">
-            <h:form>
-                <h:outputLink value="frmMantRequisiciones.jsf">
-                    Agregar Nueva Requisición
-                </h:outputLink>
-                <rich:dataTable value="#{frmTblRequisiciones.tblRequisicionesList}" var="tblrequisiciones" rows="10" id="tblrequisicionesTable">
+          <h:form>
+              <fieldset>
+                  <legend>Busqueda</legend>
+                  <table cellpadding="0" cellspacing="0">
+                      <tr>
+                          <td>
+                              <h:outputLabel value="Num Req.:" for="numRequisicion"/>
+                          </td>
+                          <td>
+                              <h:inputText value="#{requisicionesSearchCriteria.numRequisicion}" id="numRequisicion"/>
+                          </td>
+                          <td>
+                              <h:outputLabel value="Fecha ini:" for="startDate"/>
+                          </td>
+                          <td>
+                              <rich:calendar value="#{requisicionesSearchCriteria.startDate}" id="startDate" enableManualInput="true" datePattern="dd/MM/yyyy"/>
+                          </td>
+                          <td>
+                              <h:outputLabel value="Fecha fin.:" for="endDate"/>
+                          </td>
+                          <td>
+                              <rich:calendar value="#{requisicionesSearchCriteria.endDate}" id="endDate" enableManualInput="true" datePattern="dd/MM/yyyy"/>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>
+                              <h:outputLabel value="Area:" for="codArea"/>
+                          </td>
+                          <td>
+                              <h:selectOneMenu value="#{requisicionesSearchCriteria.codArea}" id="codArea">
+                                  <f:selectItem itemValue="-1" itemLabel="-- Mostrar todas --" />
+                              </h:selectOneMenu>
+                          </td>
+                          <td>
+                              <h:outputLabel value="Tipo requisicion:" for="codTipRequisicion"/>
+                          </td>
+                          <td>
+                              <h:selectOneMenu value="#{requisicionesSearchCriteria.codTipRequisicion}" id="codTipRequisicion">
+                                  <f:selectItem itemValue="-1" itemLabel="-- Mostrar todas --" />
+                              </h:selectOneMenu>
+                          </td>
+                          <td colspan="2" align="left">
+                              <a4j:commandButton value="Buscar" actionListener="#{frmTblRequisiciones.buscar}" render="tblrequisicionesTable, panelMessage"/>
+                          </td>
+                      </tr>
+                  </table>
+              </fieldset>
+           <rich:dataTable value="#{requisicionesDataModel}" var="tblrequisiciones" rows="20" id="tblrequisicionesTable">
             <f:facet name="header">
                 <rich:columnGroup>
                   <h:column>
-                    <h:outputText value="Numero de Requisición"/>
+                    <h:outputText value="Numero"/>
                   </h:column>
                   <h:column>
-                    <h:outputText value="Fecha de Requisición"/>
+                    <h:outputText value="Fecha"/>
                   </h:column>
                   <h:column>
-                    <h:outputText value="Tipo de Requisición"/>
+                    <h:outputText value="Tipo"/>
                   </h:column>                  
                     <h:column>
                     <h:outputText value="Empleado que Elaboró"/>
                   </h:column>
                  <h:column>
-                     <h:outputText value="Area de Requisición" />
+                     <h:outputText value="Area solicitante" />
                   </h:column>
                   <h:column>
                     <h:outputText value="Estado"/>
+                  </h:column>
+                  <h:column>
+                  </h:column>
+                  <h:column>
                   </h:column>
                 </rich:columnGroup>
               </f:facet>
@@ -55,31 +102,28 @@ and open the template in the editor.
                     </h:outputText>
                 </h:column>
                 <h:column>
-                    <h:outputText value="#{tblrequisiciones.tblEmpleado.nomEmpleado} #{tblrequisiciones.tblEmpleado.priApeEmpleado} #{tblrequisiciones.tblEmpleado.segApeEmpleado} #{requisicion.tblEmpleado.terApeEmpleado}">>
+                    <h:outputText value="#{tblrequisiciones.tblEmpleado.nomEmpleado} #{tblrequisiciones.tblEmpleado.priApeEmpleado} #{tblrequisiciones.tblEmpleado.secApeEmpleado} #{requisicion.tblEmpleado.terApeEmpleado}">>
                     </h:outputText>            
                 </h:column>               
                 <h:column>
-                    <h:outputText value="#{tblrequisiciones.catAreas.nomArea}">
+                    <h:outputText value="#{tblrequisiciones.catArea.nomArea}">
                     </h:outputText>
                 </h:column>
                 <h:column>
-                    <h:outputText value="#{tblrequisicion.estado}">
+                    <h:outputText value="#{tblrequisiciones.estRequisicion}">
                     </h:outputText>
-                </h:column>     
+                </h:column>
                 <h:column>
-                    
                     <h:outputLink value="frmMantTblRequisiciones.jsf">
-                        <f:param name="numRequisicion" value="#{tblRequisiciones.numRequisicion}"/>
+                        <f:param name="numRequisicion" value="#{tblrequisiciones.numRequisicion}"/>
                         <f:param name="faces-redirect" value="true"/>
                         <h:graphicImage url="/img/icons/edit.gif">
-                            
                         </h:graphicImage>
                     </h:outputLink>
                 </h:column>
                 <h:column>
                     <a4j:commandLink actionListener="#{frmTblRequisiciones.delete}" render="tblrequisicionTable" onclick="if(!confirm('Esta seguro que desea eliminar el Registro: #{tblRequisiciones.numRequisicion}')){return false;}">
                         <h:graphicImage url="/img/icons/delete.gif"/>
-                        <f:setPropertyActionListener target="#{frmTblRequisiciones.tblRequisiciones}" value="#{tblRequisiciones}"/>
                     </a4j:commandLink>
                     </h:column>                
             </rich:dataTable>

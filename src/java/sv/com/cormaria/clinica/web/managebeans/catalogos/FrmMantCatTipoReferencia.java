@@ -52,8 +52,24 @@ public class FrmMantCatTipoReferencia extends PageBase{
         this.catTipoReferencia = catTipoReferencia;
     }
     
+       public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getCatTipoReferencia().getNomTipReferencia() == ""){
+          isValid = false;
+          this.addError("Porfavor ingrese el nombre tipo de referencia", "Porfavor ingrese el nombre tipo de referencia");
+       } 
+
+       
+       return isValid;
+     
+   }     
+    
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }              
             if(catTipoReferencia.getCodTipReferencia() != null){
                 facade.edit(catTipoReferencia);
             }else{

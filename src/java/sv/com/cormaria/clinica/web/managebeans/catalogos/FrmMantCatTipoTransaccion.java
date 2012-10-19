@@ -51,8 +51,24 @@ public class FrmMantCatTipoTransaccion extends PageBase{
         this.catTipoTransaccion = catTipoTransaccion;
     }
     
+       public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getCatTipoTransaccion().getNomTipTransaccion() == ""){
+          isValid = false;
+          this.addError("Porfavor ingrese el nombre del tipo de transacción", "Porfavor ingrese el nombre del tipo de transacción");
+       } 
+
+       
+       return isValid;
+     
+   }      
+    
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }              
             if(catTipoTransaccion.getCodTipTransaccion() != null){
                 facade.edit(catTipoTransaccion);
             }else{

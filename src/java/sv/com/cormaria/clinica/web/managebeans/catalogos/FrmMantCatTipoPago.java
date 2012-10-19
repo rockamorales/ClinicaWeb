@@ -52,8 +52,24 @@ public class FrmMantCatTipoPago extends PageBase{
         this.catTipoPago = catTipoPago;
     }
     
+       public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getCatTipoPago().getNomTipPago() == ""){
+          isValid = false;
+          this.addError("Porfavor ingrese el nombre catálogo de tipo de pago", "Porfavor ingrese el nombre catálogo de tipo de pago");
+       } 
+
+       
+       return isValid;
+     
+   }     
+    
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }              
             if(catTipoPago.getCodTipPago() != null){
                 facade.edit(catTipoPago);
             }else{

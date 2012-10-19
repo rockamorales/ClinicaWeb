@@ -19,18 +19,19 @@
         </rich:dropDownMenu>
             <rich:panel header="#{clinicaSessionBean.usuario.selectedModule.nomOpcMenu}" style="height: 100%; #{clinicaSessionBean.usuario.selectedModule!=null and clinicaSessionBean.usuario.selectedModule.codMenu !=null?'visibility:visible':'visibility:hidden'}" id="leftMenu" binding="#{menuBean.menu}">
             </rich:panel> -->
-                   
-        <rich:panel header="#{clinicaSessionBean.usuario.selectedModule.nomOpcMenu}" style="height: 100%; #{clinicaSessionBean.usuario.selectedModule!=null and clinicaSessionBean.usuario.selectedModule.codMenu !=null?'visibility:visible':'visibility:hidden'}" id="leftMenu">
-            <rich:tree toggleType="ajax" var="item" iconLeaf="#{item.icoMenu}">
-                <rich:treeModelRecursiveAdaptor roots="#{clinicaSessionBean.usuario.selectedModule.options}" nodes="#{item.options}" leaf="#{item.leaf}">
-                    <rich:treeNode>
-                        <h:outputLink value="#{item.urlIniMenu}" rendered="#{item.leaf}">
-                            #{item.nomOpcMenu}
-                        </h:outputLink>
-                        <h:outputText value="#{item.nomOpcMenu}" rendered="#{!item.leaf}"/>
-                    </rich:treeNode>
-                </rich:treeModelRecursiveAdaptor>
-            </rich:tree>
-        </rich:panel>
+        <div style="width: 250px;overflow-x: auto;">
+            <rich:panel header="#{clinicaSessionBean.usuario.selectedModule.nomOpcMenu}" style="#{clinicaSessionBean.usuario.selectedModule!=null and clinicaSessionBean.usuario.selectedModule.codMenu !=null?'visibility:visible':'visibility:hidden'}" id="leftMenu">
+                <rich:tree toggleType="ajax" var="item" iconLeaf="#{item.icoMenu}">
+                    <rich:treeModelRecursiveAdaptor roots="#{clinicaSessionBean.usuario.selectedModule.options}" nodes="#{item.options}" leaf="#{item.leaf}">
+                        <rich:treeNode>
+                            <h:outputLink value="#{item.urlIniMenu}" rendered="#{item.leaf}">
+                                #{item.nomOpcMenu}
+                            </h:outputLink>
+                            <h:outputText value="#{item.nomOpcMenu}" rendered="#{!item.leaf}"/>
+                        </rich:treeNode>
+                    </rich:treeModelRecursiveAdaptor>
+                </rich:tree>
+            </rich:panel>
+        </div>
     </h:form>
 </ui:composition>

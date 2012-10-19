@@ -9,9 +9,12 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import org.richfaces.component.UIDataTable;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
+import sv.com.cormaria.clinica.web.managebeans.datamodels.RequisicionesDataModel;
+import sv.com.cormaria.servicios.criteria.RequisicionesSearchCriteria;
 import sv.com.cormaria.servicios.entidades.administracion.TblRequisiciones;
 import sv.com.cormaria.servicios.facades.administracion.TblRequisicionesFacadeLocal;
 
@@ -20,9 +23,10 @@ import sv.com.cormaria.servicios.facades.administracion.TblRequisicionesFacadeLo
  * @author Mackk
  */
 @ManagedBean(name = "frmTblRequisiciones")
-@RequestScoped
+@ViewScoped
 public class FrmTblRequisiciones extends PageBase {
     private TblRequisiciones tblRequisiciones = new TblRequisiciones();
+
     @EJB
     private TblRequisicionesFacadeLocal tblRequisicionesFacade;
     
@@ -61,5 +65,10 @@ public class FrmTblRequisiciones extends PageBase {
             x.printStackTrace();
             this.addError(x.getMessage(), x.getMessage());
         }
+    }
+    
+    public void buscar(ActionEvent ae){
+        RequisicionesDataModel dataModel = (RequisicionesDataModel) this.getBean("#{requisicionesDataModel}", RequisicionesDataModel.class);
+        dataModel.clear();
     }
 }

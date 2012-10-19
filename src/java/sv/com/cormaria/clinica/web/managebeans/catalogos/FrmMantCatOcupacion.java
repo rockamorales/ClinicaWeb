@@ -53,8 +53,24 @@ public class FrmMantCatOcupacion extends PageBase{
         this.catOcupacion = catOcupacion;
     }
     
+       public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getCatOcupacion().getNomOcupacion() == ""){
+          isValid = false;
+          this.addError("Porfavor ingrese el nombre de la Ocupación", "Porfavor ingrese el nombre de la Ocupación");
+       } 
+
+       
+       return isValid;
+     
+   } 
+    
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }             
             if(catOcupacion.getCodOcupacion() != null){
                 facade.edit(catOcupacion);
             }else{

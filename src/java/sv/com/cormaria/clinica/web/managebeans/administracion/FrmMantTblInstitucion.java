@@ -87,16 +87,16 @@ public class FrmMantTblInstitucion extends PageBase{
            this.addError("Por favor Introduzca el Nombre Comercial", "Por favor Introduzca el Nombre Comercial");
        }
        
-       if (this.getTblInstitucion().getCodRubro() == null || this.getTblInstitucion().getCodRubro() == -1){
-          isValid = false;
-          this.addError("Por favor seleccione el Rubro", "Por favor seleccione el Rubro");
-       } 
-
        if (this.getTblInstitucion().getNrcInstitucion() == null || this.getTblInstitucion().getNrcInstitucion() <= 0){
            isValid = false;
            this.addError("Por favor introduzca el NRC", "Por favor introduzca el NRC");
        }
        
+       if (this.getTblInstitucion().getCodRubro() == null || this.getTblInstitucion().getCodRubro() == -1){
+          isValid = false;
+          this.addError("Por favor seleccione el Rubro", "Por favor seleccione el Rubro");
+       } 
+      
        if (this.getTblInstitucion().getDirInstitucion() == ""){
            isValid = false;
            this.addError("Por favor introduzca la dirección", "Por favor introduzca la dirección");
