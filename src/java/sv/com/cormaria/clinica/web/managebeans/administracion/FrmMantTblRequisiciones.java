@@ -16,13 +16,13 @@ import sv.com.cormaria.servicios.entidades.administracion.TblDetalleRequisicion;
 import sv.com.cormaria.servicios.entidades.administracion.TblRequisiciones;
 import sv.com.cormaria.servicios.entidades.catalogos.CatAreas;
 import sv.com.cormaria.servicios.entidades.catalogos.CatTipoRequisicion;
-import sv.com.cormaria.servicios.entidades.farmacia.TblProducto;
+import sv.com.cormaria.servicios.entidades.administracion.TblProducto;
 import sv.com.cormaria.servicios.enums.EstadoRequisicion;
 import sv.com.cormaria.servicios.facades.administracion.TblDetalleRequisicionFacadeLocal;
 import sv.com.cormaria.servicios.facades.administracion.TblRequisicionesFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatAreasFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatTipoRequisicionFacadeLocal;
-import sv.com.cormaria.servicios.facades.farmacia.TblProductoFacadeLocal;
+import sv.com.cormaria.servicios.facades.administracion.TblProductoFacadeLocal;
 
 /**
  *
