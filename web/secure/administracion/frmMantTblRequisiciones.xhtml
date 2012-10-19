@@ -15,36 +15,129 @@ and open the template in the editor.
           <h:outputText value="#{messages['default.windowTitle']}--Administración de Requisiciones" escape="false"></h:outputText>  
         </ui:define>
         <f:metadata>
-            <f:viewParam name="numRequisicion" value="#{frmMantTblRequisiciones.numRequsicion}"/>
-   
+            <f:viewParam name="numRequisicion" value="#{frmMantTblRequisiciones.numRequisicion}"/>
+	    <f:event listener="#{frmMantTblRequisiciones.init}" type="preRenderView"></f:event>
         </f:metadata>
         <ui:define name="body">
             <h:form id="form">
-              <table>
-                 <tr>
-                    <td>Número de Requisición</td>
-                    <td><h:outputText value="#{frmMantTblRequisiciones.tblRequisiciones.numRequisicion}" style="font-weight: bold"/>
-                        <h:inputHidden value="#{frmMantTblRequisiciones.tblRequisiciones.numRequisicion}"/></td>
-                </tr> <tr>
-                    <td>Fecha de Requisicion</td>
-                    <td><h:outputText value="#{frmMantTblRequisiciones.tblRequisiciones.fecRequisicion} " style="font-weight: bold"/>
-                        <h:inputHidden value="#{frmMantTblRequisiciones.tblRequisiciones.fecRequisicion}"/></td>
-                </tr>
-                <td>Tipo de Requisicion:</td>
-                    <td><h:selectOneMenu value="#{frmMantTblRequisiciones.tblRequisiciones.codTipRequisicion}" >
-                        <f:selectItems value="#{frmMantTblRequisiciones.catTipoRequisicionList}"/>                 
-                    </h:selectOneMenu></td>
-                <tr>
-                    <td>Estado</td>
-                    <td><h:inputText value="#{frmMantTblRequisiciones.tblRequisiciones.estRequisicion}" /></td>              
-                </tr>
-                <tr>
-                      <td colspan="4" align="center">
-                          <a4j:commandButton value="Guardar" actionListener="#{frmMantTblRequisiciones.guardar}" render="form, panelMessage" />
-                          <a4j:commandButton value="Regresar" action="frmCatAreas.jsf?faces-redirect=true" immediate="true"/>
-                      </td>
-                  </tr>
-              </table>
+                <fieldset style="border-radius: 5px; border: #000066 thin solid;">
+                    <legend>Encabezado de requisicion</legend>
+                    <table>
+                       <tr>
+                          <td>Número:</td>
+                          <td>
+                              <h:outputText value="#{frmMantTblRequisiciones.tblRequisiciones.numRequisicion}" style="font-weight: bold"/>
+                          </td>
+                          <td>Fecha:</td>
+                          <td>
+                              <h:outputText value="#{frmMantTblRequisiciones.tblRequisiciones.fecRequisicion} " style="font-weight: bold">
+                                  <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                              </h:outputText>
+                          </td>
+                       </tr>
+                       <tr>
+                          <td>Tipo:</td>
+                          <td>
+                              <h:selectOneMenu value="#{frmMantTblRequisiciones.tblRequisiciones.codTipRequisicion}" >
+                                  <f:selectItem itemValue="-1" itemLabel="-- Seleccione una opcion --" />
+                                  <f:selectItems value="#{frmMantTblRequisiciones.catTipoReqList}" var="tipo" itemLabel="#{tipo.nomTipRequisicion}" itemValue="#{tipo.codTipRequisicion}"/>
+                              </h:selectOneMenu>
+                          </td>
+                          <td>Area:</td>
+                          <td>
+                              <h:selectOneMenu value="#{frmMantTblRequisiciones.tblRequisiciones.codArea}" >
+                                  <f:selectItem itemValue="-1" itemLabel="-- Seleccione una opcion --" />
+                                  <f:selectItems value="#{frmMantTblRequisiciones.catAreaList}" var="area" itemLabel="#{area.nomArea}" itemValue="#{area.codArea}"/>
+                              </h:selectOneMenu>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>Estado:</td>
+                          <td align="left">
+                              <h:outputText value="#{frmMantTblRequisiciones.tblRequisiciones.estRequisicion}" />
+                          </td>                    
+                          <td>Creada por:</td>
+                          <td align="left">
+                              <h:outputText value="#{frmMantTblRequisiciones.tblRequisiciones.tblEmpleado.nomEmpleado} #{frmMantTblRequisiciones.tblRequisiciones.tblEmpleado.priApeEmpleado} #{frmMantTblRequisiciones.tblRequisiciones.tblEmpleado.secApeEmpleado} #{frmMantTblRequisiciones.tblRequisiciones.tblEmpleado.terApeEmpleado}" />
+                          </td>                    
+                      </tr>
+                      <tr>
+                            <td colspan="4" align="center">
+                                <a4j:commandButton value="Guardar" actionListener="#{frmMantTblRequisiciones.guardar}" render="@form, panelMessage" />
+                                <h:commandButton value="Nueva" action="frmMantTblRequisiciones.jsf?faces-redirect=true"/>
+                                <h:commandButton value="Consultar" action="frmTblRequisiciones.jsf"/>
+                            </td>
+                        </tr>
+                    </table>
+                 </fieldset>
+                 <fieldset style="border-radius: 5px; border: #000066 thin solid;">
+                    <legend>Detalle de requisicion</legend>
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="vertical-align: top;">
+                                <h:outputLabel value="Producto: " for="numProducto" />
+                            </td>
+                            <td style="vertical-align: top;">
+                                <h:selectOneMenu value="#{frmMantTblRequisiciones.tblDetalleReq.tblDetalleRequisicionPK.numProducto}" id="numProducto">
+                                    <f:selectItem itemValue="-1" itemLabel="-- Seleccione una opcion --" />
+                                    <f:selectItems value="#{frmMantTblRequisiciones.productosList}" var="producto" itemValue="#{producto.numProducto}" itemLabel="#{producto.nomProducto}"/>
+                                </h:selectOneMenu>
+                            </td>
+                            <td style="vertical-align: top;">
+                                <h:outputLabel value="Cantidad: " for="canProRequisicion" />
+                            </td>
+                            <td style="vertical-align: top;">
+                                <h:inputText value="#{frmMantTblRequisiciones.tblDetalleReq.canProRequisicion}" id="canProRequisicion" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;">
+                                <h:outputLabel value="Detalle de uso: " for="detUsoRequisicion" />
+                            </td>
+                            <td colspan="2" style="vertical-align: top;">
+                                <h:inputTextarea value="#{frmMantTblRequisiciones.tblDetalleReq.detUsoRequisicion}" id="detUsoRequisicion" cols="60"/>
+                            </td>
+                            <td>
+                                <a4j:commandButton value="Guardar" actionListener="#{frmMantTblRequisiciones.agregarDetalleReq}" render="tblDetalleRequisicionesTable, panelMessage" />
+                            </td>
+                        </tr>
+                    </table>
+                    <hr style="border: #000066 thin solid"/>
+                    <rich:dataTable value="#{frmMantTblRequisiciones.detalleReqList}" var="detalle" rows="20" id="tblDetalleRequisicionesTable">
+                     <f:facet name="header">
+                         <rich:columnGroup>
+                           <h:column>
+                             <h:outputText value="Producto"/>
+                           </h:column>
+                           <h:column>
+                             <h:outputText value="Cantidad"/>
+                           </h:column>
+                           <h:column>
+                             <h:outputText value="Detalle uso"/>
+                           </h:column>
+                           <h:column>
+                           </h:column>
+                         </rich:columnGroup>
+                       </f:facet>
+                         <h:column>
+                             <h:outputText value="#{detalle.tblProducto.nomProducto}">
+                             </h:outputText>
+                         </h:column>
+                         <h:column>
+                             <h:outputText value="#{detalle.canProRequisicion}">
+                             </h:outputText>
+                         </h:column>               
+                         <h:column>
+                             <h:outputText value="#{detalle.detUsoRequisicion}">
+                             </h:outputText>
+                         </h:column>
+                         <h:column>
+                             <a4j:commandLink actionListener="#{frmMantTblRequisiciones.deleteDetalle}" render="tblDetalleRequisicionesTable, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar el producto: #{detalle.tblProducto.nomProducto}')){return false;}">
+                                 <h:graphicImage url="/img/icons/delete.gif"/>
+                             </a4j:commandLink>
+                         </h:column>
+                     </rich:dataTable>
+                 </fieldset>
             </h:form>
         </ui:define>
     </ui:composition>

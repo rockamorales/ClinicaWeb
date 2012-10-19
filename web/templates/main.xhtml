@@ -16,13 +16,12 @@
 </title>
 <!--<link rel="shortcut icon" type="image/x-icon" href="images/logo16x16.ico"/>-->
 <link rel="STYLESHEET" type="text/css" href="/ClinicaWeb/css/custom-theme/jquery-ui-1.8.21.custom.css"/>
-<link rel="STYLESHEET" type="text/css" href="/ClinicaWeb/css/clinica.css"/>
-<link rel="STYLESHEET" type="text/css" href="/ClinicaWeb/css/clinica.css"/>
 <script type="text/javascript" lang="javascript" src="/ClinicaWeb/js/utils.js"/>
 </h:head>
 <h:body style="padding: 0; margin: 0">
 <h:outputStylesheet name="css/website.css"/>
 <h:outputScript name="js/jquery.maskedinput-1.2.2.js" target="head"></h:outputScript>
+<h:outputStylesheet name="css/clinica.css"/>
 <ui:include src="/templates/header.xhtml" />
 <script type="text/javascript" lang="javascript">
    //<![CDATA[
@@ -64,45 +63,39 @@
                 }
             });
     }
+    
    //]]>
 </script>
 
-<table class="left_menu" cellpadding="0" cellspacing="0" border="0">
-    <tbody>
-        <tr>
-            <td>
-                <ui:include src="/templates/leftMenu.xhtml" />
-            </td>
-       </tr>
-  </tbody>
-</table>
 <ui:include src="/templates/messages.xhtml" />
-<table cellpadding="0" cellspacing="0" border="0" class="content_container" width="100%">
+<table cellpadding="4px;" cellspacing="0" border="0" width="100%">
   <tbody>
     <tr>
-        <td>
-            <div class="content_container_left_brick"></div>
+        <td colspan="2" style="height: 114px;">
+            <br/>
         </td>
-        <td width="100%" class="content_container_pdddings" colspan="2" valign="top" align="center">
+    </tr>
+    <tr>
+        <td valign="top">
+            <!--<div class="content_container_left_brick"></div>-->
+            <ui:include src="/templates/leftMenu.xhtml" />
+        </td>
+        <td width="100%" valign="top">
           <!-- tabpanel begin -->
           <ui:insert name="body">Body</ui:insert>
           <!-- tabpanel end -->
         </td>
     </tr>
     <tr>
-        <td>
-            <div class="content_container_left_brick"></div>
-        </td>
-        <td class="content_container_pdddings">
+        <td colspan="2">
             <BR/>
             <hr style="height:1px;"/>
             <div style="float:right;" class="footer-text">#{messages['product.name']} Version: #{messages['product.version']}</div>
         </td>
     </tr>
     <tr>
-        <td>
-        </td>
-        <td width="100%" align="center" class="content_container_pdddings">
+        <td width="100%" align="center" colspan="2">
+            <br/>
             <font class="footer-text">
                 <h:outputText value="#{messages['product.copyright']}" escape="false"></h:outputText>
                 <br />
@@ -118,7 +111,6 @@
     $(".hora").mask('99:99:99')
     //
 </script>
-
 </h:body>
 </f:view>
 </html>
