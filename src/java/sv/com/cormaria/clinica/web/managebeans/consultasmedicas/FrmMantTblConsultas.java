@@ -131,7 +131,7 @@ public class FrmMantTblConsultas extends PageBase {
 
     public Map<Integer, Boolean> getSelectedExamenes() {
         if (selectedExamenes.isEmpty()){
-            for (TblDetalleOrdenLaboratorio detalleOrden : detalleOrdenLabList) {
+            for (TblDetalleOrdenLaboratorio detalleOrden : this.getDetalleOrdenLabList()) {
                 selectedExamenes.put(detalleOrden.getTblDetalleOrdenLaboratorioPK().getCodExaMedico(), Boolean.TRUE);
             }
         }
@@ -236,6 +236,7 @@ public class FrmMantTblConsultas extends PageBase {
     public List<TblDetalleOrdenLaboratorio> getDetalleOrdenLabList() {
         if (detalleOrdenLabList.isEmpty()){
             try{
+                System.out.println(this.getOrdenLab().getNumOrdLaboratorio());
                 if (this.getOrdenLab().getNumOrdLaboratorio()!=null && this.getOrdenLab().getNumOrdLaboratorio()>0){
                     detalleOrdenLabList = tblDetalleOrdenLabFacade.findByNumOrdenLaboratorio(this.getOrdenLab().getNumOrdLaboratorio());
                 }
