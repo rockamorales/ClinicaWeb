@@ -46,6 +46,7 @@ and open the template in the editor.
                           <td>
                               <h:selectOneMenu value="#{requisicionesSearchCriteria.codArea}" id="codArea">
                                   <f:selectItem itemValue="-1" itemLabel="-- Mostrar todas --" />
+                                  <f:selectItems value="#{frmTblRequisiciones.areasList}" var="area" itemValue="#{area.codArea}" itemLabel="#{area.nomArea}" />
                               </h:selectOneMenu>
                           </td>
                           <td>
@@ -54,6 +55,7 @@ and open the template in the editor.
                           <td>
                               <h:selectOneMenu value="#{requisicionesSearchCriteria.codTipRequisicion}" id="codTipRequisicion">
                                   <f:selectItem itemValue="-1" itemLabel="-- Mostrar todas --" />
+                                  <f:selectItems value="#{frmTblRequisiciones.catTipoReqList}" var="catTipo" itemValue="#{catTipo.codTipRequisicion}" itemLabel="#{catTipo.nomTipRequisicion}" />
                               </h:selectOneMenu>
                           </td>
                           <td colspan="2" align="left">

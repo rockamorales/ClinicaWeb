@@ -11,11 +11,14 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import org.richfaces.component.UIDataTable;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
+import sv.com.cormaria.clinica.web.managebeans.datamodels.ExpedienteDataModel;
 import sv.com.cormaria.servicios.entidades.administracion.TblProducto;
+import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
 import sv.com.cormaria.servicios.entidades.farmacia.TblAlquilerEquipo;
 import sv.com.cormaria.servicios.entidades.farmacia.TblDetalleAlquilerEquipo;
 import sv.com.cormaria.servicios.enums.EstadoAlquiler;
 import sv.com.cormaria.servicios.facades.administracion.TblProductoFacadeLocal;
+import sv.com.cormaria.servicios.facades.archivo.TblExpedientePacientesFacadeLocal;
 import sv.com.cormaria.servicios.facades.farmacia.TblAlquilerEquipoFacadeLocal;
 import sv.com.cormaria.servicios.facades.farmacia.TblDetalleAlquilerEquipoFacadeLocal;
 
@@ -36,7 +39,12 @@ public class FrmMantTblAlquilerEquipo extends PageBase{
     private TblDetalleAlquilerEquipoFacadeLocal detalleAlqFacade;
 
     @EJB
-    private TblProductoFacadeLocal productoFacade;    
+    private TblProductoFacadeLocal productoFacade;
+
+    @EJB
+    private TblExpedientePacientesFacadeLocal tblExpedienteFacade;    
+    
+    private TblExpedientePacientes tblExpediente = new TblExpedientePacientes();
        
     private List<TblDetalleAlquilerEquipo> detalleAlqList = new ArrayList<TblDetalleAlquilerEquipo>();
     
@@ -107,7 +115,7 @@ public class FrmMantTblAlquilerEquipo extends PageBase{
             if(tblAlquilerEquipo.getNumSolAlquiler() != null && tblAlquilerEquipo.getNumSolAlquiler()>0){
                 facade.edit(tblAlquilerEquipo);
             }else{
-                tblAlquilerEquipo.setNumExpediente(this.getSessionBean().getUsuario().getNumEmpleado());
+                //tblAlquilerEquipo.setNumExpediente(this.);
                 tblAlquilerEquipo.setEstAlquiler(EstadoAlquiler.CREADO);
                 facade.create(tblAlquilerEquipo);
             }
@@ -173,4 +181,37 @@ public class FrmMantTblAlquilerEquipo extends PageBase{
             this.addError(ex.getMessage(), ex.getMessage());
         }
     }
+    
+    public TblExpedientePacientes getTblExpediente() {
+        return tblExpediente;
+    }
+
+    public void setTblExpediente(TblExpedientePacientes tblExpediente) {
+        this.tblExpediente = tblExpediente;
+    }
+        
+    public void searchExpedienteByNum(){
+      try{
+          this.tblExpediente = tblExpedienteFacade.find(this.tblExpediente.getNumExpediente());
+      }catch(Exception ex){
+          this.addError(ex.getMessage(), ex.getMessage());
+      }
+   }
+  
+   public void seleccionar(ActionEvent ae){
+    try{
+        UIDataTable table = (UIDataTable) ae.getComponent().getParent().getParent();
+        System.out.println("Buscando el expediente... "+((TblExpedientePacientes)table.getRowData()).getNumExpediente());
+        this.tblExpediente = tblExpedienteFacade.find(((TblExpedientePacientes)table.getRowData()).getNumExpediente());
+        System.out.println("Expediente encontrado... ");
+    }catch(Exception x){
+        x.printStackTrace();
+        this.addError(x.getMessage(), x.getMessage());
+    }
+  }
+  
+  public void buscar(ActionEvent ae){
+     ExpedienteDataModel model = (ExpedienteDataModel) this.getBean("#{expedienteDataModel}", ExpedienteDataModel.class);
+     model.clear();
+  }    
 }
