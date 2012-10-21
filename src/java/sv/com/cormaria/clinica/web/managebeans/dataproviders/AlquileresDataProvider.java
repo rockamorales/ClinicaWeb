@@ -11,9 +11,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import sv.com.cormaria.servicios.criteria.SearchCriteria;
-import sv.com.cormaria.servicios.entidades.administracion.TblRequisiciones;
+import sv.com.cormaria.servicios.entidades.farmacia.TblAlquilerEquipo;
 import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
-import sv.com.cormaria.servicios.facades.administracion.TblRequisicionesFacadeLocal;
+import sv.com.cormaria.servicios.facades.farmacia.TblAlquilerEquipoFacadeLocal;
 
 /**
  *
@@ -21,29 +21,29 @@ import sv.com.cormaria.servicios.facades.administracion.TblRequisicionesFacadeLo
  */
 @ManagedBean
 @ViewScoped
-public class RequisicionesDataProvider implements ClinicaDataProvider<TblRequisiciones, Integer> {
+public class AlquileresDataProvider implements ClinicaDataProvider<TblAlquilerEquipo, Integer> {
     @EJB
-    private TblRequisicionesFacadeLocal facade;
+    private TblAlquilerEquipoFacadeLocal facade;
 
-    @ManagedProperty(value="#{requisicionesSearchCriteria}")
+    @ManagedProperty(value="#{alquileresSearchCriteria}")
     private SearchCriteria criteria;
 
     @Override
-    public Integer getRowKey(TblRequisiciones o) {
-            return o.getNumRequisicion();
+    public Integer getRowKey(TblAlquilerEquipo o) {
+            return o.getNumSolAlquiler();
     }
 
     @Override
-    public List<TblRequisiciones> getData(int firtRows, int numberOfRows) {
+    public List<TblAlquilerEquipo> getData(int firtRows, int numberOfRows) {
         if (criteria!=null){
               return facade.find(criteria, firtRows, numberOfRows);
         }
-        return new ArrayList<TblRequisiciones>();
+        return new ArrayList<TblAlquilerEquipo>();
     }
 
     @Override
-    public Integer getPk(TblRequisiciones item) {
-         return item.getNumRequisicion();
+    public Integer getPk(TblAlquilerEquipo item) {
+         return item.getNumSolAlquiler();
     }
 
     @Override
@@ -55,7 +55,7 @@ public class RequisicionesDataProvider implements ClinicaDataProvider<TblRequisi
     }
 
     @Override
-    public TblRequisiciones getItemByPk(Integer pk) throws ClinicaModelexception {
+    public TblAlquilerEquipo getItemByPk(Integer pk) throws ClinicaModelexception {
       return facade.find(pk);
     }
 

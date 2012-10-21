@@ -110,5 +110,11 @@
   <managed-bean-class>sv.com.cormaria.servicios.criteria.RequisicionesSearchCriteria</managed-bean-class>
   <managed-bean-scope>view</managed-bean-scope>
  </managed-bean>  
-      
+
+ <managed-bean>
+  <managed-bean-name>alquileresSearchCriteria</managed-bean-name>
+  <managed-bean-class>sv.com.cormaria.servicios.criteria.AlquileresSearchCriteria</managed-bean-class>
+  <managed-bean-scope>view</managed-bean-scope>
+ </managed-bean>
+                  
 </faces-config>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <ui:composition template="/templates/main.xhtml">
+        <ui:define name="title">
+          <h:outputText value="#{messages['default.windowTitle']}--Administración de Requisiciones" escape="false"></h:outputText>  
+        </ui:define>
+        <ui:define name="body">
+          <h:form>
+              <fieldset>
+                  <legend>Busqueda</legend>
+                  <table cellpadding="0" cellspacing="0">
+                      <tr>
+                          <td>
+                              <h:outputLabel value="Num Req.:" for="numRequisicion"/>
+                          </td>
+                          <td>
+                              <h:inputText value="#{alquileresSearchCriteria.numAlquiler}" id="numRequisicion"/>
+                          </td>
+                          <td>
+                              <h:outputLabel value="Num Expediente:" for="numExpediente"/>
+                          </td>
+                          <td>
+                              <h:inputText value="#{alquileresSearchCriteria.numExpediente}" id="numExpediente"/>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>
+                              <h:outputLabel value="Fecha ini:" for="startDate"/>
+                          </td>
+                          <td>
+                              <rich:calendar value="#{alquileresSearchCriteria.startDate}" id="startDate" enableManualInput="true" datePattern="dd/MM/yyyy"/>
+                          </td>
+                          <td>
+                              <h:outputLabel value="Fecha fin.:" for="endDate"/>
+                          </td>
+                          <td>
+                              <rich:calendar value="#{alquileresSearchCriteria.endDate}" id="endDate" enableManualInput="true" datePattern="dd/MM/yyyy"/>
+                          </td>
+                          <td colspan="2" align="left">
+                              <a4j:commandButton value="Buscar" actionListener="#{frmTblAlquilerEquipo.buscar}" render="tblAlquilerTable, panelMessage"/>
+                          </td>
+                      </tr>
+                  </table>
+              </fieldset>
+          <rich:dataTable value="#{alquileresDataModel}" var="tblAlquiler" rows="20" id="tblAlquilerTable">
+            <f:facet name="header">
+                <rich:columnGroup>
+                  <h:column>
+                    <h:outputText value="Numero"/>
+                  </h:column>
+                  <h:column>
+                    <h:outputText value="Nombre paciente"/>
+                  </h:column>
+                  <h:column>
+                    <h:outputText value="Fecha"/>
+                  </h:column>                  
+                  <h:column>
+                    <h:outputText value="Motivo Alquiler"/>
+                  </h:column>
+                  <h:column>
+                    <h:outputText value="Estado"/>
+                  </h:column>
+                  <h:column>
+                  </h:column>
+                </rich:columnGroup>
+              </f:facet>
+                <h:column>
+                    <h:outputText value="#{tblAlquiler.numSolAlquiler}">
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <h:outputText value="#{tblAlquiler.expediente.nomPaciente} #{tblAlquiler.expediente.priApePaciente} #{tblAlquiler.expediente.secApePaciente} #{tblAlquiler.expediente.terApePaciente}">
+                    </h:outputText>
+                </h:column>               
+                <h:column>
+                    <h:outputText value="#{tblAlquiler.fecRegAlquiler}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <h:outputText value="#{tblAlquiler.motSolAlquiler}">
+                    </h:outputText>            
+                </h:column>               
+                <h:column>
+                    <h:outputText value="#{tblAlquiler.estAlquiler}">
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <h:outputLink value="frmMantTblAlquilerEquipo.jsf">
+                        <f:param name="numRequisicion" value="#{tblAlquiler.numSolAlquiler}"/>
+                        <f:param name="faces-redirect" value="true"/>
+                        <h:graphicImage url="/img/icons/edit.gif">
+                        </h:graphicImage>
+                    </h:outputLink>
+                </h:column>
+            </rich:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

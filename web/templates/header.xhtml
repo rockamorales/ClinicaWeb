@@ -9,25 +9,27 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core">
     <div class="page_brick"></div>
     <h:form rendered="#{request.userPrincipal.name!=null}">
-        <h:panelGrid styleClass="module_chooser" columns="4" columnClasses="left right">
-            <rich:toolbar>
-                <rich:toolbarGroup itemSeparator="line">
-                    <c:forEach items="#{menuBean.modulos}" var="menu1">
-                        <a4j:commandLink render="leftMenuForm" execute="leftMenuForm">
-                            <f:setPropertyActionListener target="#{clinicaSessionBean.usuario.selectedModule}" value="#{menu1}"/>
-                            <h:graphicImage url="#{menu1.icoMenu}" title="#{menu1.nomOpcMenu}" height="25" width="25" style="border: 0">
-                            </h:graphicImage>
+        <h:panelGrid styleClass="module_chooser" columns="2">
+                <rich:toolbar>
+                    <rich:toolbarGroup itemSeparator="line">
+                        <c:forEach items="#{menuBean.modulos}" var="menu1">
+                            <a4j:commandLink render="leftMenuForm" execute="leftMenuForm">
+                                <f:setPropertyActionListener target="#{clinicaSessionBean.usuario.selectedModule}" value="#{menu1}"/>
+                                <h:graphicImage url="#{menu1.icoMenu}" title="#{menu1.nomOpcMenu}" height="25" width="25" style="border: 0">
+                                </h:graphicImage>
+                            </a4j:commandLink>
+                        </c:forEach>
+                        <a4j:commandLink render="leftMenuForm" execute="leftMenuForm" action="#{frmLogin.logout}">
+                             <h:graphicImage url="/img/icons/redo.gif" title="Salir" height="25" width="25" style="border: 0">
+                             </h:graphicImage>
                         </a4j:commandLink>
-                    </c:forEach>
-                    <a4j:commandLink render="leftMenuForm" execute="leftMenuForm" action="#{frmLogin.logout}">
-                         <h:graphicImage url="/img/icons/redo.gif" title="Salir" height="25" width="25" style="border: 0">
-                         </h:graphicImage>
-                    </a4j:commandLink>
-                </rich:toolbarGroup>
-           </rich:toolbar>
-            <h:outputText value=" Bienvenido: #{clinicaSessionBean.usuario.nomUsuario} |"/>
-           <h:outputText value=" Cambiar contrasena |"/>
-           <h:outputText value=" Ver informacion "/>
-        </h:panelGrid>
+                    </rich:toolbarGroup>
+               </rich:toolbar>
+                <h:panelGroup>
+                   <h:outputText value=" Bienvenido: #{clinicaSessionBean.usuario.nomUsuario} |" style="color:white; font-weight: bold;"/>
+                   <h:outputLink><h:outputText value=" Cambiar contrasena |" style="color:white; font-weight: bold;"/></h:outputLink>
+                   <h:outputLink><h:outputText value=" Ver informacion " style="color:white; font-weight: bold;"/></h:outputLink>
+               </h:panelGroup>
+            </h:panelGrid>
     </h:form>
 </ui:composition>

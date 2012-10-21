@@ -178,3 +178,11 @@ fieldset {
     padding: 3px;
     margin: 0;
 }
+
+.left{
+    text-align: left;
+} 
+
+.right{
+    text-align: right;    
+}
