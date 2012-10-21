@@ -15,6 +15,8 @@ and open the template in the editor.
           <h:outputText value="#{messages['default.windowTitle']}--Consulta de requisiciones" escape="false"></h:outputText>  
         </ui:define>
         <ui:define name="body">
+            <h3>Consultar Requisiciones</h3>
+            <hr></hr>            
           <h:form>
               <fieldset>
                   <legend>Busqueda</legend>
@@ -46,7 +48,6 @@ and open the template in the editor.
                           <td>
                               <h:selectOneMenu value="#{requisicionesSearchCriteria.codArea}" id="codArea">
                                   <f:selectItem itemValue="-1" itemLabel="-- Mostrar todas --" />
-                                  <f:selectItems value="#{frmTblRequisiciones.areasList}" var="area" itemValue="#{area.codArea}" itemLabel="#{area.nomArea}" />
                               </h:selectOneMenu>
                           </td>
                           <td>
@@ -55,7 +56,6 @@ and open the template in the editor.
                           <td>
                               <h:selectOneMenu value="#{requisicionesSearchCriteria.codTipRequisicion}" id="codTipRequisicion">
                                   <f:selectItem itemValue="-1" itemLabel="-- Mostrar todas --" />
-                                  <f:selectItems value="#{frmTblRequisiciones.catTipoReqList}" var="catTipo" itemValue="#{catTipo.codTipRequisicion}" itemLabel="#{catTipo.nomTipRequisicion}" />
                               </h:selectOneMenu>
                           </td>
                           <td colspan="2" align="left">
