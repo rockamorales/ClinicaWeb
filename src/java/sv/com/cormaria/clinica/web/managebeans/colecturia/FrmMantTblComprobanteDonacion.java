@@ -297,7 +297,7 @@ public class FrmMantTblComprobanteDonacion extends PageBase{
             System.out.println("Producto: "+producto.getNomProducto());
             tblDetalleComprobanteDonacion.getTblDetalleComprobanteDonacion().setTblDetalleComprobanteDonacionPK(new TblDetalleComprobanteDonacionPK(this.tblComprobanteDonacion.getTblComprobanteDonacion().getNumComDonacion(), producto.getNumProducto()));
             tblDetalleComprobanteDonacion.getTblDetalleComprobanteDonacion().setPreUniComDonacion(producto.getPreFinProducto());
-            tblDetalleComprobanteDonacion.getTblDetalleComprobanteDonacion().setPresentacion(producto.getPreProducto());
+            tblDetalleComprobanteDonacion.getTblDetalleComprobanteDonacion().setPresentacion(producto.getCatPresentacionProducto().getNomPreProducto());
         }
     }
     public void seleccionarProducto(ValueChangeEvent v){
@@ -308,7 +308,7 @@ public class FrmMantTblComprobanteDonacion extends PageBase{
             tblDetalleComprobanteDonacion.getTblDetalleComprobanteDonacion().setTblDetalleComprobanteDonacionPK(new TblDetalleComprobanteDonacionPK(this.tblComprobanteDonacion.getTblComprobanteDonacion().getNumComDonacion(), producto.getNumProducto()));
             tblDetalleComprobanteDonacion.getTblDetalleComprobanteDonacion().setPreUniComDonacion(producto.getPreFinProducto());
             tblDetalleComprobanteDonacion.getTblDetalleComprobanteDonacion().setTotIteComDonacion(producto.getPreFinProducto()*tblDetalleComprobanteDonacion.getTblDetalleComprobanteDonacion().getCanProComDonacion());
-            tblDetalleComprobanteDonacion.getTblDetalleComprobanteDonacion().setPresentacion(producto.getPreProducto());
+            tblDetalleComprobanteDonacion.getTblDetalleComprobanteDonacion().setPresentacion(producto.getCatPresentacionProducto().getNomPreProducto());
         }   
         }catch(Exception ex){
             ex.printStackTrace();

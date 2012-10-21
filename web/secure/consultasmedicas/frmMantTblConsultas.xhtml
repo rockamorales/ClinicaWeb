@@ -423,7 +423,7 @@
                                       </tr>
                                       <tr>
                                           <td colspan="2" align="center">
-                                              <a4j:commandButton actionListener="#{frmMantTblConsultas.guardar}" value="Guardar" render="@form, panelMessage"/>
+                                              <a4j:commandButton actionListener="#{frmMantTblConsultas.guardar}" value="Guardar" render="@form, panelMessage" rendered="#{frmMantTblConsultas.consulta.numConsulta!=null and frmMantTblConsultas.consulta.numConsulta > 0}"/>
                                           </td>
                                       </tr>
                                   </table>
@@ -535,7 +535,7 @@
                                     </center>
                                   </fieldset>
                                   <center>
-                                      <a4j:commandButton value="Guardar receta" actionListener="#{frmMantTblConsultas.guardarReceta}" render="@form, panelMessage"/>
+                                      <a4j:commandButton value="Guardar receta" actionListener="#{frmMantTblConsultas.guardarReceta}" render="@form, panelMessage" rendered="#{frmMantTblConsultas.consulta.numConsulta!=null and frmMantTblConsultas.consulta.numConsulta > 0}"/>
                                   </center>
                               </rich:tab>
                               <rich:tab header="Examenes de lab">
@@ -588,7 +588,7 @@
                                                   </td>
                                               </tr>
                                           </table>
-                                        <a4j:commandButton value="Guardar Orden de laboratorio" actionListener="#{frmMantTblConsultas.guardarOrdenLab}" render="@form, panelMessage"/>
+                                        <a4j:commandButton value="Guardar Orden de laboratorio" actionListener="#{frmMantTblConsultas.guardarOrdenLab}" render="@form, panelMessage" rendered="#{frmMantTblConsultas.consulta.numConsulta!=null and frmMantTblConsultas.consulta.numConsulta > 0}"/>
                                     </center>
                               </rich:tab>
                               <rich:tab header="Referencia">
@@ -653,12 +653,12 @@
                                       </tr>
                                   </table>
                                   <center>
-                                    <a4j:commandButton value="Guardar referencia" actionListener="#{frmMantTblConsultas.guardarReferencia}" render="@form, panelMessage"/>
+                                      <a4j:commandButton value="Guardar referencia" actionListener="#{frmMantTblConsultas.guardarReferencia}" render="@form, panelMessage" rendered="#{frmMantTblConsultas.consulta.numConsulta!=null and frmMantTblConsultas.consulta.numConsulta > 0}"/>
                                   </center>
                               </rich:tab>
                           </rich:tabPanel>
                           <center>
-                              <a4j:commandButton value="Finalizar consulta" actionListener="#{frmMantTblConsultas.finalizarConsulta}" render="@form, panelMessage"/>
+                              <a4j:commandButton value="Finalizar consulta" actionListener="#{frmMantTblConsultas.finalizarConsulta}" render="@form, panelMessage" rendered="#{frmMantTblConsultas.consulta.numConsulta!=null and frmMantTblConsultas.consulta.numConsulta > 0}"/>
                           </center>
                               
                     </td>

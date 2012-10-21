@@ -131,7 +131,9 @@ and open the template in the editor.
                         <td align="left">
                             <h:selectOneMenu value="#{frmMantTblProducto.tblProducto.codCatProducto}" >
                                 <f:selectItem itemLabel="Seleccionar" itemValue="-1" ></f:selectItem>
-                               <f:selectItems value="#{frmMantTblProducto.catProductoList}"/>                 
+                                <f:selectItem itemLabel="Producto" itemValue="PRODUCTO" ></f:selectItem>
+                                <f:selectItem itemLabel="Servicio" itemValue="SERVICIO" ></f:selectItem>
+                                <f:selectItem itemLabel="Tarjeta" itemValue="TARJETA" ></f:selectItem>
                             </h:selectOneMenu>
                             <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                         </td>
