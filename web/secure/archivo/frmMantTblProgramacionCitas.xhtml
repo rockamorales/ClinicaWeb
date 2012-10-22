@@ -35,6 +35,7 @@
                             <h:outputText value="#{frmMantTblProgramacionCitas.expediente.numExpediente}" id="numExpedien2" />
                             <a4j:commandButton value="..." onclick="#{rich:component('buscarExpedientePanel')}.show(); return false;">
                             </a4j:commandButton>
+                            <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                         </td>
                     </tr>
                     <tr>
@@ -59,12 +60,14 @@
                         </td>
                         <td>
                             <rich:calendar enableManualInput="true" value="#{frmMantTblProgramacionCitas.cita.fecCita}" id="fecCita" datePattern="dd/MM/yyyy"/>
+                            <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                         </td>
                         <td>
                             <h:outputLabel value="Hora:" for="horCita"/>
                         </td>
                         <td>
                             <rich:calendar enableManualInput="true" value="#{frmMantTblProgramacionCitas.cita.horCita}" inputClass="hora" id="horCita" datePattern="HH:mm:ss" showApplyButton="true"/>
+                            <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                         </td>
                     </tr>
                     <tr>
