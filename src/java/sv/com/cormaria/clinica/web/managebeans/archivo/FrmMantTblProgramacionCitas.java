@@ -199,9 +199,36 @@ public class FrmMantTblProgramacionCitas extends PageBase{
         ExpedienteDataModel model = (ExpedienteDataModel) this.getBean("#{expedienteDataModel}", ExpedienteDataModel.class);
         model.clear();
     }
+
+    
+       public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getCita().getCodEspecialidad() == null || this.getCita().getCodEspecialidad() <= 0){
+          isValid = false;
+          this.addError("Porfavor ingrese o seleccione la especialidad", "Porfavor ingrese o seleccione la especialidad");
+       } 
+       
+       if (this.getCita().getCodConsultorio() == null || this.getCita().getCodConsultorio() == -1){
+           isValid = false;
+           this.addError("Porfavor seleccione el consultorio", "Porfavor seleccione el consultorio");
+       }
+       
+       if (this.getCita().getNumMedico() == null || this.getCita().getNumMedico() == -1){
+           isValid = false;
+           this.addError("Porfavor seleccione el médico", "Porfavor seleccione el médico");
+       }
+       
+       return isValid;
+     
+   }
+    
     
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }            
             if (cita.getNumCita() !=null && cita.getNumCita()>0){
                 cita = citasFacade.edit(cita);
             }else{
