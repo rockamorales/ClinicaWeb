@@ -12,10 +12,10 @@ and open the template in the editor.
       xmlns:a4j="http://richfaces.org/a4j">
     <ui:composition template="/templates/main.xhtml">
         <ui:define name="title">
-          <h:outputText value="#{messages['default.windowTitle']}--Administración de Requisiciones" escape="false"></h:outputText>  
+          <h:outputText value="#{messages['default.windowTitle']}--Administración de Alquiler de equipos" escape="false"></h:outputText>  
         </ui:define>
         <f:metadata>
-            <f:viewParam name="numRequisicion" value="#{frmMantTblAlquilerEquipo.numSolAlquiler}"/>
+            <f:viewParam name="numSolAlquiler" value="#{frmMantTblAlquilerEquipo.numSolAlquiler}"/>
 	    <f:event listener="#{frmMantTblAlquilerEquipo.init}" type="preRenderView"></f:event>
         </f:metadata>
         <ui:define name="body">
@@ -154,31 +154,31 @@ and open the template in the editor.
                 </rich:dataTable>
             </rich:popupPanel>                
                 <fieldset style="border-radius: 5px; border: #000066 thin solid;">
-                    <legend>Encabezado de requisicion</legend>
+                    <legend>Encabezado de solicitud de alquiler</legend>
                     <table>
                        <tr>
                           <td>Número:</td>
                           <td>
                               <h:outputText value="#{frmMantTblAlquilerEquipo.tblAlquilerEquipo.numSolAlquiler}" style="font-weight: bold"/>
-                              <h:outputLabel value="*" style="color:red;font-weight: bold;"/>                        
-                              <a4j:commandButton value="..." onclick="#{rich:component('buscarExpedientePanel')}.show(); return false;">
-                              </a4j:commandButton>
                           </td>
                           <td>Fecha:</td>
                           <td>
-                              <h:outputText value="#{frmMantTblAlquilerEquipo.tblAlquilerEquipo.fecRegAlquiler} " style="font-weight: bold">
-                                  <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                              <h:outputText value="#{frmMantTblAlquilerEquipo.tblAlquilerEquipo.fecRegAlquiler}" style="font-weight: bold">
+                                  <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
                               </h:outputText>
                           </td>
                        </tr>
                        <tr>
                           <td>Num Expediente:</td>
                           <td>
-                              <h:inputText value="#{frmMantTblAlquilerEquipo.tblAlquilerEquipo.numExpediente}" style="font-weight: bold"/>
+                              <h:inputText value="#{frmMantTblAlquilerEquipo.tblExpediente.numExpediente}" style="font-weight: bold"/>
+                              <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                              <a4j:commandButton value="..." onclick="#{rich:component('buscarExpedientePanel')}.show(); return false;">
+                              </a4j:commandButton>
                           </td>
                           <td>Nombre paciente:</td>
                           <td>
-                              <h:outputText value="#{frmMantTblAlquilerEquipo.tblAlquilerEquipo.expediente.nomPaciente} #{frmMantTblAlquilerEquipo.tblAlquilerEquipo.expediente.priApePaciente} #{frmMantTblAlquilerEquipo.tblAlquilerEquipo.expediente.secApePaciente} #{frmMantTblAlquilerEquipo.tblAlquilerEquipo.expediente.terApePaciente} " style="font-weight: bold">
+                              <h:outputText value="#{frmMantTblAlquilerEquipo.tblExpediente.nomPaciente} #{frmMantTblAlquilerEquipo.tblExpediente.priApePaciente} #{frmMantTblAlquilerEquipo.tblExpediente.secApePaciente} #{frmMantTblAlquilerEquipo.tblExpediente.terApePaciente} " style="font-weight: bold">
                               </h:outputText>
                           </td>
                        </tr>
@@ -238,7 +238,10 @@ and open the template in the editor.
                              <h:outputText value="Cantidad"/>
                            </h:column>
                            <h:column>
-                             <h:outputText value="Detalle uso"/>
+                             <h:outputText value="Precio unitario"/>
+                           </h:column>
+                           <h:column>
+                             <h:outputText value="Total"/>
                            </h:column>
                            <h:column>
                            </h:column>
@@ -249,15 +252,19 @@ and open the template in the editor.
                              </h:outputText>
                          </h:column>
                          <h:column>
-                             <h:outputText value="#{detalle.canProRequisicion}">
+                             <h:outputText value="#{detalle.canDetAlquiler}">
                              </h:outputText>
                          </h:column>
                          <h:column>
-                             <h:outputText value="#{detalle.detUsoRequisicion}">
+                             <h:outputText value="#{detalle.tblProducto.preFinProducto}">
                              </h:outputText>
                          </h:column>
                          <h:column>
-                             <a4j:commandLink actionListener="#{frmMantTblRequisiciones.deleteDetalle}" render="tblDetalleAlquilerEquipoTable, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar el producto: #{detalle.tblProducto.nomProducto}')){return false;}">
+                             <h:outputText value="#{detalle.tblProducto.preFinProducto*detalle.canDetAlquiler}">
+                             </h:outputText>
+                         </h:column>
+                         <h:column>
+                             <a4j:commandLink actionListener="#{frmMantTblAlquilerEquipo.deleteDetalle}" render="tblDetalleAlquilerEquipoTable, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar el producto: #{detalle.tblProducto.nomProducto}')){return false;}">
                                  <h:graphicImage url="/img/icons/delete.gif"/>
                              </a4j:commandLink>
                          </h:column>

@@ -12,7 +12,7 @@ and open the template in the editor.
       xmlns:a4j="http://richfaces.org/a4j">
     <ui:composition template="/templates/main.xhtml">
         <ui:define name="title">
-          <h:outputText value="#{messages['default.windowTitle']}--Administración de Requisiciones" escape="false"></h:outputText>  
+          <h:outputText value="#{messages['default.windowTitle']}--Administración de Alquiler de equipos" escape="false"></h:outputText>  
         </ui:define>
         <ui:define name="body">
           <h:form>
@@ -21,10 +21,10 @@ and open the template in the editor.
                   <table cellpadding="0" cellspacing="0">
                       <tr>
                           <td>
-                              <h:outputLabel value="Num Req.:" for="numRequisicion"/>
+                              <h:outputLabel value="Num Sol. Alquiler.:" for="numAlquiler"/>
                           </td>
                           <td>
-                              <h:inputText value="#{alquileresSearchCriteria.numAlquiler}" id="numRequisicion"/>
+                              <h:inputText value="#{alquileresSearchCriteria.numAlquiler}" id="numAlquiler"/>
                           </td>
                           <td>
                               <h:outputLabel value="Num Expediente:" for="numExpediente"/>
@@ -63,12 +63,14 @@ and open the template in the editor.
                   </h:column>
                   <h:column>
                     <h:outputText value="Fecha"/>
-                  </h:column>                  
+                  </h:column>
                   <h:column>
                     <h:outputText value="Motivo Alquiler"/>
                   </h:column>
                   <h:column>
                     <h:outputText value="Estado"/>
+                  </h:column>
+                  <h:column>
                   </h:column>
                   <h:column>
                   </h:column>
@@ -89,14 +91,19 @@ and open the template in the editor.
                 </h:column>
                 <h:column>
                     <h:outputText value="#{tblAlquiler.motSolAlquiler}">
-                    </h:outputText>            
-                </h:column>               
+                    </h:outputText>
+                </h:column>       
                 <h:column>
                     <h:outputText value="#{tblAlquiler.estAlquiler}">
                     </h:outputText>
                 </h:column>
                 <h:column>
-                    <h:outputLink value="frmMantTblAlquilerEquipo.jsf">
+                    <a4j:commandLink actionListener="#{frmTblAlquilerEquipo.delete}" render="tblAlquilerTable" onclick="if(!confirm('Esta seguro que desea eliminar el Registro: #{tblAlquiler.numSolAlquiler}')){return false;}">
+                        <h:graphicImage url="/img/icons/delete.gif"/>
+                    </a4j:commandLink>
+                </h:column>              
+                <h:column>
+                    <h:outputLink value="frmViewEliminarTblAlquilerEquipo.jsf">
                         <f:param name="numSolAlquiler" value="#{tblAlquiler.numSolAlquiler}"/>
                         <f:param name="faces-redirect" value="true"/>
                         <h:graphicImage url="/img/icons/edit.gif">

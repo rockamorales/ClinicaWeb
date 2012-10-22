@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
+    <ui:composition template="/templates/main.xhtml">
+        <ui:define name="title">
+          <h:outputText value="#{messages['default.windowTitle']}--Administración de Requisiciones" escape="false"></h:outputText>  
+        </ui:define>
+        <f:metadata>
+            <f:viewParam name="numSolAlquiler" value="#{frmMantTblAlquilerEquipo.numSolAlquiler}"/>
+	    <f:event listener="#{frmMantTblAlquilerEquipo.init}" type="preRenderView"></f:event>
+        </f:metadata>
+        <ui:define name="body">
+            <h:form id="form">
+                <fieldset style="border-radius: 5px; border: #000066 thin solid;">
+                    <legend>Encabezado de requisicion</legend>
+                    <table>
+                       <tr>
+                          <td>Número:</td>
+                          <td>
+                              <h:outputText value="#{frmMantTblAlquilerEquipo.tblAlquilerEquipo.numSolAlquiler}" style="font-weight: bold"/>
+                          </td>
+                          <td>Fecha:</td>
+                          <td>
+                              <h:outputText value="#{frmMantTblAlquilerEquipo.tblAlquilerEquipo.fecRegAlquiler}" style="font-weight: bold">
+                                  <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                              </h:outputText>
+                          </td>
+                       </tr>
+                       <tr>
+                          <td>Num Expediente:</td>
+                          <td>
+                              <h:outputText value="#{frmMantTblAlquilerEquipo.tblExpediente.numExpediente}" style="font-weight: bold"/>
+                          </td>
+                          <td>Nombre paciente:</td>
+                          <td>
+                              <h:outputText value="#{frmMantTblAlquilerEquipo.tblExpediente.nomPaciente} #{frmMantTblAlquilerEquipo.tblExpediente.priApePaciente} #{frmMantTblAlquilerEquipo.tblExpediente.secApePaciente} #{frmMantTblAlquilerEquipo.tblExpediente.terApePaciente} " style="font-weight: bold">
+                              </h:outputText>
+                          </td>
+                       </tr>
+                      <tr>
+                          <td>Motivo Alquiler:</td>
+                          <td align="left">
+                              <h:outputText value="#{frmMantTblAlquilerEquipo.tblAlquilerEquipo.motSolAlquiler}"/>
+                          </td>                    
+                          <td>Estado:</td>
+                          <td align="left">
+                              <h:outputText value="#{frmMantTblAlquilerEquipo.tblAlquilerEquipo.estAlquiler}"/>
+                          </td>                    
+                      </tr>
+                      <tr>
+                            <td colspan="4" align="center">
+                                <h:commandButton value="Agregar" action="frmMantTblAlquilerEquipo.jsf?faces-redirect=true"/>
+                                <h:commandButton value="Modificar" action="#{frmMantTblAlquilerEquipo.modificar}"/>
+                                <h:commandButton value="Ir a la lista" action="frmConsultaTblAlquilerEquipo.jsf?faces-redirect=true"/>
+                            </td>
+                        </tr>
+                    </table>
+                 </fieldset>
+                 <fieldset style="border-radius: 5px; border: #000066 thin solid;">
+                    <legend>Detalle de Alquiler</legend>
+                    <hr style="border: #000066 thin solid"/>
+                    <rich:dataTable value="#{frmMantTblAlquilerEquipo.detalleAlqList}" var="detalle" rows="20" id="tblDetalleAlquilerEquipoTable">
+                     <f:facet name="header">
+                         <rich:columnGroup>
+                           <h:column>
+                             <h:outputText value="Producto"/>
+                           </h:column>
+                           <h:column>
+                             <h:outputText value="Cantidad"/>
+                           </h:column>
+                           <h:column>
+                             <h:outputText value="Precio unitario"/>
+                           </h:column>
+                           <h:column>
+                             <h:outputText value="Total"/>
+                           </h:column>
+                         </rich:columnGroup>
+                       </f:facet>
+                         <h:column>
+                             <h:outputText value="#{detalle.tblProducto.nomProducto}">
+                             </h:outputText>
+                         </h:column>
+                         <h:column>
+                             <h:outputText value="#{detalle.canDetAlquiler}">
+                             </h:outputText>
+                         </h:column>
+                         <h:column>
+                             <h:outputText value="#{detalle.tblProducto.preFinProducto}">
+                             </h:outputText>
+                         </h:column>
+                         <h:column>
+                             <h:outputText value="#{detalle.tblProducto.preFinProducto*detalle.canDetAlquiler}">
+                             </h:outputText>
+                         </h:column>
+                     </rich:dataTable>
+                 </fieldset>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

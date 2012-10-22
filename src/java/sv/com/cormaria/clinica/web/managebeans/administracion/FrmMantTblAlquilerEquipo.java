@@ -150,6 +150,7 @@ public class FrmMantTblAlquilerEquipo extends PageBase{
         if (this.getNumSolAlquiler()!=null && this.getNumSolAlquiler()>0){
             try{
                 this.tblAlquilerEquipo = this.facade.find(this.getNumSolAlquiler());
+                this.tblExpediente = tblAlquilerEquipo.getExpediente();
             }catch(Exception ex){
                 this.addError(ex.getMessage(), ex.getMessage());
             }
@@ -169,7 +170,7 @@ public class FrmMantTblAlquilerEquipo extends PageBase{
     }    
     
     public String modificar(){
-        return "frmMantTblRequisiciones.jsf?faces-redirect=true&numRequisicion="+this.getTblAlquilerEquipo().getNumSolAlquiler();
+        return "frmMantTblAlquilerEquipo.jsf?faces-redirect=true&numSolAlquiler="+this.getTblAlquilerEquipo().getNumSolAlquiler();
     }
     
     public void eliminar(ActionEvent ae){
@@ -203,13 +204,14 @@ public class FrmMantTblAlquilerEquipo extends PageBase{
         UIDataTable table = (UIDataTable) ae.getComponent().getParent().getParent();
         System.out.println("Buscando el expediente... "+((TblExpedientePacientes)table.getRowData()).getNumExpediente());
         this.tblExpediente = tblExpedienteFacade.find(((TblExpedientePacientes)table.getRowData()).getNumExpediente());
+        this.tblAlquilerEquipo.setNumExpediente(this.tblExpediente.getNumExpediente());
         System.out.println("Expediente encontrado... ");
     }catch(Exception x){
         x.printStackTrace();
         this.addError(x.getMessage(), x.getMessage());
     }
   }
-  
+     
   public void buscar(ActionEvent ae){
      ExpedienteDataModel model = (ExpedienteDataModel) this.getBean("#{expedienteDataModel}", ExpedienteDataModel.class);
      model.clear();
