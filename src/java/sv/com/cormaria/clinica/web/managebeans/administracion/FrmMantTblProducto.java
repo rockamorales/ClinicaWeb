@@ -14,6 +14,7 @@ import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
 import sv.com.cormaria.servicios.entidades.administracion.TblProducto;
 import sv.com.cormaria.servicios.entidades.catalogos.CatTipoProducto;
 import sv.com.cormaria.servicios.entidades.catalogos.CatCategoriaProducto;
+import sv.com.cormaria.servicios.entidades.catalogos.CatClasificacionProducto;
 import sv.com.cormaria.servicios.entidades.catalogos.CatPresentacionProducto;
 import sv.com.cormaria.servicios.enums.Estado;
 import sv.com.cormaria.servicios.facades.administracion.TblProductoFacade;
@@ -22,6 +23,7 @@ import sv.com.cormaria.servicios.facades.catalogos.CatTipoProductoFacade;
 import sv.com.cormaria.servicios.facades.catalogos.CatTipoProductoFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatCategoriaProductoFacade;
 import sv.com.cormaria.servicios.facades.catalogos.CatCategoriaProductoFacadeLocal;
+import sv.com.cormaria.servicios.facades.catalogos.CatClasificacionProductoFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatPresentacionProductoFacade;
 import sv.com.cormaria.servicios.facades.catalogos.CatPresentacionProductoFacadeLocal;
 import sv.com.cormaria.servicios.helpers.ValidationUtils;
@@ -42,7 +44,9 @@ public class FrmMantTblProducto extends PageBase{
     @EJB
     private CatCategoriaProductoFacadeLocal catCategoriaProductoFacade;
     @EJB
-    private CatPresentacionProductoFacadeLocal catPresentacionProductoFacade;    
+    private CatPresentacionProductoFacadeLocal catPresentacionProductoFacade;   
+    @EJB
+    private CatClasificacionProductoFacadeLocal catClasificacionProductoFacade; 
 
     
     @ManagedProperty(value ="#{param.numProducto}")
@@ -50,8 +54,27 @@ public class FrmMantTblProducto extends PageBase{
     private List<SelectItem> catTipoProductoList = new ArrayList<SelectItem>();
     private List<SelectItem> catCategoriaProductoList = new ArrayList<SelectItem>();
     private List<SelectItem> catPresentacionProductoList = new ArrayList<SelectItem>();
-    
-    public List<SelectItem> getcatTipoProductoList() {
+    private List<SelectItem> catClasificacionProductoList = new ArrayList<SelectItem>();
+
+    public List<SelectItem> getCatClasificacionProductoList() {
+        if (catClasificacionProductoList.isEmpty()){
+            try{
+                List<CatClasificacionProducto> l = catClasificacionProductoFacade.findActive();
+                for (CatClasificacionProducto catClasificacionProducto: l) {
+                    catClasificacionProductoList.add(new SelectItem(catClasificacionProducto.getCodClaProducto(), catClasificacionProducto.getNomClaProducto()));
+                }
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+        }
+        return catClasificacionProductoList;
+    }
+
+    public void setCatClasificacionProductoList(List<SelectItem> catClasificacionProductoList) {
+        this.catClasificacionProductoList = catClasificacionProductoList;
+    }
+
+    public List<SelectItem> getCatTipoProductoList() {
         if (catTipoProductoList.isEmpty()){
             try{
                 List<CatTipoProducto> l = catTipoProductoFacade.findActive();
@@ -68,6 +91,8 @@ public class FrmMantTblProducto extends PageBase{
     public void setCatTipoProductoList(List<SelectItem> catTipoProductoList) {
         this.catTipoProductoList = catTipoProductoList;
     }
+    
+    
 
     public List<SelectItem> getCatCategoriaProductoList() {
         if (catCategoriaProductoList.isEmpty()){
@@ -143,6 +168,10 @@ public class FrmMantTblProducto extends PageBase{
        if (this.getTblProducto().getCodPreProducto() == null) {
           isValid = false;
           this.addError("Por favor seleccione el Presentacion de Producto", "Por favor seleccione el Presentacion de Producto");
+       }
+       if (this.getTblProducto().getCodClaProducto() == null) {
+          isValid = false;
+          this.addError("Por favor seleccione el Clasificacion de Producto", "Por favor seleccione el Clasificacion de Producto");
        }
        if (tblProducto.getNomProducto()==null || tblProducto.getNomProducto().trim().equals("")){
             this.addError("Por favor ingrese los nombres del Producto", "Por favor ingrese los nombres del Producto");
