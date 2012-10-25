@@ -323,8 +323,58 @@ public class FrmMantTblConsultas extends PageBase {
         this.numConsulta = numConsulta;
     }
     
+   public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getConsulta().getAnaPaciente() == ""){
+          isValid = false;
+          this.addError("Porfavor ingrese la anamnesis del paciente", "Porfavor ingrese la anamnesis del paciente");
+       } 
+       
+       if (this.getConsulta().getExaFisPaciente() == ""){
+           isValid = false;
+           this.addError("Porfavor ingrese los resultados del examen fisico del paciente", "Porfavor ingrese los resultados del examen fisico del paciente");
+       }
+       
+       if (this.getConsulta().getDiaPaciente() == ""){
+           isValid = false;
+           this.addError("Porfavor ingrese el diagnostico del paciente", "Porfavor ingrese el diagnostico del paciente");
+       }
+     /*  
+       if (this.getReceta().getCanDetReceta() == 0 || this.getReceta().getCanDetReceta() <= 0){
+           isValid = false;
+           this.addError("Porfavor ingrese la cantidad", "Porfavor ingrese la cantidad");
+       }       
+
+       if (this.getReceta().getTblProducto().getNumProducto() == null || this.getReceta().getTblProducto().getNumProducto() == -1){
+           isValid = false;
+           this.addError("Porfavor seleccione el producto", "Porfavor seleccione el producto");
+       } 
+       
+       if (this.getReceta().getDosDetReceta() == ""){
+           isValid = false;
+           this.addError("Porfavor ingrese la dosis del medicamento", "Porfavor ingrese la dosis del medicamento");
+       }      
+       
+       if (this.getReceta().getFreDetReceta() == ""){
+           isValid = false;
+           this.addError("Porfavor ingrese la frecuencia del medicamento", "Porfavor ingrese la frecuencia del medicamento");
+       }   
+
+       if (this.getReceta().getDurTratamiento() == ""){
+           isValid = false;
+           this.addError("Porfavor ingrese la duración del medicamento", "Porfavor ingrese la duración del medicamento");
+       } */        
+       
+       return isValid;
+     
+   }    
+    
     public void guardar(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }            
             consulta = tblConsultasFacade.edit(consulta);
             this.addInfo("La informacion ha sido guardada", "La informacion ha sido guardada");
         }catch(Exception ex){
@@ -447,7 +497,7 @@ public class FrmMantTblConsultas extends PageBase {
    }
    
    public void agregarDetalleReceta(ActionEvent ae){
-       try{
+       try{          
            TblDetalleRecetaPK pk = receta.getTblDetalleRecetaPK();
            pk.setNumReceta(recetaMedica.getNumReceta());
            tblDetalleRecetaFacade.create(receta);
@@ -498,8 +548,29 @@ public class FrmMantTblConsultas extends PageBase {
       }
    }
 
+   
+      public boolean validar2(){
+       boolean isValid2 = true;
+       
+       if (this.getOrdenLab().getDiaLaboratorio() == ""){
+          isValid2 = false;
+          this.addError("Porfavor ingrese el diagnostico del paciente", "Porfavor ingrese el diagnostico del paciente");
+       } 
+       
+       if (this.getOrdenLab().getIndLaboratorio() == ""){
+           isValid2 = false;
+           this.addError("Porfavor ingrese las indicaciones para el paciente", "Porfavor ingrese las indicaciones para el paciente");
+       }
+       
+       return isValid2;
+     
+   }
+   
    public void guardarOrdenLab(ActionEvent ae){
       try{
+           if (!validar2()){
+               return;
+           }          
           if (ordenLab.getNumOrdLaboratorio()!=null && ordenLab.getNumOrdLaboratorio()>0){
             ordenLab = tblOrdenLabFacade.edit(ordenLab);
           }else{
@@ -515,8 +586,43 @@ public class FrmMantTblConsultas extends PageBase {
       }
    }
 
+      public boolean validar3(){
+       boolean isValid2 = true;
+       
+       if (this.getReferencia().getDiaReferencia() == ""){
+          isValid2 = false;
+          this.addError("Porfavor ingrese el diagnostico de la referencia", "Porfavor ingrese el diagnostico de la referencia");
+       } 
+       
+       if (this.getReferencia().getMotReferencia() == ""){
+           isValid2 = false;
+           this.addError("Porfavor ingrese el motivo de la referencia", "Porfavor ingrese el motivo de la referencia");
+       }
+       
+       if (this.getReferencia().getCodTipReferencia() == null || this.getReferencia().getCodTipReferencia() <= -1){
+           isValid2 = false;
+           this.addError("Porfavor seleccione el tipo de referencia", "Porfavor seleccione el tipo de referencia");
+       }
+
+       if (this.getReferencia().getCodEspecialidad() == null || this.getReferencia().getCodEspecialidad() <= -1){
+           isValid2 = false;
+           this.addError("Porfavor seleccione el tipo de especialiad", "Porfavor seleccione el tipo de especialidad");
+       }  
+       
+       if (this.getReferencia().getRefA() == ""){
+           isValid2 = false;
+           this.addError("Porfavor ingrese el nombre del medico al que se realiza la referencia", "Porfavor ingrese el nombre del medico al que se realiza la referencia");
+       }   
+       
+       return isValid2;
+     
+   }   
+   
    public void guardarReferencia(ActionEvent ae){
       try{
+           if (!validar3()){
+               return;
+           }           
           if (referencia.getNumReferencia()!=null && referencia.getNumReferencia()>0){
             referencia = tblReferenciaFacade.edit(referencia);
           }else{
