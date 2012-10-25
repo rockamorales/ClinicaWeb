@@ -67,10 +67,11 @@
                                 <tr>
                                     <td>
                                         <h:outputLabel value="Cantidad:" for="canDetReceta">
+                                            <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                                         </h:outputLabel>
                                     </td>
                                     <td>
-                                        <h:inputText value="#{frmMantTblConsultas.receta.canDetReceta}" id="canDetReceta">
+                                        <h:inputText value="#{frmMantTblConsultas.receta.canDetReceta}" id="canDetReceta" maxlength="3" onkeypress="return filterInput(1, event, false, '');">
                                         </h:inputText>
                                     </td>
                                     <td>
@@ -88,28 +89,31 @@
                                 <tr>
                                     <td>
                                         <h:outputLabel value="Dosis:" for="canDetReceta">
+                                            <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                                         </h:outputLabel>
                                     </td>
                                     <td>
-                                        <h:inputText value="#{frmMantTblConsultas.receta.dosDetReceta}" id="dosDetReceta">
+                                        <h:inputText value="#{frmMantTblConsultas.receta.dosDetReceta}" id="dosDetReceta" maxlength="100" onkeypress="return filterInput(2, event, false, ' .,()áéíóú/');">
                                         </h:inputText>
                                     </td>
                                     <td>
                                         <h:outputLabel value="Frecuencia:" for="freDetReceta">
+                                            <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                                         </h:outputLabel>
                                     </td>
                                     <td>
-                                        <h:inputText value="#{frmMantTblConsultas.receta.freDetReceta}" id="freDetReceta">
+                                        <h:inputText value="#{frmMantTblConsultas.receta.freDetReceta}" id="freDetReceta" maxlength="100" onkeypress="return filterInput(2, event, false, ' .,()áéíóú/');">
                                         </h:inputText>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <h:outputLabel value="Duracion:" for="durTratamiento">
+                                            <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                                         </h:outputLabel>
                                     </td>
                                     <td>
-                                        <h:inputText value="#{frmMantTblConsultas.receta.durTratamiento}" id="durTratamiento">
+                                        <h:inputText value="#{frmMantTblConsultas.receta.durTratamiento}" id="durTratamiento" maxlength="100" onkeypress="return filterInput(2, event, false, ' .,()áéíóú/');">
                                         </h:inputText>
                                     </td>
                                     <td>
@@ -418,7 +422,7 @@
                                               <h:outputLabel value="Observaciones adicionales:" for="diaPaciente"></h:outputLabel>
                                           </td>
                                           <td style="vertical-align: top">
-                                              <h:inputTextarea value="#{frmMantTblConsultas.consulta.obsCliPaciente}" id="obsCliPaciente" rows="3" cols="90"></h:inputTextarea>
+                                              <h:inputTextarea value="#{frmMantTblConsultas.consulta.obsCliPaciente}" id="obsCliPaciente" rows="3" cols="90" maxlength="500" onkeypress="return filterInput(2, event, false, ' ,.()áéíóú');"></h:inputTextarea>
                                           </td>
                                       </tr>
                                       <tr>
@@ -554,6 +558,7 @@
                                             </td>
                                             <td>
                                                 <h:inputTextarea value="#{frmMantTblConsultas.ordenLab.diaLaboratorio}" id="diaLaboratorio" cols="90"/>
+                                                <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                                             </td>
                                       </tr>
                                       <tr>
@@ -562,6 +567,7 @@
                                           </td>
                                           <td>
                                               <h:inputTextarea value="#{frmMantTblConsultas.ordenLab.indLaboratorio}" id="indLaboratorio" cols="90"/>
+                                              <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                                           </td>
                                       </tr>
                                       <tr>
@@ -612,7 +618,8 @@
                                               <h:outputLabel value="Diagnostico:" for="diaReferencia"/>
                                           </td>
                                           <td colspan="3">
-                                              <h:inputTextarea value="#{frmMantTblConsultas.referencia.diaReferencia}" id="diaReferencia" cols="90"/>
+                                              <h:inputTextarea value="#{frmMantTblConsultas.referencia.diaReferencia}" id="diaReferencia" cols="90" maxlength="500" onkeypress="return filterInput(2, event, false, ' .,áéíóú()');"/>
+                                              <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                                           </td>
                                       </tr>
                                       <tr>
@@ -620,7 +627,8 @@
                                               <h:outputLabel value="Motivo referencia:" />
                                           </td>
                                           <td colspan="3">
-                                              <h:inputTextarea value="#{frmMantTblConsultas.referencia.motReferencia}" id="motReferencia" cols="90"/>
+                                              <h:inputTextarea value="#{frmMantTblConsultas.referencia.motReferencia}" id="motReferencia" cols="90" maxlength="100" onkeypress="return filterInput(2, event, false, ' .,áéíóú()');"/>
+                                              <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                                           </td>
                                       </tr>
                                       <tr> 
@@ -648,8 +656,9 @@
                                               <h:outputLabel value="Medico al que refiere:" for="refA"/>
                                           </td>
                                           <td colspan="3">
-                                              <h:inputText value="#{frmMantTblConsultas.referencia.refA}" id="refA" size="90"/>
-                                          </td>
+                                              <h:inputText value="#{frmMantTblConsultas.referencia.refA}" id="refA" size="90" maxlength="100" onkeypress="return filterInput(2, event, false, ' .áéíóú');"/>
+                                              <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                                          </td>                                         
                                       </tr>
                                   </table>
                                   <center>

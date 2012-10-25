@@ -90,7 +90,8 @@ and open the template in the editor.
                                     <h:outputLabel value="Cantidad: " for="canProRequisicion" />
                                 </td>
                                 <td style="vertical-align: top;">
-                                    <h:inputText value="#{frmMantTblRequisiciones.tblDetalleReq.canProRequisicion}" id="canProRequisicion" />
+                                    <h:inputText value="#{frmMantTblRequisiciones.tblDetalleReq.canProRequisicion}" id="canProRequisicion" maxlength="8" onkeypress="return filterInput(1, event, false, '.');"/>
+                                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                                 </td>
                             </tr>
                             <tr>
@@ -98,7 +99,8 @@ and open the template in the editor.
                                     <h:outputLabel value="Detalle de uso: " for="detUsoRequisicion" />
                                 </td>
                                 <td colspan="2" style="vertical-align: top;">
-                                    <h:inputTextarea value="#{frmMantTblRequisiciones.tblDetalleReq.detUsoRequisicion}" id="detUsoRequisicion" cols="60"/>
+                                    <h:inputTextarea value="#{frmMantTblRequisiciones.tblDetalleReq.detUsoRequisicion}" id="detUsoRequisicion" cols="60" maxlength="500" onkeypress="return filterInput(2, event, false, ' .,áéíóú()');"/>
+                                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                                 </td>
                                 <td>
                                     <a4j:commandButton value="Guardar" actionListener="#{frmMantTblRequisiciones.agregarDetalleReq}" render="tblDetalleRequisicionesTable, panelMessage, agregarDetallePanelGroup" />

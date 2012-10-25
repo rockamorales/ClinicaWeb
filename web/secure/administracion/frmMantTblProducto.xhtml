@@ -28,6 +28,8 @@ and open the template in the editor.
                     <td align="left">Código:</td>
                     <td align="left"><h:outputText value="#{frmMantTblProducto.tblProducto.numProducto}" style="font-weight: bold"/>
                         <h:inputHidden value="#{frmMantTblProducto.tblProducto.numProducto}" /></td>
+                </tr>
+                <tr>
                     <td align="left">Estado:</td>
                     <td align="left">
                         <h:outputText value="#{frmMantTblProducto.tblProducto.estProducto}" style="font-weight: bold"></h:outputText>
@@ -59,9 +61,9 @@ and open the template in the editor.
                 <tr>
                     <td align="left">Clasificacion de Producto:</td>
                     <td align="left">
-                        <h:selectOneMenu value="#{frmMantTblProducto.tblProducto.codCatProducto}">
+                        <h:selectOneMenu value="#{frmMantTblProducto.tblProducto.codClaProducto}">
                             <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem> 
-                            <f:selectItems value="#{frmMantTblProducto.catCategoriaProductoList}"/>
+                            <f:selectItems value="#{frmMantTblProducto.catClasificacionProductoList}"/>
                         </h:selectOneMenu>
                     </td>
 
@@ -77,8 +79,17 @@ and open the template in the editor.
 
                 </tr>
                 <tr>
-                    <td align="left">Perecedero Producto</td>
-                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.perProducto}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/></td>
+                    <td align="left">Producto Perecedero</td>
+                    <td align="left">
+                        <h:selectBooleanCheckbox value="#{frmMantTblProducto.tblProducto.perProducto}" />
+                    </td>
+                    <td align="left">Reserva de Producto</td>
+                    <td align="left">
+                        <h:selectOneMenu value="#{frmMantTblProducto.tblProducto.resProducto}" >
+                                <f:selectItem itemLabel="Si" itemValue="1" ></f:selectItem>
+                                <f:selectItem itemLabel="No" itemValue="0" ></f:selectItem>
+                            </h:selectOneMenu>
+                        </td>
                     
                 </tr> 
                 <tr>
@@ -86,14 +97,16 @@ and open the template in the editor.
                     <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.conProducto}" maxlength="9" onkeypress="return filterInput(2, event, false, '');"/>
                     <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                     </td>
+                </tr> 
+                <tr>
                     <td align="left">Fabricante del Producto:</td>
-                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.fabProducto}" maxlength="14" onkeypress="return filterInput(1, event, false, '');"/>
+                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.fabProducto}" maxlength="14" onkeypress="return filterInput(2, event, false, ' ,.');"/>
                     <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                     </td>
                 </tr> 
                 <tr>
                     <td align="left">Distribuidor del Producto</td>
-                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.disProducto}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/></td>
+                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.disProducto}" maxlength="8" onkeypress="return filterInput(2, event, false, ' ,.');"/></td>
                 </tr>
                 <tr>
                     <td align="left">Cantidad de Producto a Ingresar</td>
@@ -102,10 +115,6 @@ and open the template in the editor.
                 <tr>
                     <td align="left">Cantidad Minima de Producto en Inventario</td>
                     <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.exiMinProducto}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/></td>
-                </tr>
-                <tr>
-                    <td align="left">Res del Producto</td>
-                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.resProducto}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/></td>
                 </tr>
                 <tr>
                     <td align="left">Valor del Producto</td>
@@ -117,23 +126,23 @@ and open the template in the editor.
                 </tr>
                 <tr>
                     <td align="left">Descripcion del Producto</td>
-                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.desProducto}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/></td>
+                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.desProducto}" maxlength="8" onkeypress="return filterInput(2, event, false, '');"/></td>
                 </tr>
                   <tr>
                         <td align="left">Estado:</td>
                         <td align="left">
                             <h:selectOneMenu value="#{frmMantTblProducto.tblProducto.estProducto}" >
-                                <f:selectItem itemValue="ACTIVO" itemLabel="Activo"/>
-                                <f:selectItem itemValue="INACTIVO" itemLabel="Inactivo"/>
+                                <f:selectItem itemValue="1" itemLabel="ACTIVO"/>
+                                <f:selectItem itemValue="0" itemLabel="INACTIVO"/>
                             </h:selectOneMenu>
                         </td>
+                 </tr>       
+                 <tr>
                         <td align="left">Categoria Producto:</td>
                         <td align="left">
                             <h:selectOneMenu value="#{frmMantTblProducto.tblProducto.codCatProducto}" >
                                 <f:selectItem itemLabel="Seleccionar" itemValue="-1" ></f:selectItem>
-                                <f:selectItem itemLabel="Producto" itemValue="PRODUCTO" ></f:selectItem>
-                                <f:selectItem itemLabel="Servicio" itemValue="SERVICIO" ></f:selectItem>
-                                <f:selectItem itemLabel="Tarjeta" itemValue="TARJETA" ></f:selectItem>
+                                <f:selectItems value="#{frmMantTblProducto.catCategoriaProductoList}"/>                 
                             </h:selectOneMenu>
                             <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                         </td>

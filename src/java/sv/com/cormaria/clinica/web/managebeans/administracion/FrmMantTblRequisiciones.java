@@ -153,8 +153,28 @@ public class FrmMantTblRequisiciones extends PageBase{
         this.tblRequisiciones = tblRequisiciones;
     }
     
+   public boolean validar2(){
+       boolean isValid = true;
+       
+       if (this.getTblRequisiciones().getCodTipRequisicion() == null || this.getTblRequisiciones().getCodTipRequisicion() == -1){
+          isValid = false;
+          this.addError("Porfavor seleccione el tipo de requisición", "Porfavor seleccione el tipo de requisición");
+       } 
+       
+       if (this.getTblRequisiciones().getCodArea() == null || this.getTblRequisiciones().getCodArea() == -1){
+           isValid = false;
+           this.addError("Porfavor seleccione el área", "Porfavor seleccione el área");
+       }
+             
+       return isValid;
+     
+   }    
+    
     public void guardar(ActionEvent ae){
         try{
+           if (!validar2()){
+               return;
+           }              
             if(tblRequisiciones.getNumRequisicion() != null && tblRequisiciones.getNumRequisicion()>0){
                 facade.edit(tblRequisiciones);
             }else{
@@ -174,8 +194,33 @@ public class FrmMantTblRequisiciones extends PageBase{
         }
     }
     
+   public boolean validar(){
+       boolean isValid = true;
+       
+       if (this.getTblDetalleReq().getTblDetalleRequisicionPK().getNumProducto() == null || this.getTblDetalleReq().getTblDetalleRequisicionPK().getNumProducto() == -1){
+          isValid = false;
+          this.addError("Porfavor seleccione el producto", "Porfavor seleccione el producto");
+       } 
+       
+       if (this.getTblDetalleReq().getCanProRequisicion() == 0 || this.getTblDetalleReq().getCanProRequisicion() <= 0){
+           isValid = false;
+           this.addError("Porfavor ingrese la cantidad", "Porfavor ingrese la cantidad");
+       }
+       
+       if (this.getTblDetalleReq().getDetUsoRequisicion() == null || this.getTblDetalleReq().getDetUsoRequisicion().trim().equals("")){
+           isValid = false;
+           this.addError("Porfavor ingrese el detalle del uso de la requisición", "Porfavor ingrese el detalle del uso de la requisición");
+       }
+       
+       return isValid;
+     
+   }    
+    
     public void agregarDetalleReq(ActionEvent ae){
         try{
+           if (!validar()){
+               return;
+           }            
             if (this.getTblDetalleReq().getTblDetalleRequisicionPK().getNumRequisicion()!=null && this.getTblDetalleReq().getTblDetalleRequisicionPK().getNumRequisicion()>0){
                 System.out.println("Edit");
                 this.tblDetalleReq = detalleReqFacade.edit(tblDetalleReq);
