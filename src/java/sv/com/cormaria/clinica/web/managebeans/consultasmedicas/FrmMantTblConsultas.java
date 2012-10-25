@@ -326,17 +326,17 @@ public class FrmMantTblConsultas extends PageBase {
    public boolean validar(){
        boolean isValid = true;
        
-       if (this.getConsulta().getAnaPaciente() == ""){
+       if (this.getConsulta().getAnaPaciente() == null || this.getConsulta().getAnaPaciente().trim().equals("")){
           isValid = false;
           this.addError("Porfavor ingrese la anamnesis del paciente", "Porfavor ingrese la anamnesis del paciente");
        } 
        
-       if (this.getConsulta().getExaFisPaciente() == ""){
+       if (this.getConsulta().getExaFisPaciente() == null || this.getConsulta().getExaFisPaciente().trim().equals("")){
            isValid = false;
            this.addError("Porfavor ingrese los resultados del examen fisico del paciente", "Porfavor ingrese los resultados del examen fisico del paciente");
        }
        
-       if (this.getConsulta().getDiaPaciente() == ""){
+       if (this.getConsulta().getDiaPaciente() == null || this.getConsulta().getDiaPaciente().trim().equals("")){
            isValid = false;
            this.addError("Porfavor ingrese el diagnostico del paciente", "Porfavor ingrese el diagnostico del paciente");
        }
@@ -552,12 +552,12 @@ public class FrmMantTblConsultas extends PageBase {
       public boolean validar2(){
        boolean isValid2 = true;
        
-       if (this.getOrdenLab().getDiaLaboratorio() == ""){
+       if (this.getOrdenLab().getDiaLaboratorio() == null || this.getOrdenLab().getDiaLaboratorio().trim().equals("")){
           isValid2 = false;
           this.addError("Porfavor ingrese el diagnostico del paciente", "Porfavor ingrese el diagnostico del paciente");
        } 
        
-       if (this.getOrdenLab().getIndLaboratorio() == ""){
+       if (this.getOrdenLab().getIndLaboratorio() == null || this.getOrdenLab().getIndLaboratorio().trim().equals("")){
            isValid2 = false;
            this.addError("Porfavor ingrese las indicaciones para el paciente", "Porfavor ingrese las indicaciones para el paciente");
        }
@@ -589,12 +589,12 @@ public class FrmMantTblConsultas extends PageBase {
       public boolean validar3(){
        boolean isValid2 = true;
        
-       if (this.getReferencia().getDiaReferencia() == ""){
+       if (this.getReferencia().getDiaReferencia() == null || this.getReferencia().getDiaReferencia().trim().equals("")){
           isValid2 = false;
           this.addError("Porfavor ingrese el diagnostico de la referencia", "Porfavor ingrese el diagnostico de la referencia");
        } 
        
-       if (this.getReferencia().getMotReferencia() == ""){
+       if (this.getReferencia().getMotReferencia() == null || this.getReferencia().getMotReferencia().trim().equals("")) {
            isValid2 = false;
            this.addError("Porfavor ingrese el motivo de la referencia", "Porfavor ingrese el motivo de la referencia");
        }
@@ -609,7 +609,7 @@ public class FrmMantTblConsultas extends PageBase {
            this.addError("Porfavor seleccione el tipo de especialiad", "Porfavor seleccione el tipo de especialidad");
        }  
        
-       if (this.getReferencia().getRefA() == ""){
+       if (this.getReferencia().getRefA() == null || this.getReferencia().getRefA().trim().equals("")){
            isValid2 = false;
            this.addError("Porfavor ingrese el nombre del medico al que se realiza la referencia", "Porfavor ingrese el nombre del medico al que se realiza la referencia");
        }   
