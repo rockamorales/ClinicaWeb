@@ -24,9 +24,7 @@ import org.richfaces.component.UIDropDownMenu;
 import org.richfaces.component.UIMenuItem;
 import org.richfaces.component.UIMenuSeparator;
 import org.richfaces.component.UIPanel;
-import org.richfaces.component.UIPanelMenu;
 import org.richfaces.component.UIPanelMenuGroup;
-import org.richfaces.component.UIPanelMenuItem;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
 import sv.com.cormaria.clinica.web.managebeans.sessions.ClinicaSessionBean;
 import sv.com.cormaria.servicios.entidades.security.CatMenu;
@@ -59,7 +57,7 @@ public class MenuBean extends PageBase{
     }
 
     public void setCodUsuario(String codUsuario) {
-        System.out.println("Codigo usuario: "+codUsuario);
+        //System.out.println("Codigo usuario: "+codUsuario);
         this.codUsuario = codUsuario;
     }
         
@@ -74,7 +72,6 @@ public class MenuBean extends PageBase{
     public ArrayList<CatMenu> getModulos(){
         if (this.getSessionBean().getUsuario()==null){
             String codUsuario1 = (String)this.getBean("#{request.userPrincipal.name}", String.class);
-            System.out.println("codUsuario: "+codUsuario1);
             if (codUsuario1!=null && !codUsuario1.trim().equals("")){
                 try{
                     TblUsuarios usuario = usuarioSession.findByCodigoUsuarioWithMenu(codUsuario1);

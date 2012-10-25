@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+    <ui:composition 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j"
+      template="/templates/main.xhtml">
+      <ui:define name="title">
+        <h:outputText value="#{messages['default.windowTitle']} -- Corte y liquidacion" escape="false"></h:outputText>
+      </ui:define>
+      <f:metadata>
+         <f:event listener="#{frmMantCorteLiquidacion.init}" type="preRenderView"></f:event>
+      </f:metadata>
+      <ui:define name="body">
+         <h:form id="corteLiquidacionForm">
+             <fieldset>
+                <legend>Corte</legend>
+                <table>
+                    <tr>
+                        <td style="vertical-align:top; border-right: #000066 thin solid; padding-right: 10px;">
+                            <rich:calendar value="#{frmMantCorteLiquidacion.fechaCorte}" id="fechaCorte"
+                                popup="false" datePattern="dd/MM/yyyy" showWeeksBar="true" style="width:200px">
+                                <a4j:ajax event="change" listener="#{frmMantCorteLiquidacion.selectDate}" render="@form, panelMessage"/>
+                            </rich:calendar>
+                        </td>
+                        <td style="vertical-align:top; padding-left: 10px;">
+                            <table>
+                                <a4j:repeat value="#{frmMantCorteLiquidacion.efectivo}" var="efectivo">
+                                  <tr>
+                                      <td>
+                                        <h:outputText value="#{efectivo.catTipPago.nomTipPago}: "/>
+                                      </td>
+                                      <td align="right">
+                                          <h:outputText value="$"/>
+                                      </td>
+                                      <td align="right">
+                                        <h:outputText value="#{efectivo.total}" style="font-weight: bold;">
+                                            <f:convertNumber maxFractionDigits="2" minFractionDigits="2" pattern="#,###,##0.00"/>
+                                        </h:outputText>
+                                      </td>
+                                  </tr>
+                                </a4j:repeat>
+                                  <tr>
+                                      <td>
+                                        <h:outputText value="Total Efectivo: "/>
+                                      </td>
+                                      <td align="right">
+                                          <h:outputText value="$" style="color: darkblue"/>
+                                      </td>
+                                      <td align="right" style="border-top: #000066 thin solid;">
+                                          <h:outputText value="#{frmMantCorteLiquidacion.totalEfectivo}" style="font-weight: bold;color: darkblue">
+                                            <f:convertNumber maxFractionDigits="2" minFractionDigits="2" pattern="#,###,##0.00"/>
+                                        </h:outputText>
+                                      </td>
+                                  </tr>
+                                <tr>
+                                    <td colspan="3" style="border-top: #000066 thin solid;">
+                                    </td>
+                                </tr>
+                                <a4j:repeat value="#{frmMantCorteLiquidacion.cheques}" var="cheque">
+                                  <tr>
+                                      <td>
+                                        <h:outputText value="#{cheque.catTipPago.nomTipPago} -- #{cheque.catBanco.nomBanco}: "/>
+                                      </td>
+                                      <td align="right">
+                                          <h:outputText value="$"/>
+                                      </td>
+                                      <td align="right">
+                                        <h:outputText value="#{cheque.total}" style="font-weight: bold;">
+                                            <f:convertNumber maxFractionDigits="2" minFractionDigits="2" pattern="#,###,##0.00"/>
+                                        </h:outputText>
+                                      </td>
+                                  </tr>
+                                </a4j:repeat>
+                                  <tr>
+                                      <td>
+                                        <h:outputText value="Total Cheque: "/>
+                                      </td>
+                                      <td align="right">
+                                          <h:outputText value="$" style="color: darkblue;"/>
+                                      </td>
+                                      <td align="right" style="border-top: #000066 thin solid;">
+                                          <h:outputText value="#{frmMantCorteLiquidacion.totalCheque}" style="font-weight: bold;color: darkblue;" >
+                                            <f:convertNumber maxFractionDigits="2" minFractionDigits="2" pattern="#,###,##0.00"/>
+                                        </h:outputText>
+                                      </td>
+                                  </tr>
+                                <tr>
+                                    <td colspan="3" style="border-top: #000066 thin solid;">
+                                    </td>
+                                </tr>
+                                  <tr>
+                                      <td>
+                                        <h:outputText value="Total: "/>
+                                      </td>
+                                      <td align="right">
+                                          <h:outputText value="$" style="color: blue"/>
+                                      </td>
+                                      <td align="right" style="border-top: #000066 thin double;">
+                                          <h:outputText value="#{frmMantCorteLiquidacion.total}" style="font-weight: bold; color: blue;">
+                                            <f:convertNumber maxFractionDigits="2" minFractionDigits="2" pattern="#,###,##0.00"/>
+                                        </h:outputText>
+                                      </td>
+                                  </tr>
+                            </table>
+                         </td>
+                    </tr>
+               </table>
+            </fieldset>
+             <fieldset>
+                 <legend>Liquidacion</legend>
+                 <h:panelGroup id="liquidacionPanelGroup">
+                    <table>
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Num. Liquidacion:" for="numLiquidacion"></h:outputLabel>
+                            </td>
+                            <td>
+                                <h:outputText value="#{frmMantCorteLiquidacion.liquidacion.numLiquidacion}" id="numLiquidacion">
+                               </h:outputText>
+                            </td>
+                            <td>
+                                <h:outputLabel value="Fecha Liquidacion: " for="fecLiquidacion"></h:outputLabel>
+                            </td>
+                            <td>
+                                <h:outputText value="#{frmMantCorteLiquidacion.liquidacion.fecLiquidacion}" id="fecLiquidacion">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Billetes de $1:" for="canBil1"></h:outputLabel>
+                            </td>
+                            <td>
+                                <h:outputText value="#{frmMantCorteLiquidacion.liquidacion.canBil1}" id="canBil1" style="text-align: right;font-weight: bold;">
+                                </h:outputText>
+                            </td>
+                            <td>
+                                <h:outputLabel value="Billetes de $5: " for="canBil5"></h:outputLabel>
+                            </td>
+                            <td>
+                                <h:outputText value="#{frmMantCorteLiquidacion.liquidacion.canBil5}" id="canBil5" style="text-align: right;font-weight: bold;">
+                                </h:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Billetes de $10:" for="canBil10"></h:outputLabel>
+                            </td>
+                            <td>
+                                <h:outputText value="#{frmMantCorteLiquidacion.liquidacion.canBil10}" id="canBil10" style="text-align: right;font-weight: bold;">
+                                </h:outputText>
+                            </td>
+                            <td>
+                                <h:outputLabel value="Billetes de $20:" for="canBil20"></h:outputLabel>
+                            </td>
+                            <td>
+                                <h:outputText value="#{frmMantCorteLiquidacion.liquidacion.canBil20}" id="canBil20" style="text-align: right;font-weight: bold;">
+                                </h:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Billetes de $50: " for="canBil50"></h:outputLabel>
+                            </td>
+                            <td>
+                                <h:outputText value="#{frmMantCorteLiquidacion.liquidacion.canBil50}" id="canBil50" style="text-align: right;font-weight: bold;">
+                                </h:outputText>
+                            </td>
+                            <td>
+                                <h:outputLabel value="Billetes de $100: " for="canBil100"></h:outputLabel>
+                            </td>
+                            <td>
+                                <h:outputText value="#{frmMantCorteLiquidacion.liquidacion.canBil100}" id="canBil100" style="text-align: right; font-weight: bold;">
+                                </h:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Monto en monedas: " for="monMoneda"></h:outputLabel>
+                            </td>
+                            <td>
+                                <h:outputText value="#{frmMantCorteLiquidacion.liquidacion.monMoneda}" id="monMoneda" style="text-align: right; font-weight: bold;">
+                                </h:outputText>
+                            </td>
+                            <td>
+                                <h:outputLabel value="Total Efectivo: "></h:outputLabel>
+                            </td>
+                            <td>
+                                <h:outputText value="#{frmMantCorteLiquidacion.liquidacion.totEfectivo}" style="text-align: right; font-weight: bold; color: blue;" id="totEfectivo">
+                                    <f:convertNumber pattern="#,###,##0.00" />
+                                </h:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Total cheque: " for="totCheques"></h:outputLabel>
+                            </td>
+                            <td colspan="3">
+                                <h:outputText value="#{frmMantCorteLiquidacion.liquidacion.totCheques}" id="totCheques" style="text-align: right;font-weight: bold;">
+                                    <f:convertNumber pattern="#,###,##0.00" />
+                                </h:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Sobrante: " for="canSobrante"></h:outputLabel>
+                            </td>
+                            <td>
+                                <h:outputText value="#{frmMantCorteLiquidacion.liquidacion.canSobrante}" id="canSobrante" style="text-align: right;font-weight: bold; color: red;">
+                                    <f:convertNumber pattern="#,###,##0.00" />
+                                </h:outputText>
+                            </td>
+                            <td>
+                                <h:outputLabel value="Faltante: " for="canFaltante"></h:outputLabel>
+                            </td>
+                            <td>
+                                <h:outputText value="#{frmMantCorteLiquidacion.liquidacion.canFaltante}" id="canFaltante" style="text-align: right;font-weight: bold; color: red;">
+                                    <f:convertNumber pattern="#,###,##0.00" />
+                                </h:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Observaciones: " for="obsLiquidacion"></h:outputLabel>
+                            </td>
+                            <td colspan="3">
+                                <h:outputText value="#{frmMantCorteLiquidacion.liquidacion.obsLiquidacion}" id="obsLiquidacion"></h:outputText>
+                            </td>
+                        </tr>
+                    </table>
+                 </h:panelGroup>
+             </fieldset>
+         </h:form>
+    </ui:define>
+    </ui:composition>

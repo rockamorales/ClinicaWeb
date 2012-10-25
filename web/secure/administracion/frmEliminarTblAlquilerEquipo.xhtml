@@ -101,7 +101,7 @@ and open the template in the editor.
                     <a4j:commandLink actionListener="#{frmTblAlquilerEquipo.delete}" render="tblAlquilerTable" onclick="if(!confirm('Esta seguro que desea eliminar el Registro: #{tblAlquiler.numSolAlquiler}')){return false;}">
                         <h:graphicImage url="/img/icons/delete.gif"/>
                     </a4j:commandLink>
-                </h:column>              
+                </h:column>
                 <h:column>
                     <h:outputLink value="frmViewEliminarTblAlquilerEquipo.jsf">
                         <f:param name="numSolAlquiler" value="#{tblAlquiler.numSolAlquiler}"/>

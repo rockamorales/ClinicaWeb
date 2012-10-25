@@ -9,6 +9,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
@@ -38,12 +39,10 @@ import sv.com.cormaria.servicios.facades.administracion.TblProductoFacadeLocal;
  * @author Mackk
  */
 @ManagedBean (name = "frmMantTblComprobanteDonacion")
-@RequestScoped
+@ViewScoped
 public class FrmMantTblComprobanteDonacion extends PageBase{
-    @ManagedProperty(value="#{tblComprobanteDonacionForm}")
-    private TblComprobanteDonacionForm tblComprobanteDonacion;
-    @ManagedProperty(value="#{tblDetalleComprobanteDonacionForm}")
-    private TblDetalleComprobanteDonacionForm tblDetalleComprobanteDonacion;    
+    private TblComprobanteDonacion tblComprobanteDonacion = new TblComprobanteDonacion();
+    private TblDetalleComprobanteDonacion tblDetalleComprobanteDonacion = new TblDetalleComprobanteDonacion();    
     @EJB
     private transient TblComprobanteDonacionFacadeLocal facade;
     @EJB
@@ -60,7 +59,6 @@ public class FrmMantTblComprobanteDonacion extends PageBase{
     private TblDetalleComprobanteDonacionFacadeLocal cblDetalleComprobanteDonacionFacade;  
     @EJB
     private TblProductoFacadeLocal productoFacade;
-    @ManagedProperty(value ="#{param.numComDonacion}")
     private Integer numComDonacion;
     private List<SelectItem> catTipoDonacionList = new ArrayList<SelectItem>();
     private List<SelectItem> catTipoDonanteList = new ArrayList<SelectItem>();
@@ -70,12 +68,27 @@ public class FrmMantTblComprobanteDonacion extends PageBase{
     private List<TblDetalleComprobanteDonacion> cblDetalleComprobanteDonacionList= new ArrayList<TblDetalleComprobanteDonacion>();
     private List<SelectItem> tblProductoList = new ArrayList<SelectItem>();
 
+    public TblComprobanteDonacion getTblComprobanteDonacion() {
+        return tblComprobanteDonacion;
+    }
+
+    public void setTblComprobanteDonacion(TblComprobanteDonacion tblComprobanteDonacion) {
+        this.tblComprobanteDonacion = tblComprobanteDonacion;
+    }
+
+    public TblDetalleComprobanteDonacion getTblDetalleComprobanteDonacion() {
+        return tblDetalleComprobanteDonacion;
+    }
+
+    public void setTblDetalleComprobanteDonacion(TblDetalleComprobanteDonacion tblDetalleComprobanteDonacion) {
+        this.tblDetalleComprobanteDonacion = tblDetalleComprobanteDonacion;
+    }
+    
     public List<TblDetalleComprobanteDonacion> getCblDetalleComprobanteDonacionList() {
         if (cblDetalleComprobanteDonacionList.isEmpty()){
           try{
-              System.out.println("Numero Donacion : " + tblComprobanteDonacion.getTblComprobanteDonacion().getNumComDonacion());
-              if(tblComprobanteDonacion.getTblComprobanteDonacion().getNumComDonacion() != null){
-                cblDetalleComprobanteDonacionList = cblDetalleComprobanteDonacionFacade.findByComprobanteDonacion(tblComprobanteDonacion.getTblComprobanteDonacion().getNumComDonacion());
+              if(tblComprobanteDonacion.getNumComDonacion() != null){
+                cblDetalleComprobanteDonacionList = cblDetalleComprobanteDonacionFacade.findByComprobanteDonacion(tblComprobanteDonacion.getNumComDonacion());
               }
           }catch(Exception x) {
               x.printStackTrace();
@@ -86,24 +99,6 @@ public class FrmMantTblComprobanteDonacion extends PageBase{
 
     public void setCblDetalleComprobanteDonacionList(List<TblDetalleComprobanteDonacion> cblDetalleComprobanteDonacionList) {
         this.cblDetalleComprobanteDonacionList = cblDetalleComprobanteDonacionList;
-    }
-
-    public TblDetalleComprobanteDonacionForm getTblDetalleComprobanteDonacion() {
-        return tblDetalleComprobanteDonacion;
-    }
-
-    public void setTblDetalleComprobanteDonacion(TblDetalleComprobanteDonacionForm tblDetalleComprobanteDonacion) {
-        this.tblDetalleComprobanteDonacion = tblDetalleComprobanteDonacion;
-    }
-    
-
-    
-    public TblComprobanteDonacionForm getTblComprobanteDonacion() {
-        return tblComprobanteDonacion;
-    }
-
-    public void setTblComprobanteDonacion(TblComprobanteDonacionForm tblComprobanteDonacion) {
-        this.tblComprobanteDonacion = tblComprobanteDonacion;
     }
 
     public List<SelectItem> getTblProductoList() {
@@ -225,23 +220,16 @@ public class FrmMantTblComprobanteDonacion extends PageBase{
     }
 
     public void setNumComDonacion(Integer numComDonacion) {
-        if(numComDonacion != null){
-            try{
-            tblComprobanteDonacion.setTblComprobanteDonacion(facade.find(numComDonacion));
-            }catch(Exception x){
-                x.printStackTrace();
-            }
-        }
         this.numComDonacion = numComDonacion;
     }
         
     public void guardar(ActionEvent ae){
         try{
-            if(tblComprobanteDonacion.getTblComprobanteDonacion().getNumComDonacion() != null){
-                facade.edit(tblComprobanteDonacion.getTblComprobanteDonacion());
+            if(tblComprobanteDonacion.getNumComDonacion() != null){
+                facade.edit(tblComprobanteDonacion);
             }else{
-                tblComprobanteDonacion.getTblComprobanteDonacion().setEstComDonacion(EstadoComprobanteDonacion.EMITIDO);
-                facade.create(tblComprobanteDonacion.getTblComprobanteDonacion());
+                tblComprobanteDonacion.setEstComDonacion(EstadoComprobanteDonacion.EMITIDO);
+                facade.create(tblComprobanteDonacion);
             }
         }catch(Exception x){
             x.printStackTrace();
@@ -249,14 +237,14 @@ public class FrmMantTblComprobanteDonacion extends PageBase{
         }
     }
     public void nuevo(ActionEvent ae){
-        this.tblComprobanteDonacion.setTblComprobanteDonacion(new TblComprobanteDonacion());
+        this.tblComprobanteDonacion = new TblComprobanteDonacion();
     }
     
         
     public void recibirPago(ActionEvent rp){
         try{
-            tblComprobanteDonacion.getTblComprobanteDonacion().setEstComDonacion(EstadoComprobanteDonacion.PAGADO);
-            facade.recibirPago(tblComprobanteDonacion.getTblComprobanteDonacion());
+            tblComprobanteDonacion.setEstComDonacion(EstadoComprobanteDonacion.PAGADO);
+            facade.recibirPago(tblComprobanteDonacion);
 
         }catch(Exception x){
             x.printStackTrace();
@@ -276,14 +264,15 @@ public class FrmMantTblComprobanteDonacion extends PageBase{
     
     public void agregar(ActionEvent ae){
         try{
-            if (!validate(tblDetalleComprobanteDonacion.getTblDetalleComprobanteDonacion())){
+            if (!validate(tblDetalleComprobanteDonacion)){
                 return;
             }
-            tblDetalleComprobanteDonacion.getTblDetalleComprobanteDonacion().setTotIteComDonacion(tblDetalleComprobanteDonacion.getTblDetalleComprobanteDonacion().getPreUniComDonacion()*tblDetalleComprobanteDonacion.getTblDetalleComprobanteDonacion().getCanProComDonacion());
-            cblDetalleComprobanteDonacionFacade.create(tblDetalleComprobanteDonacion.getTblDetalleComprobanteDonacion());
-            tblDetalleComprobanteDonacion.setTblDetalleComprobanteDonacion(new TblDetalleComprobanteDonacion());
+            tblDetalleComprobanteDonacion.getTblDetalleComprobanteDonacionPK().setNumComDonacion(tblComprobanteDonacion.getNumComDonacion());
+            tblDetalleComprobanteDonacion.setTotIteComDonacion(tblDetalleComprobanteDonacion.getPreUniComDonacion()*tblDetalleComprobanteDonacion.getCanProComDonacion());
+            cblDetalleComprobanteDonacionFacade.create(tblDetalleComprobanteDonacion);
+            tblDetalleComprobanteDonacion = new TblDetalleComprobanteDonacion();
             this.getCblDetalleComprobanteDonacionList().clear();
-            tblComprobanteDonacion.setTblComprobanteDonacion(facade.find(tblComprobanteDonacion.getTblComprobanteDonacion().getNumComDonacion()));
+            tblComprobanteDonacion = facade.find(tblComprobanteDonacion.getNumComDonacion());
             this.addInfo("El producto fue agregado exitosamente", "El producto fue agregado exitosamente");
         }catch(Exception x){
             x.printStackTrace();
@@ -292,23 +281,20 @@ public class FrmMantTblComprobanteDonacion extends PageBase{
     }
     
     public void seleccionarProducto(TblProducto producto){
-        System.out.println("Producto: "+producto);
         if (producto!=null){
-            System.out.println("Producto: "+producto.getNomProducto());
-            tblDetalleComprobanteDonacion.getTblDetalleComprobanteDonacion().setTblDetalleComprobanteDonacionPK(new TblDetalleComprobanteDonacionPK(this.tblComprobanteDonacion.getTblComprobanteDonacion().getNumComDonacion(), producto.getNumProducto()));
-            tblDetalleComprobanteDonacion.getTblDetalleComprobanteDonacion().setPreUniComDonacion(producto.getPreFinProducto());
-            tblDetalleComprobanteDonacion.getTblDetalleComprobanteDonacion().setPresentacion(producto.getCatPresentacionProducto().getNomPreProducto());
+            tblDetalleComprobanteDonacion.setTblDetalleComprobanteDonacionPK(new TblDetalleComprobanteDonacionPK(this.tblComprobanteDonacion.getNumComDonacion(), producto.getNumProducto()));
+            tblDetalleComprobanteDonacion.setPreUniComDonacion(producto.getPreFinProducto());
+            tblDetalleComprobanteDonacion.setPresentacion(producto.getCatPresentacionProducto().getNomPreProducto());
         }
     }
     public void seleccionarProducto(ValueChangeEvent v){
         try{
         TblProducto producto = productoFacade.find((Integer)v.getNewValue());
         if (producto!=null){
-            System.out.println("Producto: "+producto.getNomProducto());
-            tblDetalleComprobanteDonacion.getTblDetalleComprobanteDonacion().setTblDetalleComprobanteDonacionPK(new TblDetalleComprobanteDonacionPK(this.tblComprobanteDonacion.getTblComprobanteDonacion().getNumComDonacion(), producto.getNumProducto()));
-            tblDetalleComprobanteDonacion.getTblDetalleComprobanteDonacion().setPreUniComDonacion(producto.getPreFinProducto());
-            tblDetalleComprobanteDonacion.getTblDetalleComprobanteDonacion().setTotIteComDonacion(producto.getPreFinProducto()*tblDetalleComprobanteDonacion.getTblDetalleComprobanteDonacion().getCanProComDonacion());
-            tblDetalleComprobanteDonacion.getTblDetalleComprobanteDonacion().setPresentacion(producto.getCatPresentacionProducto().getNomPreProducto());
+            tblDetalleComprobanteDonacion.setTblDetalleComprobanteDonacionPK(new TblDetalleComprobanteDonacionPK(this.tblComprobanteDonacion.getNumComDonacion(), producto.getNumProducto()));
+            tblDetalleComprobanteDonacion.setPreUniComDonacion(producto.getPreFinProducto());
+            tblDetalleComprobanteDonacion.setTotIteComDonacion(producto.getPreFinProducto()*tblDetalleComprobanteDonacion.getCanProComDonacion());
+            tblDetalleComprobanteDonacion.setPresentacion(producto.getCatPresentacionProducto().getNomPreProducto());
         }   
         }catch(Exception ex){
             ex.printStackTrace();
@@ -321,7 +307,7 @@ public class FrmMantTblComprobanteDonacion extends PageBase{
             TblDetalleComprobanteDonacion tblDetalleComprobanteDonacion1 = (TblDetalleComprobanteDonacion) table.getRowData();
             cblDetalleComprobanteDonacionFacade.remove(tblDetalleComprobanteDonacion1);
             cblDetalleComprobanteDonacionList.clear();
-            tblComprobanteDonacion.setTblComprobanteDonacion(facade.find(tblComprobanteDonacion.getTblComprobanteDonacion().getNumComDonacion()));            
+            tblComprobanteDonacion = facade.find(tblComprobanteDonacion.getNumComDonacion());
         }catch(Exception x){
             x.printStackTrace();
             this.addError(x.getMessage(), x.getMessage());
@@ -335,5 +321,20 @@ public class FrmMantTblComprobanteDonacion extends PageBase{
             validationOk = false;   
         }
         return validationOk;
+    }
+    
+    public void init(){
+        if (this.getNumComDonacion()!=null && this.getNumComDonacion() > 0 && (tblComprobanteDonacion.getNumComDonacion()==null || tblComprobanteDonacion.getNumComDonacion()<=0)){
+            try{
+                tblComprobanteDonacion = facade.find(this.getNumComDonacion());
+                this.getCblDetalleComprobanteDonacionList().clear();
+            }catch(Exception ex){
+                this.addError(ex.getMessage(), ex.getMessage());
+            }
+        }
+    }
+    
+    public void changeTipoPago(){
+        System.out.println("Changing tipo pago.....");
     }
 }
