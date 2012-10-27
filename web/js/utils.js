@@ -3,6 +3,8 @@
  * and open the template in the editor.
  */
 
+
+
 function FormatNumber(num,decimalNum,bolLeadingZero,bolParens,bolCommas)
 /**********************************************************************
 	IN:
@@ -15,6 +17,8 @@ function FormatNumber(num,decimalNum,bolLeadingZero,bolParens,bolCommas)
 
 	RETVAL:
 		The formatted number!
+
+xxxxxx
  **********************************************************************/
 {
         if (isNaN(parseInt(num))) return "NaN";
