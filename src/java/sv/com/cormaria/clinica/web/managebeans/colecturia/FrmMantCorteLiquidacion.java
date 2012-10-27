@@ -119,6 +119,12 @@ public class FrmMantCorteLiquidacion extends PageBase{
                 liquidacion = tblLiquidacionLocal.findByDate(fechaCorte);
                 if (liquidacion==null){
                     liquidacion = new TblLiquidacion();
+                    liquidacion.setCanBil1(0);
+                    liquidacion.setCanBil5(0);
+                    liquidacion.setCanBil10(0);
+                    liquidacion.setCanBil20(0);
+                    liquidacion.setCanBil50(0);
+                    liquidacion.setCanBil100(0);                    
                 }
                 liquidacion.setTotCorte(getTotal());
             }
