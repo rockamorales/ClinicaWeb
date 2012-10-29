@@ -23,6 +23,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
 
 /**
  *
@@ -45,7 +51,7 @@ public class ReportServlet extends HttpServlet {
             throws ServletException, IOException {
         //response.setContentType(CONTENT_TYPE);
         ServletOutputStream ouputStream = response.getOutputStream();
-/*        String reportFileName = (String)request.getParameter("rptFileName");
+        String reportFileName = (String)request.getParameter("rptFileName");
         String docType = (String)request.getParameter("docType");
         String all = (String)request.getParameter("todos");
 
@@ -60,8 +66,8 @@ public class ReportServlet extends HttpServlet {
         Connection conexion = null;
         try {
             Context init = new InitialContext();
-            Context context = (Context) init.lookup("java:");
-            DataSource dataSource = (DataSource) context.lookup("jdbc/clinicaDS");
+            //Context context = (Context) init.lookup("java:");
+            DataSource dataSource = (DataSource) init.lookup("jdbc/clinicaDS");
             conexion = dataSource.getConnection();
             File reportFile = new File(request.getSession().getServletContext().
                                        getRealPath(reportFileName));
@@ -106,7 +112,7 @@ public class ReportServlet extends HttpServlet {
                                       conexion, request, fileName[fileName.length-1]);
                     response.setContentType("text/html");
                     response.setContentLength(bytes.length);
-                    //response.setHeader("Content-Disposition", "attachment; filename=\""+fileName[0]+"\";");
+                    response.setHeader("Content-Disposition", "attachment; filename=\""+fileName[0]+"\";");
 
                     System.out.println("response: " + response==null);
                     //ServletOutputStream ouputStream = response.getOutputStream();
@@ -118,8 +124,8 @@ public class ReportServlet extends HttpServlet {
                 conexion.close();
               }
             }
-        } catch (JRException ex) {
-            ex.printStackTrace();
+        }catch(JRException jr){
+            jr.printStackTrace();
         } catch (SQLException ex) {
             ex.printStackTrace();
         } catch (NamingException ex) {
@@ -135,15 +141,15 @@ public class ReportServlet extends HttpServlet {
           catch (SQLException ex1) {
             ex1.printStackTrace();
           }
-        }*/
+        }
         ouputStream.flush();
         ouputStream.close();
     }
     
-/*    public HashMap proccessParameters(HttpServletRequest request){
+    public HashMap proccessParameters(HttpServletRequest request){
         HashMap parameters = new HashMap();
         Enumeration pageParams = request.getParameterNames();
-        String paramsName = null;
+        String paramsName;
         while (pageParams.hasMoreElements()){
             paramsName = (String)pageParams.nextElement();
             System.out.println("Nombre del parametro: " + paramsName);
@@ -215,7 +221,7 @@ public class ReportServlet extends HttpServlet {
             ex.printStackTrace();
             return null;
         }
-    }*/
+    }
     
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

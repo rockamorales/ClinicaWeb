@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report6" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="944c28f2-c415-4332-addf-c003b02f055b">
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     tbl_usuarios.`NUM_USUARIO` AS tbl_usuarios_NUM_USUARIO,
+     tbl_usuarios.`ALI_USUARIO` AS tbl_usuarios_ALI_USUARIO,
+     tbl_usuarios.`CON_USUARIO` AS tbl_usuarios_CON_USUARIO,
+     tbl_usuarios.`NOM_USUARIO` AS tbl_usuarios_NOM_USUARIO,
+     tbl_usuarios.`CRE_POR` AS tbl_usuarios_CRE_POR,
+     tbl_usuarios.`FEC_CRECION` AS tbl_usuarios_FEC_CRECION,
+     tbl_usuarios.`FEC_DESACTIVACION` AS tbl_usuarios_FEC_DESACTIVACION,
+     tbl_usuarios.`FEC_EXPIRACION` AS tbl_usuarios_FEC_EXPIRACION,
+     tbl_usuarios.`FEC_MODIFICACION` AS tbl_usuarios_FEC_MODIFICACION,
+     tbl_usuarios.`FEC_ULT_CAM_CONTRASENA` AS tbl_usuarios_FEC_ULT_CAM_CONTRASENA,
+     tbl_usuarios.`MOD_POR` AS tbl_usuarios_MOD_POR,
+     tbl_usuarios.`ULT_FEC_FIN_SESION` AS tbl_usuarios_ULT_FEC_FIN_SESION,
+     tbl_usuarios.`ULT_FEC_INI_SESION` AS tbl_usuarios_ULT_FEC_INI_SESION,
+     tbl_usuarios.`EST_USUARIO` AS tbl_usuarios_EST_USUARIO,
+     tbl_usuarios.`NUM_EMPLEADO` AS tbl_usuarios_NUM_EMPLEADO,
+     tbl_usuarios.`NUM_MEDICO` AS tbl_usuarios_NUM_MEDICO
+FROM
+     `tbl_usuarios` tbl_usuarios]]>
+	</queryString>
+	<field name="tbl_usuarios_NUM_USUARIO" class="java.lang.Integer"/>
+	<field name="tbl_usuarios_ALI_USUARIO" class="java.lang.String"/>
+	<field name="tbl_usuarios_CON_USUARIO" class="java.lang.String"/>
+	<field name="tbl_usuarios_NOM_USUARIO" class="java.lang.String"/>
+	<field name="tbl_usuarios_CRE_POR" class="java.lang.String"/>
+	<field name="tbl_usuarios_FEC_CRECION" class="java.sql.Timestamp"/>
+	<field name="tbl_usuarios_FEC_DESACTIVACION" class="java.sql.Timestamp"/>
+	<field name="tbl_usuarios_FEC_EXPIRACION" class="java.sql.Timestamp"/>
+	<field name="tbl_usuarios_FEC_MODIFICACION" class="java.sql.Timestamp"/>
+	<field name="tbl_usuarios_FEC_ULT_CAM_CONTRASENA" class="java.sql.Timestamp"/>
+	<field name="tbl_usuarios_MOD_POR" class="java.lang.String"/>
+	<field name="tbl_usuarios_ULT_FEC_FIN_SESION" class="java.sql.Timestamp"/>
+	<field name="tbl_usuarios_ULT_FEC_INI_SESION" class="java.sql.Timestamp"/>
+	<field name="tbl_usuarios_EST_USUARIO" class="java.lang.Integer"/>
+	<field name="tbl_usuarios_NUM_EMPLEADO" class="java.lang.Integer"/>
+	<field name="tbl_usuarios_NUM_MEDICO" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
