@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <ui:composition template="/templates/main.xhtml">
+        <f:metadata>
+            <f:viewParam name="numComDonacion" value="#{frmMantAnulacionTblComprobanteDonacion.numComDonacion}"/>
+            <f:event listener="#{frmMantAnulacionTblComprobanteDonacion.init}" type="preRenderView"></f:event>
+	</f:metadata>
+        <ui:define name="title">
+          <h:outputText value="#{messages['default.windowTitle']}--Comprobante de Donación" escape="false"></h:outputText>  
+        </ui:define>
+
+        <ui:define name="body">
+          <h:form>
+                <h3>Anulacion de Comprobante de Donación</h3>
+                <hr></hr>
+                    <table border="0">
+                        <tr>
+                            <td align="left">Comprobante:</td>
+                            <td align="left">
+                                <h:outputText value="#{frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.numComDonacion}" style="font-weight: bold"/>
+                                <h:inputHidden value="#{frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.numComDonacion}" />
+                            </td>
+                            <td align="left">Estado:</td>
+                            <td align="left">
+                                <h:outputText value="#{frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.estComDonacion}" style="font-weight: bold"></h:outputText>
+                            </td>                         
+                        </tr>
+                        <tr>
+                            <td align="left">Nombre:</td>
+                            <td colspan="3" align="left">
+                                <h:inputText value="#{frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.nomComDonacion}" size="63" disabled="#{frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.estComDonacion != 'EMITIDO' and frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.numComDonacion != null}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">NIT:</td>
+                            <td align="left"><h:inputText value="#{frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.nitComDonacion}" disabled="#{frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.estComDonacion != 'EMITIDO' and frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.numComDonacion != null}"/></td>
+                            <td align="left">Fecha:</td>
+                            <td align="left"><rich:calendar value="#{frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.fecComDonacion}" datePattern="dd/MM/yyyy" enableManualInput="true" disabled="#{frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.estComDonacion != 'EMITIDO' and frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.numComDonacion != null}"/></td>
+                        </tr>  
+                        <tr>
+                            <td align="left">Tipo donacion:</td>
+                            <td align="left">
+                                <h:selectOneMenu value="#{frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.codTipDonacion}" disabled="#{frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.estComDonacion != 'EMITIDO' and frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.numComDonacion != null}">
+                                    <f:selectItems value="#{frmMantAnulacionTblComprobanteDonacion.catTipoDonacionList}"/>
+                                </h:selectOneMenu>
+                            </td>
+                            <td align="left">Tipo Donante:</td>
+                            <td align="left">
+                                <h:selectOneMenu value="#{frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.codTipDonante}" style="width: 130px" disabled="#{frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.estComDonacion != 'EMITIDO' and frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.numComDonacion != null}">
+                                    <f:selectItems value="#{frmMantAnulacionTblComprobanteDonacion.catTipoDonanteList}"/>
+                                </h:selectOneMenu>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">Fundacion:</td>
+                            <td colspan="3" align="left">
+                                <h:selectOneMenu value="#{frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.codCarisma}" style="width: 300px" disabled="#{frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.estComDonacion != 'EMITIDO' and frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.numComDonacion != null}">
+                                    <f:selectItems value="#{frmMantAnulacionTblComprobanteDonacion.catCarismaList}"/>
+                                </h:selectOneMenu>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">Total:</td>
+                            <td align="left"><h:outputText value="#{frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.totDonacion}" style="font-weight: bold"/></td>
+                        </tr>
+                        <tr>
+                            <td align="left">En letras:</td>
+                            <td colspan="3" align="left"><h:inputText value="#{frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.canLetras}" size="63" disabled="#{frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.estComDonacion != 'EMITIDO' and frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.numComDonacion != null}"/></td>
+                        </tr>
+                          <tr>
+                              <td colspan="4" align="center">
+                                  <a4j:commandButton value="Anular" actionListener="#{frmMantAnulacionTblComprobanteDonacion.anularComprobante}" render="@form, panelMessage" rendered="#{frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.estComDonacion != 'ANULADO'}" />
+                                  <a4j:commandButton value="Regresar" action="frmAnulacionTblComprobanteDonacion.jsf?faces-redirect=true" immediate="true"/>
+                              </td>
+                          </tr>
+                      </table>
+                <hr/>
+                <h:panelGroup rendered="#{frmMantAnulacionTblComprobanteDonacion.tblComprobanteDonacion.numComDonacion != null}">
+                        <h3>Detalle del Comprobante de Donacion</h3>                    
+                    <rich:dataTable value="#{frmMantAnulacionTblComprobanteDonacion.cblDetalleComprobanteDonacionList}" var="tblDetalleComprobanteDonacion" rows="10" id="tblDetalleComprobanteDonacionTable">
+                        <f:facet name="header">
+                            <rich:columnGroup>
+                              <h:column>
+                                <h:outputText value="Correlativo"/>
+                              </h:column>
+                              <h:column>
+                                <h:outputText value="Producto"/>
+                              </h:column>                    
+                              <h:column>
+                                <h:outputText value="Cantidad"/>
+                              </h:column>   
+                              <h:column>
+                                <h:outputText value="Precio Unitario"/>
+                              </h:column> 
+                              <h:column>
+                                <h:outputText value="Total"/>
+                              </h:column>                     
+                            </rich:columnGroup>
+                          </f:facet>
+                        <h:column>
+                            <h:outputText value="#{tblDetalleComprobanteDonacion.corDetComDonacion}">   
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{tblDetalleComprobanteDonacion.tblProducto.nomProducto}">
+                            </h:outputText>
+                        </h:column>                 
+                        <h:column>
+                            <h:outputText value="#{tblDetalleComprobanteDonacion.canProComDonacion}">
+                            </h:outputText>
+                        </h:column> 
+                        <h:column>
+                            <h:outputText value="&#36; #{tblDetalleComprobanteDonacion.preUniComDonacion}">
+                            </h:outputText>
+                        </h:column>                        
+                        <h:column>
+                            <h:outputText value="&#36; #{tblDetalleComprobanteDonacion.totIteComDonacion}">
+                            </h:outputText>
+                        </h:column>                     
+                    </rich:dataTable>
+                </h:panelGroup>               
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
