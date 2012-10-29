@@ -54,6 +54,23 @@ public class ReportServlet extends HttpServlet {
         String reportFileName = (String)request.getParameter("rptFileName");
         String docType = (String)request.getParameter("docType");
         String all = (String)request.getParameter("todos");
+        Enumeration pageParams = request.getParameterNames();
+        String paramsName;
+        System.out.println("Parametro: "+(String)request.getParameter("frmUsuariosMant:rptFileName"));
+        while (pageParams.hasMoreElements()){
+            paramsName = (String)pageParams.nextElement();
+            System.out.println("Parametro"+paramsName);
+            if (paramsName.contains("rptFileName")){
+                reportFileName = request.getParameter(paramsName);
+            }
+            if (paramsName.contains("docType")){
+                docType = request.getParameter(paramsName);
+            }
+            if (paramsName.contains("all")){
+                all = request.getParameter(paramsName);
+            }
+        }
+        
 
         //PrintWriter out = response.getWriter();
         //String fileName = request.getSession().getServletContext().getRealPath("/reportes/");
@@ -87,7 +104,7 @@ public class ReportServlet extends HttpServlet {
                                       conexion);
                 response.setContentType("application/pdf");
                 response.setContentLength(bytes.length);
-               // response.setHeader("Content-Disposition", "attachment; filename=\""+fileName[fileName.length-1]+"\";");
+                response.setHeader("Content-Disposition", "attachment; filename=\""+fileName[fileName.length-1]+"\";");
 
                 System.out.println("response: " + response==null);
                 System.out.println("response: " + response==null);
@@ -98,7 +115,7 @@ public class ReportServlet extends HttpServlet {
                                       conexion, request, fileName[fileName.length-1]);
                 response.setContentType("application/vnd.ms-excel");
                 response.setContentLength(bytes.length);
-                //response.setHeader("Content-Disposition", "attachment; filename=\""+fileName[fileName.length-1]+"\";");
+                response.setHeader("Content-Disposition", "attachment; filename=\""+fileName[fileName.length-1]+"\";");
 
                 System.out.println("response: " + response==null);
                 //ServletOutputStream ouputStream = response.getOutputStream();
@@ -155,7 +172,7 @@ public class ReportServlet extends HttpServlet {
             System.out.println("Nombre del parametro: " + paramsName);
             System.out.println("Valor del parametro: " +
                                    request.getParameter(paramsName));
-            if (!paramsName.equalsIgnoreCase("rptFileName") && !paramsName.equalsIgnoreCase("docType") && !paramsName.equalsIgnoreCase("todos")){
+            if (!paramsName.equalsIgnoreCase("rptFileName") && !paramsName.equalsIgnoreCase("docType") && !paramsName.equalsIgnoreCase("todos") && !paramsName.equalsIgnoreCase("faces-redirect")){
                 System.out.println("Nombre del parametro: " + paramsName);
                 System.out.println("Valor del parametro: " +
                                    request.getParameter(paramsName));
@@ -194,8 +211,7 @@ public class ReportServlet extends HttpServlet {
         try {
             JasperPrint jasperPrint=JasperFillManager.fillReport(jasperPath, parameters, conexion);
             String xlsFileName = request.getSession().getServletContext().
-                       getRealPath("/reportes/")+filePath+".xls";
-
+                       getRealPath("/Reportes/")+filePath+".xls";
             //Creacion del XLS
             JRXlsExporter exporter = new JRXlsExporter();
             exporter.setParameter(JRExporterParameter.
