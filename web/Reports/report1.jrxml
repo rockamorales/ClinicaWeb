@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9d9ef0f7-44f1-45a7-be53-7f31a085af21">
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     tbl_usuarios.`NUM_USUARIO` AS tbl_usuarios_NUM_USUARIO,
+     tbl_usuarios.`ALI_USUARIO` AS tbl_usuarios_ALI_USUARIO,
+     tbl_usuarios.`CON_USUARIO` AS tbl_usuarios_CON_USUARIO,
+     tbl_usuarios.`NOM_USUARIO` AS tbl_usuarios_NOM_USUARIO,
+     tbl_usuarios.`CRE_POR` AS tbl_usuarios_CRE_POR,
+     tbl_usuarios.`FEC_CRECION` AS tbl_usuarios_FEC_CRECION,
+     tbl_usuarios.`FEC_DESACTIVACION` AS tbl_usuarios_FEC_DESACTIVACION,
+     tbl_usuarios.`FEC_EXPIRACION` AS tbl_usuarios_FEC_EXPIRACION,
+     tbl_usuarios.`FEC_MODIFICACION` AS tbl_usuarios_FEC_MODIFICACION,
+     tbl_usuarios.`FEC_ULT_CAM_CONTRASENA` AS tbl_usuarios_FEC_ULT_CAM_CONTRASENA,
+     tbl_usuarios.`MOD_POR` AS tbl_usuarios_MOD_POR,
+     tbl_usuarios.`ULT_FEC_FIN_SESION` AS tbl_usuarios_ULT_FEC_FIN_SESION,
+     tbl_usuarios.`ULT_FEC_INI_SESION` AS tbl_usuarios_ULT_FEC_INI_SESION,
+     tbl_usuarios.`EST_USUARIO` AS tbl_usuarios_EST_USUARIO,
+     tbl_usuarios.`NUM_EMPLEADO` AS tbl_usuarios_NUM_EMPLEADO,
+     tbl_usuarios.`NUM_MEDICO` AS tbl_usuarios_NUM_MEDICO
+FROM
+     `tbl_usuarios` tbl_usuarios]]>
+	</queryString>
+	<field name="tbl_usuarios_NUM_USUARIO" class="java.lang.Integer"/>
+	<field name="tbl_usuarios_ALI_USUARIO" class="java.lang.String"/>
+	<field name="tbl_usuarios_CON_USUARIO" class="java.lang.String"/>
+	<field name="tbl_usuarios_NOM_USUARIO" class="java.lang.String"/>
+	<field name="tbl_usuarios_CRE_POR" class="java.lang.String"/>
+	<field name="tbl_usuarios_FEC_CRECION" class="java.sql.Timestamp"/>
+	<field name="tbl_usuarios_FEC_DESACTIVACION" class="java.sql.Timestamp"/>
+	<field name="tbl_usuarios_FEC_EXPIRACION" class="java.sql.Timestamp"/>
+	<field name="tbl_usuarios_FEC_MODIFICACION" class="java.sql.Timestamp"/>
+	<field name="tbl_usuarios_FEC_ULT_CAM_CONTRASENA" class="java.sql.Timestamp"/>
+	<field name="tbl_usuarios_MOD_POR" class="java.lang.String"/>
+	<field name="tbl_usuarios_ULT_FEC_FIN_SESION" class="java.sql.Timestamp"/>
+	<field name="tbl_usuarios_ULT_FEC_INI_SESION" class="java.sql.Timestamp"/>
+	<field name="tbl_usuarios_EST_USUARIO" class="java.lang.Integer"/>
+	<field name="tbl_usuarios_NUM_EMPLEADO" class="java.lang.Integer"/>
+	<field name="tbl_usuarios_NUM_MEDICO" class="java.lang.Integer"/>
+	<group name="tbl_usuarios_FEC_CRECION">
+		<groupExpression><![CDATA[$F{tbl_usuarios_FEC_CRECION}]]></groupExpression>
+		<groupHeader>
+			<band height="37">
+				<frame>
+					<reportElement uuid="610e3b29-8480-4a39-b680-56c2a7ce7a1d" mode="Opaque" x="-21" y="7" width="843" height="24" forecolor="#B89F7D" backcolor="#F2EBDF"/>
+					<rectangle>
+						<reportElement uuid="a7c9e124-37a7-4662-ab68-e87bee0bc34e" mode="Opaque" x="21" y="0" width="36" height="24" backcolor="#736343"/>
+						<graphicElement>
+							<pen lineWidth="0.0"/>
+						</graphicElement>
+					</rectangle>
+					<textField>
+						<reportElement uuid="2764759c-93c6-4750-892c-ec5940f0b725" style="SubTitle" x="68" y="0" width="755" height="24" forecolor="#736343"/>
+						<textElement>
+							<font isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{tbl_usuarios_FEC_CRECION}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="136" splitType="Stretch">
+			<image>
+				<reportElement uuid="e4ce4de1-87eb-454d-b33a-0fcedb6aeaa5" x="0" y="0" width="164" height="126"/>
+				<imageExpression><![CDATA["coffee.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="08090046-8742-4248-b192-ff0ab6817dee" style="Title" x="270" y="0" width="263" height="62"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Coffee Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ecc9189a-fef0-4deb-b4e9-65ecf711744c" style="SubTitle" x="303" y="62" width="196" height="22"/>
+				<textElement>
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Coffee SubTitle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6894f260-9499-4025-80a7-f30b2ad49093" x="172" y="94" width="383" height="42"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce auctor purus gravida arcu aliquam mattis. Donec et nulla libero, ut varius massa. Nulla sed turpis elit. Etiam aliquet mauris a ligula hendrerit in auctor leo lobortis.]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="21978ca1-0d83-499d-a39d-4fb621f43382" x="633" y="-73" width="219" height="209"/>
+				<imageExpression><![CDATA["coffee_stain.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement uuid="ffc73c4b-caeb-4681-90c4-f65ab7f89cb5" positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="0b9ff464-b8cd-4f99-ad8f-62a1d76c0ada" style="Column header" x="0" y="0" width="53" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[tbl_usuarios_NUM_USUARIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1d8489f9-fff1-4f77-9e49-b7cbfa30d35e" style="Column header" x="53" y="0" width="53" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[tbl_usuarios_ALI_USUARIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="93fb3b41-9111-46f7-a4bc-aed212439daf" style="Column header" x="106" y="0" width="53" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[tbl_usuarios_CON_USUARIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bb032fd8-be49-4190-9004-7e433a155645" style="Column header" x="159" y="0" width="53" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[tbl_usuarios_NOM_USUARIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1db3fb4f-59ce-4548-8c98-e01af6bc51a6" style="Column header" x="212" y="0" width="53" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[tbl_usuarios_CRE_POR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ae31a3e4-55b9-4930-9223-b87956de16b4" style="Column header" x="265" y="0" width="53" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[tbl_usuarios_FEC_DESACTIVACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c832cbde-edaa-4dfc-9df3-0d0356cf1d4b" style="Column header" x="318" y="0" width="53" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[tbl_usuarios_FEC_EXPIRACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e616c837-8669-497c-b11a-c8f5f93c4bc7" style="Column header" x="371" y="0" width="53" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[tbl_usuarios_FEC_MODIFICACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fe720e9e-c3cc-45ce-8519-2ec1c2fe0ccd" style="Column header" x="424" y="0" width="53" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[tbl_usuarios_FEC_ULT_CAM_CONTRASENA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c12ef36e-492e-4684-8081-b28c4a8a5a3a" style="Column header" x="477" y="0" width="53" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[tbl_usuarios_MOD_POR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="74e38fd6-3e01-4c57-a127-20f55a5c25ae" style="Column header" x="530" y="0" width="53" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[tbl_usuarios_ULT_FEC_FIN_SESION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1d1e83d0-0883-4ca4-8395-177347d00b8c" style="Column header" x="583" y="0" width="53" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[tbl_usuarios_ULT_FEC_INI_SESION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cb322c35-5e33-4a38-84c2-39abc438844c" style="Column header" x="636" y="0" width="53" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[tbl_usuarios_EST_USUARIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d7e489d8-682f-4f4b-a62f-9fc53c3cc2e1" style="Column header" x="689" y="0" width="53" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[tbl_usuarios_NUM_EMPLEADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1364417b-1529-4acb-9116-9e038eef8542" style="Column header" x="742" y="0" width="53" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[tbl_usuarios_NUM_MEDICO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement uuid="28693b6d-ec3a-4286-8f22-e8ff89817631" style="Row" mode="Opaque" x="0" y="0" width="802" height="15"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="d0d8f405-693d-4a94-b73b-ecdedb352568" style="Detail" x="0" y="0" width="53" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tbl_usuarios_NUM_USUARIO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="33466949-1922-468f-b470-816a39c8c835" style="Detail" x="53" y="0" width="53" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tbl_usuarios_ALI_USUARIO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="1280f1a7-a071-4fc3-b8ab-ffe6817e4402" style="Detail" x="106" y="0" width="53" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tbl_usuarios_CON_USUARIO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="65ff415c-ac7b-4db6-8492-4caf71afd2a4" style="Detail" x="159" y="0" width="53" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tbl_usuarios_NOM_USUARIO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="1399829c-6ac5-43c8-aa2b-175eb4815081" style="Detail" x="212" y="0" width="53" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tbl_usuarios_CRE_POR}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="5ec46abc-585d-409a-9924-90891d83977d" style="Detail" x="265" y="0" width="53" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tbl_usuarios_FEC_DESACTIVACION}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="ed44215e-063b-42aa-8141-26271d1f495f" style="Detail" x="318" y="0" width="53" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tbl_usuarios_FEC_EXPIRACION}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="886287b1-51a6-46bf-b946-556518645357" style="Detail" x="371" y="0" width="53" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tbl_usuarios_FEC_MODIFICACION}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="913137a3-088b-4c75-85ac-440d39b8114b" style="Detail" x="424" y="0" width="53" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tbl_usuarios_FEC_ULT_CAM_CONTRASENA}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="bae3a755-b142-447b-975f-2b1d490b08e3" style="Detail" x="477" y="0" width="53" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tbl_usuarios_MOD_POR}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="7e6e99e3-fa1c-4276-8c1b-ab018a266aa9" style="Detail" x="530" y="0" width="53" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tbl_usuarios_ULT_FEC_FIN_SESION}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="6eb160f9-15af-4d52-8d2c-7e2150bc0e1b" style="Detail" x="583" y="0" width="53" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tbl_usuarios_ULT_FEC_INI_SESION}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="cb7f5824-62bd-450e-a0e7-cad6b6f23a71" style="Detail" x="636" y="0" width="53" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tbl_usuarios_EST_USUARIO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="021af8ef-973d-4cd0-9f09-2b779bc6bcf9" style="Detail" x="689" y="0" width="53" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tbl_usuarios_NUM_EMPLEADO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="f2365f34-25f5-405a-8224-3dadf5cf768b" style="Detail" x="742" y="0" width="53" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tbl_usuarios_NUM_MEDICO}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch">
+			<line>
+				<reportElement uuid="33b453be-72da-4cb9-987b-8a13a1a60da5" positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement uuid="ca799e96-9a62-4528-aef1-dd9d20932618" mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#D0B48E" backcolor="#F2EBDF"/>
+				<textField evaluationTime="Report">
+					<reportElement uuid="46c2e677-eefa-4f6e-a6e9-b5ed8cb43029" style="Column header" x="783" y="1" width="40" height="20" forecolor="#736343"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="396d3354-4c53-465f-babd-5280dde5f999" style="Column header" x="703" y="1" width="80" height="20" forecolor="#736343"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement uuid="9a10b5cf-d296-4561-9d07-b453872cb43b" style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

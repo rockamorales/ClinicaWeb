@@ -18,9 +18,11 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import org.richfaces.component.UIRepeat;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
+import sv.com.cormaria.servicios.entidades.administracion.TblMedico;
 import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
 import sv.com.cormaria.servicios.entidades.archivo.TblProgramacionCitas;
 import sv.com.cormaria.servicios.enums.EstadoProgramacionCitas;
+import sv.com.cormaria.servicios.facades.administracion.TblMedicoFacadeLocal;
 import sv.com.cormaria.servicios.facades.archivo.TblExpedientePacientesFacadeLocal;
 import sv.com.cormaria.servicios.facades.archivo.TblProgramacionCitasFacadeLocal;
 import sv.com.cormaria.servicios.helpers.MonthDay;
@@ -45,40 +47,43 @@ public class FrmTblControlCitas extends PageBase {
     @EJB
     private TblExpedientePacientesFacadeLocal expedienteFacade;
     
+    @EJB
+    private TblMedicoFacadeLocal medicosFacade;
+
+    private List<TblMedico> tblMedicosList = new ArrayList<TblMedico>();
+
     private TblExpedientePacientes expediente = new TblExpedientePacientes();
-    private int month = 0;
+    private int month = Calendar.getInstance().get(Calendar.MONTH);
     private int year = Calendar.getInstance().get(Calendar.YEAR);
-    private int week = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
     private String daysOfWeekStr[] = {"Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"};
     private String monthStrShort[] = {"Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"};
     private String monthStr[] = {"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
     
     private List<MonthDay> monthDays = new ArrayList<MonthDay>();
     private List<MonthWeek> monthWeeks = new ArrayList<MonthWeek>();
-    private MonthWeek selectedWeek;
+//    private MonthWeek selectedWeek;
     private boolean yearAndMonthApplied = false;
     private String addedFecCita;
-    
+    private Integer numMedico;
     private String addedNumCita;
-
     
     public FrmTblControlCitas() {
-        Calendar cal = Calendar.getInstance();
-        cal.setFirstDayOfWeek(Calendar.SUNDAY);
-        this.setWeek(cal.get(Calendar.WEEK_OF_YEAR));
+        //Calendar cal = Calendar.getInstance();
+        //cal.setFirstDayOfWeek(Calendar.SUNDAY);
+        //this.setWeek(cal.get(Calendar.WEEK_OF_YEAR));
     }
 
-    public int getWeek() {
-        return week;
+    public Integer getNumMedico() {
+        return numMedico;
     }
 
-    public void setWeek(int week) {
-        this.week = week;
+    public void setNumMedico(Integer numMedico) {
+        this.numMedico = numMedico;
     }
-
-    public MonthWeek getSelectedWeek() {
+    
+    /*public MonthWeek getSelectedWeek() {
         try{
-            System.out.println("Week: "+this.getWeek());
+            //System.out.println("Week: "+this.getWeek());
             Calendar calStart = Calendar.getInstance();
             calStart.setFirstDayOfWeek(Calendar.SUNDAY);
             calStart.set(Calendar.YEAR, this.getYear());
@@ -86,7 +91,6 @@ public class FrmTblControlCitas extends PageBase {
             calStart.set(Calendar.MINUTE, 0);
             calStart.set(Calendar.SECOND, 0);
             calStart.set(Calendar.MILLISECOND, 0);
-            calStart.set(Calendar.WEEK_OF_YEAR, this.getWeek());
             calStart.set(Calendar.DAY_OF_WEEK, calStart.getActualMinimum(Calendar.DAY_OF_WEEK));
             Calendar calEnd = Calendar.getInstance();
             calEnd.setFirstDayOfWeek(Calendar.SUNDAY);
@@ -95,7 +99,6 @@ public class FrmTblControlCitas extends PageBase {
             calEnd.set(Calendar.MINUTE, 0);
             calEnd.set(Calendar.SECOND, 0);
             calEnd.set(Calendar.MILLISECOND, 0);
-            calEnd.set(Calendar.WEEK_OF_YEAR, this.getWeek());
             calEnd.set(Calendar.DAY_OF_WEEK, calEnd.getActualMaximum(Calendar.DAY_OF_WEEK));
             System.out.println("Week: "+this.getWeek());
             System.out.println("Cal start: "+calStart.getTime());
@@ -110,13 +113,13 @@ public class FrmTblControlCitas extends PageBase {
             selectedWeek = new MonthWeek(week, calStart.getTime(), calEnd.getTime(), this.getMonth());
             
             for (; calStart.getTime().before(calEnd.getTime()) || calStart.getTime().equals(calEnd.getTime());){
-                /*if (week != calStart.get(Calendar.WEEK_OF_YEAR)){
+                --if (week != calStart.get(Calendar.WEEK_OF_YEAR)){
                     cal.setTime(calStart.getTime());
                     cal.add(Calendar.DAY_OF_MONTH, 6);
                     weekObj = new MonthWeek(calStart.get(Calendar.WEEK_OF_YEAR), calStart.getTime(), cal.getTime(), this.getMonth());
                     this.monthWeeks.add(weekObj);
                     week = calStart.get(Calendar.WEEK_OF_YEAR);
-                }*/
+                }--
                 if (current!=null){
                     selectedWeek.addDayOfWeek(new MonthDay(calStart.get(Calendar.DAY_OF_MONTH), calStart.get(Calendar.DAY_OF_WEEK), daysOfWeekStr[calStart.get(Calendar.DAY_OF_WEEK)-1], calStart.get(Calendar.MONTH), calStart.get(Calendar.YEAR), this.monthStrShort[calStart.get(Calendar.MONTH)], this.monthStr[calStart.get(Calendar.MONTH)], this.getMonth(), calStart.getTime(), current.getCitas(), current.getScheduleCount()));
                 }else{
@@ -131,10 +134,21 @@ public class FrmTblControlCitas extends PageBase {
             this.addError(ex.getMessage(), ex.getMessage());
         }
         return selectedWeek;
+    }*/
+
+    public List<TblMedico> getTblMedicosList() {
+        if (this.tblMedicosList.isEmpty()){
+            try{
+                tblMedicosList = medicosFacade.findAll();
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+        }
+        return tblMedicosList;
     }
 
-    public void setSelectedWeek(MonthWeek selectedWeek) {
-        this.selectedWeek = selectedWeek;
+    public void setTblMedicosList(List<TblMedico> tblMedicosList) {
+        this.tblMedicosList = tblMedicosList;
     }
     
     public String getAddedFecCita() {
@@ -193,8 +207,12 @@ public class FrmTblControlCitas extends PageBase {
             calEnd.set(Calendar.MONTH, this.getMonth());
             calEnd.set(Calendar.DAY_OF_MONTH, calEnd.getActualMaximum(Calendar.DAY_OF_MONTH));
             calEnd.add(Calendar.DAY_OF_MONTH, (7-calEnd.get(Calendar.DAY_OF_WEEK)));
-            Map<Date, MonthDay> dayScheduleList = programacionCitasFacade.findScheduleByRange(calStart.getTime(), calEnd.getTime());
-
+            Map<Date, MonthDay> dayScheduleList; 
+            if (this.getNumMedico()!=null && this.getNumMedico()>0){
+                dayScheduleList = programacionCitasFacade.findScheduleByRange(calStart.getTime(), calEnd.getTime(), this.getNumMedico());
+            }else{
+                dayScheduleList = programacionCitasFacade.findScheduleByRange(calStart.getTime(), calEnd.getTime());            
+            }
             int week = calStart.get(Calendar.WEEK_OF_YEAR);
             Calendar cal = Calendar.getInstance();
             cal.setFirstDayOfWeek(Calendar.SUNDAY);
@@ -356,7 +374,11 @@ public class FrmTblControlCitas extends PageBase {
             UIRepeat repeat = (UIRepeat)ae.getComponent().getParent().getParent();
             MonthDay day = (MonthDay) repeat.getRowData();
             System.out.println("Day: "+day.getDayDate());
-            citasList = programacionCitasFacade.findByDay(day.getDayDate());
+            if (this.getNumMedico()!=null && this.getNumMedico()>0){
+                citasList = programacionCitasFacade.findByDay(day.getDayDate());
+            }else{
+                citasList = programacionCitasFacade.findByDay(day.getDayDate(), this.getNumMedico());
+            }
             System.out.println("Cantidad de citas: "+citasList.size());
         }catch(Exception ex){
             ex.printStackTrace();
