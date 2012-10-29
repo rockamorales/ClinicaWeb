@@ -12,6 +12,17 @@
                     <h:outputLink value="frmMantUsuarios.jsf">
                         Agregar nuevo usuario
                     </h:outputLink>
+                    <h:outputLabel value="Exportar:"/>
+                    <h:outputLink value="/ClinicaWeb/ReportServlet">
+                        PDF
+                        <f:param name="docType" value="pdf"/>
+                        <f:param name="rptFileName" value="/Reports/Lista de usuarios.jasper"/>
+                    </h:outputLink>
+                    <h:outputLink value="/ClinicaWeb/ReportServlet">
+                        XLS
+                        <f:param name="rptFileName" value="/Reports/Lista de usuarios.jasper"/>
+                        <f:param name="docType" value="xls"/>
+                    </h:outputLink>
 		  <hr/>
                      <rich:dataTable id="usuarios" rows="10" columnClasses="col" var="usuario1" value="#{frmUsuarios.usuariosList}" >
                        <!-- onRowClick="this.style.backgroundColor='#F1F1F1'" onRowMouseOver="this.style.backgroundColor='#B5CEFD'" onRowMouseOut="this.style.backgroundColor='' -->

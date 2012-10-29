@@ -41,6 +41,10 @@ public class FrmMantUsuarios extends PageBase {
     
     private Long roleid;
     private Long selectedRoleId;
+    private String fecIniCreacion;
+    private String fecEndCreacion;
+    private String docType;
+    private String rptFileName = "/Reports/Lista_de_usuarios_con_parametros.jasper";
 
     private List<CatRolesUsuario> rolesUsuarioList = new ArrayList<CatRolesUsuario>();
     private List<SelectItem> rolesList = new ArrayList<SelectItem>();
@@ -50,7 +54,39 @@ public class FrmMantUsuarios extends PageBase {
 
     @ManagedProperty(value="#{param.codUsuario}")
     private Long codUsuario;
-        
+
+    public String getFecIniCreacion() {
+        return fecIniCreacion;
+    }
+
+    public void setFecIniCreacion(String fecIniCreacion) {
+        this.fecIniCreacion = fecIniCreacion;
+    }
+
+    public String getFecEndCreacion() {
+        return fecEndCreacion;
+    }
+
+    public void setFecEndCreacion(String fecEndCreacion) {
+        this.fecEndCreacion = fecEndCreacion;
+    }
+
+    public String getDocType() {
+        return docType;
+    }
+
+    public void setDocType(String docType) {
+        this.docType = docType;
+    }
+
+    public String getRptFileName() {
+        return rptFileName;
+    }
+
+    public void setRptFileName(String rptFileName) {
+        this.rptFileName = rptFileName;
+    }
+    
     public List<CatRolesUsuario> getRolesUsuarioList() {
         if (rolesUsuarioList.isEmpty()){
             System.out.println("Getting roles usuario: "+this.usuario.getTblUsuario().getNumUsuario());
@@ -204,5 +240,9 @@ public class FrmMantUsuarios extends PageBase {
           isValid = false;
       }
       return isValid;
+    }
+    
+    public String mostrarReporte(){
+        return "/ReportServlet?faces-redirect=true&rptFileName="+rptFileName+"&docType="+docType+"&fechaIniCreacion="+fecIniCreacion+"&fecEndCreacion="+fecEndCreacion;
     }
 }
