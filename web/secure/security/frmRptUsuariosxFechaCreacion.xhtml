@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    <ui:composition template="/templates/main.xhtml">
+	<ui:define name="title">#{messages['default.windowTitle']} - Administracion de usuarios</ui:define>
+	<ui:define name="body">
+            <h:form id="frmUsuariosMant">
+              <table>
+                <tr>
+                    <td>
+                        Fecha inicio: <rich:calendar value="#{frmMantUsuarios.fecIniCreacion}" id="fechaIniCreacion" name="fechaIniCreacion" enableManualInput="true" datePattern="dd/MM/yyyy"/>
+                        Fecha fin: <rich:calendar value="#{frmMantUsuarios.fecEndCreacion}" id="fechaEndCreacion" name="fechaEndCreacion" enableManualInput="true" datePattern="dd/MM/yyyy"/>
+                        Exportar como: <h:selectOneMenu value="#{frmMantUsuarios.docType}" id="docType" name="docType">
+                            <f:selectItem itemValue="xls" itemLabel="xls"/>
+                            <f:selectItem itemValue="pdf" itemLabel="pdf"/>
+                        </h:selectOneMenu>
+                        
+                        <h:inputHidden id="rptFileName" value="#{frmMantUsuarios.rptFileName}" name="rptFileName"/>
+                        <h:commandButton type="submit" action="#{frmMantUsuarios.mostrarReporte}">Generar</h:commandButton>
+                    </td>
+               </tr>
+            </table>
+          </h:form>
+	</ui:define>
+    </ui:composition>
+</html>
