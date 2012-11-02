@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Enumeration;
 import java.util.HashMap;
 import javax.naming.Context;
@@ -104,7 +105,7 @@ public class ReportServlet extends HttpServlet {
                                       conexion);
                 response.setContentType("application/pdf");
                 response.setContentLength(bytes.length);
-                response.setHeader("Content-Disposition", "attachment; filename=\""+fileName[fileName.length-1]+"\";");
+                //response.setHeader("Content-Disposition", "attachment; filename=\""+fileName[fileName.length-1]+"\";");
 
                 System.out.println("response: " + response==null);
                 System.out.println("response: " + response==null);
@@ -169,14 +170,19 @@ public class ReportServlet extends HttpServlet {
         String paramsName;
         while (pageParams.hasMoreElements()){
             paramsName = (String)pageParams.nextElement();
-            System.out.println("Nombre del parametro: " + paramsName);
-            System.out.println("Valor del parametro: " +
-                                   request.getParameter(paramsName));
-            if (!paramsName.equalsIgnoreCase("rptFileName") && !paramsName.equalsIgnoreCase("docType") && !paramsName.equalsIgnoreCase("todos") && !paramsName.equalsIgnoreCase("faces-redirect")){
-                System.out.println("Nombre del parametro: " + paramsName);
-                System.out.println("Valor del parametro: " +
-                                   request.getParameter(paramsName));
-                parameters.put(paramsName,request.getParameter(paramsName));
+            if (!paramsName.contains("DataType") && !paramsName.equalsIgnoreCase("rptFileName") && !paramsName.equalsIgnoreCase("docType") && !paramsName.equalsIgnoreCase("todos") && !paramsName.equalsIgnoreCase("faces-redirect")){
+                String dataType = request.getParameter(paramsName+"DataType");
+                if (dataType!=null && dataType.equals("numerico")){
+                    parameters.put(paramsName,new Integer(request.getParameter(paramsName)));
+                }else if (dataType!=null && dataType.equals("fecha")){
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    try{
+                        formatter.parse(request.getParameter(paramsName));
+                    }catch(Exception ex){
+                    }
+                }else{
+                    parameters.put(paramsName,request.getParameter(paramsName));
+                }
             }
         }
         //parameters.put(,)
