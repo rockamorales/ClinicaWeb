@@ -117,7 +117,6 @@ public class ReportServlet extends HttpServlet {
                 response.setContentType("application/vnd.ms-excel");
                 response.setContentLength(bytes.length);
                 response.setHeader("Content-Disposition", "attachment; filename=\""+fileName[fileName.length-1]+"\";");
-
                 System.out.println("response: " + response==null);
                 //ServletOutputStream ouputStream = response.getOutputStream();
                 System.out.println("response: " + response==null);
