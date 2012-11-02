@@ -75,9 +75,10 @@ and open the template in the editor.
                         <h:graphicImage url="/img/icons/delete.gif"/>
                         <f:setPropertyActionListener target="#{frmCatProfesiones.catProfesiones}" value="#{catProfesiones}"/>
                     </a4j:commandLink>
-                  
-                   
-                </h:column>                
+                </h:column>           
+                <f:facet name="footer">
+                   <rich:dataScroller/>
+                </f:facet>    
             </rich:dataTable>
             </h:form>
         </ui:define>
