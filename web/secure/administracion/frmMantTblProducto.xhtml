@@ -27,7 +27,7 @@ and open the template in the editor.
                 <tr>
                     <td align="left">Código:</td>
                     <td align="left"><h:outputText value="#{frmMantTblProducto.tblProducto.numProducto}" style="font-weight: bold"/>
-                        <h:inputHidden value="#{frmMantTblProducto.tblProducto.numProducto}" /></td>
+                       <h:inputHidden value="#{frmMantTblProducto.tblProducto.numProducto}" /></td>
                 </tr>
                 <tr>
                     <td align="left">Estado:</td>
@@ -38,13 +38,13 @@ and open the template in the editor.
 
                 <tr>
                     <td align="left">Nombre Producto:</td>
-                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.nomProducto}" maxlength="100" onkeypress="return filterInput(2, event, false, ' ');"/>
+                    <td colspan="3" align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.nomProducto}" maxlength="100" size="100" onkeypress="return filterInput(2, event, false, ' ,./#$-_:;+');"/>
                     <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                     </td>
                 </tr>
                 <tr>
                     <td align="left">Nombre Generico de Producto:</td>
-                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.nomGenProducto}" maxlength="100" onkeypress="return filterInput(2, event, false, ' ');"/>
+                    <td colspan="3" align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.nomGenProducto}" maxlength="100" size="100" onkeypress="return filterInput(2, event, false, ' ,./#$-_:;+');"/>
                     <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                     </td>
                 </tr>
@@ -55,6 +55,7 @@ and open the template in the editor.
                             <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem> 
                             <f:selectItems value="#{frmMantTblProducto.catTipoProductoList}"/>
                         </h:selectOneMenu>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                     </td>
 
                 </tr>
@@ -65,6 +66,7 @@ and open the template in the editor.
                             <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem> 
                             <f:selectItems value="#{frmMantTblProducto.catClasificacionProductoList}"/>
                         </h:selectOneMenu>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                     </td>
 
                 </tr>  
@@ -75,59 +77,76 @@ and open the template in the editor.
                             <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem> 
                             <f:selectItems value="#{frmMantTblProducto.catPresentacionProductoList}"/>
                         </h:selectOneMenu>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                     </td>
 
                 </tr>
                 <tr>
-                    <td align="left">Producto Perecedero</td>
+                    <td align="left">Producto Perecedero:</td>
                     <td align="left">
-                        <h:selectBooleanCheckbox value="#{frmMantTblProducto.tblProducto.perProducto}" />
+                         <h:selectOneMenu value="#{frmMantTblProducto.tblProducto.perProducto}" >
+                                <f:selectItem itemValue="true" itemLabel="SI"/>
+                                <f:selectItem itemValue="false" itemLabel="NO"/>
+                         </h:selectOneMenu>
                     </td>
-                    <td align="left">Reserva de Producto</td>
+                </tr>
+                <tr>   
+                    <td align="left">Cantidad de Producto en Reserva</td>
                     <td align="left">
-                        <h:selectOneMenu value="#{frmMantTblProducto.tblProducto.resProducto}" >
-                                <f:selectItem itemLabel="Si" itemValue="1" ></f:selectItem>
-                                <f:selectItem itemLabel="No" itemValue="0" ></f:selectItem>
-                            </h:selectOneMenu>
-                        </td>
+                    <h:inputText value="#{frmMantTblProducto.tblProducto.resProducto}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
                     
                 </tr> 
                 <tr>
-                    <td align="left">Contenido del Producto:</td>
-                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.conProducto}" maxlength="9" onkeypress="return filterInput(2, event, false, '');"/>
-                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
-                    </td>
-                </tr> 
+                        <td align="left">Contenido del Producto:</td>
+                        <td colspan="3" align="left">
+                            <h:inputTextarea styleClass="mayusculas" value="#{frmMantTblProducto.tblProducto.conProducto}" rows="3" cols="100"  onkeypress="return filterInput(2, event, false, '.,#/ °-');" >
+                                <f:validateLength maximum="250" ></f:validateLength>
+                            </h:inputTextarea>
+                            <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                        </td>    
+                 </tr>    
                 <tr>
                     <td align="left">Fabricante del Producto:</td>
-                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.fabProducto}" maxlength="14" onkeypress="return filterInput(2, event, false, ' ,.');"/>
+                    <td  colspan="3" align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.fabProducto}" maxlength="100" size="100" onkeypress="return filterInput(2, event, false, ' ,.');"/>
                     <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                     </td>
                 </tr> 
                 <tr>
                     <td align="left">Distribuidor del Producto</td>
-                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.disProducto}" maxlength="8" onkeypress="return filterInput(2, event, false, ' ,.');"/></td>
+                    <td colspan="3" align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.disProducto}" maxlength="100" size="100" onkeypress="return filterInput(2, event, false, ' ,.');"/></td>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>               
                 </tr>
                 <tr>
                     <td align="left">Cantidad de Producto a Ingresar</td>
                     <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.exiProducto}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/></td>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                 </tr>
                 <tr>
                     <td align="left">Cantidad Minima de Producto en Inventario</td>
                     <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.exiMinProducto}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/></td>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                 </tr>
                 <tr>
                     <td align="left">Valor del Producto</td>
-                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.valProducto}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/></td>
+                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.valProducto}" maxlength="8" onkeypress="return filterInput(1, event, false, '.');"/></td>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                 </tr>
                 <tr>
                     <td align="left">Precio de Venta del Producto</td>
                     <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.preFinProducto}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/></td>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>    
                 </tr>
-                <tr>
-                    <td align="left">Descripcion del Producto</td>
-                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.desProducto}" maxlength="8" onkeypress="return filterInput(2, event, false, '');"/></td>
-                </tr>
+                 <tr>
+                        <td align="left">Descripcion del Producto:</td>
+                        <td colspan="3" align="left">
+                            <h:inputTextarea styleClass="mayusculas" value="#{frmMantTblProducto.tblProducto.desProducto}" rows="5" cols="100"  onkeypress="return filterInput(2, event, false, '.,#/ °-');" >
+                                <f:validateLength maximum="500" ></f:validateLength>
+                            </h:inputTextarea>
+                            <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                        </td>    
+                 </tr> 
                   <tr>
                         <td align="left">Estado:</td>
                         <td align="left">
