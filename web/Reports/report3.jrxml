@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3" language="groovy" pageWidth="400" pageHeight="200" columnWidth="400" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="9f053073-44c3-4029-8f9f-b6a664e53f01">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select count(*),
+CASE WHEN eda_paciente between 0 and 17 THEN 'ninos' WHEN eda_paciente between 18 and 59 THEN 'Adulto' ELSE 'Tercera edad' END CATEGORIA,
+s.nom_sex_paciente
+from tbl_consultas c, tbl_expediente_pacientes e, cat_sexo s
+where e.num_expediente = c.num_expediente
+  and s.cod_sex_paciente = e.cod_sex_paciente
+group by (CASE
+   WHEN eda_paciente between 0 and 17 THEN 'ninos'
+   WHEN eda_paciente between 18 and 59 THEN 'Adulto'
+   ELSE 'Tercera edad'
+END),
+s.nom_sex_paciente]]>
+	</queryString>
+	<field name="count(*)" class="java.lang.Long"/>
+	<field name="CATEGORIA" class="java.lang.String"/>
+	<field name="nom_sex_paciente" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="200" splitType="Stretch">
+			<pieChart>
+				<chart evaluationTime="Report" theme="eye.candy.sixties">
+					<reportElement uuid="2a7c4f94-4d56-4a40-87d9-50a2681799fe" x="0" y="0" width="400" height="200"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend position="Top"/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{CATEGORIA} + " -- " + $F{nom_sex_paciente}]]></keyExpression>
+					<valueExpression><![CDATA[$F{count(*)}]]></valueExpression>
+					<labelExpression><![CDATA[$F{count(*)}+""]]></labelExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</title>
+</jasperReport>

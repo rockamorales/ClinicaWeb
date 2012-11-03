@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <ui:composition template="/templates/main.xhtml">
+        <f:metadata>
+            <f:viewParam name="numComDonacion" value="#{frmMantTblDevolucion.numComDonacion}"/>
+            <f:event listener="#{frmMantTblDevolucion.init}" type="preRenderView"></f:event>
+	</f:metadata>
+        <ui:define name="title">
+          <h:outputText value="#{messages['default.windowTitle']}--Comprobante de Devolucion" escape="false"></h:outputText>  
+        </ui:define>
+
+        <ui:define name="body">
+          <h:form>
+            <rich:popupPanel id="recibirPagoPanel" modal="true" autosized="true" resizeable="false" domElementAttachment="form">
+                <f:facet name="header">
+                    <h:outputText value="Recepcion de Pago"/>
+                </f:facet>
+                <f:facet name="controls">
+                    <h:outputLink value="#" onclick="#{rich:component('recibirPagoPanel')}.hide(); return false;" style="color: white; font-weight: bold;">
+                        Cerrar
+                    </h:outputLink>
+                </f:facet>
+                <h:panelGroup id="recibirPagoForm">
+                    <table>
+                        <tr>
+                            <td align="left">Tipo Pago:</td>
+                            <td align="left">
+                                <h:selectOneMenu value="#{frmMantTblDevolucion.tblComprobanteDonacion.codTipPago}">
+                                    <f:selectItems value="#{frmMantTblDevolucion.catTipoPagoList}"/>
+                                    <a4j:ajax event="change" render="recibirPagoForm" execute="@form" immediate="false" listener="#{frmMantTblDevolucion.changeTipoPago}"></a4j:ajax>
+                                </h:selectOneMenu>
+                            </td>
+                            <td align="left">Banco:</td>
+                            <td align="left">
+                                <h:selectOneMenu value="#{frmMantTblDevolucion.tblComprobanteDonacion.codBanco}" rendered="#{frmMantTblDevolucion.tblComprobanteDonacion.codTipPago == 2}">
+                                    <f:selectItems value="#{frmMantTblDevolucion.catBancosList}"/>
+                                </h:selectOneMenu>
+                            </td>                    
+                        </tr> 
+                        <tr>
+                            <td align="left">Total:</td>
+                            <td colspan="3" align="left"><h:outputText value="#{frmMantTblDevolucion.tblComprobanteDonacion.totDonacion}"/></td>
+                        </tr>  
+                        <tr>
+                            <td align="left">Monto Recibido:</td>
+                            <td align="left">
+                                <h:inputText value="#{frmMantTblDevolucion.tblComprobanteDonacion.montoRecibido}">
+                                   <f:ajax event="change" render="recibirPagoForm" execute="@form" immediate="false"></f:ajax>
+                                </h:inputText>
+                            </td>
+                            <td align="left">Cambio:</td>
+                            <td align="left"><h:outputText value="#{frmMantTblDevolucion.tblComprobanteDonacion.cambio}" rendered="#{frmMantTblDevolucion.tblComprobanteDonacion.montoRecibido > 0}"/></td>
+                        </tr>  
+                          <td colspan="4" align="center">
+                              <a4j:commandButton value="Guardar" actionListener="#{frmMantTblDevolucion.recibirPago}" render="@form, panelMessage" oncomplete="#{rich:component('recibirPagoPanel')}.hide();"/>
+                              <a4j:commandButton value="Regresar">
+                                  <rich:componentControl target="recibirPagoPanel" operation="hide" event="click"></rich:componentControl>
+                              </a4j:commandButton>
+                          </td>                        
+                    </table>
+                </h:panelGroup>
+            </rich:popupPanel>
+                <h3>Comprobante de Donación</h3>
+                <hr></hr>
+                    <table border="0">
+                        <tr>
+                            <td align="left">Comprobante:</td>
+                            <td align="left">
+                                <h:outputText value="#{frmMantTblDevolucion.tblComprobanteDonacion.numComDonacion}" style="font-weight: bold"/>
+                                <h:inputHidden value="#{frmMantTblDevolucion.tblComprobanteDonacion.numComDonacion}" />
+                            </td>
+                            <td align="left">Estado:</td>
+                            <td align="left">
+                                <h:outputText value="#{frmMantTblDevolucion.tblComprobanteDonacion.estComDonacion}" style="font-weight: bold"></h:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">Nombre:</td>
+                            <td colspan="3" align="left">
+                                <h:inputText value="#{frmMantTblDevolucion.tblComprobanteDonacion.nomComDonacion}" size="63"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">NIT:</td>
+                            <td align="left"><h:inputText value="#{frmMantTblDevolucion.tblComprobanteDonacion.nitComDonacion}"/></td>
+                            <td align="left">Fecha:</td>
+                            <td align="left"><rich:calendar value="#{frmMantTblDevolucion.tblComprobanteDonacion.fecComDonacion}" datePattern="dd/MM/yyyy" enableManualInput="true"/></td>
+                        </tr>  
+                        <tr>
+                            <td align="left">Tipo donacion:</td>
+                            <td align="left">
+                                <h:selectOneMenu value="#{frmMantTblDevolucion.tblComprobanteDonacion.codTipDonacion}">
+                                    <f:selectItems value="#{frmMantTblDevolucion.catTipoDonacionList}"/>
+                                </h:selectOneMenu>
+                            </td>
+                            <td align="left">Tipo Donante:</td>
+                            <td align="left">
+                                <h:selectOneMenu value="#{frmMantTblDevolucion.tblComprobanteDonacion.codTipDonante}" style="width: 130px">
+                                    <f:selectItems value="#{frmMantTblDevolucion.catTipoDonanteList}"/>
+                                </h:selectOneMenu>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">Fundacion:</td>
+                            <td colspan="3" align="left">
+                                <h:selectOneMenu value="#{frmMantTblDevolucion.tblComprobanteDonacion.codCarisma}" style="width: 300px">
+                                    <f:selectItems value="#{frmMantTblDevolucion.catCarismaList}"/>
+                                </h:selectOneMenu>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">Total:</td>
+                            <td align="left"><h:outputText value="#{frmMantTblDevolucion.tblComprobanteDonacion.totDonacion}" style="font-weight: bold"/></td>
+                        </tr>
+                        <tr>
+                            <td align="left">En letras:</td>
+                            <td colspan="3" align="left"><h:inputText value="#{frmMantTblDevolucion.tblComprobanteDonacion.canLetras}" size="63"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" align="center">
+                                <a4j:commandButton value="Guardar" actionListener="#{frmMantTblDevolucion.guardar}" render="@form, panelMessage" />
+                                <a4j:commandButton value="Nuevo" actionListener="#{frmMantTblDevolucion.nuevo}" render="@form" execute="@this"/>
+                                <a4j:commandButton value="Regresar" action="frmTblComprobanteDonacion.jsf?faces-redirect=true" immediate="true"/>
+                                <a4j:commandButton value="Seleccionar productos" rendered="#{frmMantTblDevolucion.tblComprobanteDonacion.numComDonacion != null}">
+                                    <rich:componentControl target="recibirPagoPanel" operation="show" event="click"></rich:componentControl>
+                                </a4j:commandButton>
+                            </td>
+                        </tr>
+                      </table>
+                <hr/>
+                <h:panelGroup rendered="#{frmMantTblDevolucion.tblComprobanteDonacion.numComDonacion != null}">
+                    <h3>Detalle devolucion</h3>
+                    <rich:dataTable value="#{frmMantTblDevolucion.cblDetalleComprobanteDonacionList}" var="tblDetalleComprobanteDonacion" rows="10" id="tblDetalleComprobanteDonacionTable">
+                        <f:facet name="header">
+                            <rich:columnGroup>
+                              <h:column>
+                                <h:outputText value="Correlativo"/>
+                              </h:column>
+                              <h:column>
+                                <h:outputText value="Producto"/>
+                              </h:column>                    
+                              <h:column>
+                                <h:outputText value="Cantidad"/>
+                              </h:column>   
+                              <h:column>
+                                <h:outputText value="Precio Unitario"/>
+                              </h:column> 
+                              <h:column>
+                                <h:outputText value="Total"/>
+                              </h:column>                     
+                              <h:column>
+                                <h:outputText value=""/>
+                              </h:column>
+                            </rich:columnGroup>
+                          </f:facet>
+                        <h:column>
+                            <h:outputText value="#{tblDetalleComprobanteDonacion.corDetComDonacion}">   
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{tblDetalleComprobanteDonacion.tblProducto.nomProducto}">
+                            </h:outputText>
+                        </h:column>                 
+                        <h:column>
+                            <h:outputText value="#{tblDetalleComprobanteDonacion.canProComDonacion}">
+                            </h:outputText>
+                        </h:column> 
+                        <h:column>
+                            <h:outputText value="&#36; #{tblDetalleComprobanteDonacion.preUniComDonacion}">
+                            </h:outputText>
+                        </h:column>                        
+                        <h:column>
+                            <h:outputText value="&#36; #{tblDetalleComprobanteDonacion.totIteComDonacion}">
+                            </h:outputText>
+                        </h:column>                     
+
+                        <h:column>
+                            <a4j:commandLink actionListener="#{frmMantTblDevolucion.deleteProducto}" render="@form, recibirPagoPanel, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar el producto: #{tblDetalleComprobanteDonacion.tblProducto.nomProducto} #{tblDetalleComprobanteDonacion.tblProducto.preFinProducto}')){return false;}">
+                                <h:graphicImage url="/img/icons/delete.gif" style="border: 0"/>
+                            </a4j:commandLink>
+                        </h:column>                
+                    </rich:dataTable>
+                </h:panelGroup>               
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
