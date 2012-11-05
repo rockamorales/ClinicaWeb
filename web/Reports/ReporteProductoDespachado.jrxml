@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteProductoDespachado" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eb3d3e1d-e7a3-48ed-8e8f-a0fac7cf9d19">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="tipoSalida" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     tbl_despachos.`FEC_DESPACHO` AS tbl_despachos_FEC_DESPACHO,
+     cat_tipo_salida.`NOM_TIP_SALIDA` AS cat_tipo_salida_NOM_TIP_SALIDA,
+     tbl_producto.`NUM_PRODUCTO` AS tbl_producto_NUM_PRODUCTO,
+     tbl_producto.`NOM_PRODUCTO` AS tbl_producto_NOM_PRODUCTO,
+     tbl_producto.`EST_PRODUCTO` AS tbl_producto_EST_PRODUCTO,
+     tbl_detalle_despacho.`CAN_DET_DESPACHO` AS tbl_detalle_despacho_CAN_DET_DESPACHO,
+     tbl_despachos.`NUM_DESPACHO` AS tbl_despachos_NUM_DESPACHO
+FROM
+     `cat_tipo_salida` cat_tipo_salida INNER JOIN `tbl_despachos` tbl_despachos ON cat_tipo_salida.`COD_TIP_SALIDA` = tbl_despachos.`COD_TIP_SALIDA`
+     INNER JOIN `tbl_detalle_despacho` tbl_detalle_despacho ON tbl_despachos.`NUM_DESPACHO` = tbl_detalle_despacho.`NUM_DESPACHO`
+     INNER JOIN `tbl_producto` tbl_producto ON tbl_detalle_despacho.`NUM_PRODUCTO` = tbl_producto.`NUM_PRODUCTO`
+WHERE
+     tbl_despachos.cod_tip_salida = $P{tipoSalida}]]>
+	</queryString>
+	<field name="tbl_despachos_FEC_DESPACHO" class="java.sql.Timestamp"/>
+	<field name="cat_tipo_salida_NOM_TIP_SALIDA" class="java.lang.String"/>
+	<field name="tbl_producto_NUM_PRODUCTO" class="java.lang.Integer"/>
+	<field name="tbl_producto_NOM_PRODUCTO" class="java.lang.String"/>
+	<field name="tbl_producto_EST_PRODUCTO" class="java.lang.Integer"/>
+	<field name="tbl_detalle_despacho_CAN_DET_DESPACHO" class="java.math.BigDecimal"/>
+	<field name="tbl_despachos_NUM_DESPACHO" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="88" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="116" y="23" width="215" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Clinica Asistencial Corazon de Maria]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="f28cce09-6ee2-4268-be04-78c6298d0cab" x="2" y="2" width="83" height="65"/>
+				<imageExpression><![CDATA["logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="8ff5c228-e686-4510-9ac0-b7ad0aa2cd4d" x="375" y="3" width="69" height="20"/>
+				<textElement/>
+				<text><![CDATA[Fecha y Hora:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement uuid="dc2ad595-75d1-477b-b506-79e6b0b15492" x="444" y="3" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="375" y="40" width="180" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Area: <Farmacia>]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="2" y="0" width="552" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Reporte de Producto Despachado]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="4d595fff-1cb4-4eda-ad0f-1a56e1ee203b" x="463" y="0" width="92" height="20"/>
+				<textElement/>
+				<text><![CDATA[Fecha Salida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="50b0c968-e479-4f49-9e5d-e0a58dfe7925" x="206" y="0" width="92" height="20"/>
+				<textElement/>
+				<text><![CDATA[Tipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="50318613-39f0-4a0c-914b-acd27260e312" x="38" y="0" width="168" height="20"/>
+				<textElement/>
+				<text><![CDATA[Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2cffc1c7-c859-4688-b64a-8aa681faa2c0" x="2" y="0" width="36" height="20"/>
+				<textElement/>
+				<text><![CDATA[Codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fb1be8f9-35ab-4422-964f-5456043159f5" x="409" y="0" width="54" height="20"/>
+				<textElement/>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bcf1bdc5-c3a9-43dd-8983-b88b40dbefb4" x="298" y="0" width="111" height="20"/>
+				<textElement/>
+				<text><![CDATA[No. Despacho]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="8d26cee1-cdbe-4770-bdda-91227e30d429" stretchType="RelativeToTallestObject" x="463" y="0" width="92" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_despachos_FEC_DESPACHO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="914e945c-2ed8-4ca5-a2d0-bbf89edf2760" stretchType="RelativeToTallestObject" x="206" y="0" width="92" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cat_tipo_salida_NOM_TIP_SALIDA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="086d71db-6f09-48cc-b18e-495d55cad903" stretchType="RelativeToTallestObject" x="38" y="0" width="168" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_producto_NOM_PRODUCTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c0675ee5-021f-495c-b9b6-ae51ddc38f77" stretchType="RelativeToTallestObject" x="2" y="0" width="36" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_producto_NUM_PRODUCTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="cadff720-ba56-45d4-a829-66527f38da5e" stretchType="RelativeToTallestObject" x="298" y="0" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_despachos_NUM_DESPACHO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="78daaeb3-f9a7-4127-b9e8-399053af7848" stretchType="RelativeToTallestObject" x="409" y="0" width="54" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_detalle_despacho_CAN_DET_DESPACHO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="81" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement uuid="dd91d53e-93f0-4c14-9ed7-67ee597856e9" x="0" y="60" width="555" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Hoja "+$V{PAGE_NUMBER}+"/"+$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="0" y="21" width="206" height="20"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[_______________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="355" y="21" width="200" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<text><![CDATA[___________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="2" y="41" width="204" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Sello]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="355" y="41" width="200" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Encargado]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

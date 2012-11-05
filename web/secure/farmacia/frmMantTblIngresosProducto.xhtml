@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <ui:composition template="/templates/main.xhtml">
+        <f:metadata>
+            <f:viewParam name="numIngreso" value="#{frmMantTblIngresosProducto.numIngreso}"/>
+            <f:event listener="#{frmMantTblIngresosProducto.init}" type="preRenderView"></f:event>
+	</f:metadata>
+        <ui:define name="title">
+          <h:outputText value="#{messages['default.windowTitle']}--Ingreso de Productos" escape="false"></h:outputText>  
+        </ui:define>
+
+        <ui:define name="body">
+          <h:form>
+            <rich:popupPanel id="ingresarProductoPanel" modal="true" autosized="true" resizeable="false" domElementAttachment="form">
+                <f:facet name="header">
+                    <h:outputText value="Ingreso de Productos"/>
+                </f:facet>
+                <f:facet name="controls">
+                    <h:outputLink value="#" onclick="#{rich:component('ingresarProductoPanel')}.hide(); return false;" style="color: white; font-weight: bold;">
+                        Cerrar
+                    </h:outputLink>
+                </f:facet>
+                <h:panelGroup id="ingresarProductoForm">
+                    <table>
+                        <tr>
+                            <td align="left">Tipo Pago:</td>
+                            <td align="left">
+                                <h:selectOneMenu value="#{frmMantTblIngresosProducto.tblIngresosProducto.codTipPago}">
+                                    <f:selectItems value="#{frmMantTblIngresosProducto.catTipoPagoList}"/>
+                                    <a4j:ajax event="change" render="ingresarProductoForm" execute="@form" immediate="false" listener="#{frmMantTblIngresosProducto.changeTipoPago}"></a4j:ajax>
+                                </h:selectOneMenu>
+                            </td>
+                            <td align="left">Banco:</td>
+                            <td align="left">
+                                <h:selectOneMenu value="#{frmMantTblIngresosProducto.tblIngresosProducto.codBanco}" rendered="#{frmMantTblIngresosProducto.tblIngresosProducto.codTipPago == 2}">
+                                    <f:selectItems value="#{frmMantTblIngresosProducto.catBancosList}"/>
+                                </h:selectOneMenu>
+                            </td>                    
+                        </tr> 
+                        <tr>
+                            <td align="left">Total:</td>
+                            <td colspan="3" align="left"><h:outputText value="#{frmMantTblIngresosProducto.tblIngresosProducto.totDonacion}"/></td>
+                        </tr>  
+                        <tr>
+                            <td align="left">Monto Recibido:</td>
+                            <td align="left">
+                                <h:inputText value="#{frmMantTblIngresosProducto.tblIngresosProducto.montoRecibido}">
+                                   <f:ajax event="change" render="ingresarProductoForm" execute="@form" immediate="false"></f:ajax>
+                                </h:inputText>
+                            </td>
+                            <td align="left">Cambio:</td>
+                            <td align="left"><h:outputText value="#{frmMantTblIngresosProducto.tblIngresosProducto.cambio}" rendered="#{frmMantTblIngresosProducto.tblIngresosProducto.montoRecibido > 0}"/></td>
+                        </tr>  
+                          <td colspan="4" align="center">
+                              <a4j:commandButton value="Guardar" actionListener="#{frmMantTblIngresosProducto.recibirPago}" render="@form, panelMessage" oncomplete="#{rich:component('ingresarProductoPanel')}.hide();"/>
+                              <a4j:commandButton value="Regresar">
+                                  <rich:componentControl target="ingresarProductoPanel" operation="hide" event="click"></rich:componentControl>
+                              </a4j:commandButton>
+                          </td>                        
+                    </table>
+                </h:panelGroup>
+            </rich:popupPanel>
+                <h3>Ingreso de Producto</h3>
+                <hr></hr>
+                    <table border="0">
+                        <tr>
+                            <td align="left">Numero de Ingreso</td>
+                            <td align="left">
+                                <h:outputText value="#{frmMantTblIngresosProducto.tblIngresosProducto.numIngreso}" style="font-weight: bold"/>
+                                <h:inputHidden value="#{frmMantTblIngresosProducto.tblIngresosProducto.numIngreso}" />
+                            </td>
+                            <td align="left">Estado:</td>
+                            <td align="left">
+                                <h:outputText value="#{frmMantTblIngresosProducto.tblIngresosProducto.estIngresosProducto}" style="font-weight: bold"></h:outputText>
+                            </td>                         
+                        </tr>
+                        <tr>
+                            <td align="left">Nombre:</td>
+                            <td colspan="3" align="left">
+                                <h:inputText value="#{frmMantTblIngresosProducto.tblIngresosProducto.nomComDonacion}" size="63" disabled="#{frmMantTblIngresosProducto.tblIngresosProducto.estComDonacion != 'EMITIDO' and frmMantTblIngresosProducto.tblIngresosProducto.numComDonacion != null}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">NIT:</td>
+                            <td align="left"><h:inputText value="#{frmMantTblIngresosProducto.tblIngresosProducto.nitComDonacion}" disabled="#{frmMantTblIngresosProducto.tblIngresosProducto.estComDonacion != 'EMITIDO' and frmMantTblIngresosProducto.tblIngresosProducto.numComDonacion != null}"/></td>
+                            <td align="left">Fecha:</td>
+                            <td align="left"><rich:calendar value="#{frmMantTblIngresosProducto.tblIngresosProducto.fecIngreso}" datePattern="dd/MM/yyyy" enableManualInput="true" disabled="#{frmMantTblIngresosProducto.tblIngresosProducto.numIngreso != null}"/></td>
+                        </tr>  
+                        <tr>
+                            <td align="left">Tipo donacion:</td>
+                            <td align="left">
+                                <h:selectOneMenu value="#{frmMantTblIngresosProducto.tblIngresosProducto.codTipDonacion}" disabled="#{frmMantTblIngresosProducto.tblIngresosProducto.estComDonacion != 'EMITIDO' and frmMantTblIngresosProducto.tblIngresosProducto.numComDonacion != null}">
+                                    <f:selectItems value="#{frmMantTblIngresosProducto.catTipoDonacionList}"/>
+                                </h:selectOneMenu>
+                            </td>
+                            <td align="left">Tipo Donante:</td>
+                            <td align="left">
+                                <h:selectOneMenu value="#{frmMantTblIngresosProducto.tblIngresosProducto.codTipDonante}" style="width: 130px" disabled="#{frmMantTblIngresosProducto.tblIngresosProducto.estComDonacion != 'EMITIDO' and frmMantTblIngresosProducto.tblIngresosProducto.numComDonacion != null}">
+                                    <f:selectItems value="#{frmMantTblIngresosProducto.catTipoDonanteList}"/>
+                                </h:selectOneMenu>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">Fundacion:</td>
+                            <td colspan="3" align="left">
+                                <h:selectOneMenu value="#{frmMantTblIngresosProducto.tblIngresosProducto.codCarisma}" style="width: 300px" disabled="#{frmMantTblIngresosProducto.tblIngresosProducto.estComDonacion != 'EMITIDO' and frmMantTblIngresosProducto.tblIngresosProducto.numComDonacion != null}">
+                                    <f:selectItems value="#{frmMantTblIngresosProducto.catCarismaList}"/>
+                                </h:selectOneMenu>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">Total:</td>
+                            <td align="left"><h:outputText value="#{frmMantTblIngresosProducto.tblIngresosProducto.totDonacion}" style="font-weight: bold"/></td>
+                        </tr>
+                        <tr>
+                            <td align="left">En letras:</td>
+                            <td colspan="3" align="left"><h:inputText value="#{frmMantTblIngresosProducto.tblIngresosProducto.canLetras}" size="63" disabled="#{frmMantTblIngresosProducto.tblIngresosProducto.estComDonacion != 'EMITIDO' and frmMantTblIngresosProducto.tblIngresosProducto.numComDonacion != null}"/></td>
+                        </tr>                    
+                          <tr>
+                              <td colspan="4" align="center">
+                                  <a4j:commandButton value="Guardar" actionListener="#{frmMantTblIngresosProducto.guardar}" render="@form, panelMessage" />
+                                  <a4j:commandButton value="Nuevo" actionListener="#{frmMantTblIngresosProducto.nuevo}" render="@form" execute="@this"/>
+                                  <a4j:commandButton value="Regresar" action="frmTblIngresos.jsf?faces-redirect=true" immediate="true"/>
+                                  <a4j:commandButton value="Recibir Pago" rendered="#{frmMantTblIngresosProducto.tblIngresosProducto.estComDonacion == 'EMITIDO' and frmMantTblIngresosProducto.tblIngresosProducto.numComDonacion != null}">
+                                      <rich:componentControl target="ingresarProductoPanel" operation="show" event="click"></rich:componentControl>
+                                  </a4j:commandButton>
+                              </td>
+                          </tr>
+                      </table>
+                <hr/>
+                <h:panelGroup rendered="#{frmMantTblIngresosProducto.tblIngresosProducto.numComDonacion != null}">
+                        <h3>Detalle del Comprobante de Donacion</h3>                    
+                            <table>
+                                  <tr>
+                                      <td align="left">Producto:</td>
+                                      <td align="left">
+                                          <h:selectOneMenu value="#{frmMantTblIngresosProducto.tblDetalleComprobanteDonacion.tblDetalleComprobanteDonacionPK.numProducto}" style="width: 130px" disabled="#{frmMantTblIngresosProducto.tblIngresosProducto.estComDonacion != 'EMITIDO' and frmMantTblIngresosProducto.tblIngresosProducto.numComDonacion != null}" valueChangeListener="#{frmMantTblIngresosProducto.seleccionarProducto}">
+                                              <f:selectItems value="#{frmMantTblIngresosProducto.tblProductoList}"/>
+                                              <f:ajax event="change" render="@form"></f:ajax>
+                                          </h:selectOneMenu>
+                                      </td>
+                                      <td align="left">Cantidad:</td>
+                                      <td align="left">
+                                          <h:inputText value="#{frmMantTblIngresosProducto.tblDetalleComprobanteDonacion.canProComDonacion}" disabled="#{frmMantTblIngresosProducto.tblIngresosProducto.estComDonacion != 'EMITIDO' and frmMantTblIngresosProducto.tblIngresosProducto.numComDonacion != null}"/>
+                                      </td>
+                                      <td colspan="4" align="center">
+                                          <a4j:commandButton value="Agregar" actionListener="#{frmMantTblIngresosProducto.agregar}" render="@form, panelMessage, ingresarProductoPanel" />
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <td align="left">Presentacion:</td>
+                                      <td align="left">
+                                          <h:outputText value="#{frmMantTblIngresosProducto.tblDetalleComprobanteDonacion.presentacion}"/>
+                                      </td>
+                                      <td align="left">Precio Unitario:</td>
+                                      <td align="left">
+                                          <h:outputText value="#{frmMantTblIngresosProducto.tblDetalleComprobanteDonacion.preUniComDonacion}"/>
+                                      </td>                            
+                                  </tr>
+                            </table>
+                    <rich:dataTable value="#{frmMantTblIngresosProducto.cblDetalleIngresoProductoList}" var="tblDetalleIngresoProducto" rows="10" id="tblDetalleIngresoProductoTable">
+                        <f:facet name="header">
+                            <rich:columnGroup>
+                              <h:column>
+                                <h:outputText value="Numero Correlativo"/>
+                              </h:column>
+                              <h:column>
+                                <h:outputText value="Codigo de Producto"/>
+                              </h:column>
+                              <h:column>
+                                <h:outputText value="Producto"/>
+                              </h:column>
+                              <h:column>
+                                <h:outputText value="Fecha de Expedición"/>
+                              </h:column>
+                              <h:column>
+                                <h:outputText value="Cantidad"/>
+                              </h:column>   
+                              <h:column>
+                                <h:outputText value="Precio Unitario"/>
+                              </h:column>
+                              <h:column>
+                                <h:outputText value="Total"/>
+                              </h:column>                     
+                              <h:column>
+                                <h:outputText value=""/>
+                              </h:column>
+                            </rich:columnGroup>
+                          </f:facet>
+                        <h:column>
+                            <h:outputText value="#{tblDetalleIngresoProducto.corDetIngreso}">   
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <h:outputText value="#{tblDetalleIngresoProducto.tblProducto.numProducto}">
+                        </h:outputText>
+                        <h:column>
+                            <h:outputText value="#{tblDetalleIngresoProducto.tblProducto.nomProducto}">
+                            </h:outputText>
+                        </h:column>                 
+                        <h:column>
+                            <h:outputText value="#{tblDetalleComprobanteDonacion.canProComDonacion}">
+                            </h:outputText>
+                        </h:column> 
+                        <h:column>
+                            <h:outputText value="&#36; #{tblDetalleComprobanteDonacion.preUniComDonacion}">
+                            </h:outputText>
+                        </h:column>                        
+                        <h:column>
+                            <h:outputText value="&#36; #{tblDetalleComprobanteDonacion.totIteComDonacion}">
+                            </h:outputText>
+                        </h:column>                     
+
+                        <h:column>
+                            <a4j:commandLink actionListener="#{frmMantTblIngresosProducto.deleteProducto}" render="@form, ingresarProductoPanel, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar el producto: #{tblDetalleComprobanteDonacion.tblProducto.nomProducto} #{tblDetalleComprobanteDonacion.tblProducto.preFinProducto}')){return false;}">
+                                <h:graphicImage url="/img/icons/delete.gif" style="border: 0"/>
+                            </a4j:commandLink>
+                        </h:column>                
+                    </rich:dataTable>
+                </h:panelGroup>               
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

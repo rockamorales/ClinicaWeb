@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteProductoAlquilado" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eb3d3e1d-e7a3-48ed-8e8f-a0fac7cf9d19">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     tbl_alquiler_equipo.`NUM_SOL_ALQUILER` AS tbl_alquiler_equipo_NUM_SOL_ALQUILER,
+     tbl_alquiler_equipo.`NUM_EXPEDIENTE` AS tbl_alquiler_equipo_NUM_EXPEDIENTE,
+     tbl_alquiler_equipo.`FEC_REG_ALQUILER` AS tbl_alquiler_equipo_FEC_REG_ALQUILER,
+     tbl_alquiler_equipo.`EST_ALQUILER` AS tbl_alquiler_equipo_EST_ALQUILER,
+     tbl_detalle_alquiler_equipo.`CAN_DET_ALQUILER` AS tbl_detalle_alquiler_equipo_CAN_DET_ALQUILER,
+     tbl_expediente_pacientes.`EST_PACIENTE` AS tbl_expediente_pacientes_EST_PACIENTE,
+     tbl_expediente_pacientes.`NOM_PACIENTE` AS tbl_expediente_pacientes_NOM_PACIENTE,
+     tbl_expediente_pacientes.`PRI_APE_PACIENTE` AS tbl_expediente_pacientes_PRI_APE_PACIENTE,
+     tbl_producto.`NOM_PRODUCTO` AS tbl_producto_NOM_PRODUCTO,
+     tbl_producto.`NUM_PRODUCTO` AS tbl_producto_NUM_PRODUCTO
+FROM
+     `tbl_alquiler_equipo` tbl_alquiler_equipo INNER JOIN `tbl_detalle_alquiler_equipo` tbl_detalle_alquiler_equipo ON tbl_alquiler_equipo.`NUM_SOL_ALQUILER` = tbl_detalle_alquiler_equipo.`NUM_SOL_ALQUILER`
+     INNER JOIN `tbl_expediente_pacientes` tbl_expediente_pacientes ON tbl_alquiler_equipo.`NUM_EXPEDIENTE` = tbl_expediente_pacientes.`NUM_EXPEDIENTE`
+     INNER JOIN `tbl_producto` tbl_producto ON tbl_detalle_alquiler_equipo.`NUM_PRODUCTO` = tbl_producto.`NUM_PRODUCTO`
+WHERE
+     tbl_alquiler_equipo.EST_ALQUILER = 1
+ AND tbl_producto.EST_PRODUCTO = 1]]>
+	</queryString>
+	<field name="tbl_alquiler_equipo_NUM_SOL_ALQUILER" class="java.lang.Integer"/>
+	<field name="tbl_alquiler_equipo_NUM_EXPEDIENTE" class="java.lang.Integer"/>
+	<field name="tbl_alquiler_equipo_FEC_REG_ALQUILER" class="java.sql.Date"/>
+	<field name="tbl_alquiler_equipo_EST_ALQUILER" class="java.lang.Integer"/>
+	<field name="tbl_detalle_alquiler_equipo_CAN_DET_ALQUILER" class="java.math.BigDecimal"/>
+	<field name="tbl_expediente_pacientes_EST_PACIENTE" class="java.lang.Integer"/>
+	<field name="tbl_expediente_pacientes_NOM_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_expediente_pacientes_PRI_APE_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_producto_NOM_PRODUCTO" class="java.lang.String"/>
+	<field name="tbl_producto_NUM_PRODUCTO" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="88" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="116" y="23" width="215" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Clinica Asistencial Corazon de Maria]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="f28cce09-6ee2-4268-be04-78c6298d0cab" x="2" y="2" width="83" height="65"/>
+				<imageExpression><![CDATA["logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="8ff5c228-e686-4510-9ac0-b7ad0aa2cd4d" x="375" y="3" width="69" height="20"/>
+				<textElement/>
+				<text><![CDATA[Fecha y Hora:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement uuid="dc2ad595-75d1-477b-b506-79e6b0b15492" x="444" y="3" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="375" y="40" width="180" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Area: <Farmacia>]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="2" y="0" width="552" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Reporte de Alquiler de Equipos]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="6134e5a6-8a41-4e8c-ab64-56d2d8f87602" x="2" y="0" width="59" height="20"/>
+				<textElement/>
+				<text><![CDATA[No. Alquiler]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d3e79142-d7e0-4e45-bd9d-0b271b24b95f" x="60" y="0" width="34" height="20"/>
+				<textElement/>
+				<text><![CDATA[Cant.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7dc04339-4c9c-4386-9e0f-530105ee34be" x="137" y="0" width="134" height="20"/>
+				<textElement/>
+				<text><![CDATA[Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b02ec384-d8b1-41f1-a600-a2f77b4c022c" x="322" y="0" width="53" height="20"/>
+				<textElement/>
+				<text><![CDATA[No. Exp.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c8acc340-c5ba-487e-8092-f97cdc5bae6e" x="375" y="0" width="79" height="20"/>
+				<textElement/>
+				<text><![CDATA[Nombres]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f23ee9c-ec25-43b6-9096-a1046324ed70" x="454" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="05499f25-8925-4435-a77a-1cd75a995984" x="270" y="0" width="52" height="20"/>
+				<textElement/>
+				<text><![CDATA[Estado Alq.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d0396d37-8be2-4560-a39f-730107e70073" x="94" y="0" width="44" height="20"/>
+				<textElement/>
+				<text><![CDATA[Codigo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="8275d369-1f51-4a72-8da8-49f82b5a5f44" x="2" y="0" width="59" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_alquiler_equipo_NUM_SOL_ALQUILER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="00e0d977-3e6b-4813-9824-762a954317c5" x="60" y="0" width="34" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_detalle_alquiler_equipo_CAN_DET_ALQUILER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="27c6fe25-dfa7-42ba-bf23-deb8c193a962" x="137" y="0" width="134" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_producto_NOM_PRODUCTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e30f7ac3-2483-43d7-ac83-4c3e1e6b4ff6" x="322" y="0" width="53" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_alquiler_equipo_NUM_EXPEDIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="cef79c77-696b-4b8d-bf4e-c1f0817641fb" x="375" y="0" width="79" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_NOM_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="df16ab0c-c0c4-4636-9fe4-642856919e12" x="454" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_PRI_APE_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0cc4dde9-fc47-42ec-99c5-44d9bfdb77be" x="270" y="0" width="52" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_alquiler_equipo_EST_ALQUILER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ddc320e0-42e9-4a4e-bdcf-82835cedd15c" x="94" y="0" width="44" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_producto_NUM_PRODUCTO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="34" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="81" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement uuid="dd91d53e-93f0-4c14-9ed7-67ee597856e9" x="0" y="60" width="555" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Hoja "+$V{PAGE_NUMBER}+"/"+$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="0" y="21" width="206" height="20"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[_______________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="355" y="21" width="200" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<text><![CDATA[___________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="2" y="41" width="204" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Sello]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="355" y="41" width="200" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Encargado]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
