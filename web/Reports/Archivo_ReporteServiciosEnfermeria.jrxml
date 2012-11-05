@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteServiciosEnfermeria" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eb3d3e1d-e7a3-48ed-8e8f-a0fac7cf9d19">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     tbl_servicios_enfermeria.`NUM_EXPEDIENTE` AS tbl_servicios_enfermeria_NUM_EXPEDIENTE,
+     tbl_servicios_enfermeria.`FEC_SER_ENFERMERIA` AS tbl_servicios_enfermeria_FEC_SER_ENFERMERIA,
+     cat_tipo_servicios_enfermeria.`NOM_SER_ENFERMERIA` AS cat_tipo_servicios_enfermeria_NOM_SER_ENFERMERIA,
+     tbl_empleado.`NOM_EMPLEADO` AS tbl_empleado_NOM_EMPLEADO
+FROM
+     `cat_tipo_servicios_enfermeria` cat_tipo_servicios_enfermeria INNER JOIN `tbl_servicios_enfermeria` tbl_servicios_enfermeria ON cat_tipo_servicios_enfermeria.`COD_SER_ENFERMERIA` = tbl_servicios_enfermeria.`COD_SER_ENFERMERIA`
+     INNER JOIN `tbl_empleado` tbl_empleado ON tbl_servicios_enfermeria.`NUM_EMPLEADO` = tbl_empleado.`NUM_EMPLEADO`
+AND month (FEC_SER_ENFERMERIA) = month (now())-1]]>
+	</queryString>
+	<field name="tbl_servicios_enfermeria_NUM_EXPEDIENTE" class="java.lang.Integer"/>
+	<field name="tbl_servicios_enfermeria_FEC_SER_ENFERMERIA" class="java.sql.Timestamp"/>
+	<field name="cat_tipo_servicios_enfermeria_NOM_SER_ENFERMERIA" class="java.lang.String"/>
+	<field name="tbl_empleado_NOM_EMPLEADO" class="java.lang.String"/>
+	<variable name="tbl_servicios_enfermeria_NUM_EXPEDIENTE_1" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{tbl_servicios_enfermeria_NUM_EXPEDIENTE}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="88" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="116" y="23" width="215" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Clinica Asistencial Corazon de Maria]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="f28cce09-6ee2-4268-be04-78c6298d0cab" x="2" y="2" width="83" height="65"/>
+				<imageExpression><![CDATA["logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="8ff5c228-e686-4510-9ac0-b7ad0aa2cd4d" x="375" y="3" width="69" height="20"/>
+				<textElement/>
+				<text><![CDATA[Fecha y Hora:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement uuid="dc2ad595-75d1-477b-b506-79e6b0b15492" x="444" y="3" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="375" y="40" width="180" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Area: Archivo de Pacientes]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="2" y="0" width="552" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="14" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Reporte de Servicios de Enfermería]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="c72a9464-ac69-4a0c-a6d5-dbda18a68dc7" x="278" y="0" width="138" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Expediente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="982d134f-f592-4aac-a406-6107912afc55" x="416" y="0" width="138" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Fecha del Servicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a908a589-7ddf-4a36-adba-1a37e4847e08" x="2" y="0" width="138" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Servicio Brindado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="58cb349b-4c5d-4de1-921a-b150ce8d52f1" x="140" y="0" width="138" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Enfermera]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="adfb95a2-066f-442a-bb63-45a15da39a12" x="278" y="0" width="138" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tbl_servicios_enfermeria_NUM_EXPEDIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="115a1b70-2530-45b4-963b-d8ea540376f2" x="416" y="0" width="138" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tbl_servicios_enfermeria_FEC_SER_ENFERMERIA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ee729c14-7737-4abe-9033-80b105c18e1e" x="2" y="0" width="138" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{cat_tipo_servicios_enfermeria_NOM_SER_ENFERMERIA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="fd0d7648-d270-41e5-aa03-74fb1cf76325" x="140" y="0" width="138" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tbl_empleado_NOM_EMPLEADO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement uuid="1bee4d2d-b804-421f-88fc-3e0c2bdd87fc" x="454" y="25" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{tbl_servicios_enfermeria_NUM_EXPEDIENTE_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="274" y="25" width="180" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Total de Servcios de Enfermería]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="81" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement uuid="dd91d53e-93f0-4c14-9ed7-67ee597856e9" x="0" y="60" width="555" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Hoja "+$V{PAGE_NUMBER}+"/"+$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="0" y="21" width="206" height="20"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[_______________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="355" y="21" width="200" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<text><![CDATA[___________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="2" y="41" width="204" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Sello]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="355" y="41" width="200" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Encargado]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

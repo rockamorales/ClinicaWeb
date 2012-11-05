@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteExpedientesNuevos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eb3d3e1d-e7a3-48ed-8e8f-a0fac7cf9d19">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     tbl_expediente_pacientes.`NUM_EXPEDIENTE` AS tbl_expediente_pacientes_NUM_EXPEDIENTE,
+     tbl_expediente_pacientes.`FEC_REG_EXPEDIENTE` AS tbl_expediente_pacientes_FEC_REG_EXPEDIENTE,
+     tbl_expediente_pacientes.`NOM_PACIENTE` AS tbl_expediente_pacientes_NOM_PACIENTE,
+     tbl_expediente_pacientes.`PRI_APE_PACIENTE` AS tbl_expediente_pacientes_PRI_APE_PACIENTE,
+     tbl_expediente_pacientes.`SEC_APE_PACIENTE` AS tbl_expediente_pacientes_SEC_APE_PACIENTE,
+     tbl_expediente_pacientes.`TER_APE_PACIENTE` AS tbl_expediente_pacientes_TER_APE_PACIENTE,
+     cat_sexo.`NOM_SEX_PACIENTE` AS cat_sexo_NOM_SEX_PACIENTE
+FROM
+     `tbl_expediente_pacientes` tbl_expediente_pacientes INNER JOIN `cat_sexo` cat_sexo ON tbl_expediente_pacientes.`COD_SEX_PACIENTE` = cat_sexo.`COD_SEX_PACIENTE`
+AND tbl_expediente_pacientes.est_paciente = 0
+AND month (fec_reg_expediente) = month (now())-1]]>
+	</queryString>
+	<field name="tbl_expediente_pacientes_NUM_EXPEDIENTE" class="java.lang.Integer"/>
+	<field name="tbl_expediente_pacientes_FEC_REG_EXPEDIENTE" class="java.sql.Timestamp"/>
+	<field name="tbl_expediente_pacientes_NOM_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_expediente_pacientes_PRI_APE_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_expediente_pacientes_SEC_APE_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_expediente_pacientes_TER_APE_PACIENTE" class="java.lang.String"/>
+	<field name="cat_sexo_NOM_SEX_PACIENTE" class="java.lang.String"/>
+	<variable name="tbl_expediente_pacientes_NOM_PACIENTE_1" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{tbl_expediente_pacientes_NOM_PACIENTE}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="88" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="116" y="23" width="215" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Clinica Asistencial Corazon de Maria]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="f28cce09-6ee2-4268-be04-78c6298d0cab" x="2" y="2" width="83" height="65"/>
+				<imageExpression><![CDATA["logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="8ff5c228-e686-4510-9ac0-b7ad0aa2cd4d" x="375" y="3" width="69" height="20"/>
+				<textElement/>
+				<text><![CDATA[Fecha y Hora:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement uuid="dc2ad595-75d1-477b-b506-79e6b0b15492" x="444" y="3" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="375" y="40" width="180" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Area: Archivo de Pacientes]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="2" y="0" width="552" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="14" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Reporte de Nuevos Expedientes]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="85e2883f-c4c0-4ed6-81b8-6e9060c50c47" x="362" y="0" width="54" height="20"/>
+				<textElement/>
+				<text><![CDATA[Expediente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="75b417f7-3978-4569-b149-87965ae698e6" x="416" y="0" width="79" height="20"/>
+				<textElement/>
+				<text><![CDATA[Fecha Creación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2ba36cc8-b1e5-4a20-99dc-7d16c18efd2b" x="0" y="0" width="94" height="20"/>
+				<textElement/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bbc83818-bab0-420c-bacb-92797d1b86e8" x="94" y="0" width="89" height="20"/>
+				<textElement/>
+				<text><![CDATA[Primer Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5f2b5586-05ea-43aa-a5fc-f7f0dc5896ef" x="183" y="0" width="88" height="20"/>
+				<textElement/>
+				<text><![CDATA[Segundo Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ce5802c7-ed12-4085-99e0-a3c8a6cdda3a" x="271" y="0" width="92" height="20"/>
+				<textElement/>
+				<text><![CDATA[Tercer Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cd15e987-ec09-4a0a-8c1d-3a2cfd0b24e4" x="495" y="0" width="58" height="20"/>
+				<textElement/>
+				<text><![CDATA[Genero]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement uuid="03fa17e4-7a63-4673-be91-f9a72067ab25" x="362" y="0" width="54" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_NUM_EXPEDIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1b5efca0-6ac2-47f9-bc02-1a263dd3a01b" x="416" y="0" width="79" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_FEC_REG_EXPEDIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="fadf92a3-2a31-4976-b6bc-da65c9078b2b" x="0" y="0" width="94" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_NOM_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="23ebe5b7-fb21-4697-80ef-2a7ff9f7f5ba" x="94" y="0" width="89" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_PRI_APE_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c61af887-55c6-4438-8d71-593e3007f7c8" x="183" y="0" width="88" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_SEC_APE_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c86846aa-ab5e-4f28-a5e9-0c6f7f687d06" x="271" y="0" width="92" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_TER_APE_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="011bc467-a816-4e35-b1fa-27c6d4bd158e" x="495" y="0" width="58" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cat_sexo_NOM_SEX_PACIENTE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="81" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement uuid="dd91d53e-93f0-4c14-9ed7-67ee597856e9" x="0" y="60" width="555" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Hoja "+$V{PAGE_NUMBER}+"/"+$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="0" y="21" width="206" height="20"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[_______________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="355" y="21" width="200" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<text><![CDATA[___________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="2" y="41" width="204" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Sello]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="355" y="41" width="200" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Encargado]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

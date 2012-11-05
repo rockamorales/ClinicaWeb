@@ -47,7 +47,7 @@ import sv.com.cormaria.servicios.helpers.NumToText;
  */
 @ManagedBean
 @ViewScoped
-public class FrmMantTblComprobanteDonacion extends PageBase{
+public class FrmMantTblDevolucion extends PageBase{
     private TblComprobanteDonacion tblComprobanteDonacion = new TblComprobanteDonacion();
     private TblDetalleComprobanteDonacion tblDetalleComprobanteDonacion = new TblDetalleComprobanteDonacion();    
     @EJB
@@ -279,12 +279,10 @@ public class FrmMantTblComprobanteDonacion extends PageBase{
             if (!validateHeader(tblComprobanteDonacion)){
                 return;
             }
-            tblComprobanteDonacion.setEstComDonacion(EstadoComprobanteDonacion.PAGADO);
+            tblComprobanteDonacion.setEstComDonacion(EstadoComprobanteDonacion.DEVUELTO);
             String letras = NumToText.convertirLetras(tblComprobanteDonacion.getTotDonacion());
             tblComprobanteDonacion.setCanLetras(letras);
             facade.recibirPago(tblComprobanteDonacion);
-            ComprobanteDonacionEmitidosDataModel dataModel = (ComprobanteDonacionEmitidosDataModel) this.getBean("#{comprobanteDonacionEmitidosDataModel}", ComprobanteDonacionEmitidosDataModel.class);
-            dataModel.clear();
         }catch(Exception x){
             x.printStackTrace();
             this.addError(x.getMessage(), x.getMessage());
@@ -385,7 +383,7 @@ public class FrmMantTblComprobanteDonacion extends PageBase{
                 this.addError(ex.getMessage(), ex.getMessage());
             }
             if (tblComprobanteDonacion.getNumComDonacion()==null || tblComprobanteDonacion.getNumComDonacion()<=0){
-                tblComprobanteDonacion.setTipComprobante(TipoComprobanteDonacion.COBRO);
+                tblComprobanteDonacion.setTipComprobante(TipoComprobanteDonacion.DEVOLUCION);
                 tblComprobanteDonacion.setCodTipDonacion(2);
                 tblComprobanteDonacion.setCodTipDonante(2);
                 tblComprobanteDonacion.setCanLetras("Cero con 00/100 US Dolares");

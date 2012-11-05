@@ -47,7 +47,7 @@ import sv.com.cormaria.servicios.helpers.NumToText;
  */
 @ManagedBean
 @ViewScoped
-public class FrmMantTblComprobanteDonacion extends PageBase{
+public class FrmMantTblDonacionesVoluntarias extends PageBase{
     private TblComprobanteDonacion tblComprobanteDonacion = new TblComprobanteDonacion();
     private TblDetalleComprobanteDonacion tblDetalleComprobanteDonacion = new TblDetalleComprobanteDonacion();    
     @EJB
@@ -385,10 +385,7 @@ public class FrmMantTblComprobanteDonacion extends PageBase{
                 this.addError(ex.getMessage(), ex.getMessage());
             }
             if (tblComprobanteDonacion.getNumComDonacion()==null || tblComprobanteDonacion.getNumComDonacion()<=0){
-                tblComprobanteDonacion.setTipComprobante(TipoComprobanteDonacion.COBRO);
-                tblComprobanteDonacion.setCodTipDonacion(2);
-                tblComprobanteDonacion.setCodTipDonante(2);
-                tblComprobanteDonacion.setCanLetras("Cero con 00/100 US Dolares");
+                tblComprobanteDonacion.setTipComprobante(TipoComprobanteDonacion.DONACION);
             }
         }
     }
@@ -426,5 +423,9 @@ public class FrmMantTblComprobanteDonacion extends PageBase{
    public void clear(ActionEvent ae){
         ComprobanteDonacionEmitidosDataModel dataModel = (ComprobanteDonacionEmitidosDataModel) this.getBean("#{comprobanteDonacionEmitidosDataModel}", ComprobanteDonacionEmitidosDataModel.class);
         dataModel.clear();
+   }
+   
+   public void calcularMontoLetras(){
+       tblComprobanteDonacion.setCanLetras(NumToText.convertirLetras(tblComprobanteDonacion.getTotDonacion()));
    }
 }

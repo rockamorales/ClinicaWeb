@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <ui:composition template="/templates/main.xhtml">
+        <f:metadata>
+            <f:viewParam name="numComDonacion" value="#{frmMantTblDonacionesVoluntarias.numComDonacion}"/>
+            <f:event listener="#{frmMantTblDonacionesVoluntarias.init}" type="preRenderView"></f:event>
+	</f:metadata>
+        <ui:define name="title">
+          <h:outputText value="#{messages['default.windowTitle']}--Comprobante de Donación" escape="false"></h:outputText>  
+        </ui:define>
+
+        <ui:define name="body">
+          <h:form>
+              <a4j:poll id="poll" interval="5000" enabled="true" render="comprobanteDataGrid" actionListener="#{frmMantTblDonacionesVoluntarias.clear}" />
+            <rich:popupPanel id="recibirPagoPanel" modal="true" autosized="true" resizeable="false" domElementAttachment="form">
+                <f:facet name="header">
+                    <h:outputText value="Recepcion de Pago"/>
+                </f:facet>
+                <f:facet name="controls">
+                    <h:outputLink value="#" onclick="#{rich:component('recibirPagoPanel')}.hide(); return false;" style="color: white; font-weight: bold;">
+                        Cerrar
+                    </h:outputLink>
+                </f:facet>
+                <h:panelGroup id="recibirPagoForm">
+                    <table>
+                        <tr>
+                            <td align="left">Tipo Pago:</td>
+                            <td align="left">
+                                <h:selectOneMenu value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.codTipPago}">
+                                    <f:selectItems value="#{frmMantTblDonacionesVoluntarias.catTipoPagoList}"/>
+                                    <a4j:ajax event="change" render="recibirPagoForm" execute="@form" immediate="false" listener="#{frmMantTblDonacionesVoluntarias.changeTipoPago}"></a4j:ajax>
+                                </h:selectOneMenu>
+                            </td>
+                            <td align="left">Banco:</td>
+                            <td align="left">
+                                <h:selectOneMenu value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.codBanco}" rendered="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.codTipPago == 2}">
+                                    <f:selectItems value="#{frmMantTblDonacionesVoluntarias.catBancosList}"/>
+                                </h:selectOneMenu>
+                            </td>                    
+                        </tr> 
+                        <tr>
+                            <td align="left">Total:</td>
+                            <td colspan="3" align="left"><h:outputText value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.totDonacion}"/></td>
+                        </tr>  
+                        <tr>
+                            <td align="left">Monto Recibido:</td>
+                            <td align="left">
+                                <h:inputText value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.montoRecibido}" disabled="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.codTipPago == 2}" style="width: 60px;">
+                                   <f:ajax event="change" render="recibirPagoForm" execute="@form" immediate="false"></f:ajax>
+                                </h:inputText>
+                            </td>
+                            <td align="left">Cambio:</td>
+                            <td align="left"><h:outputText value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.cambio}" rendered="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.montoRecibido > 0}" style="color:red;font-weight: bold;"/></td>
+                        </tr>  
+                        <tr>
+                          <td colspan="4" align="center">
+                              <a4j:commandButton value="Guardar" actionListener="#{frmMantTblDonacionesVoluntarias.recibirPago}" render="@form, panelMessage" oncomplete="#{rich:component('recibirPagoPanel')}.hide();"/>
+                              <a4j:commandButton value="Regresar">
+                                  <rich:componentControl target="recibirPagoPanel" operation="hide" event="click"></rich:componentControl>
+                              </a4j:commandButton>
+                          </td>
+                        </tr>
+                    </table>
+                </h:panelGroup>
+            </rich:popupPanel>
+                <h3>Comprobante de Donación</h3>
+                <hr></hr>
+                    <table border="0">
+                        <tr>
+                            <td align="left">Comprobante:</td>
+                            <td align="left">
+                                <h:outputText value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.numComDonacion}" style="font-weight: bold"/>
+                                <h:inputHidden value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.numComDonacion}" />
+                            </td>
+                            <td align="left">Estado:</td>
+                            <td align="left">
+                                <h:outputText value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.estComDonacion}" style="font-weight: bold"></h:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">Tipo transaccion:</td>
+                            <td align="left">
+                                <h:selectOneMenu value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.tipComprobante}" id="tipComprobante" disabled="true">
+                                    <a4j:ajax event="change" render="@form"/>
+                                    <f:selectItem itemValue="DONACION" itemLabel="Donacion"/>
+                                </h:selectOneMenu>
+                            </td>
+                            <td align="left">Num doc:</td>
+                            <td align="left">
+                                <h:inputText value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.numFacDonacion}" style="font-weight: bold"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">Nombre:</td>
+                            <td colspan="3" align="left">
+                                <h:inputText value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.nomComDonacion}" size="63" disabled="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.estComDonacion != 'EMITIDO' and frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.numComDonacion != null}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">NIT:</td>
+                            <td align="left"><h:inputText value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.nitComDonacion}" disabled="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.estComDonacion != 'EMITIDO' and frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.numComDonacion != null}"/></td>
+                            <td align="left">Fecha:</td>
+                            <td align="left"><rich:calendar value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.fecComDonacion}" datePattern="dd/MM/yyyy" enableManualInput="true" disabled="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.estComDonacion != 'EMITIDO' and frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.numComDonacion != null}"/></td>
+                        </tr>  
+                        <tr>
+                            <td align="left">Tipo donacion:</td>
+                            <td align="left">
+                                <h:selectOneMenu value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.codTipDonacion}" disabled="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.estComDonacion != 'EMITIDO' and frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.numComDonacion != null}">
+                                    <f:selectItem itemValue="-1" itemLabel="-- Seleccione una opcion --"/>
+                                    <f:selectItems value="#{frmMantTblDonacionesVoluntarias.catTipoDonacionList}"/>
+                                </h:selectOneMenu>
+                            </td>
+                            <td align="left">Tipo Donante:</td>
+                            <td align="left">
+                                <h:selectOneMenu value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.codTipDonante}" style="width: 130px" disabled="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.estComDonacion != 'EMITIDO' and frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.numComDonacion != null}">
+                                    <f:selectItem itemValue="-1" itemLabel="-- Seleccione una opcion --"/>
+                                    <f:selectItems value="#{frmMantTblDonacionesVoluntarias.catTipoDonanteList}"/>
+                                </h:selectOneMenu>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">Fundacion:</td>
+                            <td colspan="3" align="left">
+                                <h:selectOneMenu value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.codCarisma}" style="width: 300px" disabled="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.estComDonacion != 'EMITIDO' and frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.numComDonacion != null}">
+                                    <f:selectItems value="#{frmMantTblDonacionesVoluntarias.catCarismaList}"/>
+                                </h:selectOneMenu>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">Total:</td>
+                            <td align="left">
+                                <h:inputText value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.totDonacion}" id="totDonacion" style="font-weight: bold">
+                                    <a4j:ajax event="change" render="canLetras" listener="#{frmMantTblDonacionesVoluntarias.calcularMontoLetras}"/>
+                                </h:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">En letras:</td>
+                            <td colspan="3" align="left"><h:outputText value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.canLetras}" id="canLetras" style="font-weight: bold;"/></td>
+                        </tr>
+                          <tr>
+                              <td colspan="4" align="center">
+                                  <a4j:commandButton value="Guardar" actionListener="#{frmMantTblDonacionesVoluntarias.guardar}" render="@form, panelMessage" />
+                                  <a4j:commandButton value="Nuevo" actionListener="#{frmMantTblDonacionesVoluntarias.nuevo}" render="@form" execute="@this"/>
+                                  <a4j:commandButton value="Regresar" action="frmTblDonacionesVoluntarias.jsf?faces-redirect=true" immediate="true"/>
+                                  <a4j:commandButton value="Recibir Pago" rendered="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.estComDonacion == 'EMITIDO' and frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.numComDonacion != null}">
+                                      <rich:componentControl target="recibirPagoPanel" operation="show" event="click"></rich:componentControl>
+                                  </a4j:commandButton>
+                              </td>
+                          </tr>
+                      </table>
+                  <hr/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

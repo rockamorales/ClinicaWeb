@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteExpedienteDepurados" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eb3d3e1d-e7a3-48ed-8e8f-a0fac7cf9d19">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     tbl_expediente_pacientes.`NUM_EXPEDIENTE` AS tbl_expediente_pacientes_NUM_EXPEDIENTE,
+     tbl_expediente_pacientes.`NOM_PACIENTE` AS tbl_expediente_pacientes_NOM_PACIENTE,
+     tbl_expediente_pacientes.`PRI_APE_PACIENTE` AS tbl_expediente_pacientes_PRI_APE_PACIENTE,
+     tbl_expediente_pacientes.`SEC_APE_PACIENTE` AS tbl_expediente_pacientes_SEC_APE_PACIENTE,
+     tbl_expediente_pacientes.`TER_APE_PACIENTE` AS tbl_expediente_pacientes_TER_APE_PACIENTE,
+     tbl_consultas.`FEC_CONSULTA` AS tbl_consultas_FEC_CONSULTA
+FROM
+     `tbl_expediente_pacientes` tbl_expediente_pacientes INNER JOIN `tbl_consultas` tbl_consultas ON tbl_expediente_pacientes.`NUM_EXPEDIENTE` = tbl_consultas.`NUM_EXPEDIENTE`
+AND tbl_expediente_pacientes.est_paciente = 1
+AND month (fec_reg_expediente) = month (now())-1]]>
+	</queryString>
+	<field name="tbl_expediente_pacientes_NUM_EXPEDIENTE" class="java.lang.Integer"/>
+	<field name="tbl_expediente_pacientes_NOM_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_expediente_pacientes_PRI_APE_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_expediente_pacientes_SEC_APE_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_expediente_pacientes_TER_APE_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_consultas_FEC_CONSULTA" class="java.sql.Timestamp"/>
+	<variable name="tbl_expediente_pacientes_NUM_EXPEDIENTE_1" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{tbl_expediente_pacientes_NUM_EXPEDIENTE}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="88" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="116" y="23" width="215" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Clinica Asistencial Corazon de Maria]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="f28cce09-6ee2-4268-be04-78c6298d0cab" x="2" y="2" width="83" height="65"/>
+				<imageExpression><![CDATA["logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="8ff5c228-e686-4510-9ac0-b7ad0aa2cd4d" x="375" y="3" width="69" height="20"/>
+				<textElement/>
+				<text><![CDATA[Fecha y Hora:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement uuid="dc2ad595-75d1-477b-b506-79e6b0b15492" x="444" y="3" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="375" y="40" width="180" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Area: Archivo de Pacientes]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="2" y="0" width="552" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="14" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Reporte de Expedientes Depurados]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="58a5ddab-0268-4b87-b2e2-1e92872e4cfc" x="370" y="0" width="92" height="20"/>
+				<textElement/>
+				<text><![CDATA[Expediente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1466d34e-d13b-4fe3-8f5b-939eaefeb82e" x="2" y="0" width="92" height="20"/>
+				<textElement/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="13b2252f-1ff8-4d47-88df-842cf97aa114" x="94" y="0" width="92" height="20"/>
+				<textElement/>
+				<text><![CDATA[Primer Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4cd0cea5-4021-4a09-9e90-19a5e533b627" x="186" y="0" width="92" height="20"/>
+				<textElement/>
+				<text><![CDATA[Segundo Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="788e2645-9895-4873-998f-b884a845ff1c" x="278" y="0" width="92" height="20"/>
+				<textElement/>
+				<text><![CDATA[Tercer Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b51e5673-65d9-423e-b901-b276af01b45f" x="460" y="0" width="92" height="20"/>
+				<textElement/>
+				<text><![CDATA[Ultima Consulta]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="444995b9-f6a1-462b-a2a2-562d19ae9cae" x="370" y="0" width="92" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_NUM_EXPEDIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f92243d8-fcd0-4088-bd05-11cdee76fc56" x="2" y="0" width="92" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_NOM_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9cb4a9df-2c77-4488-ae23-c5bdeeb07f88" x="94" y="0" width="92" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_PRI_APE_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="27607b16-91be-45c1-a2c5-09df1e381932" x="186" y="0" width="92" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_SEC_APE_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="74dff567-f145-4407-aeb1-de10dd4ccc10" x="278" y="0" width="92" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_TER_APE_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="98b86210-3ad9-4a93-b9ad-d8c44e8f3777" x="460" y="0" width="92" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_consultas_FEC_CONSULTA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement uuid="009c5057-03c9-46e2-b417-8c7bb333f09a" x="450" y="25" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{tbl_expediente_pacientes_NUM_EXPEDIENTE_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="265" y="26" width="180" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Total de Expedientes Depurados]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="81" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement uuid="dd91d53e-93f0-4c14-9ed7-67ee597856e9" x="0" y="60" width="555" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Hoja "+$V{PAGE_NUMBER}+"/"+$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="0" y="21" width="206" height="20"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[_______________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="355" y="21" width="200" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<text><![CDATA[___________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="2" y="41" width="204" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Sello]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="355" y="41" width="200" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Encargado]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
