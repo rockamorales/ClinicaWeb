@@ -102,6 +102,8 @@ and open the template in the editor.
                     <h:column>
                         <h:outputText value="#{tblComprobanteDonacion.tblExpedientePacientes.nomPaciente} #{tblComprobanteDonacion.tblExpedientePacientes.priApePaciente} #{tblComprobanteDonacion.tblExpedientePacientes.secApePaciente} #{tblComprobanteDonacion.tblExpedientePacientes.terApePaciente}" rendered="#{tblComprobanteDonacion.tblExpedientePacientes != null}">
                         </h:outputText>                    
+                        <h:outputText value="#{tblComprobanteDonacion.nomComDonacion}" rendered="#{tblComprobanteDonacion.tblExpedientePacientes == null}">
+                        </h:outputText>
                     </h:column> 
                     <h:column>
                         <h:outputText value="#{tblComprobanteDonacion.catTipoDonante.nomTipDonante}">
@@ -125,7 +127,7 @@ and open the template in the editor.
                         </h:outputLink>
                     </h:column>
                     <h:column>
-                        <a4j:commandLink actionListener="#{frmTblComprobanteDonacion.delete}" render="@form" onclick="if(!confirm('Esta seguro que desea eliminar Pago: #{tblComprobanteDonacion.nomComDonacion}')){return false;}">
+                        <a4j:commandLink actionListener="#{frmTblComprobanteDonacion.delete}" render="@form, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar Pago: #{tblComprobanteDonacion.nomComDonacion}')){return false;}">
                             <h:graphicImage url="/img/icons/delete.gif" style="border: 0"/>
                             <f:setPropertyActionListener target="#{frmTblComprobanteDonacion.tblComprobanteDonacion}" value="#{tblComprobanteDonacion}"/>
                         </a4j:commandLink>

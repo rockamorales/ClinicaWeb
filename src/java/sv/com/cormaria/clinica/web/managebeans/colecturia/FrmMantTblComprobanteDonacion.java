@@ -10,11 +10,15 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
+import org.richfaces.component.UIDataGrid;
 import org.richfaces.component.UIDataTable;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
+import sv.com.cormaria.clinica.web.managebeans.datamodels.ComprobanteDonacionEmitidosDataModel;
+import sv.com.cormaria.clinica.web.managebeans.datamodels.ServiciosEnfermeriaPagadosDataModel;
 import sv.com.cormaria.servicios.entidades.catalogos.CatBancos;
 import sv.com.cormaria.servicios.entidades.catalogos.CatCarisma;
 import sv.com.cormaria.servicios.entidades.catalogos.CatTipoDonacion;
@@ -24,7 +28,9 @@ import sv.com.cormaria.servicios.entidades.colecturia.TblComprobanteDonacion;
 import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonacion;
 import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonacionPK;
 import sv.com.cormaria.servicios.entidades.administracion.TblProducto;
+import sv.com.cormaria.servicios.entidades.archivo.TblServiciosEnfermeria;
 import sv.com.cormaria.servicios.enums.EstadoComprobanteDonacion;
+import sv.com.cormaria.servicios.enums.TipoComprobanteDonacion;
 import sv.com.cormaria.servicios.facades.catalogos.CatBancosFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatCarismaFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatTipoDonacionFacadeLocal;
@@ -33,12 +39,13 @@ import sv.com.cormaria.servicios.facades.catalogos.CatTipoPagoFacadeLocal;
 import sv.com.cormaria.servicios.facades.colecturia.TblComprobanteDonacionFacadeLocal;
 import sv.com.cormaria.servicios.facades.colecturia.TblDetalleComprobanteDonacionFacadeLocal;
 import sv.com.cormaria.servicios.facades.administracion.TblProductoFacadeLocal;
+import sv.com.cormaria.servicios.helpers.NumToText;
 
 /**
  *
  * @author Mackk
  */
-@ManagedBean (name = "frmMantTblComprobanteDonacion")
+@ManagedBean
 @ViewScoped
 public class FrmMantTblComprobanteDonacion extends PageBase{
     private TblComprobanteDonacion tblComprobanteDonacion = new TblComprobanteDonacion();
@@ -225,6 +232,9 @@ public class FrmMantTblComprobanteDonacion extends PageBase{
         
     public void guardar(ActionEvent ae){
         try{
+            if (!validateHeader(tblComprobanteDonacion)){
+                return;
+            }
             if(tblComprobanteDonacion.getNumComDonacion() != null){
                 facade.edit(tblComprobanteDonacion);
             }else{
@@ -240,16 +250,45 @@ public class FrmMantTblComprobanteDonacion extends PageBase{
         this.tblComprobanteDonacion = new TblComprobanteDonacion();
     }
     
+    public boolean validatePayment(TblComprobanteDonacion tblComprobanteDonacion){
+        boolean validationOk = true;
+        if (tblComprobanteDonacion.getMontoRecibido()<=0 || tblComprobanteDonacion.getMontoRecibido()<tblComprobanteDonacion.getTotDonacion()){
+            validationOk = false;
+            this.addError("El monto recibido no puede ser menor al total de la donacion", "El monto recibido no puede ser menor al total de la donacion");
+        }
+        return validationOk;
+    }
         
     public void recibirPago(ActionEvent rp){
         try{
+            if (!validateHeader(tblComprobanteDonacion) || !validatePayment(tblComprobanteDonacion)){
+                return;
+            }
             tblComprobanteDonacion.setEstComDonacion(EstadoComprobanteDonacion.PAGADO);
             facade.recibirPago(tblComprobanteDonacion);
-
+            ComprobanteDonacionEmitidosDataModel dataModel = (ComprobanteDonacionEmitidosDataModel) this.getBean("#{comprobanteDonacionEmitidosDataModel}", ComprobanteDonacionEmitidosDataModel.class);
+            dataModel.clear();
         }catch(Exception x){
             x.printStackTrace();
             this.addError(x.getMessage(), x.getMessage());
         }  
+    }
+    
+    public void marcarDonacionPagada(ActionEvent rp){
+        try{
+            if (!validateHeader(tblComprobanteDonacion)){
+                return;
+            }
+            tblComprobanteDonacion.setEstComDonacion(EstadoComprobanteDonacion.PAGADO);
+            String letras = NumToText.convertirLetras(tblComprobanteDonacion.getTotDonacion());
+            tblComprobanteDonacion.setCanLetras(letras);
+            facade.recibirPago(tblComprobanteDonacion);
+            ComprobanteDonacionEmitidosDataModel dataModel = (ComprobanteDonacionEmitidosDataModel) this.getBean("#{comprobanteDonacionEmitidosDataModel}", ComprobanteDonacionEmitidosDataModel.class);
+            dataModel.clear();
+        }catch(Exception x){
+            x.printStackTrace();
+            this.addError(x.getMessage(), x.getMessage());
+        }
     }
     
     public List<TblProducto> autoComplete(String prefijo){
@@ -314,6 +353,17 @@ public class FrmMantTblComprobanteDonacion extends PageBase{
         }
     } 
     
+    public boolean validateHeader(TblComprobanteDonacion header){
+        boolean validationOk = true;
+        if (header.getTipComprobante()!=null && (header.getTipComprobante() == TipoComprobanteDonacion.COBRO || header.getTipComprobante() == TipoComprobanteDonacion.DEVOLUCION)){
+            if (header.getNumFacDonacion()==null || header.getNumFacDonacion().trim().equals("")){
+                validationOk = false;
+                this.addError("Por favor ingrese el numero de documento pre-impreso", "Por favor ingrese el numero de documento pre-impreso");
+            }
+        }
+        return validationOk;
+    }
+    
     public boolean validate (TblDetalleComprobanteDonacion detalle){
         boolean validationOk = true;
         if (detalle.getCanProComDonacion() <= 0){
@@ -324,17 +374,57 @@ public class FrmMantTblComprobanteDonacion extends PageBase{
     }
     
     public void init(){
-        if (this.getNumComDonacion()!=null && this.getNumComDonacion() > 0 && (tblComprobanteDonacion.getNumComDonacion()==null || tblComprobanteDonacion.getNumComDonacion()<=0)){
+        //this.getNumComDonacion()!=null && this.getNumComDonacion() > 0 && (tblComprobanteDonacion.getNumComDonacion()==null || tblComprobanteDonacion.getNumComDonacion()<=0)
+        if (!FacesContext.getCurrentInstance().isPostback()){
             try{
-                tblComprobanteDonacion = facade.find(this.getNumComDonacion());
+                if (this.getNumComDonacion()!=null && this.getNumComDonacion()>0){
+                    tblComprobanteDonacion = facade.find(this.getNumComDonacion());
+                }
                 this.getCblDetalleComprobanteDonacionList().clear();
             }catch(Exception ex){
                 this.addError(ex.getMessage(), ex.getMessage());
+            }
+            if (tblComprobanteDonacion.getNumComDonacion()==null || tblComprobanteDonacion.getNumComDonacion()<=0){
+                tblComprobanteDonacion.setTipComprobante(TipoComprobanteDonacion.COBRO);
+                tblComprobanteDonacion.setCodTipDonacion(2);
+                tblComprobanteDonacion.setCodTipDonante(2);
+                tblComprobanteDonacion.setCanLetras("Cero con 00/100 US Dolares");
             }
         }
     }
     
     public void changeTipoPago(){
         System.out.println("Changing tipo pago.....");
+        tblComprobanteDonacion.setMontoRecibido(tblComprobanteDonacion.getTotDonacion());
+        tblComprobanteDonacion.setCambio(0.00F);
     }
+  
+  public void eliminar(ActionEvent ae){
+    try{
+        UIDataGrid table = (UIDataGrid) ae.getComponent().getParent();
+        this.cblDetalleComprobanteDonacionList.clear();
+        this.facade.remove((TblComprobanteDonacion)table.getRowData());
+        ComprobanteDonacionEmitidosDataModel dataModel = (ComprobanteDonacionEmitidosDataModel) this.getBean("#{comprobanteDonacionEmitidosDataModel}", ComprobanteDonacionEmitidosDataModel.class);
+        dataModel.clear();
+    }catch(Exception x){
+        x.printStackTrace();
+        this.addError(x.getMessage(), x.getMessage());
+    }
+  }
+    
+  public void seleccionarFromDataGrid(ActionEvent ae){
+    try{
+        UIDataGrid table = (UIDataGrid) ae.getComponent().getParent();
+        this.tblComprobanteDonacion = this.facade.find(((TblComprobanteDonacion)table.getRowData()).getNumComDonacion());
+        this.cblDetalleComprobanteDonacionList.clear();
+    }catch(Exception x){
+        x.printStackTrace();
+        this.addError(x.getMessage(), x.getMessage());
+    }
+   }
+       
+   public void clear(ActionEvent ae){
+        ComprobanteDonacionEmitidosDataModel dataModel = (ComprobanteDonacionEmitidosDataModel) this.getBean("#{comprobanteDonacionEmitidosDataModel}", ComprobanteDonacionEmitidosDataModel.class);
+        dataModel.clear();
+   }
 }

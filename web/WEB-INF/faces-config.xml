@@ -117,8 +117,87 @@
   <managed-bean-scope>view</managed-bean-scope>
  </managed-bean>
 
+ <!-- Bean de criterios de busqueda paara los comprobantes de donacion emitidos (Aun no han sido pagados) -->
+ <managed-bean>
+  <managed-bean-name>comprobanteDonacionEmitidosSearchCriteria</managed-bean-name>
+  <managed-bean-class>sv.com.cormaria.servicios.criteria.ComprobanteDonacionSearchCriteria</managed-bean-class>
+  <managed-bean-scope>view</managed-bean-scope>
+  <managed-property>
+      <display-name>estados</display-name>
+      <property-name>estados</property-name>
+      <property-class>java.util.List</property-class>
+      <list-entries>
+          <value>EMITIDO</value>
+          <value-class>java.lang.String</value-class>
+      </list-entries>
+  </managed-property>
+  <managed-property>
+      <display-name>tipComprobanteDonacion</display-name>
+      <property-name>tipComprobanteDonacion</property-name>
+      <property-class>sv.com.cormaria.servicios.enums.TipoComprobanteDonacion</property-class>
+      <value>COBRO</value>
+  </managed-property>
+ </managed-bean>
+
+ <!-- Bean de criterios de busqueda para los comprobantes de donacion que ya fueron pagados, usados en la anulacion -->
  <managed-bean>
   <managed-bean-name>comprobanteDonacionPagadosSearchCriteria</managed-bean-name>
+  <managed-bean-class>sv.com.cormaria.servicios.criteria.ComprobanteDonacionSearchCriteria</managed-bean-class>
+  <managed-bean-scope>view</managed-bean-scope>
+  <managed-property>
+      <display-name>estados</display-name>
+      <property-name>estados</property-name>
+      <property-class>java.util.List</property-class>
+      <list-entries>
+          <value>PAGADO</value>
+          <value-class>java.lang.String</value-class>
+      </list-entries>
+  </managed-property>
+  <managed-property>
+      <display-name>startDate</display-name>
+      <property-name>startDate</property-name>
+      <property-class>java.util.Date</property-class>
+      <value>#{frmAnulacionTblComprobanteDonacion.todayStartDate}</value>
+  </managed-property>
+  <managed-property>
+      <display-name>endDate</display-name>
+      <property-name>endDate</property-name>
+      <property-class>java.util.Date</property-class>
+      <value>#{frmAnulacionTblComprobanteDonacion.todayEndDate}</value>
+  </managed-property>
+  <managed-property>
+      <display-name>tipComprobanteDonacion</display-name>
+      <property-name>tipComprobanteDonacion</property-name>
+      <property-class>sv.com.cormaria.servicios.enums.TipoComprobanteDonacion</property-class>
+      <value>COBRO</value>
+  </managed-property>
+ </managed-bean>
+
+ <!-- Bean de criterios de busqueda paara donaciones voluntarias emitidas (Aun no han sido pagados) -->
+ <managed-bean>
+  <managed-bean-name>donacionesEmitidosSearchCriteria</managed-bean-name>
+  <managed-bean-class>sv.com.cormaria.servicios.criteria.ComprobanteDonacionSearchCriteria</managed-bean-class>
+  <managed-bean-scope>view</managed-bean-scope>
+  <managed-property>
+      <display-name>estados</display-name>
+      <property-name>estados</property-name>
+      <property-class>java.util.List</property-class>
+      <list-entries>
+          <value>EMITIDO</value>
+          <value-class>java.lang.String</value-class>
+      </list-entries>
+  </managed-property>
+  <managed-property>
+      <display-name>tipComprobanteDonacion</display-name>
+      <property-name>tipComprobanteDonacion</property-name>
+      <property-class>sv.com.cormaria.servicios.enums.TipoComprobanteDonacion</property-class>
+      <value>DONACION</value>
+  </managed-property>
+ </managed-bean>
+
+ <!-- Bean de criterios de busqueda para las donaciones voluntarias Pagadas (Usado en la anulacion) -->
+ <managed-bean>
+  <managed-bean-name>donacionesPagadosSearchCriteria</managed-bean-name>
   <managed-bean-class>sv.com.cormaria.servicios.criteria.ComprobanteDonacionSearchCriteria</managed-bean-class>
   <managed-bean-scope>view</managed-bean-scope>
   <managed-property>
@@ -150,6 +229,8 @@
   </managed-property>
  </managed-bean>
 
+
+ <!-- Bean de criterios de busqueda para devoluciones que ya fueron aplicadas -->
  <managed-bean>
   <managed-bean-name>devolucionPagadosSearchCriteria</managed-bean-name>
   <managed-bean-class>sv.com.cormaria.servicios.criteria.ComprobanteDonacionSearchCriteria</managed-bean-class>
@@ -184,20 +265,8 @@
  </managed-bean>
 
 
- <managed-bean>
-  <managed-bean-name>comprobanteDonacionEmitidosSearchCriteria</managed-bean-name>
-  <managed-bean-class>sv.com.cormaria.servicios.criteria.ComprobanteDonacionSearchCriteria</managed-bean-class>
-  <managed-bean-scope>view</managed-bean-scope>
-  <managed-property>
-      <display-name>estados</display-name>
-      <property-name>estados</property-name>
-      <property-class>java.util.List</property-class>
-      <list-entries>
-          <value>EMITIDO</value>
-          <value-class>java.lang.String</value-class>
-      </list-entries>
-  </managed-property>
- </managed-bean>
+
+ <!-- Bean de criterios de busqueda para devoluciones EMITIDAS (No aplicadas) -->
  <managed-bean>
   <managed-bean-name>devolucionEmitidosSearchCriteria</managed-bean-name>
   <managed-bean-class>sv.com.cormaria.servicios.criteria.ComprobanteDonacionSearchCriteria</managed-bean-class>

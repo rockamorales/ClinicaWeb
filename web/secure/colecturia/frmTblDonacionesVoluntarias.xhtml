@@ -12,7 +12,7 @@ and open the template in the editor.
       xmlns:a4j="http://richfaces.org/a4j">
     <ui:composition template="/templates/main.xhtml">
         <ui:define name="title">
-          <h:outputText value="#{messages['default.windowTitle']}--Devolucion" escape="false"></h:outputText>  
+          <h:outputText value="#{messages['default.windowTitle']}--Comprobantes de Donación" escape="false"></h:outputText>  
         </ui:define>
         <ui:define name="body">
             <h:form>
@@ -24,19 +24,19 @@ and open the template in the editor.
                                 <h:outputLabel value="Num expediente:" for="numExpediente"/>
                             </td>
                             <td>
-                                <h:inputText value="#{devolucionEmitidosSearchCriteria.numExpediente}" id="numExpediente"/>
+                                <h:inputText value="#{comprobanteDonacionEmitidosSearchCriteria.numExpediente}" id="numExpediente"/>
                             </td>
                             <td>
                                 <h:outputLabel value="Fecha ini:" for="startDate"/>
                             </td>
                             <td>
-                                <rich:calendar value="#{devolucionEmitidosSearchCriteria.startDate}" id="startDate" datePattern="dd/MM/yyyy" enableManualInput="true"/>
+                                <rich:calendar value="#{comprobanteDonacionEmitidosSearchCriteria.startDate}" id="startDate" datePattern="dd/MM/yyyy" enableManualInput="true"/>
                             </td>
                             <td>
                                 <h:outputLabel value="Fecha fin:" for="endDate"/>
                             </td>
                             <td>
-                                <rich:calendar value="#{devolucionEmitidosSearchCriteria.endDate}" id="endDate" datePattern="dd/MM/yyyy" enableManualInput="true"/>
+                                <rich:calendar value="#{comprobanteDonacionEmitidosSearchCriteria.endDate}" id="endDate" datePattern="dd/MM/yyyy" enableManualInput="true"/>
                             </td>
                         </tr>
                         <tr>
@@ -44,32 +44,32 @@ and open the template in the editor.
                                 <h:outputLabel value="Nombre paciente:" for="nomPaciente"/>
                             </td>
                             <td>
-                                <h:inputText value="#{devolucionEmitidosSearchCriteria.nomPaciente}" id="nomPaciente"/>
+                                <h:inputText value="#{comprobanteDonacionEmitidosSearchCriteria.nomPaciente}" id="nomPaciente"/>
                             </td>
                             <td>
                                 <h:outputLabel value="Primer Ape.:" for="priApePaciente"/>
                             </td>
                             <td>
-                                <h:inputText value="#{devolucionEmitidosSearchCriteria.priApePaciente}" id="priApePaciente"/>
+                                <h:inputText value="#{comprobanteDonacionEmitidosSearchCriteria.priApePaciente}" id="priApePaciente"/>
                             </td>
                             <td>
                                 <h:outputLabel value="Segundo Ape.:" for="endDate"/>
                             </td>
                             <td>
-                                <h:inputText value="#{devolucionEmitidosSearchCriteria.secApePaciente}" id="secApePaciente"/>
+                                <h:inputText value="#{comprobanteDonacionEmitidosSearchCriteria.secApePaciente}" id="secApePaciente"/>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="6">
-                                <a4j:commandButton value="Buscar" actionListener="#{frmTblDevolucion.buscar}" render="@form"/>
+                                <a4j:commandButton value="Buscar" actionListener="#{frmTblDonacionesVoluntarias.buscar}" render="@form"/>
                             </td>
                         </tr>
                     </table>
                 </fieldset>
-                <h:outputLink value="frmMantTblDevolucion.jsf">
-                    Agregar Devolucion
+                <h:outputLink value="frmMantTblDonacionesVoluntarias.jsf">
+                    Agregar Nueva Donacion
                 </h:outputLink>
-                <rich:dataTable value="#{devolucionEmitidosDataModel}" var="tblComprobanteDonacion" rows="10" id="tblComprobanteDonacionTable">
+                <rich:dataTable value="#{donacionesEmitidosDataModel}" var="tblComprobanteDonacion" rows="10" id="tblComprobanteDonacionTable">
                 <f:facet name="header">
                     <rich:columnGroup>
                       <h:column>
@@ -101,24 +101,24 @@ and open the template in the editor.
                     </h:column>
                     <h:column>
                         <h:outputText value="#{tblComprobanteDonacion.tblExpedientePacientes.nomPaciente} #{tblComprobanteDonacion.tblExpedientePacientes.priApePaciente} #{tblComprobanteDonacion.tblExpedientePacientes.secApePaciente} #{tblComprobanteDonacion.tblExpedientePacientes.terApePaciente}" rendered="#{tblComprobanteDonacion.tblExpedientePacientes != null}">
-                        </h:outputText>
+                        </h:outputText>                    
                         <h:outputText value="#{tblComprobanteDonacion.nomComDonacion}" rendered="#{tblComprobanteDonacion.tblExpedientePacientes == null}">
                         </h:outputText>
-                    </h:column>
+                    </h:column> 
                     <h:column>
                         <h:outputText value="#{tblComprobanteDonacion.catTipoDonante.nomTipDonante}">
                         </h:outputText>
-                    </h:column>
+                    </h:column>                 
                     <h:column>
                         <h:outputText value="&#36; #{tblComprobanteDonacion.totDonacion}">
                         </h:outputText>
-                    </h:column>
+                    </h:column>                
                     <h:column>
                         <h:outputText value="#{tblComprobanteDonacion.estComDonacion}">
                         </h:outputText>
                     </h:column>
                     <h:column>
-                        <h:outputLink value="frmMantTblDevolucion.jsf">
+                        <h:outputLink value="frmMantTblDonacionesVoluntarias.jsf">
                             <f:param name="numComDonacion" value="#{tblComprobanteDonacion.numComDonacion}"/>
                             <f:param name="faces-redirect" value="true"/>
                             <h:graphicImage url="/img/icons/edit.gif" style="border: 0">
@@ -126,8 +126,9 @@ and open the template in the editor.
                         </h:outputLink>
                     </h:column>
                     <h:column>
-                        <a4j:commandLink actionListener="#{frmTblDevolucion.delete}" render="@form" onclick="if(!confirm('Esta seguro que desea eliminar el registro de devolucion: #{tblComprobanteDonacion.nomComDonacion}')){return false;}">
+                        <a4j:commandLink actionListener="#{frmTblDonacionesVoluntarias.delete}" render="@form, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar Pago: #{tblComprobanteDonacion.nomComDonacion}')){return false;}">
                             <h:graphicImage url="/img/icons/delete.gif" style="border: 0"/>
+                            <f:setPropertyActionListener target="#{frmTblDonacionesVoluntarias.tblComprobanteDonacion}" value="#{tblComprobanteDonacion}"/>
                         </a4j:commandLink>
                     </h:column>
                     <f:facet name="footer">
