@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="GraficoCantidadPacientesPorEdadSexo" language="groovy" pageWidth="400" pageHeight="300" columnWidth="400" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Empty" uuid="9f053073-44c3-4029-8f9f-b6a664e53f01">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="codEspecialidad" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select count(*),
+CASE WHEN eda_consulta < 11 THEN '< 12 Años'
+     WHEN eda_consulta between 12 and 18 THEN ' 12 - 18 Años'
+     WHEN eda_consulta between 19 and 59 THEN ' 19 -59 Años'
+     WHEN eda_consulta > 59 THEN ' > 59 Años' end CATEGORIA,
+     s.nom_sex_paciente
+from tbl_consultas c, tbl_expediente_pacientes e, cat_sexo s
+where e.num_expediente = c.num_expediente
+  and s.cod_sex_paciente = e.cod_sex_paciente
+  and c.cod_especialidad = $P{codEspecialidad}
+group by CASE WHEN eda_consulta < 11 THEN '< 12 Años'
+     WHEN eda_consulta between 12 and 18 THEN ' 12 - 18 Años'
+     WHEN eda_consulta between 19 and 59 THEN ' 19 -59 Años'
+     WHEN eda_consulta > 59 THEN ' > 59 Años' end,
+s.nom_sex_paciente]]>
+	</queryString>
+	<field name="count(*)" class="java.lang.Long"/>
+	<field name="CATEGORIA" class="java.lang.String"/>
+	<field name="nom_sex_paciente" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="251" splitType="Stretch">
+			<barChart>
+				<chart evaluationTime="Report" renderType="image" theme="eye.candy.sixties">
+					<reportElement uuid="3c7547fb-d4f2-4592-9a81-1b177948db78" x="0" y="30" width="400" height="221"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend position="Top"/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{nom_sex_paciente}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{CATEGORIA}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{count(*)}]]></valueExpression>
+						<labelExpression><![CDATA[$F{count(*)}+""]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot orientation="Horizontal"/>
+					<itemLabel/>
+				</barPlot>
+			</barChart>
+			<textField>
+				<reportElement uuid="f4d89ab6-4412-45ab-94d5-f3d3e5901883" x="0" y="10" width="400" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Cantidad de consultas por rangos de edad"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>

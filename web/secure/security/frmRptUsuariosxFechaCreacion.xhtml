@@ -17,8 +17,7 @@
                         Exportar como: <h:selectOneMenu value="#{frmMantUsuarios.docType}" id="docType" name="docType">
                             <f:selectItem itemValue="xls" itemLabel="xls"/>
                             <f:selectItem itemValue="pdf" itemLabel="pdf"/>
-                        </h:selectOneMenu>
-                        
+                        </h:selectOneMenu>                        
                         <h:inputHidden id="rptFileName" value="#{frmMantUsuarios.rptFileName}" name="rptFileName"/>
                         <h:commandButton type="submit" action="#{frmMantUsuarios.mostrarReporte}">Generar</h:commandButton>
                     </td>
