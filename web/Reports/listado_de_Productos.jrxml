@@ -6,6 +6,9 @@
 	<parameter name="tipo_producto" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="categoriaProducto" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
      tbl_producto.`num_producto`,
@@ -29,7 +32,9 @@ FROM
 WHERE
      est_Producto = 1
      and (tbl_producto.cod_tip_producto = $P{tipo_producto}
-     or $P{tipo_producto} = -1)]]>
+     or $P{tipo_producto} = -1)
+and (tbl_producto.cod_cat_producto = $P{categoriaProducto}
+     or $P{categoriaProducto} = -1 )]]>
 	</queryString>
 	<field name="num_producto" class="java.lang.Integer"/>
 	<field name="tbl_producto_NOM_PRODUCTO" class="java.lang.String"/>

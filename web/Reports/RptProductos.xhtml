@@ -31,6 +31,17 @@ and open the template in the editor.
                             </h:selectOneMenu>
                             <input type="hidden" value="numerico" name="tipo_productoDataType" ></input>
                         </TD>
+                            <TD>
+                            <h:outputLabel value="Seleccione la Categoria:"></h:outputLabel>
+                        </TD>
+                        <TD>
+                            <h:selectOneMenu id="Categoria_producto">
+                                <f:selectItem itemValue="-1" itemLabel="Todos"/>
+                                <f:selectItems value="#{rptProductos.categoriaList}" var="categoria" itemValue="#{categoria.codCatProducto}" itemLabel="#{categoria.nomCatProducto}">
+                                </f:selectItems>
+                            </h:selectOneMenu>
+                            <input type="hidden" value="numerico" name="tipo_productoDataType" ></input>
+                        </TD>
                         <TD>
                             <h:outputLabel value="Formato:"></h:outputLabel>
                         </TD>
