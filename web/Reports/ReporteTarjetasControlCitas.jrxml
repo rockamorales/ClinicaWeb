@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteTarjetasControlCitas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eb3d3e1d-e7a3-48ed-8e8f-a0fac7cf9d19">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     tbl_tarjeta_control_citas.`NUM_TARJETA` AS tbl_tarjeta_control_citas_NUM_TARJETA,
+     tbl_tarjeta_control_citas.`FEC_EXP_TARJETA` AS tbl_tarjeta_control_citas_FEC_EXP_TARJETA,
+     tbl_expediente_pacientes.`NOM_PACIENTE` AS tbl_expediente_pacientes_NOM_PACIENTE,
+     tbl_expediente_pacientes.`PRI_APE_PACIENTE` AS tbl_expediente_pacientes_PRI_APE_PACIENTE,
+     tbl_expediente_pacientes.`SEC_APE_PACIENTE` AS tbl_expediente_pacientes_SEC_APE_PACIENTE,
+     tbl_expediente_pacientes.`TER_APE_PACIENTE` AS tbl_expediente_pacientes_TER_APE_PACIENTE,
+     tbl_expediente_pacientes.`NUM_EXPEDIENTE` AS tbl_expediente_pacientes_NUM_EXPEDIENTE
+FROM
+     `tbl_expediente_pacientes` tbl_expediente_pacientes INNER JOIN `tbl_tarjeta_control_citas` tbl_tarjeta_control_citas ON tbl_expediente_pacientes.`NUM_EXPEDIENTE` = tbl_tarjeta_control_citas.`NUM_EXPEDIENTE`
+AND month (FEC_EXP_TARJETA) = month (now())-1]]>
+	</queryString>
+	<field name="tbl_tarjeta_control_citas_NUM_TARJETA" class="java.lang.Integer"/>
+	<field name="tbl_tarjeta_control_citas_FEC_EXP_TARJETA" class="java.sql.Date"/>
+	<field name="tbl_expediente_pacientes_NOM_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_expediente_pacientes_PRI_APE_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_expediente_pacientes_SEC_APE_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_expediente_pacientes_TER_APE_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_expediente_pacientes_NUM_EXPEDIENTE" class="java.lang.Integer"/>
+	<variable name="tbl_tarjeta_control_citas_NUM_TARJETA_1" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{tbl_tarjeta_control_citas_NUM_TARJETA}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="88" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="116" y="23" width="215" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Clinica Asistencial Corazon de Maria]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="f28cce09-6ee2-4268-be04-78c6298d0cab" x="2" y="2" width="83" height="65"/>
+				<imageExpression><![CDATA["logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="8ff5c228-e686-4510-9ac0-b7ad0aa2cd4d" x="375" y="3" width="69" height="20"/>
+				<textElement/>
+				<text><![CDATA[Fecha y Hora:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement uuid="dc2ad595-75d1-477b-b506-79e6b0b15492" x="444" y="3" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="375" y="40" width="180" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Area: Archivo de Pacientes]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="2" y="0" width="552" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="14" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Reporte de Tarjetas de Control de Citas]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="badf55d6-27af-4a54-b909-3d8fa5dfc66e" x="331" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[No. tarjeta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f00b297b-ac9a-40d5-80dc-9d533a511d29" x="476" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Fecha Creación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8eba5027-4ffb-40b5-98ae-feb5d1186476" x="2" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="61e3ee7c-7730-4f51-8c6b-591e55d32a33" x="81" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Primer Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8bd6cd96-eab5-4f7c-b0b3-5c802598600e" x="166" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Segundo Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e42df089-6e28-4d1b-9253-901e77feacf9" x="250" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Tercer Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="819ea443-f5c7-4cc2-ac5f-08da2d28ee39" x="411" y="0" width="65" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Expediente]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="7694c56f-9693-41a2-81a2-fc999794c53c" x="331" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tbl_tarjeta_control_citas_NUM_TARJETA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a8c80087-38d3-4321-9ab0-3f90c9af9e9b" x="476" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tbl_tarjeta_control_citas_FEC_EXP_TARJETA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8259aec5-bb60-4829-b25a-180b5004e0c4" x="2" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_NOM_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="aecfe820-76ab-43f2-9f11-932b5776760e" x="81" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_PRI_APE_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="fda98a96-6a6d-4e38-975f-23c88c87fee3" x="166" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_SEC_APE_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d8832d93-b021-45b8-a417-0bf14b591480" x="250" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_TER_APE_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="24c5de71-a443-4ab6-ad84-e91d54de3916" x="411" y="0" width="65" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_NUM_EXPEDIENTE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement uuid="45e9da86-bb3c-4c13-a81d-99baa4456f6a" x="454" y="25" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{tbl_tarjeta_control_citas_NUM_TARJETA_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="274" y="25" width="180" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Total de Tarjetas de Control de Citas]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="81" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement uuid="dd91d53e-93f0-4c14-9ed7-67ee597856e9" x="0" y="60" width="555" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Hoja "+$V{PAGE_NUMBER}+"/"+$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="0" y="21" width="206" height="20"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[_______________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="355" y="21" width="200" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<text><![CDATA[___________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="2" y="41" width="204" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Sello]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="355" y="41" width="200" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Encargado]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteExpedientesFaltantes" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eb3d3e1d-e7a3-48ed-8e8f-a0fac7cf9d19">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     ex.`NUM_EXPEDIENTE` AS tbl_expediente_pacientes_NUM_EXPEDIENTE,
+     ex.`NOM_PACIENTE` AS tbl_expediente_pacientes_NOM_PACIENTE,
+     ex.`PRI_APE_PACIENTE` AS tbl_expediente_pacientes_PRI_APE_PACIENTE,
+     ex.`SEC_APE_PACIENTE` AS tbl_expediente_pacientes_SEC_APE_PACIENTE,
+     ex.`TER_APE_PACIENTE` AS tbl_expediente_pacientes_TER_APE_PACIENTE,
+     movimientos.FEC_TRANSACCION AS tbl_movimientos_expediente_FEC_TRANSACCION,
+     destino.`NOM_AREA` AS cat_areas_NOM_AREA,
+     movimientos.`CAT_COD_AREA` AS tbl_movimientos_expediente_CAT_COD_AREA
+FROM
+`tbl_expediente_pacientes` ex LEFT JOIN (select num_expediente, fec_transaccion, num_transaccion, cod_area, cat_cod_area FROM tbl_movimientos_expediente t WHERE num_transaccion = (SELECT MAX(num_transaccion) FROM tbl_movimientos_expediente t1 WHERE t1.num_expediente = t.num_expediente)) movimientos ON movimientos.num_expediente = ex.num_expediente
+     INNER JOIN `cat_areas` destino ON movimientos.`CAT_COD_AREA` = destino.`COD_AREA`,
+cat_areas origen
+
+
+WHERE
+ movimientos.cat_cod_area <> 1 and origen.cod_area = movimientos.cod_area
+
+
+]]>
+	</queryString>
+	<field name="tbl_expediente_pacientes_NUM_EXPEDIENTE" class="java.lang.Integer"/>
+	<field name="tbl_expediente_pacientes_NOM_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_expediente_pacientes_PRI_APE_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_expediente_pacientes_SEC_APE_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_expediente_pacientes_TER_APE_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_movimientos_expediente_FEC_TRANSACCION" class="java.sql.Timestamp"/>
+	<field name="cat_areas_NOM_AREA" class="java.lang.String"/>
+	<field name="tbl_movimientos_expediente_CAT_COD_AREA" class="java.lang.Integer"/>
+	<variable name="tbl_expediente_pacientes_NUM_EXPEDIENTE_1" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{tbl_expediente_pacientes_NUM_EXPEDIENTE}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="88" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="116" y="23" width="215" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Clinica Asistencial Corazon de Maria]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="f28cce09-6ee2-4268-be04-78c6298d0cab" x="2" y="2" width="83" height="65"/>
+				<imageExpression><![CDATA["logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="8ff5c228-e686-4510-9ac0-b7ad0aa2cd4d" x="375" y="3" width="69" height="20"/>
+				<textElement/>
+				<text><![CDATA[Fecha y Hora:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement uuid="dc2ad595-75d1-477b-b506-79e6b0b15492" x="444" y="3" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="375" y="40" width="180" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Area: Archivo de Pacientes]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="2" y="0" width="552" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="14" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Reporte de Expedientes Faltantes]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="e0ebd6e3-5214-478e-8c4f-146a7f7ba1ac" x="316" y="0" width="59" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Expediente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fe537c27-10d6-41a1-94b0-1f0989c7016f" x="1" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e17865c0-b515-4dde-bf8a-59d762e93a94" x="80" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Primer Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b7e5f060-1523-4ee8-8293-36f351a19af1" x="159" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Segundo Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4cdb0d8c-42eb-4197-a70f-6bfdc49c8ef7" x="238" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Tercer Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8d2eb00f-8374-4aab-8de9-acf7835b16e0" x="375" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Fecha Salida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="56112393-a6ab-4e5f-8209-63305a6a7337" x="456" y="0" width="99" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Area Destino]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="06eecf78-471a-4f4e-9a0b-d6f8fa5490e8" x="316" y="0" width="59" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_NUM_EXPEDIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="bbe1a86b-7f93-4b6f-a541-9d6d4e8a7816" x="1" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_NOM_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2458bc8c-493e-45bd-9b47-0919937b92e4" x="80" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_PRI_APE_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a8c311fa-ee0b-406f-83b4-370f96f31e6f" x="159" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_SEC_APE_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="59e86d5f-d866-462e-b559-d50bbe30f575" x="238" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_TER_APE_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ccf1e0fa-9511-446b-92af-936228f17ca1" x="375" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tbl_movimientos_expediente_FEC_TRANSACCION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="34571ff5-d5cf-4e8f-b748-c16b203b194a" x="456" y="0" width="99" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{cat_areas_NOM_AREA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement uuid="559ea081-699c-413b-b587-d5975927f611" x="456" y="25" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{tbl_expediente_pacientes_NUM_EXPEDIENTE_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="274" y="25" width="180" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Total de Expedientes Faltantes]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="81" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement uuid="dd91d53e-93f0-4c14-9ed7-67ee597856e9" x="0" y="60" width="555" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Hoja "+$V{PAGE_NUMBER}+"/"+$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="0" y="21" width="206" height="20"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[_______________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="355" y="21" width="200" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<text><![CDATA[___________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="2" y="41" width="204" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Sello]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="355" y="41" width="200" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Encargado]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
