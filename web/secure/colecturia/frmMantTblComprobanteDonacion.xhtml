@@ -84,13 +84,6 @@ and open the template in the editor.
                                     <td align="left">
                                         <h:outputText value="#{frmMantTblComprobanteDonacion.tblComprobanteDonacion.numComDonacion}" style="font-weight: bold"/>
                                         <h:inputHidden value="#{frmMantTblComprobanteDonacion.tblComprobanteDonacion.numComDonacion}" />
-                                        <h:outputLink value="/ClinicaWeb/ReportServlet" rendered="#{frmMantTblComprobanteDonacion.tblComprobanteDonacion.estComDonacion == 'PAGADO'}">
-                                            Imprimir Comprobante
-                                            <f:param value="/Reports/Colecturia_ComprobanteDonacion.jasper" name="rptFileName"/>
-                                            <f:param value="pdf" name="docType"/>
-                                            <f:param value="#{frmMantTblComprobanteDonacion.tblComprobanteDonacion.numComDonacion}" name="numComDonacion"/>
-                                            <f:param value="numerico" name="numComDonacionDataType"/>
-                                        </h:outputLink>                                        
                                     </td>
                                     <td align="left">Estado:</td>
                                     <td align="left">
@@ -200,7 +193,7 @@ and open the template in the editor.
                                               </td>                            
                                           </tr>
                                     </table>
-                            <rich:dataTable value="#{frmMantTblComprobanteDonacion.cblDetalleComprobanteDonacionList}" var="tblDetalleComprobanteDonacion" rows="10" id="tblDetalleComprobanteDonacionTable">
+                                <rich:dataTable value="#{frmMantTblComprobanteDonacion.cblDetalleComprobanteDonacionList}" rowKeyVar="row" var="tblDetalleComprobanteDonacion" rows="10" id="tblDetalleComprobanteDonacionTable">
                                 <f:facet name="header">
                                     <rich:columnGroup>
                                       <h:column>
@@ -217,14 +210,14 @@ and open the template in the editor.
                                       </h:column> 
                                       <h:column>
                                         <h:outputText value="Total"/>
-                                      </h:column>                     
+                                      </h:column>
                                       <h:column>
                                         <h:outputText value=""/>
                                       </h:column>
                                     </rich:columnGroup>
                                   </f:facet>
                                 <h:column>
-                                    <h:outputText value="#{tblDetalleComprobanteDonacion.corDetComDonacion}">   
+                                    <h:outputText value="#{row+1}">
                                     </h:outputText>
                                 </h:column>
                                 <h:column>
@@ -238,12 +231,11 @@ and open the template in the editor.
                                 <h:column>
                                     <h:outputText value="&#36; #{tblDetalleComprobanteDonacion.preUniComDonacion}">
                                     </h:outputText>
-                                </h:column>                        
+                                </h:column>
                                 <h:column>
                                     <h:outputText value="&#36; #{tblDetalleComprobanteDonacion.totIteComDonacion}">
                                     </h:outputText>
-                                </h:column>                     
-
+                                </h:column>
                                 <h:column>
                                     <a4j:commandLink actionListener="#{frmMantTblComprobanteDonacion.deleteProducto}" render="@form, recibirPagoPanel, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar el producto: #{tblDetalleComprobanteDonacion.tblProducto.nomProducto} #{tblDetalleComprobanteDonacion.tblProducto.preFinProducto}')){return false;}">
                                         <h:graphicImage url="/img/icons/delete.gif" style="border: 0"/>

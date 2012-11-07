@@ -35,11 +35,11 @@ and open the template in the editor.
                             <h:outputLabel value="Formato:"></h:outputLabel>
                         </TD>
                         <TD>
-                            <select id="docType" name="docType">
-                                <option value="pdf" label="PDF"/>
-                                <option value="xls" label="XLS"/>
-                                <option value="html" label="HTML"/>
-                            </select>
+                            <h:selectOneMenu id="docType">
+                                <f:selectItem itemValue="pdf" itemLabel="PDF"/>
+                                <f:selectItem itemValue="xls" itemLabel="XLS"/>
+                                <f:selectItem itemValue="html" itemLabel="HTML"/>
+                            </h:selectOneMenu>
                         </TD>
                         <TD>
                             <input type="hidden" value="/Reports/GraficoCantidadPacientesPorEdadSexo.jasper" name="rptFileName"/>
