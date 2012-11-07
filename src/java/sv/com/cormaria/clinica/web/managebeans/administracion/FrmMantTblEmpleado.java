@@ -14,13 +14,13 @@ import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
 import sv.com.cormaria.servicios.entidades.administracion.TblEmpleado;
 import sv.com.cormaria.servicios.entidades.catalogos.CatTipoServicio;
 import sv.com.cormaria.servicios.entidades.catalogos.CatAreas;
-import sv.com.cormaria.servicios.entidades.catalogos.CatProfesiones;
+import sv.com.cormaria.servicios.entidades.administracion.TblInstitucion;
 import sv.com.cormaria.servicios.enums.Estado;
 import sv.com.cormaria.servicios.facades.administracion.TblEmpleadoFacade;
 import sv.com.cormaria.servicios.facades.administracion.TblEmpleadoFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatTipoServicioFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatAreasFacadeLocal;
-import sv.com.cormaria.servicios.facades.catalogos.CatProfesionesFacadeLocal;
+import sv.com.cormaria.servicios.facades.administracion.TblInstitucionFacadeLocal;
 
 /**
  *
@@ -38,30 +38,30 @@ public class FrmMantTblEmpleado extends PageBase{
     @EJB
     private CatAreasFacadeLocal catAreasFacade;
     @EJB
-    private CatProfesionesFacadeLocal catProfesionesFacade;
+    private TblInstitucionFacadeLocal tblInstitucionFacade;
     
     @ManagedProperty(value ="#{param.numEmpleado}")
     private Integer numEmpleado;
     private List<SelectItem> catTipoServicioList = new ArrayList<SelectItem>();
     private List<SelectItem> catAreasList = new ArrayList<SelectItem>();
-    private List<SelectItem> catProfesionesList = new ArrayList<SelectItem>();
+    private List<SelectItem> tblInstitucionList = new ArrayList<SelectItem>();
 
-    public List<SelectItem> getCatProfesionesList() {
-        if (catProfesionesList.isEmpty()){
+    public List<SelectItem> getTblInstitucionList() {
+        if (tblInstitucionList.isEmpty()){
             try{
-                List<CatProfesiones> l = catProfesionesFacade.findActive();
-                for (CatProfesiones catProfesion : l) {
-                    catProfesionesList.add(new SelectItem(catProfesion.getCodProfesion(), catProfesion.getNomProfesion()));
+                List<TblInstitucion> l =tblInstitucionFacade.findActive();
+                for (TblInstitucion tblInstitucion : l) {
+                   tblInstitucionList.add(new SelectItem(tblInstitucion.getNumInstitucion(), tblInstitucion.getNomComInstitucion()));
                 }
             }catch(Exception ex){
                 ex.printStackTrace();
             }
         }
-        return catProfesionesList;
+        return tblInstitucionList;
     }
 
-    public void setCatProfesionesList(List<SelectItem> catProfesionesList) {
-        this.catProfesionesList = catProfesionesList;
+    public void setTblInstitucionList(List<SelectItem> tblInstitucionList) {
+        this.tblInstitucionList = tblInstitucionList;
     }
 
     

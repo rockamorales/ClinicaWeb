@@ -7,7 +7,7 @@ package sv.com.cormaria.clinica.web.managebeans.farmacia.reportes;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedBean; 
 import javax.faces.bean.RequestScoped;
 import sv.com.cormaria.servicios.entidades.catalogos.CatCategoriaProducto;
 import sv.com.cormaria.servicios.facades.catalogos.CatCategoriaProductoFacadeLocal;
