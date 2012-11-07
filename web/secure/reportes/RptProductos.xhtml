@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <ui:composition template="/templates/main.xhtml">
+        <ui:define name="title">
+          <h:outputText value="#{messages['default.windowTitle']}--Administración de Areas" escape="false"></h:outputText>  
+        </ui:define>
+        <ui:define name="body">
+            <h3>Reporte de Productos por Tipo</h3>
+            <hr></hr>
+            <form action="/ClinicaWeb/ReportServlet">
+                <table>
+                    <TR>
+                        <TD>
+                            <h:outputLabel value="Seleccione la Categoria:"></h:outputLabel>
+                        </TD>
+                        <TD>
+                            <h:selectOneMenu id="tipo_producto">
+                                <f:selectItem itemValue="-1" itemLabel="Todos"/>
+                                <f:selectItems value="#{rptProductos.categoriaList}" var="categoria" itemValue="#{categoria.codCatProducto}" itemLabel="#{categoria.nomCatProducto}">
+                                </f:selectItems>
+                            </h:selectOneMenu>
+                            <input type="hidden" value="numerico" name="tipo_productoDataType" ></input>
+                        </TD>
+                            <TD>
+                            <h:outputLabel value="Seleccione la Categoria:"></h:outputLabel>
+                        </TD>
+                        <TD>
+                            <h:selectOneMenu id="Categoria_producto">
+                                <f:selectItem itemValue="-1" itemLabel="Todos"/>
+                                <f:selectItems value="#{rptProductos.categoriaList}" var="categoria" itemValue="#{categoria.codCatProducto}" itemLabel="#{categoria.nomCatProducto}">
+                                </f:selectItems>
+                            </h:selectOneMenu>
+                            <input type="hidden" value="numerico" name="tipo_productoDataType" ></input>
+                        </TD>
+                        <TD>
+                            <h:outputLabel value="Formato:"></h:outputLabel>
+                        </TD>
+                        <TD>
+                            <select id="docType" name="docType">
+                                <option value="pdf" label="PDF"/>
+                                <option value="xls" label="xls"/>
+                                <option value="html" label="html"/>                                
+                            </select>
+                        </TD>
+                        <TD>
+                            <input type="hidden" value="/Reports/listado_de_Productos.jasper" name="rptFileName"/>
+                            <input type="submit" value="Mostrar"/>
+                        </TD>
+                    </TR> 
+                </table> 
+            </form>
+        </ui:define>
+    </ui:composition>
+</html>
