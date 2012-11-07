@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteProductoPorVencer" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eb3d3e1d-e7a3-48ed-8e8f-a0fac7cf9d19">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="FechaIni" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FechaFin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     tbl_producto.`NUM_PRODUCTO` AS tbl_producto_NUM_PRODUCTO,
+     tbl_producto.`NOM_PRODUCTO` AS tbl_producto_NOM_PRODUCTO,
+     tbl_detalle_ingreso_producto.`CAN_DET_INGRESO` AS tbl_detalle_ingreso_producto_CAN_DET_INGRESO,
+     tbl_detalle_ingreso_producto.`COS_UNI_DET_INGRESO` AS tbl_detalle_ingreso_producto_COS_UNI_DET_INGRESO,
+     tbl_detalle_ingreso_producto.`FEC_EXP_DET_INGRESO` AS tbl_detalle_ingreso_producto_FEC_EXP_DET_INGRESO,
+     tbl_ingresos_producto.`FEC_INGRESO` AS tbl_ingresos_producto_FEC_INGRESO,
+     cat_tipo_producto.`NOM_TIP_PRODUCTO` AS cat_tipo_producto_NOM_TIP_PRODUCTO
+FROM
+     `tbl_producto` tbl_producto INNER JOIN `tbl_detalle_ingreso_producto` tbl_detalle_ingreso_producto ON tbl_producto.`NUM_PRODUCTO` = tbl_detalle_ingreso_producto.`NUM_PRODUCTO`
+     INNER JOIN `tbl_ingresos_producto` tbl_ingresos_producto ON tbl_detalle_ingreso_producto.`NUM_INGRESO` = tbl_ingresos_producto.`NUM_INGRESO`
+     INNER JOIN `cat_tipo_producto` cat_tipo_producto ON tbl_producto.`COD_TIP_PRODUCTO` = cat_tipo_producto.`COD_TIP_PRODUCTO`
+WHERE
+     est_producto = 1
+ AND TBL_DETALLE_INGRESO_PRODUCTO.FEC_EXP_DET_INGRESO BETWEEN  str_to_date($P{FechaIni},'%d/%m/%Y') and str_to_date($P{FechaFin},'%d/%m/%Y')]]>
+	</queryString>
+	<field name="tbl_producto_NUM_PRODUCTO" class="java.lang.Integer"/>
+	<field name="tbl_producto_NOM_PRODUCTO" class="java.lang.String"/>
+	<field name="tbl_detalle_ingreso_producto_CAN_DET_INGRESO" class="java.math.BigDecimal"/>
+	<field name="tbl_detalle_ingreso_producto_COS_UNI_DET_INGRESO" class="java.lang.Float"/>
+	<field name="tbl_detalle_ingreso_producto_FEC_EXP_DET_INGRESO" class="java.sql.Timestamp"/>
+	<field name="tbl_ingresos_producto_FEC_INGRESO" class="java.sql.Timestamp"/>
+	<field name="cat_tipo_producto_NOM_TIP_PRODUCTO" class="java.lang.String"/>
+	<variable name="tbl_detalle_ingreso_producto_CAN_DET_INGRESO_1" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{tbl_detalle_ingreso_producto_CAN_DET_INGRESO}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="83" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="116" y="23" width="215" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Clinica Asistencial Corazon de Maria]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="f28cce09-6ee2-4268-be04-78c6298d0cab" x="2" y="2" width="83" height="65"/>
+				<imageExpression><![CDATA["logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="8ff5c228-e686-4510-9ac0-b7ad0aa2cd4d" x="375" y="3" width="69" height="20"/>
+				<textElement/>
+				<text><![CDATA[Fecha y Hora:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement uuid="dc2ad595-75d1-477b-b506-79e6b0b15492" x="444" y="3" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="375" y="40" width="180" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Area: <Farmacia>]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="16" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="2" y="-1" width="552" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Reporte de Productos Por Vencer]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="52a51870-dd56-4496-9d5e-6be436de2257" x="1" y="0" width="38" height="20"/>
+				<textElement/>
+				<text><![CDATA[Codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2fc852c1-7c5c-4a2a-bebc-fb224e49fb45" x="39" y="0" width="202" height="20"/>
+				<textElement/>
+				<text><![CDATA[Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6c6043d0-3749-47dc-84da-08ad5d388ca9" x="315" y="0" width="47" height="20"/>
+				<textElement/>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e7d155f8-722d-46a1-b81b-de2e260bcfc4" x="360" y="0" width="52" height="20"/>
+				<textElement/>
+				<text><![CDATA[Costo Uni.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="51c383e0-8820-452a-b749-438ef0e737f1" x="412" y="0" width="74" height="20"/>
+				<textElement/>
+				<text><![CDATA[Vencimiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2b902e0d-4cfa-4991-8149-abffd4e1b5f4" x="486" y="0" width="69" height="20"/>
+				<textElement/>
+				<text><![CDATA[Fecha Ingreso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d7acbf0b-549b-4e5f-ac41-dcdf5dc0a12c" x="241" y="0" width="74" height="20"/>
+				<textElement/>
+				<text><![CDATA[Tipo Producto]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="ba2d257f-34cd-4803-a963-7f56921aac62" stretchType="RelativeToTallestObject" x="1" y="0" width="38" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_producto_NUM_PRODUCTO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="ebf3c84c-78ed-4921-bd11-604741846831" stretchType="RelativeToTallestObject" x="39" y="0" width="202" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_producto_NOM_PRODUCTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c36a78c8-5ef9-464a-accf-54130e459d7d" stretchType="RelativeToTallestObject" x="315" y="0" width="47" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_detalle_ingreso_producto_CAN_DET_INGRESO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="82e366ec-96a9-4c8f-b3b2-bc5fb63aff5f" stretchType="RelativeToTallestObject" x="360" y="0" width="52" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_detalle_ingreso_producto_COS_UNI_DET_INGRESO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="82751117-b31d-4d96-9cd7-6ea87e9338cb" stretchType="RelativeToTallestObject" x="412" y="0" width="74" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_detalle_ingreso_producto_FEC_EXP_DET_INGRESO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="0db31682-0d5e-4234-8ab0-9f1bb40cda14" stretchType="RelativeToTallestObject" x="486" y="0" width="69" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_ingresos_producto_FEC_INGRESO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9e71a8f6-9562-488f-bfe7-ec1a399f3786" stretchType="RelativeToTallestObject" x="241" y="0" width="74" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cat_tipo_producto_NOM_TIP_PRODUCTO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="21" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="de2e05c0-eae1-4888-96f9-185b50e402a3" x="140" y="1" width="175" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_detalle_ingreso_producto_FEC_EXP_DET_INGRESO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b86330fb-5c26-4db0-9529-250c57ee4693" x="2" y="1" width="138" height="20"/>
+				<textElement/>
+				<text><![CDATA[Producto a Vencer antes de :]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="81" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement uuid="dd91d53e-93f0-4c14-9ed7-67ee597856e9" x="0" y="60" width="555" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Hoja "+$V{PAGE_NUMBER}+"/"+$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="355" y="21" width="200" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<text><![CDATA[___________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="2" y="41" width="204" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Sello]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="355" y="41" width="200" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Encargado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="2" y="21" width="204" height="20"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[_______________________________________]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

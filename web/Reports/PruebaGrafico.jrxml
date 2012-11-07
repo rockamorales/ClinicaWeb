@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PruebaGrafico" language="groovy" pageWidth="400" pageHeight="300" columnWidth="400" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="dc6e203b-83a7-4b86-82a7-7ac55b1be3f4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     COUNT(*),
+     cat_especialidad.`NOM_ESPECIALIDAD` AS cat_especialidad_NOM_ESPECIALIDAD
+FROM
+     `cat_especialidad` cat_especialidad INNER JOIN `tbl_consultas` tbl_consultas ON cat_especialidad.`COD_ESPECIALIDAD` = tbl_consultas.`COD_ESPECIALIDAD`
+WHERE
+     EST_CONSULTA = 4
+GROUP BY tbl_consultas.COD_ESPECIALIDAD]]>
+	</queryString>
+	<field name="COUNT(*)" class="java.lang.Long"/>
+	<field name="cat_especialidad_NOM_ESPECIALIDAD" class="java.lang.String"/>
+	<variable name="cat_especialidad_NOM_ESPECIALIDAD_1" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{cat_especialidad_NOM_ESPECIALIDAD}]]></variableExpression>
+	</variable>
+	<title>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="e0e604c0-d883-4fc7-819a-92b295c1cbd4" x="81" y="6" width="244" height="20"/>
+				<textElement/>
+				<text><![CDATA[Reporte de Consultas Atendidas por Especialidad]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="20">
+			<staticText>
+				<reportElement uuid="4e32655e-c5da-41c4-9097-cc03a0781c6b" x="111" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Especialidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="409af6b8-d4af-4ca6-b2a9-01ac0842ce2e" x="211" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<textField>
+				<reportElement uuid="6da9be2e-df8e-4c40-9340-220145d71d83" x="111" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cat_especialidad_NOM_ESPECIALIDAD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2d4f5d7f-d85b-4bad-9e2d-6454097a5676" x="211" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{COUNT(*)}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<pageFooter>
+		<band height="167">
+			<barChart>
+				<chart isShowLegend="false" evaluationTime="Report" theme="eye.candy.sixties">
+					<reportElement uuid="33ab3722-af3e-4832-a07a-78f5a0f8c1a5" x="81" y="13" width="244" height="130"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<dataset resetType="Page"/>
+					<categorySeries>
+						<seriesExpression><![CDATA[""]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{cat_especialidad_NOM_ESPECIALIDAD}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{COUNT(*)}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot orientation="Horizontal"/>
+					<itemLabel/>
+				</barPlot>
+			</barChart>
+		</band>
+	</pageFooter>
+</jasperReport>
