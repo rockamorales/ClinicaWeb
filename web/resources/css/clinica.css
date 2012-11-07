@@ -186,3 +186,22 @@ fieldset {
 .right{
     text-align: right;    
 }
+
+option[label] {
+  /*
+   * made content invisible
+   * with display: none; it would be impossible to show the :before
+   * so we need a workaround to avoid wasting room
+   */
+  visibility: hidden;
+  width: 0; height: 0;
+}
+option[label]:before {
+  /*
+   * made content of the label-attribute visible
+   * color: red; only for testing purposes
+   */
+  content: attr(label);
+  visibility: visible;
+  color: red;
+}

@@ -61,15 +61,15 @@ and open the template in the editor.
                         </tr>
                         <tr>
                             <td colspan="6">
-                                <a4j:commandButton value="Buscar" actionListener="#{frmTblComprobanteDonacion.buscar}" render="@form"/>
+                                <a4j:commandButton value="Buscar" actionListener="#{frmTblDonacionesVoluntarias.buscar}" render="@form"/>
                             </td>
                         </tr>
                     </table>
                 </fieldset>
-                <h:outputLink value="frmMantTblComprobanteDonacion.jsf">
+                <h:outputLink value="frmMantTblDonacionesVoluntarias.jsf">
                     Agregar Nueva Donacion
                 </h:outputLink>
-                <rich:dataTable value="#{comprobanteDonacionEmitidosDataModel}" var="tblComprobanteDonacion" rows="10" id="tblComprobanteDonacionTable">
+                <rich:dataTable value="#{donacionesEmitidosDataModel}" var="tblComprobanteDonacion" rows="10" id="tblComprobanteDonacionTable">
                 <f:facet name="header">
                     <rich:columnGroup>
                       <h:column>
@@ -116,10 +116,9 @@ and open the template in the editor.
                     <h:column>
                         <h:outputText value="#{tblComprobanteDonacion.estComDonacion}">
                         </h:outputText>
-                    </h:column>                                 
+                    </h:column>
                     <h:column>
-
-                        <h:outputLink value="frmMantTblComprobanteDonacion.jsf">
+                        <h:outputLink value="frmMantTblDonacionesVoluntarias.jsf">
                             <f:param name="numComDonacion" value="#{tblComprobanteDonacion.numComDonacion}"/>
                             <f:param name="faces-redirect" value="true"/>
                             <h:graphicImage url="/img/icons/edit.gif" style="border: 0">
@@ -127,9 +126,9 @@ and open the template in the editor.
                         </h:outputLink>
                     </h:column>
                     <h:column>
-                        <a4j:commandLink actionListener="#{frmTblComprobanteDonacion.delete}" render="@form, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar Pago: #{tblComprobanteDonacion.nomComDonacion}')){return false;}">
+                        <a4j:commandLink actionListener="#{frmTblDonacionesVoluntarias.delete}" render="@form, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar Pago: #{tblComprobanteDonacion.nomComDonacion}')){return false;}">
                             <h:graphicImage url="/img/icons/delete.gif" style="border: 0"/>
-                            <f:setPropertyActionListener target="#{frmTblComprobanteDonacion.tblComprobanteDonacion}" value="#{tblComprobanteDonacion}"/>
+                            <f:setPropertyActionListener target="#{frmTblDonacionesVoluntarias.tblComprobanteDonacion}" value="#{tblComprobanteDonacion}"/>
                         </a4j:commandLink>
                     </h:column>
                     <f:facet name="footer">
