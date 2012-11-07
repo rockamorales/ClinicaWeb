@@ -23,10 +23,11 @@
 FROM
      `cat_carisma` cat_carisma INNER JOIN `tbl_comprobante_donacion` tbl_comprobante_donacion ON cat_carisma.`COD_CARISMA` = tbl_comprobante_donacion.`COD_CARISMA`
      INNER JOIN `cat_tipo_pago` cat_tipo_pago ON tbl_comprobante_donacion.`COD_TIP_PAGO` = cat_tipo_pago.`COD_TIP_PAGO`
-     INNER JOIN `tbl_expediente_pacientes` tbl_expediente_pacientes ON tbl_comprobante_donacion.`NUM_EXPEDIENTE` = tbl_expediente_pacientes.`NUM_EXPEDIENTE`
+     LEFT OUTER JOIN `tbl_expediente_pacientes` tbl_expediente_pacientes ON tbl_comprobante_donacion.`NUM_EXPEDIENTE` = tbl_expediente_pacientes.`NUM_EXPEDIENTE`
      INNER JOIN `tbl_detalle_comprobante_donacion` tbl_detalle_comprobante_donacion ON tbl_comprobante_donacion.`NUM_COM_DONACION` = tbl_detalle_comprobante_donacion.`NUM_COM_DONACION`
      INNER JOIN `tbl_producto` tbl_producto ON tbl_detalle_comprobante_donacion.`NUM_PRODUCTO` = tbl_producto.`NUM_PRODUCTO`
-WHERE tbl_comprobante_donacion.`NUM_COM_DONACION` = $P{numComDonacion}]]>
+WHERE
+     tbl_comprobante_donacion.`NUM_COM_DONACION` = $P{numComDonacion}]]>
 	</queryString>
 	<field name="tbl_comprobante_donacion_NUM_COM_DONACION" class="java.lang.Integer"/>
 	<field name="cat_carisma_NOM_CARISMA" class="java.lang.String"/>

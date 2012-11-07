@@ -21,7 +21,15 @@
                       <tr>
                           <td>Código:</td>
                           <td><h:outputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.numExpediente}" style="font-weight: bold"/>
-                              <h:inputHidden value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.numExpediente}" /></td>
+                              <h:inputHidden value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.numExpediente}" />
+                              <h:outputLink value="/ClinicaWeb/ReportServlet">
+                                  Imprimir Expediente
+                                  <f:param value="/Reports/Archivo_Expediente.jasper" name="rptFileName"/>
+                                  <f:param value="pdf" name="docType"/>
+                                  <f:param value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.numExpediente}" name="numExpediente"/>
+                                  <f:param value="numerico" name="numExpedienteDataType"/>
+                              </h:outputLink>
+                          </td>
                           <td>Fecha de Registro:</td>
                           <td>
                               <h:outputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.fecRegExpediente}">
@@ -205,7 +213,7 @@
                </rich:tab>
             </rich:tabPanel>
           <center>
-             <a4j:commandButton value="Regresar" action="frmEliminarTblExpedientePacientes.jsf?faces-redirect=true" immediate="true"/>
+             <a4j:commandButton value="Regresar" action="frmConsultaTblExpedientePacientes.jsf?faces-redirect=true" immediate="true"/>
           </center>
        </h:form>
     </ui:define>
