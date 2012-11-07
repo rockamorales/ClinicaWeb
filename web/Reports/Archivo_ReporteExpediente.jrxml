@@ -3,6 +3,9 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="estPaciente" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
      tbl_expediente_pacientes.`NUM_EXPEDIENTE` AS tbl_expediente_pacientes_NUM_EXPEDIENTE,
@@ -10,11 +13,11 @@
      tbl_expediente_pacientes.`PRI_APE_PACIENTE` AS tbl_expediente_pacientes_PRI_APE_PACIENTE,
      tbl_expediente_pacientes.`SEC_APE_PACIENTE` AS tbl_expediente_pacientes_SEC_APE_PACIENTE,
      tbl_expediente_pacientes.`TER_APE_PACIENTE` AS tbl_expediente_pacientes_TER_APE_PACIENTE,
-     tbl_consultas.`FEC_CONSULTA` AS tbl_consultas_FEC_CONSULTA
+     tbl_consultas.`FEC_CONSULTA` AS tbl_consultas_FEC_CONSULTA,
+     case tbl_expediente_pacientes.`EST_PACIENTE` when 0 then 'Activo' when 1 then 'Inactivo' end AS tbl_expediente_pacientes_EST_PACIENTE
 FROM
      `tbl_expediente_pacientes` tbl_expediente_pacientes INNER JOIN `tbl_consultas` tbl_consultas ON tbl_expediente_pacientes.`NUM_EXPEDIENTE` = tbl_consultas.`NUM_EXPEDIENTE`
-AND tbl_expediente_pacientes.est_paciente = 1
-AND month (fec_reg_expediente) = month (now())-1]]>
+WHERE (tbl_expediente_pacientes.`EST_PACIENTE` = $P{estPaciente} OR $P{estPaciente} = -1)]]>
 	</queryString>
 	<field name="tbl_expediente_pacientes_NUM_EXPEDIENTE" class="java.lang.Integer"/>
 	<field name="tbl_expediente_pacientes_NOM_PACIENTE" class="java.lang.String"/>
@@ -22,6 +25,7 @@ AND month (fec_reg_expediente) = month (now())-1]]>
 	<field name="tbl_expediente_pacientes_SEC_APE_PACIENTE" class="java.lang.String"/>
 	<field name="tbl_expediente_pacientes_TER_APE_PACIENTE" class="java.lang.String"/>
 	<field name="tbl_consultas_FEC_CONSULTA" class="java.sql.Timestamp"/>
+	<field name="tbl_expediente_pacientes_EST_PACIENTE" class="java.lang.String"/>
 	<variable name="tbl_expediente_pacientes_NUM_EXPEDIENTE_1" class="java.lang.Integer" resetType="Column" calculation="Count">
 		<variableExpression><![CDATA[$F{tbl_expediente_pacientes_NUM_EXPEDIENTE}]]></variableExpression>
 	</variable>
@@ -63,14 +67,14 @@ AND month (fec_reg_expediente) = month (now())-1]]>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="17" splitType="Stretch">
+		<band height="19" splitType="Stretch">
 			<staticText>
 				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="2" y="0" width="552" height="17"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="Times New Roman" size="14" isStrikeThrough="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[Reporte de Expedientes Depurados]]></text>
+				<text><![CDATA[Reporte de Expedientes]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -97,14 +101,14 @@ AND month (fec_reg_expediente) = month (now())-1]]>
 				<text><![CDATA[Segundo Apellido]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="788e2645-9895-4873-998f-b884a845ff1c" x="278" y="0" width="92" height="20"/>
-				<textElement/>
-				<text><![CDATA[Tercer Apellido]]></text>
-			</staticText>
-			<staticText>
 				<reportElement uuid="b51e5673-65d9-423e-b901-b276af01b45f" x="460" y="0" width="92" height="20"/>
 				<textElement/>
 				<text><![CDATA[Ultima Consulta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1d85a021-9a82-4b72-858a-858fceda5db6" x="278" y="0" width="92" height="20"/>
+				<textElement/>
+				<text><![CDATA[Estado]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -131,14 +135,14 @@ AND month (fec_reg_expediente) = month (now())-1]]>
 				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_SEC_APE_PACIENTE}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="74dff567-f145-4407-aeb1-de10dd4ccc10" x="278" y="0" width="92" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_TER_APE_PACIENTE}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement uuid="98b86210-3ad9-4a93-b9ad-d8c44e8f3777" x="460" y="0" width="92" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{tbl_consultas_FEC_CONSULTA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="94e2715b-9af3-4365-8f97-c641cd795e29" x="278" y="0" width="92" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_EST_PACIENTE}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -146,16 +150,16 @@ AND month (fec_reg_expediente) = month (now())-1]]>
 		<band height="45" splitType="Stretch">
 			<textField>
 				<reportElement uuid="009c5057-03c9-46e2-b417-8c7bb333f09a" x="450" y="25" width="100" height="20"/>
-				<textElement/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$V{tbl_expediente_pacientes_NUM_EXPEDIENTE_1}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="265" y="26" width="180" height="17"/>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="340" y="25" width="110" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font isStrikeThrough="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[Total de Expedientes Depurados]]></text>
+				<text><![CDATA[Total de Expedientes]]></text>
 			</staticText>
 		</band>
 	</columnFooter>

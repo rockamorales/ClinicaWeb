@@ -115,7 +115,7 @@ and open the template in the editor.
                                             <td align="left"><a4j:commandButton value="Agregar todos los productos" title="Agrega todos los productos incluidos en el documento cuyo numero de factura ha especificado"/> </td>
                                         </tr>
                                     </table>
-                            <rich:dataTable value="#{frmMantTblDevolucion.cblDetalleComprobanteDonacionList}" var="tblDetalleComprobanteDonacion" rows="10" id="tblDetalleComprobanteDonacionTable">
+                                <rich:dataTable value="#{frmMantTblDevolucion.cblDetalleComprobanteDonacionList}" var="tblDetalleComprobanteDonacion" rowKeyVar="row" rows="10" id="tblDetalleComprobanteDonacionTable">
                                 <f:facet name="header">
                                     <rich:columnGroup>
                                       <h:column>
@@ -139,7 +139,7 @@ and open the template in the editor.
                                     </rich:columnGroup>
                                   </f:facet>
                                 <h:column>
-                                    <h:outputText value="#{tblDetalleComprobanteDonacion.corDetComDonacion}">   
+                                    <h:outputText value="#{row+1}">   
                                     </h:outputText>
                                 </h:column>
                                 <h:column>
