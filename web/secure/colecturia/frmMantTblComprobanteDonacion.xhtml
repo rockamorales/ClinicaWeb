@@ -85,12 +85,12 @@ and open the template in the editor.
                                         <h:outputText value="#{frmMantTblComprobanteDonacion.tblComprobanteDonacion.numComDonacion}" style="font-weight: bold"/>
                                         <h:inputHidden value="#{frmMantTblComprobanteDonacion.tblComprobanteDonacion.numComDonacion}" />
                                         <h:outputLink value="/ClinicaWeb/ReportServlet" rendered="#{frmMantTblComprobanteDonacion.tblComprobanteDonacion.estComDonacion == 'PAGADO'}">
-                                  Imprimir Comprobante
-                                  <f:param value="/Reports/Colecturia_ComprobanteDonacion.jasper" name="rptFileName"/>
-                                  <f:param value="pdf" name="docType"/>
-                                  <f:param value="#{frmMantTblComprobanteDonacion.tblComprobanteDonacion.numComDonacion}" name="numComDonacion"/>
-                                  <f:param value="numerico" name="numComDonacionDataType"/>
-                              </h:outputLink>                                        
+                                            Imprimir Comprobante
+                                            <f:param value="/Reports/Colecturia_ComprobanteDonacion.jasper" name="rptFileName"/>
+                                            <f:param value="pdf" name="docType"/>
+                                            <f:param value="#{frmMantTblComprobanteDonacion.tblComprobanteDonacion.numComDonacion}" name="numComDonacion"/>
+                                            <f:param value="numerico" name="numComDonacionDataType"/>
+                                        </h:outputLink>                                        
                                     </td>
                                     <td align="left">Estado:</td>
                                     <td align="left">
