@@ -239,6 +239,7 @@ public class FrmMantTblComprobanteDonacion extends PageBase{
                 facade.edit(tblComprobanteDonacion);
             }else{
                 tblComprobanteDonacion.setEstComDonacion(EstadoComprobanteDonacion.EMITIDO);
+                tblComprobanteDonacion.setCanLetras("Cero");
                 facade.create(tblComprobanteDonacion);
             }
         }catch(Exception x){

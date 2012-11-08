@@ -6,6 +6,11 @@
     <principal-name>admin</principal-name>
     <group-name>admin</group-name>
   </security-role-mapping>
+  <security-role-mapping>
+    <role-name>authenticated-user</role-name>
+    <principal-name>authenticated-user</principal-name>
+    <group-name>authenticated-user</group-name>
+  </security-role-mapping>
   <class-loader delegate="true"/>
   <jsp-config>
     <property name="keepgenerated" value="true">
