@@ -57,7 +57,9 @@ and open the template in the editor.
                                 </tr>
                                 <tr>
                                     <td align="left">NIT:</td>
-                                    <td align="left"><h:inputText value="#{frmMantTblDevolucion.tblComprobanteDonacion.nitComDonacion}" disabled="#{frmMantTblDevolucion.tblComprobanteDonacion.estComDonacion != 'EMITIDO' and frmMantTblDevolucion.tblComprobanteDonacion.numComDonacion != null}"/></td>
+                                    <td align="left">
+                                        <h:inputText value="#{frmMantTblDevolucion.tblComprobanteDonacion.nitComDonacion}" disabled="#{frmMantTblDevolucion.tblComprobanteDonacion.estComDonacion != 'EMITIDO' and frmMantTblDevolucion.tblComprobanteDonacion.numComDonacion != null}"/>
+                                    </td>
                                     <td align="left">Fecha:</td>
                                     <td align="left"><rich:calendar value="#{frmMantTblDevolucion.tblComprobanteDonacion.fecComDonacion}" datePattern="dd/MM/yyyy" enableManualInput="true" disabled="#{frmMantTblDevolucion.tblComprobanteDonacion.estComDonacion != 'EMITIDO' and frmMantTblDevolucion.tblComprobanteDonacion.numComDonacion != null}"/></td>
                                 </tr>  

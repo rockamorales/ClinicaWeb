@@ -235,10 +235,12 @@ public class FrmMantTblDevolucion extends PageBase{
             if (!validateHeader(tblComprobanteDonacion)){
                 return;
             }
+            
             if(tblComprobanteDonacion.getNumComDonacion() != null){
                 facade.edit(tblComprobanteDonacion);
             }else{
                 tblComprobanteDonacion.setEstComDonacion(EstadoComprobanteDonacion.EMITIDO);
+                tblComprobanteDonacion.setCanLetras("Cero");
                 facade.create(tblComprobanteDonacion);
             }
         }catch(Exception x){
@@ -377,6 +379,9 @@ public class FrmMantTblDevolucion extends PageBase{
             try{
                 if (this.getNumComDonacion()!=null && this.getNumComDonacion()>0){
                     tblComprobanteDonacion = facade.find(this.getNumComDonacion());
+                    if (tblComprobanteDonacion==null){
+                        tblComprobanteDonacion = new TblComprobanteDonacion();
+                    }
                 }
                 this.getCblDetalleComprobanteDonacionList().clear();
             }catch(Exception ex){
