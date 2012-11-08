@@ -16,7 +16,7 @@ and open the template in the editor.
         </ui:define>
         <ui:define name="body">
             <h:form>
-                <h3>Anular Comprobante de Donación</h3>
+                <h3>Consultar Comprobante de Donación</h3>
                 <hr></hr>                
                 <fieldset>
                     <legend>Buscar</legend>
@@ -89,9 +89,6 @@ and open the template in the editor.
                       <h:column>
                         <h:outputText value=""/>
                       </h:column>
-                      <h:column>
-                        <h:outputText value=""/>
-                      </h:column>
                     </rich:columnGroup>
                   </f:facet>
                     <h:column>
@@ -115,19 +112,14 @@ and open the template in the editor.
                         </h:outputText>
                     </h:column>
                     <h:column>
-                        <h:outputLink value="frmMantAnulacionTblComprobanteDonacion.jsf">
+                        <h:outputLink value="frmMantConsultarTblComprobanteDonacion.jsf">
                             <f:param name="numComDonacion" value="#{tblComprobanteDonacion.numComDonacion}"/>
                             <f:param name="faces-redirect" value="true"/>
                             <h:graphicImage url="/img/icons/edit.gif" style="border: 0">
                             </h:graphicImage>
                         </h:outputLink>
                     </h:column>
-                    <h:column>
-                        <a4j:commandLink actionListener="#{frmAnulacionTblComprobanteDonacion.delete}" render="@form" onclick="if(!confirm('Esta seguro que desea eliminar Pago: #{tblComprobanteDonacion.nomComDonacion}')){return false;}">
-                            <h:graphicImage url="/img/icons/delete.gif" style="border: 0"/>
-                            <f:setPropertyActionListener target="#{frmAnulacionTblComprobanteDonacion.tblComprobanteDonacion}" value="#{tblComprobanteDonacion}"/>
-                        </a4j:commandLink>
-                    </h:column>
+
                     <f:facet name="footer">
                         <rich:dataScroller/>
                     </f:facet>
