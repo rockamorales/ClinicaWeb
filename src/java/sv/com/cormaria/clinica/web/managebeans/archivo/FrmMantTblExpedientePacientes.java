@@ -377,7 +377,7 @@ public class FrmMantTblExpedientePacientes extends PageBase {
       try{
           this.facade.remove(tblExpedientePacientes);
           tblExpedientePacientes = facade.find(this.tblExpedientePacientes.getNumExpediente());
-          this.addInfo("El expediente ha sido desactivado", "El expediente ha sido desactivado");
+          this.addInfo("El expediente ha sido eliminado", "El expediente ha sido eliminado");
       }catch(Exception ex){
           this.addError(ex.getMessage(), ex.getMessage());
       }

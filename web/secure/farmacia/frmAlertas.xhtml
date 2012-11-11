@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    <ui:composition template="/templates/main.xhtml">
+	<ui:define name="title">#{messages['default.windowTitle']} - Administracion de Alertas</ui:define>
+	<ui:define name="body">
+             <h:form>
+		<rich:panel header="Listado de Alertas" id="creacionAlertasPanel">
+                    <h:outputLink value="frmMantAlertas.jsf">
+                        Configurar Alertas
+                    </h:outputLink>
+                    <h:outputLabel value="Exportar:"/>
+                    <h:outputLink value="/ClinicaWeb/ReportServlet">
+                        PDF
+                        <f:param name="docType" value="pdf"/>
+                        <f:param name="rptFileName" value="/Reports/Lista de Alertas.jasper"/>
+                    </h:outputLink>
+                    <h:outputLink value="/ClinicaWeb/ReportServlet">
+                        XLS
+                        <f:param name="rptFileName" value="/Reports/Lista de Alertas.jasper"/>
+                        <f:param name="docType" value="xls"/>
+                    </h:outputLink>
+                    <h:outputLabel value="Filtro Alertas:"/>
+                        <h:selectOneMenu value="#{frmAlertas.filtroAlertas}">
+                            <a4j:ajax event="change" render="@form" listener="#{frmAlertas.refrescarAlertas}"></a4j:ajax>
+                            <f:selectItem itemLabel="Todos" itemValue="todos"></f:selectItem> 
+                            <f:selectItem itemLabel="Activos" itemValue="activos"></f:selectItem> 
+                            <f:selectItem itemLabel="Inactivos" itemValue="inactivos"></f:selectItem> 
+                            
+                        </h:selectOneMenu>
+                    
+		  <hr/>
+                     <rich:dataTable id="alertas" rows="10" columnClasses="col" var="alerta1" value="#{frmAlertas.alertasList}" >
+                       <!-- onRowClick="this.style.backgroundColor='#F1F1F1'" onRowMouseOver="this.style.backgroundColor='#B5CEFD'" onRowMouseOut="this.style.backgroundColor='' -->
+                       <f:facet name="header">
+                         <rich:columnGroup>
+                           <h:column>
+                             <h:outputText styleClass="headerText" value="Id Alerta:"/>
+                           </h:column>
+                           <h:column>
+                             <h:outputText styleClass="headerText" value="Tipo Alerta:"/>
+                           </h:column>
+                           <h:column>
+                             <h:outputText styleClass="headerText" value="Fecha de Alerta:"/>
+                           </h:column>
+                           <h:column>
+                             <h:outputText styleClass="headerText" value="Estado de Alerta"/>
+                           </h:column>
+                           <h:column>
+                             <h:outputText styleClass="headerText" value="Codigo de Producto"/>
+                           </h:column>
+                             <h:column>
+                             <h:outputText styleClass="headerText" value="Producto"/>
+                           </h:column>
+                             <h:column>
+                             <h:outputText styleClass="headerText" value="Existencias"/>
+                           </h:column>
+                             <h:column>
+                             <h:outputText styleClass="headerText" value="Minimo de Existencias"/>
+                           </h:column>
+                             <h:column>
+                             <h:outputText styleClass="headerText" value="Fecha de Vencimiento"/>
+                           </h:column>
+                           <h:column>
+                             <h:outputText styleClass="headerText" value=""/>
+                           </h:column>
+                           <h:column>
+                             <h:outputText styleClass="headerText" value=""/>
+                           </h:column>
+                         </rich:columnGroup>
+                       </f:facet>
+                       <h:column>
+                           <h:outputText value="#{alerta1.numAlerta}"/>
+                       </h:column>
+                       <h:column>
+                           <h:outputText value="#{alerta1.tipAlerta}"/>
+                       </h:column>
+                       <h:column>
+                           <h:outputText value="#{alerta1.fecHorAlerta}">
+                           <f:convertDateTime pattern="dd/MM/yyyy"/>
+                           </h:outputText>
+                       </h:column>
+                       <h:column>
+                           <h:outputText value="#{alerta1.estAlerta}"/>
+                       </h:column>
+                       <h:column>
+                           <h:outputText value="#{alerta1.tblProducto.numProducto}"/>
+                       </h:column>
+                       <h:column>
+                           <h:outputText value="#{alerta1.tblProducto.nomProducto}"/>
+                       </h:column>
+                       <h:column>
+                           <h:outputText value="#{alerta1.tblProducto.exiProducto}"/>
+                       </h:column>
+                       <h:column>
+                           <h:outputText value="#{alerta1.tblProducto.exiMinProducto}"/>
+                       </h:column>
+                       <h:column>
+                           <h:outputText value="#{alerta1.fecVencimiento}">
+                         	<f:convertDateTime pattern="dd/MM/yyyy"/>
+                         </h:outputText>
+                       </h:column>
+                       <h:column>
+                               <h:outputLink value="frmMantAlertas.jsf">
+                                   <f:param name="codAlerta" value="#{alerta1.numAlerta}"/>
+                                   <f:param name="faces-redirect" value="true"/>
+                                   <h:graphicImage url="/img/icons/edit.gif"  style="border:0">
+                                   </h:graphicImage>
+                               </h:outputLink>
+                       </h:column>
+                       <h:column>
+                               <a4j:commandLink render="panelMessage,alertas" actionListener="#{frmAlertas.deactive}">
+                                   <h:graphicImage url="/img/icons/delete.gif" style="border:0;"></h:graphicImage>
+                               </a4j:commandLink>
+                       </h:column>
+	                <f:facet name="footer">
+                            <rich:dataScroller for="alertas" maxPages="10"/>
+	                </f:facet>
+                </rich:dataTable>
+            </rich:panel>
+             </h:form>
+	</ui:define>
+    </ui:composition>
+</html>

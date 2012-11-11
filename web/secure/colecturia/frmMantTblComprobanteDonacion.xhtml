@@ -119,7 +119,10 @@ and open the template in the editor.
                                 </tr>
                                 <tr>
                                     <td align="left">NIT:</td>
-                                    <td align="left"><h:inputText value="#{frmMantTblComprobanteDonacion.tblComprobanteDonacion.nitComDonacion}" disabled="#{frmMantTblComprobanteDonacion.tblComprobanteDonacion.estComDonacion != 'EMITIDO' and frmMantTblComprobanteDonacion.tblComprobanteDonacion.numComDonacion != null}"/></td>
+                                    <td align="left">
+                                        <h:inputText value="#{frmMantTblComprobanteDonacion.tblComprobanteDonacion.nitComDonacion}" disabled="#{frmMantTblComprobanteDonacion.tblComprobanteDonacion.estComDonacion != 'EMITIDO' and frmMantTblComprobanteDonacion.tblComprobanteDonacion.numComDonacion != null}" onkeypress="return filterInput(1, event, false, '');" id="nit1"/>
+                                        <rich:tooltip  target="nit1" showEvent="focus" value="Ingrese el numero de nit sin guiones ni espacios" />
+                                    </td>
                                     <td align="left">Fecha:</td>
                                     <td align="left"><rich:calendar value="#{frmMantTblComprobanteDonacion.tblComprobanteDonacion.fecComDonacion}" datePattern="dd/MM/yyyy" enableManualInput="true" disabled="#{frmMantTblComprobanteDonacion.tblComprobanteDonacion.estComDonacion != 'EMITIDO' and frmMantTblComprobanteDonacion.tblComprobanteDonacion.numComDonacion != null}"/></td>
                                 </tr>  

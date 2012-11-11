@@ -78,7 +78,7 @@ public class FrmMantTblRequisiciones extends PageBase{
     public List<TblProducto> getProductosList() {
         if (productosList.isEmpty()){
             try{
-                productosList = productoFacade.findActive();
+                productosList = productoFacade.findMedicamentos();
             }catch(Exception ex){
                 ex.printStackTrace();
             }
