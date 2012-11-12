@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    <ui:composition template="/templates/main.xhtml">
+        <f:metadata>
+            <f:viewParam name="codUsuario" value="#{frmMantUsuarios.codUsuario}"/>
+            <f:event listener="#{frmMantUsuarios.init}" type="preRenderView"></f:event>
+	</f:metadata>
+	<ui:define name="title">#{messages['default.windowTitle']} - Administracion de usuarios</ui:define>
+	<ui:define name="body">
+            <h:form id="frmUsuariosMant">
+                <table border="0" cellpadding="2" cellspacing="2">
+                    <tr>
+                            <td>
+                                <h:outputLabel for="usuariosid" value="Usuarios Id: "></h:outputLabel>
+                            </td>
+                            <td>
+                                <h:outputText value="#{frmMantUsuarios.tblUsuario.numUsuario}" id="usuariosid"></h:outputText>
+                                <h:inputHidden value="#{frmMantUsuarios.tblUsuario.numUsuario}"></h:inputHidden>
+                            </td>
+                    </tr>
+                    <tr>
+                            <td>
+                                    <h:outputLabel for="nombres" value="Nombres:"></h:outputLabel>
+                            </td>
+                            <td>
+                                <h:outputText value="#{frmMantUsuarios.tblUsuario.nomUsuario}" id="nombres">
+                                </h:outputText>
+                                <h:outputLabel value="*" for="nombres" style="color:red;font-weight:bold;"></h:outputLabel>
+                            </td>
+                    </tr>
+                    <tr>
+                            <td>
+                                    <h:outputLabel for="codigousuario" value="Codigo de usuario:"></h:outputLabel>
+                            </td>
+                            <td>
+                                <h:outputText value="#{frmMantUsuarios.tblUsuario.aliUsuario}" id="codigousuario">
+                                </h:outputText>
+                                <h:outputLabel value="*" style="color:red;font-weight:bold;"></h:outputLabel>
+                            </td>
+                    </tr>
+                 <!--  Contrasena -->
+                     <tr>
+                           <td>
+                               <h:outputLabel for="contrasenaAnt" value="Contraseña anterior:"></h:outputLabel>
+                           </td>
+                            <td>
+                                <h:inputSecret value="#{frmMantUsuarios.contrasenaAnterior}" id="contrasenaAnt"></h:inputSecret>
+                                <h:outputLabel value="*" style="color:red;font-weight:bold;"></h:outputLabel>
+                            </td>
+                    </tr>
+                    <tr>
+                            <td>
+                                <h:outputLabel for="nuevaContrasena" value="Nueva contraseña:"></h:outputLabel>
+                            </td>
+                            <td>
+                                <h:inputSecret value="#{frmMantUsuarios.nuevaContrasena}" id="nuevaContrasena"></h:inputSecret>
+                                <h:outputLabel value="*" style="color:red;font-weight:bold;"></h:outputLabel>
+                            </td>
+                    </tr>
+                    <tr>
+                            <td>
+                                <h:outputLabel for="confirmacion" value="Confirmacion de nueva contraseña:"></h:outputLabel>
+                            </td>
+                            <td>
+                                <h:inputSecret value="#{frmMantUsuarios.confirmacionContrasena}" id="confirmacion"></h:inputSecret>
+                                <h:outputLabel value="*" style="color:red;font-weight:bold;"></h:outputLabel>
+                            </td>
+                    </tr>
+                    <tr>
+                            <td colspan="2" align="center">
+                                <a4j:commandButton value="Cambiar" actionListener="#{frmMantUsuarios.cambiarContrasena}" render="@form, panelMessage"/>
+                                <h:commandButton value="Cancelar" action="/inicio.jsf?faces-redirect=true" immediate="true"/>
+                            </td>
+                    </tr>
+                </table>
+          </h:form>
+	</ui:define>
+    </ui:composition>
+</html>
