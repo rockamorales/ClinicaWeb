@@ -116,7 +116,8 @@ public class FrmCrearTarjetaControlCitas extends PageBase{
              this.addInfo("La tarjeta ha sido asignada", "La tarjeta ha sido asignada");
         }catch(Exception x){
             x.printStackTrace();
-            this.addError(x.getMessage(), x.getMessage());
+            //this.addError(x.getMessage(), x.getMessage());
+            this.addError("El numero de tarjeta ya esta asignado", "El numero de tarjeta ya esta asignado");
         }
     }   
 }

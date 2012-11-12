@@ -73,7 +73,7 @@ public class FrmMantTblIngresosProducto extends PageBase{
     public List<SelectItem> getTblProductoList() {
           if (tblProductoList.isEmpty()){
             try{
-                List<TblProducto> l = productoFacade.findActive();
+                List<TblProducto> l = productoFacade.findMedicamentos();
                 
                 tblProductoList.add(new SelectItem(-1, "Seleccione un producto"));
                 for (TblProducto tblProducto : l) {
@@ -161,6 +161,9 @@ public class FrmMantTblIngresosProducto extends PageBase{
         
     public void guardar(ActionEvent ae){
         try{
+            if (!validar(tblIngresosProducto)){
+                return;
+            }
             if(tblIngresosProducto.getNumIngreso() != null){
                 facade.edit(tblIngresosProducto);
             }else{
@@ -212,7 +215,7 @@ public class FrmMantTblIngresosProducto extends PageBase{
     public void seleccionarProducto(TblProducto producto){
         if (producto!=null){
             tblDetalleIngresoProducto.setTblDetalleIngresoProductoPK(new TblDetalleIngresoProductoPK(this.tblIngresosProducto.getNumIngreso(), producto.getNumProducto()));
-            tblDetalleIngresoProducto.setCosUniDetIngreso(producto.getPreFinProducto());
+            /*tblDetalleIngresoProducto.setCosUniDetIngreso(producto.getPreFinProducto());*/
         }
     }
     public void seleccionarProducto(ValueChangeEvent v){
@@ -247,7 +250,50 @@ public class FrmMantTblIngresosProducto extends PageBase{
         if (detalle.getCanDetIngreso() <= 0){
             this.addError("Ingrese Cantidad mayor a cero", "Ingrese Cantidad mayor a cero");
             validationOk = false;   
+        }        
+        if (detalle.getFecExpDetIngreso()==null){
+            this.addError("Por favor ingrese la fecha de vencimiento del Producto", "Por favor ingrese la fecha de vencimiento del Producto");
+            validationOk = false;
+        }else if (detalle.getFecExpDetIngreso().compareTo(new java.util.Date())<=0){
+                    this.addError("Fecha de Vencimiento caducada - No se permite el ingreso de producto vencido ", "Fecha de Vencimiento caducada - No se permite el ingreso de producto vencido ");
+                    this.addInfo("Revise la fecha de Vencimiento e ingrese los datos nuevamente", "Revise la fecha de Vencimiento e ingrese los datos nuevamente");
+                    validationOk = false;
         }
+        if (detalle.getCosUniDetIngreso() < 0){
+            this.addError("Error de datos: Ingrese Costo Unitario mayor o igual a cero", "Error de datos: Ingrese Costo Unitario mayor o igual a cero");
+            validationOk = false;   
+        }
+        
+        
+        
+        return validationOk;
+    }
+    
+        public boolean validar (TblIngresosProducto ingreso){
+        boolean validationOk = true;
+        if (ingreso.getCodOriIngreso() <= 0){
+            this.addError("Seleccione Origen del Ingreso", "Seleccione Origen del Ingreso");
+            validationOk = false;   
+        }       
+        if (ingreso.getNumDocIngreso() == null || ingreso.getNumDocIngreso().trim().equals("")){
+            this.addError("Seleccione Origen del Ingreso", "Seleccione Origen del Ingreso");
+            validationOk = false;   
+        }
+        if (ingreso.getFecIngreso()==null){
+            this.addError("Por favor, especifique la fecha de ingreso del Producto", "Por favor, especifique la fecha de ingreso del Producto");
+            validationOk = false;
+        }else if (ingreso.getFecIngreso().compareTo(new java.util.Date())>0){
+                    this.addError("La fecha de ingreso no debe ser mayor a la fecha actual", "La fecha de ingreso no debe ser mayor a la fecha actual");
+                    this.addInfo("Especifique la fecha de Ingreso nuevamente", "Especifique la fecha de Ingreso nuevamente");
+                    validationOk = false;
+        }
+        if (ingreso.getNumInstitucion() < 0){
+            this.addError("Error de datos: Seleccione Institucion de Procedencia", "Error de datos: Seleccione Institucion de Procedencia");
+            validationOk = false;   
+        }
+        
+        
+        
         return validationOk;
     }
     

@@ -9,7 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
 import sv.com.cormaria.clinica.web.managebeans.sessions.ClinicaSessionBean;
+import sv.com.cormaria.servicios.entidades.administracion.TblProducto;
+import sv.com.cormaria.servicios.entidades.security.CatRolesUsuario;
 import sv.com.cormaria.servicios.entidades.security.TblUsuarios;
+import sv.com.cormaria.servicios.facades.administracion.TblProductoFacadeLocal;
 import sv.com.cormaria.servicios.facades.security.TblUsuariosSessionFacadeLocal;
 
 
@@ -19,6 +22,8 @@ import sv.com.cormaria.servicios.facades.security.TblUsuariosSessionFacadeLocal;
 public class FrmLogin extends PageBase {
     @EJB
     TblUsuariosSessionFacadeLocal usuarioSession;
+    @EJB
+    TblProductoFacadeLocal productoSession;
     private String usuario;
     private String contrasena;
     public String getUsuario() {
@@ -47,6 +52,15 @@ public class FrmLogin extends PageBase {
                 sessionBean.setUsuario(usuario1);
                 usuario1.setUltFecIniSesion(new java.util.Date());
                 usuarioSession.updateAll(usuario1);
+                boolean hasRole = false;
+                for (CatRolesUsuario roleUsuario : usuario1.getRolesusuario()) {
+                    if (roleUsuario.getCatRole().getNomRol().equals("farmacia")){
+                        hasRole = true;
+                    }
+                }
+                if (hasRole){
+                    productoSession.generarAlertas();
+                }
                 //menu.loadMenuOptions(usuario);
                 return "inicio?faces-redirect=true";
             }else{
@@ -68,6 +82,7 @@ public class FrmLogin extends PageBase {
             FacesContext context = FacesContext.getCurrentInstance();
             HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
             HttpSession session = (HttpSession)context.getExternalContext().getSession(false);
+            addInfo("Se ha finalizado la Sesion", "Se ha finalizado la Sesion");
             session.invalidate();
             request.logout();
         } catch (Exception e) {

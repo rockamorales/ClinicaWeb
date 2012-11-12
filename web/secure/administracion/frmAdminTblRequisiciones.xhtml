@@ -19,8 +19,6 @@ and open the template in the editor.
 	    <f:event listener="#{frmMantTblRequisiciones.init}" type="preRenderView"></f:event>
         </f:metadata>
         <ui:define name="body">
-            <h3>Eliminar Requisiciones</h3>
-            <hr></hr>            
             <h:form id="form">
                 <fieldset style="border-radius: 5px; border: #000066 thin solid;">
                     <legend>Encabezado de requisicion</legend>
@@ -59,11 +57,15 @@ and open the template in the editor.
                       </tr>
                       <tr>
                             <td colspan="4" align="center">
+                                <h:commandButton value="Regresar" action="./frmConsultaAdminTblRequisiciones.jsf"/>
                                 <a4j:commandButton value="Eliminar" actionListener="#{frmMantTblRequisiciones.eliminar}" render="@form, panelMessage"/>
                                 <a4j:commandButton value="Denegar" actionListener="#{frmMantTblRequisiciones.DenegarReq}" render="@form, panelMessage"/>
                                 <a4j:commandButton value="Aprobar" actionListener="#{frmMantTblRequisiciones.AprobarReq}" render="@form, panelMessage"/>
                                 <a4j:commandButton value="Entregar" actionListener="#{frmMantTblRequisiciones.EntregarReq(ae)}" render="@form, panelMessage"/>
-                                <h:commandButton value="Regresar" action="frmEliminarTblRequisiciones.jsf?faces-redirect=true"/>
+                                <h:commandButton value="Modificar" action="#{frmMantTblRequisiciones.modificar}">
+                                    <f:param name="numRequisicion" value="#{frmMantTblRequisiciones.tblRequisiciones.numRequisicion}"/>
+                                    <f:param name="faces-redirect" value="true"/>
+                                </h:commandButton>
                             </td>
                         </tr>
                     </table>

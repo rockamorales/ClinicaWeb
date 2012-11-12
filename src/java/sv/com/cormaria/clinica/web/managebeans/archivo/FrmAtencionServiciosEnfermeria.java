@@ -61,6 +61,7 @@ public class FrmAtencionServiciosEnfermeria extends PageBase{
            ServiciosEnfermeriaPagadosDataModel dataModel = (ServiciosEnfermeriaPagadosDataModel) this.getBean("#{serviciosEnfermeriaPagadosDataModel}", ServiciosEnfermeriaPagadosDataModel.class);
            dataModel.clear();
            this.addInfo("La informacion ha sido almacenada sin problemas", "La informacion ha sido almacenada sin problemas");
+           
        }catch(Exception ex){
            ex.printStackTrace();
            this.addError(ex.getMessage(), ex.getMessage());

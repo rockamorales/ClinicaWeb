@@ -38,6 +38,7 @@
                         <td>
                             <h:inputText value="#{expedientesSearchCriteria.dui}" id="dui1">
                             </h:inputText>
+                             <rich:tooltip  target="dui1" showEvent="focus" value="Ingrese el numero de dui sin guión" />
                         </td>
                     </tr>
                     <tr>
@@ -79,6 +80,7 @@
                     <tr>
                         <td colspan="4" align="center">
                             <a4j:commandButton value="Buscar" actionListener="#{frmCrearTarjetaControlCitas.buscar}" render="tblExpedientePacientesTable" type="submit"/>
+                            <h:commandButton value="Cancelar" action="/inicio.jsf"/>
                         </td>                        
                     </tr>
                   </table>

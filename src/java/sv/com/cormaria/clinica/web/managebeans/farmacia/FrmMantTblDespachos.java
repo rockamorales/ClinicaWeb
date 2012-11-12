@@ -73,7 +73,7 @@ public class FrmMantTblDespachos extends PageBase{
     public List<SelectItem> getTblProductoList() {
           if (tblProductoList.isEmpty()){
             try{
-                List<TblProducto> l = productoFacade.findActive();
+                List<TblProducto> l = productoFacade.findMedicamentos();
                 
                 tblProductoList.add(new SelectItem(-1, "Seleccione un producto"));
                 for (TblProducto tblProducto : l) {
