@@ -35,6 +35,7 @@ and open the template in the editor.
                         <td>
                             <h:inputText value="#{serviciosEnfermeriaSearchCriteria.dui}" id="dui" maxlength="9" onkeypress="return filterInput(1, event, false, '');">
                             </h:inputText>
+                            <rich:tooltip  target="dui" showEvent="focus" value="Ingrese el numero de dui sin guión" />
                         </td>
                         <td>
                             <h:outputLabel value="Tipo Servicio:" for="codTipoServicio">
@@ -98,6 +99,7 @@ and open the template in the editor.
                     <tr>
                         <td colspan="4" align="center">
                             <a4j:commandButton value="Buscar" actionListener="#{frmConsultaTblServiciosEnfermeria.buscar}" render="tblServiciosEnfermeria" type="submit"/>
+                            <h:commandButton value="Cancelar" action="/inicio.jsf"/>
                         </td>                        
                     </tr>
                 </table>
@@ -175,6 +177,9 @@ and open the template in the editor.
                         </h:graphicImage>
                     </h:outputLink>
                 </h:column>   
+              <f:facet name="footer">
+                   <rich:dataScroller/>
+              </f:facet>
             </rich:dataTable>
       </h:form>
      </ui:define>

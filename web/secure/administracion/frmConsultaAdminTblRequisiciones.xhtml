@@ -15,7 +15,7 @@ and open the template in the editor.
           <h:outputText value="#{messages['default.windowTitle']}--Consulta de requisiciones" escape="false"></h:outputText>  
         </ui:define>
         <ui:define name="body">
-            <h3>Consulta de Requisiciones</h3>
+            <h3>Administracion de Requisiciones</h3>
             <hr></hr>            
           <h:form>
               <fieldset>
@@ -88,9 +88,9 @@ and open the template in the editor.
                   <h:column>
                     <h:outputText value="Estado"/>
                   </h:column>
-                <h:column>  
-                       <h:outputText value="Ver"/>
-                </h:column>  
+                    <h:column>
+                    <h:outputText value="Administrar"/>
+                  </h:column>
                 </rich:columnGroup>
               </f:facet>
                 <h:column>
@@ -119,7 +119,7 @@ and open the template in the editor.
                     </h:outputText>
                 </h:column>
                 <h:column>
-                    <h:outputLink value="frmViewTblRequisiciones.jsf">
+                    <h:outputLink value="frmAdminTblRequisiciones.jsf">
                         <f:param name="numRequisicion" value="#{tblrequisiciones.numRequisicion}"/>
                         <f:param name="faces-redirect" value="true"/>
                         <h:graphicImage url="/img/icons/edit.gif">

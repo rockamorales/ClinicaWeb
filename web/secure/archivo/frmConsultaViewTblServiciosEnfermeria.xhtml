@@ -20,47 +20,51 @@
               <hr/>
               <table>
                 <tr>
-                    <td align="left">Expediente:</td>
+                    <td align="left"  >Expediente:</td>
                     <td align="left">
-                        <h:outputText value="#{frmConsultaViewTblServiciosEnfermeria.tblExpediente.numExpediente}" id="numExpediente">
+                        <h:outputText value="#{frmConsultaViewTblServiciosEnfermeria.tblExpediente.numExpediente}" style="font-weight: bold" id="numExpediente">
                         </h:outputText>
                     </td>
+                    <td></td>
                     <td align="left"># Consulta:</td>
                     <td align="left">
-                        <h:outputText value="#{frmConsultaViewTblServiciosEnfermeria.tblServiciosEnfermeria.numSerEnfermeria}" id="numSerEnfermeria">
+                        <h:outputText value="#{frmConsultaViewTblServiciosEnfermeria.tblServiciosEnfermeria.numSerEnfermeria}"  style="font-weight: bold" id="numSerEnfermeria">
                         </h:outputText>
                     </td>
                 </tr>
                 <tr>
                     <td align="left">Nombres:</td>
                     <td align="left">
-                        <h:outputText value="#{frmConsultaViewTblServiciosEnfermeria.tblExpediente.nomPaciente}"/>
+                        <h:outputText value="#{frmConsultaViewTblServiciosEnfermeria.tblExpediente.nomPaciente}" style="font-weight: bold"/>
                     </td>
+                    <td></td>
                     <td align="left">Apellidos:</td>
                     <td align="left">
-                        <h:outputText value="#{frmConsultaViewTblServiciosEnfermeria.tblExpediente.priApePaciente} #{frmConsultaViewTblServiciosEnfermeria.tblExpediente.secApePaciente} #{frmConsultaViewTblServiciosEnfermeria.tblExpediente.terApePaciente}"/>
+                        <h:outputText value="#{frmConsultaViewTblServiciosEnfermeria.tblExpediente.priApePaciente} #{frmConsultaViewTblServiciosEnfermeria.tblExpediente.secApePaciente} #{frmConsultaViewTblServiciosEnfermeria.tblExpediente.terApePaciente}" style="font-weight: bold"/>
                     </td>
                 </tr>
                 <tr>
                     <td align="left">Fecha de Nacimiento:</td>
                     <td align="left">
-                        <h:outputText value="#{frmConsultaViewTblServiciosEnfermeria.tblExpediente.fecNacPaciente}">
+                        <h:outputText value="#{frmConsultaViewTblServiciosEnfermeria.tblExpediente.fecNacPaciente}" style="font-weight: bold">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </td>
+                    <td></td>
                     <td align="left">Edad del Paciente:</td>
                     <td align="left">
-                        <h:outputText value="#{frmConsultaViewTblServiciosEnfermeria.tblExpediente.edadPaciente}"/>
+                        <h:outputText value="#{frmConsultaViewTblServiciosEnfermeria.tblExpediente.edadPaciente}" style="font-weight: bold"/>
                     </td>
                 </tr>
                 <tr>
                     <td align="left">Tipo consulta:</td>
                     <td align="left">
-                        <h:outputText value="#{frmConsultaViewTblServiciosEnfermeria.tblServiciosEnfermeria.tipoServicio.nomSerEnfermeria}" />
+                        <h:outputText value="#{frmConsultaViewTblServiciosEnfermeria.tblServiciosEnfermeria.tipoServicio.nomSerEnfermeria}" style="font-weight: bold"/>
                     </td>
+                    <td></td>
                     <td align="left">Fecha:</td>
                     <td align="left">
-                        <h:outputText value="#{frmConsultaViewTblServiciosEnfermeria.tblServiciosEnfermeria.fecSerEnfermeria}">
+                        <h:outputText value="#{frmConsultaViewTblServiciosEnfermeria.tblServiciosEnfermeria.fecSerEnfermeria}" style="font-weight: bold">
                             <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
                         </h:outputText>
                     </td>                    
@@ -68,13 +72,13 @@
                 <tr>
                     <td align="left">Medicamentos Aplicados:</td>
                     <td colspan="3" align="left">
-                        <h:outputText value="#{frmConsultaViewTblServiciosEnfermeria.tblServiciosEnfermeria.medAplicados}" />
+                        <h:outputText value="#{frmConsultaViewTblServiciosEnfermeria.tblServiciosEnfermeria.medAplicados}" style="font-weight: bold"/>
                     </td>
                 </tr>
                 <tr>
                     <td align="left">Observaciones:</td>
                     <td colspan="3" align="left">
-                        <h:outputText value="#{frmConsultaViewTblServiciosEnfermeria.tblServiciosEnfermeria.obsSerEnfermeria}" />
+                        <h:outputText value="#{frmConsultaViewTblServiciosEnfermeria.tblServiciosEnfermeria.obsSerEnfermeria}" style="font-weight: bold"/>
                     </td>
                 </tr>  
                 <tr>

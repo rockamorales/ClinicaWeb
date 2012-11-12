@@ -38,38 +38,38 @@ and open the template in the editor.
                   <td style="border-right:#000 solid thin;" valign="top">
                     <table>
                          <tr>
-                             <td align="left">Número de Expediente:</td>
+                             <td align="left">Número de Expediente:  </td>
                             <td align="left">
                                 <h:outputText value="#{frmAtencionServiciosEnfermeria.tblServicioEnfermeria.numExpediente}" style="font-weight: bold"/>
                             </td>
-                            <td align="left">Nombre del Paciente:</td>
+                            <td align="left">Nombre del Paciente:  </td>
                             <td align="left">
                                 <h:outputText value="#{frmAtencionServiciosEnfermeria.tblServicioEnfermeria.expediente.nomPaciente} #{frmAtencionServiciosEnfermeria.tblServicioEnfermeria.expediente.priApePaciente} #{frmAtencionServiciosEnfermeria.tblServicioEnfermeria.expediente.secApePaciente} #{frmAtencionServiciosEnfermeria.tblServicioEnfermeria.expediente.terApePaciente}" style="font-weight: bold"/>
                             </td>
                         </tr> 
                         <tr>
-                            <td align="left">Numero de servicio:</td>
+                            <td align="left">Numero de servicio:  </td>
                             <td align="left">
                                 <h:outputText value="#{frmAtencionServiciosEnfermeria.tblServicioEnfermeria.numSerEnfermeria}" style="font-weight: bold"/>
                             </td>
-                            <td align="left">Fecha de registro:</td>
+                            <td align="left">Fecha de registro:  </td>
                             <td align="left">
                                 <h:outputText value="#{frmAtencionServiciosEnfermeria.tblServicioEnfermeria.fecSerEnfermeria}">
                                 </h:outputText>
                             </td>
                         </tr>
                         <tr>
-                            <td align="left">Tipo consulta</td>
+                            <td align="left">Tipo consulta:  </td>
                             <td align="left">
                                 <h:outputText value="#{frmAtencionServiciosEnfermeria.tblServicioEnfermeria.tipoServicio.nomSerEnfermeria}"/>
                             </td>
-                            <td align="left">Estado:</td>
+                            <td align="left">Estado:  </td>
                             <td align="left">
                                 <h:outputText value="#{frmAtencionServiciosEnfermeria.tblServicioEnfermeria.estSerEnfermeria}"/>
                             </td>
                         </tr>
                         <tr>
-                            <td align="left">Medicamentos aplicados:</td>
+                            <td align="left">Medicamentos aplicados: </td>
                             <td align="left" colspan="3">
                                 <h:inputTextarea value="#{frmAtencionServiciosEnfermeria.tblServicioEnfermeria.medAplicados}"  cols="50" rows="3">
                                 </h:inputTextarea>
@@ -84,14 +84,14 @@ and open the template in the editor.
                         </tr>
                         <tr>
                             <td colspan="4" align="center">
-                                <a4j:commandButton value="Guardar" actionListener="#{frmAtencionServiciosEnfermeria.guardar}" render="@form, panelMessage" onclick="if(!confirm('Al guardar, el sistema le cambiara el estado al servicio y ya no podra modificarlo nuevamente. Esta seguro(a) que desea guardar la informacion?')){return false;} return true;"/>
-                                <a4j:commandButton value="Cancelar"/>
+                                <a4j:commandButton value="Guardar" actionListener="#{frmAtencionServiciosEnfermeria.guardar}" render="@form, panelMessage" onclick="if(!confirm('Al guardar, el sistema le cambiara el estado al servicio y ya no podra modificarlo nuevamente. Esta seguro(a) que desea guardar la informacion?')){return false;} return true;" execute="@this"/>
+                                <h:commandButton value="Cancelar" action="/inicio.jsf"/>
                             </td>
                         </tr>
                       </table>
                     </td>
                     <td valign="top">
-                        <rich:dataGrid value="#{serviciosEnfermeriaPagadosDataModel}" var="servicio" columns="1" elements="10" id="serviciosEnfermeriaGrid">
+                        <rich:dataGrid value="#{serviciosEnfermeriaPagadosDataModel}" var="servicio" columns="1" elements="5" id="serviciosEnfermeriaGrid">
                             <table cellpadding="0" cellspacing="4">
                                     <tr>
                                      <td colspan="2">

@@ -32,7 +32,7 @@
                                 <h:outputLabel value="JVPM:" for="jvpm"></h:outputLabel>
                             </td>
                             <td>
-                                <h:inputText id="jvpm" value="#{consultasSensoMedico.jvpm}"/>
+                                <h:inputText id="jvpm" value="#{consultasSensoMedico.jvpm}" size="5" maxlength="5" onkeypress="return filterInput(1, event, false, '');"/>
                             </td>
                         </tr>
                         <tr>
@@ -59,7 +59,7 @@
                         </tr>
                     </table>
                 </fieldset>   
-                <rich:dataTable value="#{consultasSensoMedicoDataModel}" var="consulta" rows="30" id="consultasTable">
+                <rich:dataTable value="#{consultasSensoMedicoDataModel}" var="consulta" rows="10" id="consultasTable">
               <f:facet name="header">
                 <rich:columnGroup>
                   <h:column>

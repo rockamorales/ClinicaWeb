@@ -29,12 +29,13 @@ and open the template in the editor.
                             </h:inputText>
                         </td>
                         <td>
-                            <h:outputLabel value="DUI:" for="dui">
-                            </h:outputLabel>
+                            <h:outputLabel value="DUI:" for="dui"> </h:outputLabel>
+                                
                         </td>
                         <td>
                             <h:inputText value="#{expedientesSearchCriteria.dui}" id="dui" maxlength="9" onkeypress="return filterInput(1, event, false, '');">
                             </h:inputText>
+                            <rich:tooltip  target="dui" showEvent="focus" value="Ingrese el numero de dui sin guión" />
                         </td>
                     </tr>
                     <tr>
@@ -76,10 +77,11 @@ and open the template in the editor.
                     <tr>
                         <td colspan="4" align="center">
                             <a4j:commandButton value="Buscar" actionListener="#{frmTblExpedientePacientes.buscar}" render="tblExpedientePacientesTable" type="submit"/>
+                            <h:commandButton value="Cancelar" action="/inicio.jsf"/>    
                         </td>                        
                     </tr>
                 </table>
-                <rich:dataTable value="#{expedienteDataModel}" var="tblExpedientePacientes" rows="20" id="tblExpedientePacientesTable">
+                <rich:dataTable value="#{expedienteDataModel}" var="tblExpedientePacientes" rows="10" id="tblExpedientePacientesTable">
                 <f:facet name="header">
                     <rich:columnGroup>
                       <h:column>
@@ -144,6 +146,9 @@ and open the template in the editor.
                         </h:graphicImage>
                     </h:outputLink>
                 </h:column>   
+              <f:facet name="footer">
+                   <rich:dataScroller/>
+              </f:facet>
             </rich:dataTable>
       </h:form>
      </ui:define>

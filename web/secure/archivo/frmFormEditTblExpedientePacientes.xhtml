@@ -38,10 +38,12 @@
                         <td>
                             <h:outputLabel value="DUI:" for="dui1">
                             </h:outputLabel>
+                            
                         </td>
                         <td>
                             <h:inputText value="#{expedientesSearchCriteria.dui}" id="dui1">
                             </h:inputText>
+                            <rich:tooltip  target="dui1" showEvent="focus" value="Ingrese el numero de dui sin guión" />
                         </td>
                     </tr>
                     <tr>
@@ -164,7 +166,7 @@
                     </td>
                     <td align="left">Fecha de Registro:</td>
                     <td align="left">
-                        <h:outputText value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.fecRegExpediente}"/>
+                        <h:outputText value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.fecRegExpediente}"  />
                     </td>
                 </tr>
                 <tr>
@@ -231,7 +233,9 @@
                             <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                         </td>
                         <td align="left">Numero de Dui:</td>
-                        <td align="left"><h:inputText value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.numDui}" size="9" maxlength ="9" onkeypress="return filterInput(1, event, false, '');"/></td>
+                        <td align="left"><h:inputText value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.numDui}" id="numDui" size="9" maxlength ="9" onkeypress="return filterInput(1, event, false, '');"/>
+                        <rich:tooltip  target="numDui" showEvent="focus" value="Ingrese el numero de dui sin guión" />
+                        </td>
                  </tr>
                  <tr>
                         <td align="left">Dirección del Paciente:</td>
@@ -332,7 +336,8 @@
                   </tr>
                   <tr>
                       <td colspan="4" align="center">
-                          <a4j:commandButton value="Guardar" actionListener="#{frmMantEditTblExpedientePacientes.guardar}" render="@form, panelMessage" />
+                          <a4j:commandButton value="Modificar" actionListener="#{frmMantEditTblExpedientePacientes.guardar}" render="@form, panelMessage" />
+                          <h:commandButton value="Cancelar" action="/inicio.jsf"/>
                       </td>
                   </tr>
               </table>
