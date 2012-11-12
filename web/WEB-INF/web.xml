@@ -59,6 +59,9 @@
     <welcome-file-list>
         <welcome-file>inicio.jsf</welcome-file>
     </welcome-file-list>
+    <security-role>
+        <role-name>authenticated-user</role-name>
+    </security-role>
     <security-constraint>
         <display-name>secureZone</display-name>
         <web-resource-collection>
