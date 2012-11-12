@@ -10,14 +10,20 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import org.richfaces.component.UIDataTable;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
+import sv.com.cormaria.servicios.entidades.administracion.TblEmpleado;
+import sv.com.cormaria.servicios.entidades.administracion.TblMedico;
 import sv.com.cormaria.servicios.entidades.security.CatRoles;
 import sv.com.cormaria.servicios.entidades.security.CatRolesUsuario;
 import sv.com.cormaria.servicios.entidades.security.CatRolesUsuarioPK;
 import sv.com.cormaria.servicios.entidades.security.TblUsuarios;
+import sv.com.cormaria.servicios.facades.administracion.TblEmpleadoFacadeLocal;
+import sv.com.cormaria.servicios.facades.administracion.TblMedicoFacadeLocal;
 import sv.com.cormaria.servicios.facades.security.CatRolesSessionFacadeLocal;
 import sv.com.cormaria.servicios.facades.security.CatRolesUsuarioSessionFacadeLocal;
 import sv.com.cormaria.servicios.facades.security.ExceptionHelper;
@@ -28,7 +34,7 @@ import sv.com.cormaria.servicios.facades.security.TblUsuariosSessionFacadeLocal;
  * @author Administrador
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class FrmMantUsuarios extends PageBase {
     @EJB
     TblUsuariosSessionFacadeLocal usuariosFacade;
@@ -38,7 +44,13 @@ public class FrmMantUsuarios extends PageBase {
 
     @EJB
     CatRolesSessionFacadeLocal rolesLocal;
-    
+
+    @EJB
+    TblEmpleadoFacadeLocal empleadoLocal;
+
+    @EJB
+    TblMedicoFacadeLocal medicosLocal;
+        
     private Long roleid;
     private Long selectedRoleId;
     private String fecIniCreacion;
@@ -49,12 +61,70 @@ public class FrmMantUsuarios extends PageBase {
     private List<CatRolesUsuario> rolesUsuarioList = new ArrayList<CatRolesUsuario>();
     private List<SelectItem> rolesList = new ArrayList<SelectItem>();
     
-    @ManagedProperty(value="#{usuario}")
-    private UsuarioForm usuario;
-
-    @ManagedProperty(value="#{param.codUsuario}")
+    private List<TblEmpleado> empleadosList = new ArrayList<TblEmpleado>();
+    
+    private List<TblMedico> medicosList = new ArrayList<TblMedico>();
+    
+    private TblUsuarios tblUsuario = new TblUsuarios();
     private Long codUsuario;
+    private String contrasenaAnterior;
+    private String nuevaContrasena;
+    private String confirmacionContrasena;
 
+    public List<TblEmpleado> getEmpleadosList() {
+        if (empleadosList.isEmpty()){
+            try{
+                empleadosList = empleadoLocal.findActive();
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+        }
+        return empleadosList;
+    }
+
+    public String getContrasenaAnterior() {
+        return contrasenaAnterior;
+    }
+
+    public void setContrasenaAnterior(String contrasenaAnterior) {
+        this.contrasenaAnterior = contrasenaAnterior;
+    }
+
+    public String getNuevaContrasena() {
+        return nuevaContrasena;
+    }
+
+    public void setNuevaContrasena(String nuevaContrasena) {
+        this.nuevaContrasena = nuevaContrasena;
+    }
+
+    public String getConfirmacionContrasena() {
+        return confirmacionContrasena;
+    }
+
+    public void setConfirmacionContrasena(String confirmacionContrasena) {
+        this.confirmacionContrasena = confirmacionContrasena;
+    }
+
+    public void setEmpleadosList(List<TblEmpleado> empleadosList) {
+        this.empleadosList = empleadosList;
+    }
+
+    public List<TblMedico> getMedicosList() {
+        if (medicosList.isEmpty()){
+            try{
+                medicosList = medicosLocal.findActive();
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+        }
+        return medicosList;
+    }
+
+    public void setMedicosList(List<TblMedico> medicosList) {
+        this.medicosList = medicosList;
+    }
+    
     public String getFecIniCreacion() {
         return fecIniCreacion;
     }
@@ -86,13 +156,21 @@ public class FrmMantUsuarios extends PageBase {
     public void setRptFileName(String rptFileName) {
         this.rptFileName = rptFileName;
     }
+
+    public TblUsuarios getTblUsuario() {
+        return tblUsuario;
+    }
+
+    public void setTblUsuario(TblUsuarios tblUsuario) {
+        this.tblUsuario = tblUsuario;
+    }
     
     public List<CatRolesUsuario> getRolesUsuarioList() {
         if (rolesUsuarioList.isEmpty()){
-            System.out.println("Getting roles usuario: "+this.usuario.getTblUsuario().getNumUsuario());
-            if (this.usuario.getTblUsuario().getNumUsuario()!=null){
+            System.out.println("Getting roles usuario: "+getTblUsuario().getNumUsuario());
+            if (this.getTblUsuario().getNumUsuario()!=null){
                 try{
-                   rolesUsuarioList = rolesUsuarioLocal.findAllRolesByUser(usuario.getTblUsuario().getNumUsuario());
+                   rolesUsuarioList = rolesUsuarioLocal.findAllRolesByUser(getTblUsuario().getNumUsuario());
                 }catch(Exception ex){
                    ex.printStackTrace();
                 }
@@ -106,29 +184,7 @@ public class FrmMantUsuarios extends PageBase {
     }
 
     public void setCodUsuario(Long codUsuario) {
-        if (codUsuario!=null){
-            //if (this.usuario==null){
-            //    System.out.println("Cod usuario 2: "+codUsuario);
-            //    this.usuario = (UsuarioForm) this.getBean("#{usuario}", UsuarioForm.class);
-            //}
-            if (this.usuario.getTblUsuario().getNumUsuario()==null){
-                try{
-                    this.usuario.setTblUsuario(usuariosFacade.findUsuarioByPk(codUsuario));
-                }catch(Exception ex){
-                    ex.printStackTrace();
-                    this.addError(ex.getMessage(), ex.getMessage());
-                }
-            }
-        }
         this.codUsuario = codUsuario;
-    }
-
-    public UsuarioForm getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(UsuarioForm usuario) {
-        this.usuario = usuario;
     }
 
     public Long getRoleid() {
@@ -172,15 +228,23 @@ public class FrmMantUsuarios extends PageBase {
     
     public void guardar(ActionEvent ae ){
       try{
-          if (!validate(usuario.getTblUsuario())){
-             usuario.getTblUsuario().setNumUsuario(null);
+          if (!validate(getTblUsuario())){
              return;
           }
-          if (usuario.getTblUsuario().getNumUsuario()!=null && usuario.getTblUsuario().getNumUsuario()!=0){
-             usuario.setTblUsuario(usuariosFacade.update(usuario.getTblUsuario()));
+          
+          if (tblUsuario.getNumEmpleado() == -1){
+             tblUsuario.setNumEmpleado(null);
+          }
+          
+          if (tblUsuario.getNumMedico() == -1){
+              tblUsuario.setNumMedico(null);
+          }
+          
+          if (getTblUsuario().getNumUsuario()!=null && getTblUsuario().getNumUsuario()>0){
+             setTblUsuario(usuariosFacade.update(getTblUsuario()));
           }else{
-             usuario.getTblUsuario().setNumUsuario(null);
-             usuario.setTblUsuario(usuariosFacade.create(usuario.getTblUsuario()));
+             getTblUsuario().setNumUsuario(null);
+             setTblUsuario(usuariosFacade.create(getTblUsuario()));
           }
           this.addInfo("La informacion ha sido almacenada satisfactoriamente", "La informacion ha sido almacenada satisfactoriamente");
         }catch(Exception ex){
@@ -197,14 +261,14 @@ public class FrmMantUsuarios extends PageBase {
     public void nuevo(ActionEvent ae){
        System.out.println("Limpiando los campos para agregar un nuevo registro");
        this.getRolesUsuarioList().clear();
-       this.usuario.setTblUsuario(new TblUsuarios());
+       setTblUsuario(new TblUsuarios());
     }
     
     public void addRole(ActionEvent ae){
      try{
         CatRolesUsuario roleusuario = new CatRolesUsuario();
         CatRolesUsuarioPK rolesusuarioPK = new CatRolesUsuarioPK();
-        rolesusuarioPK.setNumUsuario(usuario.getTblUsuario().getNumUsuario());
+        rolesusuarioPK.setNumUsuario(getTblUsuario().getNumUsuario());
         rolesusuarioPK.setCodRol(this.getSelectedRoleId());
         roleusuario.setId(rolesusuarioPK);
         if (validate(roleusuario)){
@@ -244,5 +308,39 @@ public class FrmMantUsuarios extends PageBase {
     
     public String mostrarReporte(){
         return "/ReportServlet?faces-redirect=true&rptFileName="+rptFileName+"&docType="+docType+"&fechaIniCreacion="+fecIniCreacion+"&fecEndCreacion="+fecEndCreacion;
+    }
+    
+    public void init(){
+        System.out.println("Usuario: "+codUsuario);
+        if (!FacesContext.getCurrentInstance().isPostback()){
+            System.out.println("Usuario: "+codUsuario);
+            if (codUsuario!=null && codUsuario>0){
+                    try{
+                        System.out.println("Usuario: "+codUsuario);
+                        setTblUsuario(usuariosFacade.findUsuarioByPk(codUsuario));
+                    }catch(Exception ex){
+                        ex.printStackTrace();
+                        this.addError(ex.getMessage(), ex.getMessage());
+                    }
+                }
+        }
+   }
+
+    public void cambiarContrasena(ActionEvent ae){
+        try{
+            usuariosFacade.cambiarContrasena(tblUsuario.getAliUsuario(), this.getContrasenaAnterior(), nuevaContrasena, confirmacionContrasena);
+            this.addInfo("La contrasena ha sido restablecida", "La contrasena ha sido restablecida");
+        }catch(Exception ex){
+            this.addError(ex.getMessage(), ex.getMessage());
+        }
+    }
+    
+    public void restablecer(ActionEvent ae){
+        try{
+            usuariosFacade.restablecerContrasena(tblUsuario.getAliUsuario(), tblUsuario.getConUsuario(), tblUsuario.getPasswordConfirmation());
+            this.addInfo("La contrasena ha sido restablecida", "La contrasena ha sido restablecida");
+        }catch(Exception ex){
+            this.addError(ex.getMessage(), ex.getMessage());
+        }
     }
 }

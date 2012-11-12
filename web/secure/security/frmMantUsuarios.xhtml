@@ -5,7 +5,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
     xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich">
+
     <ui:composition template="/templates/main.xhtml">
+        <f:metadata>
+            <f:viewParam name="codUsuario" value="#{frmMantUsuarios.codUsuario}"/>
+            <f:event listener="#{frmMantUsuarios.init}" type="preRenderView"></f:event>
+	</f:metadata>
 	<ui:define name="title">#{messages['default.windowTitle']} - Administracion de usuarios</ui:define>
 	<ui:define name="body">
             <h:form id="frmUsuariosMant">
@@ -18,8 +23,8 @@
                                             <h:outputLabel for="usuariosid" value="Usuarios Id: "></h:outputLabel>
                                         </td>
                                         <td>
-                                            <h:outputText value="#{frmMantUsuarios.usuario.tblUsuario.numUsuario}" id="usuariosid"></h:outputText>
-                                            <h:inputHidden value="#{frmMantUsuarios.usuario.tblUsuario.numUsuario}"></h:inputHidden>
+                                            <h:outputText value="#{frmMantUsuarios.tblUsuario.numUsuario}" id="usuariosid"></h:outputText>
+                                            <h:inputHidden value="#{frmMantUsuarios.tblUsuario.numUsuario}"></h:inputHidden>
                                         </td>
                                 </tr>
                                 <tr>
@@ -27,7 +32,7 @@
                                                 <h:outputLabel for="nombres" value="Nombres:"></h:outputLabel>
                                         </td>
                                         <td>
-                                            <h:inputText value="#{frmMantUsuarios.usuario.tblUsuario.nomUsuario}" id="nombres">
+                                            <h:inputText value="#{frmMantUsuarios.tblUsuario.nomUsuario}" id="nombres">
                                             </h:inputText>
                                             <h:outputLabel value="*" for="nombres" style="color:red;font-weight:bold;"></h:outputLabel>
                                         </td>
@@ -37,7 +42,7 @@
                                                 <h:outputLabel for="codigousuario" value="Codigo de usuario:"></h:outputLabel>
                                         </td>
                                         <td>
-                                            <h:inputText value="#{frmMantUsuarios.usuario.tblUsuario.aliUsuario}" id="codigousuario">
+                                            <h:inputText value="#{frmMantUsuarios.tblUsuario.aliUsuario}" id="codigousuario">
                                                 </h:inputText>
                                                 <h:outputLabel value="*" style="color:red;font-weight:bold;"></h:outputLabel>
                                         </td>
@@ -48,7 +53,7 @@
                                                 <h:outputLabel for="fechaexpiracion" value="Fecha expiracion:"></h:outputLabel>
                                         </td>
                                         <td>
-                                            <rich:calendar id="fechaexpiracion" value="#{frmMantUsuarios.usuario.tblUsuario.fecExpiracion}" mode="client" enableManualInput="true" datePattern="dd/MM/yyyy">
+                                            <rich:calendar id="fechaexpiracion" value="#{frmMantUsuarios.tblUsuario.fecExpiracion}" mode="client" enableManualInput="true" datePattern="dd/MM/yyyy">
                                              <f:convertDateTime pattern="dd/MM/yyyy"/>
                                            </rich:calendar>
                                         </td>
@@ -58,26 +63,48 @@
                                             <h:outputLabel value="Estado:"></h:outputLabel>
                                         </td>
                                         <td>
-                                            <h:outputText value="#{frmMantUsuarios.usuario.tblUsuario.estUsuario}"></h:outputText>
+                                            <h:outputText value="#{frmMantUsuarios.tblUsuario.estUsuario}"></h:outputText>
                                         </td>
                                 </tr>
                              <!--  Contrasena -->
                                         <tr>
                                                 <td>
-                                                    <h:outputLabel for="contrasena" value="Contrasena:" rendered="#{frmMantUsuarios.usuario.tblUsuario.numUsuario==null}"></h:outputLabel>
+                                                    <h:outputLabel for="contrasena" value="Contrasena:" rendered="#{frmMantUsuarios.tblUsuario.numUsuario==null}"></h:outputLabel>
                                                 </td>
                                                 <td>
-                                                    <h:inputSecret value="#{frmMantUsuarios.usuario.tblUsuario.conUsuario}" id="contrasena" rendered="#{frmMantUsuarios.usuario.tblUsuario.numUsuario==null}"></h:inputSecret>
-                                                    <h:outputLabel value="*" style="color:red;font-weight:bold;" rendered="#{frmMantUsuarios.usuario.tblUsuario.numUsuario==null}"></h:outputLabel>
+                                                    <h:inputSecret value="#{frmMantUsuarios.tblUsuario.conUsuario}" id="contrasena" rendered="#{frmMantUsuarios.tblUsuario.numUsuario==null}"></h:inputSecret>
+                                                    <h:outputLabel value="*" style="color:red;font-weight:bold;" rendered="#{frmMantUsuarios.tblUsuario.numUsuario==null}"></h:outputLabel>
                                                 </td>
                                         </tr>
                                         <tr>
                                                 <td>
-                                                    <h:outputLabel for="passwordConfirmation" value="Confirmacion de contrasena:" rendered="#{frmMantUsuarios.usuario.tblUsuario.numUsuario==null}"></h:outputLabel>
+                                                    <h:outputLabel for="passwordConfirmation" value="Confirmacion de contrasena:" rendered="#{frmMantUsuarios.tblUsuario.numUsuario==null}"></h:outputLabel>
                                                 </td>
                                                 <td>
-                                                    <h:inputSecret value="#{frmMantUsuarios.usuario.tblUsuario.passwordConfirmation}" id="passwordConfirmation" rendered="#{frmMantUsuarios.usuario.tblUsuario.numUsuario==null}"></h:inputSecret>
-                                                    <h:outputLabel value="*" style="color:red;font-weight:bold;" rendered="#{frmMantUsuarios.usuario.tblUsuario.numUsuario==null}"></h:outputLabel>
+                                                    <h:inputSecret value="#{frmMantUsuarios.tblUsuario.passwordConfirmation}" id="passwordConfirmation" rendered="#{frmMantUsuarios.tblUsuario.numUsuario==null}"></h:inputSecret>
+                                                    <h:outputLabel value="*" style="color:red;font-weight:bold;" rendered="#{frmMantUsuarios.tblUsuario.numUsuario==null}"></h:outputLabel>
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                                <td>
+                                                    <h:outputLabel for="numEmpleado" value="Empleado: "></h:outputLabel>
+                                                </td>
+                                                <td>
+                                                    <h:selectOneMenu value="#{frmMantUsuarios.tblUsuario.numEmpleado}" id="numEmpleado">
+                                                        <f:selectItem itemValue="-1" itemLabel="No Aplica"/>
+                                                        <f:selectItems value="#{frmMantUsuarios.empleadosList}" var="empleado" itemValue="#{empleado.numEmpleado}" itemLabel="#{empleado.nomEmpleado} #{empleado.priApeEmpleado} #{empleado.secApeEmpleado} #{empleado.terApeEmpleado}"/>
+                                                    </h:selectOneMenu>
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                                <td>
+                                                    <h:outputLabel for="numMedico" value="Medico: "></h:outputLabel>
+                                                </td>
+                                                <td>
+                                                    <h:selectOneMenu value="#{frmMantUsuarios.tblUsuario.numMedico}" id="numMedico">
+                                                        <f:selectItem itemValue="-1" itemLabel="No Aplica"/>
+                                                        <f:selectItems value="#{frmMantUsuarios.medicosList}" var="medico" itemValue="#{medico.numMedico}" itemLabel="#{medico.nomMedico} #{medico.priApeMedico} #{medico.secApeMedico} #{medico.terApeMedico}"/>
+                                                    </h:selectOneMenu>
                                                 </td>
                                         </tr>
                                 <tr>
@@ -88,9 +115,37 @@
                                         </td>
                                 </tr>
                         </table>
+                        <fieldset>
+                            <legend>Restablecer contraseña</legend>
+                                <h:panelGroup id="restablecerContrasenaPanel" rendered="#{frmMantUsuarios.tblUsuario.numUsuario!=null and frmMantUsuarios.tblUsuario.numUsuario>0}">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <h:outputLabel value="Contraseña:" for="rstContrasena"></h:outputLabel>
+                                            </td>
+                                            <td>
+                                                <h:inputSecret value="#{frmMantUsuarios.tblUsuario.conUsuario}" id="rstContrasena"></h:inputSecret>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h:outputLabel value="Confirmacion:" for="rstConfirmacion"></h:outputLabel>
+                                            </td>
+                                            <td>
+                                                <h:inputSecret value="#{frmMantUsuarios.tblUsuario.passwordConfirmation}" id="rstConfirmacion"></h:inputSecret>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a4j:commandButton value="Restablecer contrasena" actionListener="#{frmMantUsuarios.restablecer}" render="@form, panelMessage"></a4j:commandButton>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </h:panelGroup>
+                        </fieldset>
                     </td>
                     <td align="left" valign="top">
-                        <rich:panel header="Roles para el usuario: #{frmMantUsuarios.usuario.tblUsuario.nomUsuario}" id="rolesPanel">
+                        <rich:panel header="Roles para el usuario: #{frmMantUsuarios.tblUsuario.nomUsuario}" id="rolesPanel">
                              <center>
                                 <table>
                                         <tr>

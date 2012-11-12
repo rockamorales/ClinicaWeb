@@ -28,7 +28,6 @@ import sv.com.cormaria.servicios.entidades.colecturia.TblComprobanteDonacion;
 import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonacion;
 import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonacionPK;
 import sv.com.cormaria.servicios.entidades.administracion.TblProducto;
-import sv.com.cormaria.servicios.entidades.archivo.TblServiciosEnfermeria;
 import sv.com.cormaria.servicios.enums.EstadoComprobanteDonacion;
 import sv.com.cormaria.servicios.enums.TipoComprobanteDonacion;
 import sv.com.cormaria.servicios.facades.catalogos.CatBancosFacadeLocal;
@@ -66,6 +65,8 @@ public class FrmMantTblDevolucion extends PageBase{
     private TblDetalleComprobanteDonacionFacadeLocal cblDetalleComprobanteDonacionFacade;  
     @EJB
     private TblProductoFacadeLocal productoFacade;
+    private List<TblComprobanteDonacion> detalleComprobanteList = new ArrayList<TblComprobanteDonacion>();
+    
     private Integer numComDonacion;
     private List<SelectItem> catTipoDonacionList = new ArrayList<SelectItem>();
     private List<SelectItem> catTipoDonanteList = new ArrayList<SelectItem>();
@@ -106,6 +107,14 @@ public class FrmMantTblDevolucion extends PageBase{
 
     public void setCblDetalleComprobanteDonacionList(List<TblDetalleComprobanteDonacion> cblDetalleComprobanteDonacionList) {
         this.cblDetalleComprobanteDonacionList = cblDetalleComprobanteDonacionList;
+    }
+
+    public List<TblComprobanteDonacion> getDetalleComprobanteList() {
+        return detalleComprobanteList;
+    }
+
+    public void setDetalleComprobanteList(List<TblComprobanteDonacion> detalleComprobanteList) {
+        this.detalleComprobanteList = detalleComprobanteList;
     }
 
     public List<SelectItem> getTblProductoList() {
@@ -173,7 +182,7 @@ public class FrmMantTblDevolucion extends PageBase{
                     catTipoPagoList.add(new SelectItem(catTipoPago.getCodTipPago(), catTipoPago.getNomTipPago()));
                 }
             }catch(Exception ex){
-                ex.printStackTrace();
+                 ex.printStackTrace();
             }
         } 
         return catTipoPagoList;

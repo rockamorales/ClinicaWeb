@@ -27,8 +27,10 @@
                </rich:toolbar>
                 <h:panelGroup>
                    <h:outputText value=" Bienvenido: #{clinicaSessionBean.usuario.nomUsuario} |" style="color:white; font-weight: bold;"/>
-                   <h:outputLink><h:outputText value=" Cambiar contrasena |" style="color:white; font-weight: bold;"/></h:outputLink>
-                   <h:outputLink><h:outputText value=" Ver informacion " style="color:white; font-weight: bold;"/></h:outputLink>
+                   <h:outputLink value="/ClinicaWeb/secure/security/frmMantCambiarContrasena.jsf">
+                       <f:param value="#{clinicaSessionBean.usuario.numUsuario}" name="codUsuario"/>
+                       <h:outputText value=" Cambiar contrasena |" style="color:white; font-weight: bold;"/>
+                   </h:outputLink>
                </h:panelGroup>
             </h:panelGrid>
     </h:form>
