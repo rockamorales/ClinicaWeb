@@ -35,45 +35,56 @@ and open the template in the editor.
                                 <h:outputText value="#{frmMantTblIngresosProducto.tblIngresosProducto.estIngresoProducto}" style="font-weight: bold"></h:outputText>
                             </td>                         
                         </tr>
-                        <tr>
-                            <td align="left">Observaciones del Ingreso</td>
-                            <td colspan="3" align="left">
-                                <h:inputText value="#{frmMantTblIngresosProducto.tblIngresosProducto.obsIngreso}" size="63" />
-                            </td>
-                        </tr>
-                        <tr>  
+                           <tr>  
                                 <td align="left">Institución de Procedencia</td>
                                 <td align="left">
-                                    <h:selectOneMenu value="#{frmMantTblIngresosProducto.tblIngresosProducto.numInstitucion}">
+                                    <h:selectOneMenu value="#{frmMantTblIngresosProducto.tblIngresosProducto.numInstitucion}" id="insIngreso">
                                         <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem> 
                                         <f:selectItems value="#{frmMantTblIngresosProducto.tblInstitucionList}"/>
                                     </h:selectOneMenu>
+                                    <rich:tooltip  target="insIngreso" showEvent="focus" value="Seleccione la Institucion de donde proviene el producto" />
                                 </td>
                            </tr>
                         <tr>
                             <td align="left">Fecha de Ingreso a la Institucion:</td>
-                            <td align="left"><rich:calendar value="#{frmMantTblIngresosProducto.tblIngresosProducto.fecIngreso}" datePattern="dd/MM/yyyy" enableManualInput="true" disabled="#{frmMantTblIngresosProducto.tblIngresosProducto.numIngreso != null}"/></td>
+                            <td align="left"><rich:calendar value="#{frmMantTblIngresosProducto.tblIngresosProducto.fecIngreso}" id="fechaIngreso" datePattern="dd/MM/yyyy" enableManualInput="true" /></td>
+                            <rich:tooltip  target="fechaIngreso" showEvent="focus" value="Seleccione la fecha en que ingreso el producto a la Institucion" />
                         </tr>  
                         <tr>
                             <td align="left">Origen de Ingreso:</td>
                             <td align="left">
-                                <h:selectOneMenu value="#{frmMantTblIngresosProducto.tblIngresosProducto.codOriIngreso}" >
+                                <h:selectOneMenu value="#{frmMantTblIngresosProducto.tblIngresosProducto.codOriIngreso}" id="origenIngreso" >
                                     <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem> 
                                     <f:selectItems value="#{frmMantTblIngresosProducto.catOrigenIngresoProductoList}"/>
                                 </h:selectOneMenu>
+                                <rich:tooltip  target="origenIngreso" showEvent="focus" value="Seleccione el ingreso por compra o por donacion segun sea conveniente" />
                             </td>
                         </tr>
                         <tr>
                             <td align="left">Numero de Documento de Ingreso:</td>
-                            <td align="left"><h:inputText value="#{frmMantTblIngresosProducto.tblIngresosProducto.numDocIngreso}" disabled="#{frmMantTblIngresosProducto.tblIngresosProducto.numIngreso != null}"/></td>
+                            <td align="left">
+                                <h:inputText value="#{frmMantTblIngresosProducto.tblIngresosProducto.numDocIngreso}" id="numDocIngreso" size="30" maxlength="30" onkeypress="return filterInput(2, event, false, ' ./#()=-_:;,');"/>
+                                <rich:tooltip  target="numDocIngreso" showEvent="focus" value="Ingrese numero de Factura FAC, Credito fiscal CCF, Comprobante de Donacion si cuenta con la documentación " />
+                            </td>
                             <td align="left">Monto Total del Ingreso</td>
-                            <td align="left"><h:outputText value="#{frmMantTblIngresosProducto.tblIngresosProducto.monIngreso}" style="font-weight: bold"/></td>
+                            <td align="left"><h:outputText value="#{frmMantTblIngresosProducto.tblIngresosProducto.monIngreso}" style="font-weight: bold" id="monIngreso" />
+                            <rich:tooltip  target="monIngreso" showEvent="focus" value="El monto se calcula automaticamente al ingresar el Detalle de Ingreso  " /></td>
+                        </tr>
+                        <tr>
+                            <td align="left">Observaciones del Ingreso</td>
+                            <td colspan="3" align="left">
+                                 <h:inputTextarea value="#{frmMantTblIngresosProducto.tblIngresosProducto.obsIngreso}" id="obserIngreso" rows="5" cols="100" onkeypress="return filterInput(2, event, false, '.,#/ °- ');">
+                                       <f:validateLength maximum="500" ></f:validateLength>
+                                 </h:inputTextarea>
+                                <rich:tooltip  target="obserIngreso" showEvent="focus" value="Especifique las observaciones si es necesario " />
+                            </td>
                         </tr>
                           <tr>
                               <td colspan="4" align="center">
-                                  <a4j:commandButton value="Guardar" actionListener="#{frmMantTblIngresosProducto.guardar}" render="@form, panelMessage" />
+                                  <a4j:commandButton value="Guardar" id="btnGuardar" actionListener="#{frmMantTblIngresosProducto.guardar}" render="@form, panelMessage" />
+                                  <rich:tooltip  target="btnGuardar" showEvent="focus" value="Guardar Ingreso y luego adicione el detalle del ingreso" />
                                   <a4j:commandButton value="Nuevo" actionListener="#{frmMantTblIngresosProducto.nuevo}" render="@form" execute="@this"/>
-                                  <a4j:commandButton value="Regresar" action="frmTblIngresos.jsf?faces-redirect=true" immediate="true"/>
+                                  <a4j:commandButton value="Regresar" action="inicio.jsf?faces-redirect=true" immediate="true"/>
                               </td>
                           </tr>
                       </table>
@@ -84,10 +95,12 @@ and open the template in the editor.
                                   <tr>
                                       <td align="left">Producto:</td>
                                       <td align="left">
-                                          <h:selectOneMenu value="#{frmMantTblIngresosProducto.tblDetalleIngresoProducto.tblDetalleIngresoProductoPK.numProducto}" style="width: 130px" valueChangeListener="#{frmMantTblIngresosProducto.seleccionarProducto}">
+                                          <h:selectOneMenu value="#{frmMantTblIngresosProducto.tblDetalleIngresoProducto.tblDetalleIngresoProductoPK.numProducto}" style="width: 130px" id="prod" valueChangeListener="#{frmMantTblIngresosProducto.seleccionarProducto}">
                                               <f:selectItems value="#{frmMantTblIngresosProducto.tblProductoList}"/>
                                               <f:ajax event="change" render="@form"></f:ajax>
                                           </h:selectOneMenu>
+                                          <rich:tooltip  target="prod" showEvent="focus" value="Seleccione el producto por agregar al detalle de Ingreso " />
+                                          
                                       </td>
                                       <td align="left">Cantidad a Ingresar:</td>
                                       <td align="left">
@@ -98,11 +111,11 @@ and open the template in the editor.
                                       </td>
                                   </tr>
                                   <tr>
-                                      <td align="left">Fecha de Ingreso a la Institucion:</td>
+                                      <td align="left">Fecha de Vencimiento:</td>
                                       <td align="left"><rich:calendar value="#{frmMantTblIngresosProducto.tblDetalleIngresoProducto.fecExpDetIngreso}" datePattern="dd/MM/yyyy" enableManualInput="true" /></td>
                                       <td align="left">Precio Unitario:</td>
                                       <td align="left">
-                                          <h:outputText value="#{frmMantTblIngresosProducto.tblDetalleIngresoProducto.cosUniDetIngreso}"/>
+                                          <h:inputText value="#{frmMantTblIngresosProducto.tblDetalleIngresoProducto.cosUniDetIngreso}" />
                                       </td>                            
                                   </tr>
                             </table>
@@ -169,7 +182,11 @@ and open the template in the editor.
                             <a4j:commandLink actionListener="#{frmMantTblIngresosProducto.deleteProducto}" render="@form, ingresarProductoPanel, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar el producto: #{tblDetalleIngresoProducto.tblProducto.nomProducto} #{tblDetalleIngresoProducto.tblProducto.numProducto}')){return false;}">
                                 <h:graphicImage url="/img/icons/delete.gif" style="border: 0"/>
                             </a4j:commandLink>
-                        </h:column>                
+                        </h:column>    
+                        <h:column>
+                                <h:commandButton value="Cancelar" action="/inicio.jsf"/>
+                        </h:column> 
+                         
                     </rich:dataTable>
                 </h:panelGroup>               
             </h:form>

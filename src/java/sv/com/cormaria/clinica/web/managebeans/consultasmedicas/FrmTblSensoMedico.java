@@ -74,9 +74,11 @@ public class FrmTblSensoMedico extends PageBase{
     }
     
     public void buscar(ActionEvent ae){
+ 
         System.out.println("Buscar ejecutado");
         ConsultasSensoMedicoDataModel dataModel = (ConsultasSensoMedicoDataModel) this.getBean("#{consultasSensoMedicoDataModel}", ConsultasSensoMedicoDataModel.class);
         dataModel.clear();
         System.out.println("Buscar ejecutado");
     }
+  
 }

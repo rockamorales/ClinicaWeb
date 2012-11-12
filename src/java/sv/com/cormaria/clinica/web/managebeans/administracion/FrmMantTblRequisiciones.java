@@ -78,7 +78,7 @@ public class FrmMantTblRequisiciones extends PageBase{
     public List<TblProducto> getProductosList() {
         if (productosList.isEmpty()){
             try{
-                productosList = productoFacade.findActive();
+                productosList = productoFacade.findMedicamentos();
             }catch(Exception ex){
                 ex.printStackTrace();
             }
@@ -272,6 +272,37 @@ public class FrmMantTblRequisiciones extends PageBase{
         try{
             this.facade.remove(tblRequisiciones);
             this.addInfo("El registro ha sido eliminado", "El registro ha sido eliminado");
+        }catch(Exception ex){
+            ex.printStackTrace();
+            this.addError(ex.getMessage(), ex.getMessage());
+        }
+    }
+    
+    public void AprobarReq(ActionEvent ae){
+        try{
+            this.facade.aprobar(tblRequisiciones);
+            this.addInfo("La requisicion ha sido aprobada", "La requisicion ha sido aprobada");
+        }catch(Exception ex){
+            ex.printStackTrace();
+            //this.addError(ex.getMessage(), ex.getMessage());
+            this.addError("Error: No se logro aprobar la requisicion", "Error: No se logro aprobar la requisicion");
+        }
+    }
+    
+    public void DenegarReq(ActionEvent ae){
+        try{
+            this.facade.denegar(tblRequisiciones);
+            this.addInfo("La requisicion ha sido denegada", "La requisicion ha sido denegada");
+        }catch(Exception ex){
+            ex.printStackTrace();
+            this.addError(ex.getMessage(), ex.getMessage());
+        }
+    }
+    
+    public void EntregarReq(ActionEvent ae){
+        try{
+            this.facade.entregada(tblRequisiciones);
+            this.addInfo("La requisicion ha sido entregada", "La requisicion ha sido entregada");
         }catch(Exception ex){
             ex.printStackTrace();
             this.addError(ex.getMessage(), ex.getMessage());

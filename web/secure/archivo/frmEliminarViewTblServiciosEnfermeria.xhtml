@@ -16,51 +16,55 @@
         </ui:define>
         <ui:define name="body">
            <h:form id="tblExpedienteForm">
-              <h3>Consulta de servicio de enfermeria</h3>
+              <h3>Eliminar de servicio de enfermeria</h3>
               <hr/>
               <table>
                 <tr>
                     <td align="left">Expediente:</td>
                     <td align="left">
-                        <h:outputText value="#{frmEliminarViewTblServiciosEnfermeria.tblExpediente.numExpediente}" id="numExpediente">
+                        <h:outputText value="#{frmEliminarViewTblServiciosEnfermeria.tblExpediente.numExpediente}" id="numExpediente" style="font-weight: bold">
                         </h:outputText>
                     </td>
+                    <td></td>
                     <td align="left"># Consulta:</td>
                     <td align="left">
-                        <h:outputText value="#{frmEliminarViewTblServiciosEnfermeria.tblServiciosEnfermeria.numSerEnfermeria}" id="numSerEnfermeria">
+                        <h:outputText value="#{frmEliminarViewTblServiciosEnfermeria.tblServiciosEnfermeria.numSerEnfermeria}" id="numSerEnfermeria" style="font-weight: bold">
                         </h:outputText>
                     </td>
                 </tr>
                 <tr>
                     <td align="left">Nombres:</td>
                     <td align="left">
-                        <h:outputText value="#{frmEliminarViewTblServiciosEnfermeria.tblExpediente.nomPaciente}"/>
+                        <h:outputText value="#{frmEliminarViewTblServiciosEnfermeria.tblExpediente.nomPaciente}" style="font-weight: bold"/>
                     </td>
+                    <td></td>
                     <td align="left">Apellidos:</td>
                     <td align="left">
-                        <h:outputText value="#{frmEliminarViewTblServiciosEnfermeria.tblExpediente.priApePaciente} #{frmEliminarViewTblServiciosEnfermeria.tblExpediente.secApePaciente} #{frmEliminarViewTblServiciosEnfermeria.tblExpediente.terApePaciente}"/>
+                        <h:outputText value="#{frmEliminarViewTblServiciosEnfermeria.tblExpediente.priApePaciente} #{frmEliminarViewTblServiciosEnfermeria.tblExpediente.secApePaciente} #{frmEliminarViewTblServiciosEnfermeria.tblExpediente.terApePaciente}" style="font-weight: bold"/>
                     </td>
                 </tr>
                 <tr>
                     <td align="left">Fecha de Nacimiento:</td>
                     <td align="left">
-                        <h:outputText value="#{frmEliminarViewTblServiciosEnfermeria.tblExpediente.fecNacPaciente}">
+                        <h:outputText value="#{frmEliminarViewTblServiciosEnfermeria.tblExpediente.fecNacPaciente}" style="font-weight: bold">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </td>
+                    <td></td>
                     <td align="left">Edad del Paciente:</td>
                     <td align="left">
-                        <h:outputText value="#{frmEliminarViewTblServiciosEnfermeria.tblExpediente.edadPaciente}"/>
+                        <h:outputText value="#{frmEliminarViewTblServiciosEnfermeria.tblExpediente.edadPaciente}" style="font-weight: bold"/>
                     </td>
                 </tr>
                 <tr>
                     <td align="left">Tipo consulta:</td>
                     <td align="left">
-                        <h:outputText value="#{frmEliminarViewTblServiciosEnfermeria.tblServiciosEnfermeria.tipoServicio.nomSerEnfermeria}" />
+                        <h:outputText value="#{frmEliminarViewTblServiciosEnfermeria.tblServiciosEnfermeria.tipoServicio.nomSerEnfermeria}" style="font-weight: bold"/>
                     </td>
+                    <td></td>
                     <td align="left">Fecha:</td>
                     <td align="left">
-                        <h:outputText value="#{frmEliminarViewTblServiciosEnfermeria.tblServiciosEnfermeria.fecSerEnfermeria}">
+                        <h:outputText value="#{frmEliminarViewTblServiciosEnfermeria.tblServiciosEnfermeria.fecSerEnfermeria}" style="font-weight: bold">
                             <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
                         </h:outputText>
                     </td>                    
@@ -68,19 +72,20 @@
                 <tr>
                     <td align="left">Medicamentos Aplicados:</td>
                     <td colspan="3" align="left">
-                        <h:outputText value="#{frmEliminarViewTblServiciosEnfermeria.tblServiciosEnfermeria.medAplicados}" />
+                        <h:outputText value="#{frmEliminarViewTblServiciosEnfermeria.tblServiciosEnfermeria.medAplicados}" style="font-weight: bold"/>
                     </td>
                 </tr>
                 <tr>
                     <td align="left">Observaciones:</td>
                     <td colspan="3" align="left">
-                        <h:outputText value="#{frmEliminarViewTblServiciosEnfermeria.tblServiciosEnfermeria.obsSerEnfermeria}" />
+                        <h:outputText value="#{frmEliminarViewTblServiciosEnfermeria.tblServiciosEnfermeria.obsSerEnfermeria}" style="font-weight: bold"/>
                     </td>
                 </tr>  
                 <tr>
                   <td colspan="4" align="center">
-                       <h:commandButton value="Regresar" action="frmConsultaTblServiciosEnfermeria.jsf"/>
-                       <a4j:commandButton value="Eliminar" actionListener="#{frmEliminarViewTblServiciosEnfermeria.eliminar}" render="@form, panelMessage" rendered="#{frmEliminarViewTblServiciosEnfermeria.tblServiciosEnfermeria.estSerEnfermeria != 'ELIMINADO'}"/>
+                       <h:commandButton value="Regresar" action="frmEliminarTblServiciosEnfermeria.jsf"/>
+                       <a4j:commandButton value="Eliminar" actionListener="#{frmEliminarViewTblServiciosEnfermeria.eliminar}" render="@form, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar el servicio de enfermeria: #{servicio.numSerEnfermeria}')){return false;}" rendered="#{frmEliminarViewTblServiciosEnfermeria.tblServiciosEnfermeria.estSerEnfermeria != 'ELIMINADO'}"/>
+
                   </td>
                 </tr>
               </table>

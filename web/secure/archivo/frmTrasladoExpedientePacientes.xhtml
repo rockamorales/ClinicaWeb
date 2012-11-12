@@ -34,6 +34,7 @@
                         <td>
                             <h:inputText value="#{expedientesSearchCriteria.numExpediente}" id="numExpediente1">
                             </h:inputText>
+                            
                         </td>
                         <td>
                             <h:outputLabel value="DUI:" for="dui1">
@@ -42,6 +43,7 @@
                         <td>
                             <h:inputText value="#{expedientesSearchCriteria.dui}" id="dui1">
                             </h:inputText>
+                            <rich:tooltip  target="dui1" showEvent="focus" value="Ingrese el numero de dui sin guión" />
                         </td>
                     </tr>
                     <tr>

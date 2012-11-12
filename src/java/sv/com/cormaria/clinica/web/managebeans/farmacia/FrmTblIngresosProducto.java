@@ -72,3 +72,4 @@ public class FrmTblIngresosProducto extends PageBase {
         dataModel.clear();
     }*/
 }
+

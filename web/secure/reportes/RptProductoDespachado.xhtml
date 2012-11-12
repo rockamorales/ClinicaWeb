@@ -12,36 +12,26 @@ and open the template in the editor.
       xmlns:a4j="http://richfaces.org/a4j">
     <ui:composition template="/templates/main.xhtml">
         <ui:define name="title">
-          <h:outputText value="#{messages['default.windowTitle']}--Reporte de Productos por Tipo y Categoria" escape="false"></h:outputText>  
+          <h:outputText value="#{messages['default.windowTitle']}--Reporte de Productos Despachados" escape="false"></h:outputText>  
         </ui:define>
         <ui:define name="body">
-            <h3>Reporte de Productos por Tipo y Categoria</h3>
+            <h3>Reporte de Productos Despachados</h3>
             <hr></hr>
             <form action="/ClinicaWeb/ReportServlet">
                 <table>
                     <TR>
                         <TD>
-                            <h:outputLabel value="Seleccione el Tipo de Prooducto:"></h:outputLabel>
+                            <h:outputLabel value="Seleccione el Tipo de Salida:"></h:outputLabel>
                         </TD>
                         <TD>
-                            <h:selectOneMenu id="tipo_producto">
+                            <h:selectOneMenu id="tipoSalida">
                                 <f:selectItem itemValue="-1" itemLabel="Todos"/>
-                                <f:selectItems value="#{rptProductos.tipoList}" var="tipo" itemValue="#{tipo.codTipProducto}" itemLabel="#{tipo.nomTipProducto}">
+                                <f:selectItems value="#{rptProductoDespachado.tipoSalidaList}" var="tipo_salida" itemValue="#{tipo_salida.codTipSalida}" itemLabel="#{tipo_salida.nomTipSalida}">
                                 </f:selectItems>
                             </h:selectOneMenu>
-                            <input type="hidden" value="numerico" name="tipo_productoDataType" ></input>
+                            <input type="hidden" value="numerico" name="tipoSalidaDataType" ></input>
                         </TD>
-                            <TD>
-                            <h:outputLabel value="Seleccione la Categoria:"></h:outputLabel>
-                        </TD>
-                        <TD>
-                            <h:selectOneMenu id="Categoria_producto">
-                                <f:selectItem itemValue="-1" itemLabel="Todos"/>
-                                <f:selectItems value="#{rptProductos.categoriaList}" var="categoria" itemValue="#{categoria.codCatProducto}" itemLabel="#{categoria.nomCatProducto}">
-                                </f:selectItems>
-                            </h:selectOneMenu>
-                            <input type="hidden" value="numerico" name="categoria_productoDataType" ></input>
-                        </TD>
+                            
                         <TD>
                             <h:outputLabel value="Formato:"></h:outputLabel>
                         </TD>
@@ -53,7 +43,7 @@ and open the template in the editor.
                             </select>
                         </TD>
                         <TD>
-                            <input type="hidden" value="/Reports/listado_de_Productos.jasper" name="rptFileName"/>
+                            <input type="hidden" value="/Reports/ReporteProductoDespachado.jasper" name="rptFileName"/>
                             <input type="submit" value="Mostrar"/>
                         </TD>
                     </TR> 

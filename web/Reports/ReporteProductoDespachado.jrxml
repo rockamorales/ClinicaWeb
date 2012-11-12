@@ -20,7 +20,8 @@ FROM
      INNER JOIN `tbl_detalle_despacho` tbl_detalle_despacho ON tbl_despachos.`NUM_DESPACHO` = tbl_detalle_despacho.`NUM_DESPACHO`
      INNER JOIN `tbl_producto` tbl_producto ON tbl_detalle_despacho.`NUM_PRODUCTO` = tbl_producto.`NUM_PRODUCTO`
 WHERE
-     tbl_despachos.cod_tip_salida = $P{tipoSalida}]]>
+     tbl_despachos.cod_tip_salida = $P{tipoSalida}
+     or $P{tipoSalida} = -1)]]>
 	</queryString>
 	<field name="tbl_despachos_FEC_DESPACHO" class="java.sql.Timestamp"/>
 	<field name="cat_tipo_salida_NOM_TIP_SALIDA" class="java.lang.String"/>
