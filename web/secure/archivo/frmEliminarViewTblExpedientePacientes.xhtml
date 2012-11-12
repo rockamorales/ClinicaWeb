@@ -117,7 +117,7 @@
                 <tr>
                       <td colspan="4" align="center">
                          <a4j:commandButton value="Regresar" action="frmEliminarTblExpedientePacientes.jsf?faces-redirect=true" immediate="true"/>
-                         <a4j:commandButton value="Eliminar" actionListener="#{frmMantTblExpedientePacientes.eliminar}" render="@form, panelMessage"/>
+                         <a4j:commandButton value="Eliminar" actionListener="#{frmMantTblExpedientePacientes.eliminar}" render="@form, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar el Expediente: #{tblExpedientePacientes.numExpediente}')){return false;}"/>
                       </td>
                 </tr>
               </table>

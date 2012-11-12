@@ -102,7 +102,7 @@
                         <td align="left">Numero de Dui:</td>
                         <td align="left"><h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.numDui}" id="numDui" size="9" maxlength="9" onkeypress="return filterInput(1, event, false, '');">
                             </h:inputText>
-                            <rich:tooltip  target="numDui" showEvent="focus" value="Ingrese el numero de dui" />
+                            <rich:tooltip  target="numDui" showEvent="focus" value="Ingrese el numero de dui sin guión" />
                             
                         </td>
                  </tr>
@@ -209,6 +209,7 @@
                       <td colspan="4" align="center">
                           <a4j:commandButton value="Guardar" actionListener="#{frmMantTblExpedientePacientes.guardar}" render="@form, panelMessage" />
                           <a4j:commandButton value="Nuevo" actionListener="#{frmMantTblExpedientePacientes.nuevo}" render="@form, panelMessage" execute="@this"/>
+                          <h:commandButton value="Cancelar" action="/inicio.jsf"/>
                       </td>
                   </tr>
                   <tr>

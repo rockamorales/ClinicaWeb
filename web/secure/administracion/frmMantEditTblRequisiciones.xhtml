@@ -19,7 +19,7 @@ and open the template in the editor.
 	    <f:event listener="#{frmMantTblRequisiciones.init}" type="preRenderView"></f:event>
         </f:metadata>
         <ui:define name="body">
-            <h3>Crear Requisiciones</h3>
+            <h3>Modificar Requisiciones</h3>
             <hr></hr>
             <h:form id="form">
                 <fieldset style="border-radius: 5px; border: #000066 thin solid;">
@@ -105,7 +105,7 @@ and open the template in the editor.
                                 </td>
                                 <td>
                                     <a4j:commandButton value="Guardar" actionListener="#{frmMantTblRequisiciones.agregarDetalleReq}" render="tblDetalleRequisicionesTable, panelMessage, agregarDetallePanelGroup" />
-                                    <h:commandButton value="Finalizar Requisición" action="/inicio.jsf"/>
+                                    <h:commandButton value="Modificar Requisición" action="/inicio.jsf"/>
                                 </td>
                             </tr>
                         </table>

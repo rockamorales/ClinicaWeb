@@ -105,6 +105,7 @@ public class FrmTblRequisiciones extends PageBase {
             tblRequisiciones = (TblRequisiciones) table.getRowData();
             tblRequisicionesFacade.remove(tblRequisiciones);
             tblRequisicionesList.clear();
+            addInfo("Se ha Eliminado la Requisicion con Exito", "Se ha Eliminado la Requisicion con Exito");
         }catch(Exception x){
             x.printStackTrace();
             this.addError(x.getMessage(), x.getMessage());
