@@ -277,4 +277,35 @@ public class FrmMantTblRequisiciones extends PageBase{
             this.addError(ex.getMessage(), ex.getMessage());
         }
     }
+    
+    public void AprobarReq(ActionEvent ae){
+        try{
+            this.facade.aprobar(tblRequisiciones);
+            this.addInfo("La requisicion ha sido aprobada", "La requisicion ha sido aprobada");
+        }catch(Exception ex){
+            ex.printStackTrace();
+            //this.addError(ex.getMessage(), ex.getMessage());
+            this.addError("Error: No se logro aprobar la requisicion", "Error: No se logro aprobar la requisicion");
+        }
+    }
+    
+    public void DenegarReq(ActionEvent ae){
+        try{
+            this.facade.denegar(tblRequisiciones);
+            this.addInfo("La requisicion ha sido denegada", "La requisicion ha sido denegada");
+        }catch(Exception ex){
+            ex.printStackTrace();
+            this.addError(ex.getMessage(), ex.getMessage());
+        }
+    }
+    
+    public void EntregarReq(ActionEvent ae){
+        try{
+            this.facade.entregada(tblRequisiciones);
+            this.addInfo("La requisicion ha sido entregada", "La requisicion ha sido entregada");
+        }catch(Exception ex){
+            ex.printStackTrace();
+            this.addError(ex.getMessage(), ex.getMessage());
+        }
+    }
 }
