@@ -123,8 +123,10 @@ public class FrmRolesMenu extends PageBase{
 				role.getCatRol().setCodRol(null);
 				CatRoles newRole = roleSession.create(role.getCatRol());
 				role.getCatRol().setCodRol(newRole.getCodRol());
+                                this.addInfo("Se ha Guardado con Exito", "Se ha Guardado con Exito");
 			}else{
 				roleSession.update(role.getCatRol());
+                                this.addInfo("Actualizado", "Actualizado");
 			}
 			rolesList = roleSession.findAllActiveRoles();
 			this.setMenuList(new ArrayList<CatMenu>());

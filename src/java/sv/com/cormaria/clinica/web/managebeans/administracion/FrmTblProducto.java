@@ -39,7 +39,7 @@ public class FrmTblProducto extends PageBase {
     public List<TblProducto> getTblProductoList() {
         if (tblProductoList.isEmpty()){
           try{
-            tblProductoList = tblProductoFacade.findAll();
+            tblProductoList = tblProductoFacade.findMedicamentos();
           }catch(Exception x) {
               x.printStackTrace();
           }
