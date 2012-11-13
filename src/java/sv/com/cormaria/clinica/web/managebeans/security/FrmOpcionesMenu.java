@@ -98,6 +98,7 @@ public class FrmOpcionesMenu extends PageBase {
 				menu.getCatMenu().setCodMenu(null);
 				CatMenu createdMenu = menuSession.create(menu.getCatMenu());
 				menu.getCatMenu().setCodMenu(createdMenu.getCodMenu());
+                                this.addInfo("Se ha Guardado con Exito", "Se ha Guardado con Exito");
 			}
 			this.menuList.clear();
 		}catch(Exception ex){
