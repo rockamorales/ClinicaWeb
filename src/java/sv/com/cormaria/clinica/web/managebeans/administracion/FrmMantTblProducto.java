@@ -222,12 +222,15 @@ public class FrmMantTblProducto extends PageBase{
        
             if(tblProducto.getNumProducto() != null){
                 facade.edit(tblProducto);
+                this.addInfo("El Producto se ha modificado con Exito", "El Producto se ha modificado con Exito");
             }else{
                 facade.create(tblProducto);
+                this.addInfo("El Producto se ha creado con Exito", "El Producto se ha creado con Exito");
             }
         }catch(Exception x){
             x.printStackTrace();
-            this.addError(x.getMessage(), x.getMessage());
+            //this.addError(x.getMessage(), x.getMessage());
+            this.addError("Error de Datos - No se guardo el Producto", "Error de Datos - No se guardo el Producto");
         }
     }
     public void nuevo(ActionEvent ae){

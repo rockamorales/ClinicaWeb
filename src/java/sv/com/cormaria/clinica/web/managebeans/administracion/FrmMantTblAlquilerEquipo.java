@@ -57,7 +57,7 @@ public class FrmMantTblAlquilerEquipo extends PageBase{
     public List<TblProducto> getProductosList() {
         if (productosList.isEmpty()){
             try{
-                productosList = productoFacade.findActive();
+                productosList = productoFacade.findProductoAlquiler();
             }catch(Exception ex){
                 ex.printStackTrace();
             }
@@ -114,14 +114,17 @@ public class FrmMantTblAlquilerEquipo extends PageBase{
         try{
             if(tblAlquilerEquipo.getNumSolAlquiler() != null && tblAlquilerEquipo.getNumSolAlquiler()>0){
                 facade.edit(tblAlquilerEquipo);
+                this.addInfo("Se Modifico el Alquiler de Equipo con Exito", "Se Modifico el Alquiler de Equipo con Exito");
             }else{
                 //tblAlquilerEquipo.setNumExpediente(this.);
                 tblAlquilerEquipo.setEstAlquiler(EstadoAlquiler.CREADO);
                 facade.create(tblAlquilerEquipo);
+                this.addInfo("Se Agrego el Alquiler de Equipo con Exito", "Se Agrego el Alquiler de Equipo con Exito");
             }
         }catch(Exception x){
             x.printStackTrace();
-            this.addError(x.getMessage(), x.getMessage());
+            //this.addError(x.getMessage(), x.getMessage());
+            this.addError("Error de Datos, No se creo el Alquiler de Equipo", "Error de Datos, No se creo el Alquiler de Equipo");
         }
     }
     
