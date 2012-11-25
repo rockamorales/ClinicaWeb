@@ -73,6 +73,10 @@ and open the template in the editor.
                         <h3>Detalle de Despacho de Producto</h3>                    
                             <table>
                                   <tr>
+                                      <td align="left">Codigo de Producto:</td>
+                                      <td align="left">
+                                          <h:inputText value="#{frmMantTblDespachos.tblDetalleDespacho.tblDetalleDespachoPK.numProducto}" />
+                                      </td>
                                       <td align="left">Producto:</td>
                                       <td align="left">
                                           <h:selectOneMenu value="#{frmMantTblDespachos.tblDetalleDespacho.tblDetalleDespachoPK.numProducto}" style="width: 130px" valueChangeListener="#{frmMantTblDespachos.seleccionarProducto}">

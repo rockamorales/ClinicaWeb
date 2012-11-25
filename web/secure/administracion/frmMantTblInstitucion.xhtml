@@ -35,7 +35,7 @@ and open the template in the editor.
 
                 <tr>
                     <td align="left">Nombre Comercial:</td>
-                    <td align="left" colspan="3"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.nomComInstitucion}" size="77" maxlength="100" onkeypress="return filterInput(0, event, false, ' ');"/>
+                    <td align="left" colspan="3"><h:inputText value="#{frmMantTblInstitucion.tblInstitucion.nomComInstitucion}" size="77" maxlength="100" onkeypress="return filterInput(0, event, false, ' ./_-:,´$%#');"/>
                     <h:outputLabel value="*" style="color:red;font-weight: bold;"/></td>
                 </tr>
                  <tr>
@@ -49,8 +49,8 @@ and open the template in the editor.
                 <tr>
                     <td align="left">Rubro:</td>
                     <td align="left">
-                        <h:selectOneMenu value="#{frmMantTblInstitucion.tblInstitucion.codRubro}">
-                            <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem> 
+                        <h:selectOneMenu value="#{frmMantTblInstitucion.tblInstitucion.codRubro}" >
+                            <f:selectItem  itemLabel="Seleccionar" itemValue="-1"></f:selectItem> 
                             <f:selectItems value="#{frmMantTblInstitucion.catRubroList}"/>
                         </h:selectOneMenu>
                     </td>

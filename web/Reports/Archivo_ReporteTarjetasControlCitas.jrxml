@@ -13,8 +13,7 @@
      tbl_expediente_pacientes.`TER_APE_PACIENTE` AS tbl_expediente_pacientes_TER_APE_PACIENTE,
      tbl_expediente_pacientes.`NUM_EXPEDIENTE` AS tbl_expediente_pacientes_NUM_EXPEDIENTE
 FROM
-     `tbl_expediente_pacientes` tbl_expediente_pacientes INNER JOIN `tbl_tarjeta_control_citas` tbl_tarjeta_control_citas ON tbl_expediente_pacientes.`NUM_EXPEDIENTE` = tbl_tarjeta_control_citas.`NUM_EXPEDIENTE`
-AND month (FEC_EXP_TARJETA) = month (now())-1]]>
+     `tbl_expediente_pacientes` tbl_expediente_pacientes INNER JOIN `tbl_tarjeta_control_citas` tbl_tarjeta_control_citas ON tbl_expediente_pacientes.`NUM_EXPEDIENTE` = tbl_tarjeta_control_citas.`NUM_EXPEDIENTE`]]>
 	</queryString>
 	<field name="tbl_tarjeta_control_citas_NUM_TARJETA" class="java.lang.Integer"/>
 	<field name="tbl_tarjeta_control_citas_FEC_EXP_TARJETA" class="java.sql.Date"/>

@@ -20,10 +20,7 @@ cat_areas origen
 
 
 WHERE
- movimientos.cat_cod_area <> 1 and origen.cod_area = movimientos.cod_area
-
-
-]]>
+ movimientos.cat_cod_area <> 1 and origen.cod_area = movimientos.cod_area]]>
 	</queryString>
 	<field name="tbl_expediente_pacientes_NUM_EXPEDIENTE" class="java.lang.Integer"/>
 	<field name="tbl_expediente_pacientes_NOM_PACIENTE" class="java.lang.String"/>
