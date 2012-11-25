@@ -71,10 +71,10 @@ public class FrmMantTblDespachos extends PageBase{
     }
     
     public List<SelectItem> getTblProductoList() {
+        
           if (tblProductoList.isEmpty()){
             try{
                 List<TblProducto> l = productoFacade.findMedicamentos();
-                
                 tblProductoList.add(new SelectItem(-1, "Seleccione un producto"));
                 for (TblProducto tblProducto : l) {
                     tblProductoList.add(new SelectItem(tblProducto.getNumProducto(), tblProducto.getNomProducto()));
@@ -214,6 +214,7 @@ public class FrmMantTblDespachos extends PageBase{
             tblDetalleDespacho.setTblDetalleDespachoPK(new TblDetalleDespachoPK(this.tblDespachos.getNumDespacho(), producto.getNumProducto()));
             tblDetalleDespacho.setPreUniDetDespacho(producto.getPreFinProducto());
         }
+        
     }
     public void seleccionarProducto(ValueChangeEvent v){
         try{
@@ -246,7 +247,7 @@ public class FrmMantTblDespachos extends PageBase{
             this.addError("Ingrese Cantidad mayor a cero", "Ingrese Cantidad mayor a cero");
             validationOk = false;   
         }
-        if (detalle.getTblDetalleDespachoPK().getNumProducto() == -1){
+        if (detalle.getTblDetalleDespachoPK().getNumProducto() == -1  ){
             this.addError("Seleccione el Producto", "Seleccione el Producto");
             validationOk = false;   
         }

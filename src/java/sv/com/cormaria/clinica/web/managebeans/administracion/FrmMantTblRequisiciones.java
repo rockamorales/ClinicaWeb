@@ -186,6 +186,7 @@ public class FrmMantTblRequisiciones extends PageBase{
                     tblRequisiciones.setNumEmpleado(this.getSessionBean().getUsuario().getNumEmpleado());
                     tblRequisiciones.setEstRequisicion(EstadoRequisicion.CREADA);
                     facade.create(tblRequisiciones);
+                    this.addInfo("Requisicion Creada", "Requisicion Creada");
                 }
             }
         }catch(Exception x){
@@ -224,10 +225,12 @@ public class FrmMantTblRequisiciones extends PageBase{
             if (this.getTblDetalleReq().getTblDetalleRequisicionPK().getNumRequisicion()!=null && this.getTblDetalleReq().getTblDetalleRequisicionPK().getNumRequisicion()>0){
                 System.out.println("Edit");
                 this.tblDetalleReq = detalleReqFacade.edit(tblDetalleReq);
+                this.addInfo("Modificacion Realizada con Exito", "Modificacion Realizada con Exito");
             }else{
                 System.out.println("Create: "+this.getTblRequisiciones().getNumRequisicion());
                 tblDetalleReq.getTblDetalleRequisicionPK().setNumRequisicion(this.getTblRequisiciones().getNumRequisicion());
                 this.tblDetalleReq = detalleReqFacade.create(tblDetalleReq);
+                this.addInfo("Producto agregado con Exito", "Producto agregado con Exito");
             }
             this.tblDetalleReq = new TblDetalleRequisicion();
             this.detalleReqList.clear();
