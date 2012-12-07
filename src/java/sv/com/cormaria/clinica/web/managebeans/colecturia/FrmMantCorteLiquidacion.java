@@ -124,7 +124,9 @@ public class FrmMantCorteLiquidacion extends PageBase{
                     liquidacion.setCanBil10(0);
                     liquidacion.setCanBil20(0);
                     liquidacion.setCanBil50(0);
-                    liquidacion.setCanBil100(0);                    
+                    liquidacion.setCanBil100(0);   
+                    liquidacion.setTotCheques(0.0);
+                    liquidacion.setMonMoneda(0.0);
                 }
                 liquidacion.setTotCorte(getTotal());
             }
@@ -161,6 +163,7 @@ public class FrmMantCorteLiquidacion extends PageBase{
                 liquidacion.setFecLiquidacion(fechaCorte);
                 liquidacion.setNumEmpleado(this.getSessionBean().getUsuario().getNumEmpleado());
                 liquidacion = tblLiquidacionLocal.edit(liquidacion);
+                this.addInfo("Se ha modificado El corte/Liquidacion con Exito", "Se ha modificado El corte/Liquidacion con Exito");
             }else{
                 liquidacion.setFecLiquidacion(fechaCorte);
                 liquidacion.setTotCorCheque(this.getTotalCheque());
@@ -168,10 +171,12 @@ public class FrmMantCorteLiquidacion extends PageBase{
                 liquidacion.setTotCorte(this.getTotal());
                 liquidacion.setNumEmpleado(this.getSessionBean().getUsuario().getNumEmpleado());
                 liquidacion = tblLiquidacionLocal.create(liquidacion);
+                this.addInfo("Se ha guardado El corte/Liquidacion con Exito", "Se ha guardado El corte/Liquidacion con Exito");
             }
         }catch(Exception ex){
             ex.printStackTrace();
-            this.addError(ex.getMessage(), ex.getMessage());
+            //this.addError(ex.getMessage(), ex.getMessage());
+            this.addError("Se ha producido un Error: No se guardo Datos", "Se ha producido un Error: No se guardo Datos");
         }
     }
     

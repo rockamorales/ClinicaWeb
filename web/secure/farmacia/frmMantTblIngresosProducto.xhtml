@@ -93,6 +93,10 @@ and open the template in the editor.
                         <h3>Detalle de Ingreso de Producto</h3>                    
                             <table>
                                   <tr>
+                                      <td align="left">Codigo de Producto:</td>
+                                      <td align="left">
+                                          <h:inputText value="#{frmMantTblIngresosProducto.tblDetalleIngresoProducto.tblDetalleIngresoProductoPK.numProducto}" />
+                                      </td>
                                       <td align="left">Producto:</td>
                                       <td align="left">
                                           <h:selectOneMenu value="#{frmMantTblIngresosProducto.tblDetalleIngresoProducto.tblDetalleIngresoProductoPK.numProducto}" style="width: 130px" id="prod" valueChangeListener="#{frmMantTblIngresosProducto.seleccionarProducto}">
