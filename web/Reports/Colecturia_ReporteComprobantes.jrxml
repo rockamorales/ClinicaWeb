@@ -17,8 +17,7 @@
 FROM
      `tbl_comprobante_donacion` tbl_comprobante_donacion INNER JOIN `tbl_detalle_comprobante_donacion` tbl_detalle_comprobante_donacion ON tbl_comprobante_donacion.`NUM_COM_DONACION` = tbl_detalle_comprobante_donacion.`NUM_COM_DONACION`
 WHERE(tbl_comprobante_donacion.`EST_COM_DONACION` = $P{estComDonacion}
-  OR $P{estComDonacion} = -1)
-]]>
+  OR $P{estComDonacion} = -1)]]>
 	</queryString>
 	<field name="tbl_comprobante_donacion_NUM_COM_DONACION" class="java.lang.Integer"/>
 	<field name="tbl_comprobante_donacion_NUM_EXPEDIENTE" class="java.lang.Integer"/>
