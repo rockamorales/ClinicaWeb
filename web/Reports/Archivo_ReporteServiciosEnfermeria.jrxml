@@ -11,8 +11,7 @@
      tbl_empleado.`NOM_EMPLEADO` AS tbl_empleado_NOM_EMPLEADO
 FROM
      `cat_tipo_servicios_enfermeria` cat_tipo_servicios_enfermeria INNER JOIN `tbl_servicios_enfermeria` tbl_servicios_enfermeria ON cat_tipo_servicios_enfermeria.`COD_SER_ENFERMERIA` = tbl_servicios_enfermeria.`COD_SER_ENFERMERIA`
-     INNER JOIN `tbl_empleado` tbl_empleado ON tbl_servicios_enfermeria.`NUM_EMPLEADO` = tbl_empleado.`NUM_EMPLEADO`
-AND month (FEC_SER_ENFERMERIA) = month (now())-1]]>
+     INNER JOIN `tbl_empleado` tbl_empleado ON tbl_servicios_enfermeria.`NUM_EMPLEADO` = tbl_empleado.`NUM_EMPLEADO`]]>
 	</queryString>
 	<field name="tbl_servicios_enfermeria_NUM_EXPEDIENTE" class="java.lang.Integer"/>
 	<field name="tbl_servicios_enfermeria_FEC_SER_ENFERMERIA" class="java.sql.Timestamp"/>

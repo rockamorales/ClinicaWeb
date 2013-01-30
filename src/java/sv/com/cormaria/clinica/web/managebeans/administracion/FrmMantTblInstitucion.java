@@ -133,12 +133,15 @@ public class FrmMantTblInstitucion extends PageBase{
        
             if(tblInstitucion.getNumInstitucion() != null){
                 facade.edit(tblInstitucion);
+                this.addInfo("Se guardo modificaciones", "Se guardo modificaciones");
             }else{
                 facade.create(tblInstitucion);
+                this.addInfo("Se creo nuevo Donante/Proveedor con Exito", "Se creo nuevo Donante/Proveedor con Exito");
             }
         }catch(Exception x){
             x.printStackTrace();
-            this.addError(x.getMessage(), x.getMessage());
+            //this.addError(x.getMessage(), x.getMessage());
+            this.addInfo("Error durante la creacion de nuevo Donante/Proveedor, no se guardo la información", "Error durante la creacion de nuevo Donante/Proveedor, no se guardo la información");
         }
     }
     public void nuevo(ActionEvent ae){

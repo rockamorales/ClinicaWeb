@@ -107,7 +107,6 @@ public class FrmCrearTarjetaControlCitas extends PageBase{
    
     public void asignar(ActionEvent ae){
         try{
-            
              if (!validar()){
                return;
              }            

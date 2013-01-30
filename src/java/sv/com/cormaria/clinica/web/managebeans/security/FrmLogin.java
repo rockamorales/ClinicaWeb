@@ -66,9 +66,10 @@ public class FrmLogin extends PageBase {
             }else{
                 this.addError("El usuario no existe o esta desactivado", "El usuario no existe o esta desactivado");
             }
+            
         }catch(Exception ex){
             ex.printStackTrace();
-            this.addError(ex.getMessage(), ex.toString());
+            this.addError("Favor Ingrese su contraseña","Favor Ingrese su contraseña");
         }
         return null;
     }
