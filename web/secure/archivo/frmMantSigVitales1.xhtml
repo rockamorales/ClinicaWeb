@@ -31,7 +31,10 @@ and open the template in the editor.
             </style>
            <script type="text/javascript">
 		$(document).ready(function(){
-			$('#scrollbar1').tinyscrollbar();
+			$(".pre1").mask('999/999')
+                        $(".dec21").mask('99.9')
+                        $(".dec22").mask('99.99')
+                        $(".dec12").mask('9.99')
 		});
             </script>
                 <h3>Registro de signos vitales</h3>
@@ -46,61 +49,62 @@ and open the template in the editor.
                             Cerrar
                         </h:outputLink>
                     </f:facet>
+                    
                     <table>
-                        <tr>
-                            <td>
-                                <h:outputLabel value="Expediente:" for="numExpediente1">
-                                </h:outputLabel>
-                            </td>
-                            <td>
-                                <h:inputText value="#{consultasPagadasSearchCriteria.numExpediente}" id="numExpediente1">
-                                </h:inputText>
-                            </td>
-                            <td>
-                                <h:outputLabel value="DUI:" for="dui1">
-                                </h:outputLabel>
-                            </td>
-                            <td>
-                                <h:inputText value="#{consultasPagadasSearchCriteria.dui}" id="dui1">
-                                </h:inputText>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h:outputLabel value="Nombres:" for="nombres1">
-                                </h:outputLabel>
-                            </td>
-                            <td>
-                                <h:inputText value="#{consultasPagadasSearchCriteria.nombres}" id="nombres1" styleClass="mayusculas">
-                                </h:inputText>
-                            </td>
-                            <td>
-                                <h:outputLabel value="Primer Ape:" for="primerApellido1">
-                                </h:outputLabel>
-                            </td>
-                            <td>
-                                <h:inputText value="#{consultasPagadasSearchCriteria.primerApellido}" id="primerApellido1">
-                                </h:inputText>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h:outputLabel value="Segundo ape:" for="segundoApellido1">
-                                </h:outputLabel>
-                            </td>
-                            <td>
-                                <h:inputText value="#{consultasPagadasSearchCriteria.segundoApellido}" id="segundoApellido1">
-                                </h:inputText>
-                            </td>
-                            <td>
-                                <h:outputLabel value="Tercer ape:" for="tercerApellido1">
-                                </h:outputLabel>
-                            </td>
-                            <td>
-                                <h:inputText value="#{consultasPagadasSearchCriteria.tercerApellido}" id="tercerApellido1">
-                                </h:inputText>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Expediente:" for="numExpediente1">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.numExpediente}" id="numExpediente1" maxlength="11" onkeypress="return filterInput(1, event, false, '');">
+                            </h:inputText>
+                        </td>
+                        <td>
+                            <h:outputLabel value="DUI:" for="dui1"> </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.dui}" id="dui1" maxlength="9" onkeypress="return filterInput(1, event, false, '');">
+                            </h:inputText>
+                            <rich:tooltip  target="dui" showEvent="focus" value="Ingrese el numero de dui sin guión" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Nombres:" for="nombres1">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.nombres}" id="nombres1" maxlength="30" onkeypress="return filterInput(0, event, false, ' %');">
+                            </h:inputText>
+                        </td>
+                        <td>
+                            <h:outputLabel value="Primer Ape:" for="primerApellido1">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.primerApellido}" id="primerApellido1" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
+                            </h:inputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Segundo ape:" for="segundoApellido1">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.segundoApellido}" id="segundoApellido1" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
+                            </h:inputText>
+                        </td>
+                        <td>
+                            <h:outputLabel value="Tercer ape:" for="tercerApellido1">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.tercerApellido}" id="tercerApellido1" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
+                            </h:inputText>
+                        </td>
+                    </tr>
                         <tr>
                             <td colspan="4" align="center">
                                 <a4j:commandButton value="Buscar" actionListener="#{frmMantSigVitales.buscar}" render="sigVitalesTable" type="submit"/>
@@ -156,7 +160,7 @@ and open the template in the editor.
                          <tr>
                              <td align="left">Número de Expediente</td>
                             <td align="left">
-                                <h:inputText value="#{frmMantSigVitales.tblConsulta.numExpediente}" style="font-weight: bold"/>
+                                <h:inputText value="#{frmMantSigVitales.tblConsulta.numExpediente}" style="font-weight: bold" maxlength="11" onkeypress="return filterInput(1, event, false, '.');"/>
                                 <h:outputLabel value="*" style="color: red; font-weight: bold"/>
                                 <a4j:commandButton value="..." onclick="#{rich:component('buscarConsultaPanel')}.show(); return false;">
                                 </a4j:commandButton>
@@ -183,36 +187,36 @@ and open the template in the editor.
                         <tr>
                             <td align="left">Temperatura (°C)</td>
                             <td align="left">
-                                <h:inputText value="#{frmMantSigVitales.tblConsulta.temPaciente}"/>
+                                <h:inputText value="#{frmMantSigVitales.tblConsulta.temPaciente}" styleClass="dec21" maxlength="4" onkeypress="return filterInput(1, event, false, '.');"/>
                             </td>
                         </tr>
-                        <tr>
+                                                <tr>
                             <td align="left">Pulso (ppm)</td>
                             <td align="left">
-                                <h:inputText value="#{frmMantSigVitales.tblConsulta.pulPaciente}"/>
+                                <h:inputText value="#{frmMantSigVitales.tblConsulta.pulPaciente}"  maxlength="3" onkeypress="return filterInput(1, event, false, '');"/>
                             </td>
                         </tr>
                         <tr>
                             <td align="left">Presión </td>
                             <td align="left">
-                                <h:inputText value="#{frmMantSigVitales.tblConsulta.preArterial}"/>
+                                <h:inputText value="#{frmMantSigVitales.tblConsulta.preArterial}" styleClass="pre1" maxlength="7" onkeypress="return filterInput(1, event, false, '/');"/>
                             </td>
                         </tr>
                         <tr>
                             <td align="left">Peso (Lbrs.)</td>
                             <td align="left">
-                                <h:inputText value="#{frmMantSigVitales.tblConsulta.pesPaciente}"/>
+                                <h:inputText value="#{frmMantSigVitales.tblConsulta.pesPaciente}" maxlength="3" onkeypress="return filterInput(1, event, false, '.');"/>
                             </td>
                         </tr>
                         <tr>
                             <td align="left">Talla (Mtrs)</td>
                             <td align="left">
-                                <h:inputText value="#{frmMantSigVitales.tblConsulta.talPaciente}"/>
+                                <h:inputText value="#{frmMantSigVitales.tblConsulta.talPaciente}" styleClass="dec12" maxlength="4" onkeypress="return filterInput(1, event, false, '.');"/>
                             </td>
                         </tr>
                           <tr>
                               <td colspan="4" align="center">
-                                  <a4j:commandButton value="Guardar" actionListener="#{frmMantSigVitales.guardar}" render="form, panelMessage" />
+                                  <a4j:commandButton value="Guardar" actionListener="#{frmMantSigVitales.guardar}" render="form, panelMessage" onclick="if(!confirm('Esta seguro(a) que desea guardar la informacion?')){return false;} return true;" execute="@this"/>
                                   <a4j:commandButton value="Cancelar"/>
                               </td>
                           </tr>
