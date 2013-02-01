@@ -14,6 +14,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.richfaces.component.UIDataTable;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
 import sv.com.cormaria.servicios.entidades.administracion.TblEmpleado;
@@ -326,13 +328,21 @@ public class FrmMantUsuarios extends PageBase {
         }
    }
 
-    public void cambiarContrasena(ActionEvent ae){
+    public String cambiarContrasena(){
         try{
             usuariosFacade.cambiarContrasena(tblUsuario.getAliUsuario(), this.getContrasenaAnterior(), nuevaContrasena, confirmacionContrasena);
             this.addInfo("La contrasena ha sido restablecida", "La contrasena ha sido restablecida");
+            FacesContext context = FacesContext.getCurrentInstance();
+            HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
+            HttpSession session = (HttpSession)context.getExternalContext().getSession(false);
+            session.invalidate();
+            request.logout();
+            return "/login.jsf?faces-redirect=true";
         }catch(Exception ex){
+            ex.printStackTrace();
             this.addError(ex.getMessage(), ex.getMessage());
         }
+        return null;
     }
     
     public void restablecer(ActionEvent ae){
