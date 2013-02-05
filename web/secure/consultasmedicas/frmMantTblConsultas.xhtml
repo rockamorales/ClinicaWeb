@@ -203,7 +203,7 @@
                                 </h:outputLabel>
                             </td>
                             <td>
-                                <h:inputText value="#{consultasSigVitalesSearchCriteria.numExpediente}" id="numExpediente1">
+                                <h:inputText value="#{consultasSigVitalesSearchCriteria.numExpediente}" id="numExpediente1" maxlength="11" onkeypress="return filterInput(1, event, false, '');">
                                 </h:inputText>
                             </td>
                             <td>
@@ -211,8 +211,9 @@
                                 </h:outputLabel>
                             </td>
                             <td>
-                                <h:inputText value="#{consultasSigVitalesSearchCriteria.dui}" id="dui1">
+                                <h:inputText value="#{consultasSigVitalesSearchCriteria.dui}" id="dui1" maxlength="9" onkeypress="return filterInput(1, event, false, '');">
                                 </h:inputText>
+                                <rich:tooltip  target="dui" showEvent="focus" value="Ingrese el numero de dui sin guión" />
                             </td>
                         </tr>
                         <tr>
@@ -221,7 +222,7 @@
                                 </h:outputLabel>
                             </td>
                             <td>
-                                <h:inputText value="#{consultasSigVitalesSearchCriteria.nombres}" id="nombres1">
+                                <h:inputText value="#{consultasSigVitalesSearchCriteria.nombres}" id="nombres1" maxlength="30" onkeypress="return filterInput(0, event, false, ' %');">
                                 </h:inputText>
                             </td>
                             <td>
@@ -229,7 +230,7 @@
                                 </h:outputLabel>
                             </td>
                             <td>
-                                <h:inputText value="#{consultasSigVitalesSearchCriteria.primerApellido}" id="primerApellido1">
+                                <h:inputText value="#{consultasSigVitalesSearchCriteria.primerApellido}" id="primerApellido1" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
                                 </h:inputText>
                             </td>
                         </tr>
@@ -239,7 +240,7 @@
                                 </h:outputLabel>
                             </td>
                             <td>
-                                <h:inputText value="#{consultasSigVitalesSearchCriteria.segundoApellido}" id="segundoApellido1">
+                                <h:inputText value="#{consultasSigVitalesSearchCriteria.segundoApellido}" id="segundoApellido1" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
                                 </h:inputText>
                             </td>
                             <td>
@@ -247,7 +248,7 @@
                                 </h:outputLabel>
                             </td>
                             <td>
-                                <h:inputText value="#{consultasSigVitalesSearchCriteria.tercerApellido}" id="tercerApellido1">
+                                <h:inputText value="#{consultasSigVitalesSearchCriteria.tercerApellido}" id="tercerApellido1" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
                                 </h:inputText>
                             </td>
                         </tr>
