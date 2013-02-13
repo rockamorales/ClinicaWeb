@@ -728,6 +728,7 @@ public class FrmMantTblConsultas extends PageBase {
             detalleOrdenLabList.clear();
             ConsultasSignosVitalesDataModel dataModel = (ConsultasSignosVitalesDataModel) this.getBean("#{consultasSignosVitalesDataModel}", ConsultasSignosVitalesDataModel.class);
             dataModel.clear();
+            this.addInfo("La consulta ha sido FINALIZADA con Exito", "La consulta ha sido FINALIZADA con Exito");
         }catch(Exception ex){
             ex.printStackTrace();
             this.addError(ex.getMessage(), ex.getMessage());
