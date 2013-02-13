@@ -256,7 +256,7 @@ and open the template in the editor.
                     </td>
                     <td valign="top">
                         <rich:dataGrid value="#{comprobanteDonacionEmitidosDataModel}" var="comprobante" columns="1" elements="10" id="comprobanteDataGrid">
-                            <table cellpadding="0" cellspacing="4">
+                            <table cellpadding="0" cellspacing="4" style="background-color: #{comprobante.oriDonacion=='RECETA'?'yellow':''}">
                                     <tr>
                                         <td colspan="3">
                                           <h:outputText value="#{comprobante.tblExpedientePacientes.nomPaciente} #{comprobante.tblExpedientePacientes.priApePaciente} #{comprobante.tblExpedientePacientes.secApePaciente} #{comprobante.tblExpedientePacientes.terApePaciente}" style="font-weight: bold;"/>
