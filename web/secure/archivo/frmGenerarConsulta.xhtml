@@ -28,7 +28,7 @@
                             </h:outputLabel>
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.numExpediente}" id="numExpediente1">
+                            <h:inputText value="#{expedientesSearchCriteria.numExpediente}" id="numExpediente1" maxlength="11" onkeypress="return filterInput(1, event, false, '');">
                             </h:inputText>
                         </td>
                         <td>
@@ -36,7 +36,7 @@
                             </h:outputLabel>
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.dui}" id="dui1">
+                            <h:inputText value="#{expedientesSearchCriteria.dui}" id="dui1" maxlength="9" onkeypress="return filterInput(1, event, false, '');">
                             </h:inputText>
                             <rich:tooltip  target="dui1" showEvent="focus" value="Ingrese el numero de dui sin guión" />
                             
@@ -48,7 +48,7 @@
                             </h:outputLabel>
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.nombres}" id="nombres1">
+                            <h:inputText value="#{expedientesSearchCriteria.nombres}" id="nombres1" maxlength="30" onkeypress="return filterInput(0, event, false, ' %');">
                             </h:inputText>
                         </td>
                         <td>
@@ -56,7 +56,7 @@
                             </h:outputLabel>
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.primerApellido}" id="primerApellido1">
+                            <h:inputText value="#{expedientesSearchCriteria.primerApellido}" id="primerApellido1" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
                             </h:inputText>
                         </td>
                     </tr>
@@ -66,7 +66,7 @@
                             </h:outputLabel>
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.segundoApellido}" id="segundoApellido1">
+                            <h:inputText value="#{expedientesSearchCriteria.segundoApellido}" id="segundoApellido1" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
                             </h:inputText>
                         </td>
                         <td>
@@ -74,7 +74,7 @@
                             </h:outputLabel>
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.tercerApellido}" id="tercerApellido1">
+                            <h:inputText value="#{expedientesSearchCriteria.tercerApellido}" id="tercerApellido1" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
                             </h:inputText>
                         </td>
                     </tr>
@@ -144,7 +144,10 @@
                     <h:column> 
                         <a4j:commandButton image="/img/icons/edit.gif" render="@form, panelMessage" oncomplete="#{rich:component('buscarExpedientePanel')}.hide();" actionListener="#{frmGenerarConsulta.seleccionar}">
                         </a4j:commandButton>
-                    </h:column>   
+                    </h:column>  
+                    <f:facet name="footer">
+                        <rich:dataScroller/>
+                    </f:facet>
                 </rich:dataTable>
             </rich:popupPanel>
               <h3>Generacion de consulta</h3>
