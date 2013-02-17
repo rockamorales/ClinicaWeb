@@ -23,6 +23,7 @@ import sv.com.cormaria.servicios.entidades.farmacia.TblDetalleDespachoPK;
 import sv.com.cormaria.servicios.entidades.administracion.TblProducto;
 import sv.com.cormaria.servicios.entidades.administracion.TblInstitucion;
 import sv.com.cormaria.servicios.entidades.catalogos.CatTipoSalida;
+import sv.com.cormaria.servicios.enums.EstadoDetalleDespacho;
 import sv.com.cormaria.servicios.facades.administracion.TblInstitucionFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatTipoSalidaFacadeLocal;
 import sv.com.cormaria.servicios.facades.farmacia.TblDespachosFacadeLocal;
@@ -198,6 +199,7 @@ public class FrmMantTblDespachos extends PageBase{
             }
             tblDetalleDespacho.getTblDetalleDespachoPK().setNumDespacho(tblDespachos.getNumDespacho());
             tblDetalleDespacho.setCorDetDespacho(0);
+            tblDetalleDespacho.setEstDespacho(EstadoDetalleDespacho.ENTREGADO);
             cblDetalleDespachoFacade.create(tblDetalleDespacho);
             tblDetalleDespacho = new TblDetalleDespacho();
             this.getCblDetalleDespachoList().clear();
