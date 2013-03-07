@@ -46,6 +46,7 @@ and open the template in the editor.
                         <td>
                             <h:inputText value="#{expedientesSearchCriteria.nombres}" id="nombres" maxlength="30" onkeypress="return filterInput(0, event, false, ' ');">
                             </h:inputText>
+                            <rich:tooltip  target="nombres" showEvent="focus" value="Ingrese los Nombres del Paciente" />
                         </td>
                         <td>
                             <h:outputLabel value="Primer Ape:" for="primerApellido">
@@ -54,6 +55,7 @@ and open the template in the editor.
                         <td>
                             <h:inputText value="#{expedientesSearchCriteria.primerApellido}" id="primerApellido" maxlength="15" onkeypress="return filterInput(0, event, false, ' ');">
                             </h:inputText>
+                            <rich:tooltip  target="primerApellido" showEvent="focus" value="Ingrese Primer Apellido" />
                         </td>
                     </tr>
                     <tr>
@@ -64,6 +66,7 @@ and open the template in the editor.
                         <td>
                             <h:inputText value="#{expedientesSearchCriteria.segundoApellido}" id="segundoApellido" maxlength="15" onkeypress="return filterInput(0, event, false, ' ');">
                             </h:inputText>
+                            <rich:tooltip  target="segundoApellido" showEvent="focus" value="Ingrese Segundo Apellido" />
                         </td>
                         <td>
                             <h:outputLabel value="Tercer ape:" for="tercerApellido">
@@ -72,6 +75,7 @@ and open the template in the editor.
                         <td>
                             <h:inputText value="#{expedientesSearchCriteria.tercerApellido}" id="tercerApellido" maxlength="15" onkeypress="return filterInput(0, event, false, ' ');">
                             </h:inputText>
+                            <rich:tooltip  target="tercerApellido" showEvent="focus" value="Ingrese Tercer Apellido" />
                         </td>
                     </tr>
                     <tr>
