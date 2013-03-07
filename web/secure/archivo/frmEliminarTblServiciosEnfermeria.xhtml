@@ -184,8 +184,8 @@ and open the template in the editor.
                     <a4j:commandLink actionListener="#{frmEliminarTblServiciosEnfermeria.delete}" render="@form, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar el servicio de enfermeria: #{servicio.numSerEnfermeria}')){return false;}">
                         <h:graphicImage url="/img/icons/delete.gif"  style="border: 0"/>
                     </a4j:commandLink>
-                    <h:commandButton value="Cancelar" action="/inicio.jsf"/>
                 </h:column>
+                <h:commandButton value="Cancelar" action="/inicio.jsf"/>
               <f:facet name="footer">
                    <rich:dataScroller/>
               </f:facet>
