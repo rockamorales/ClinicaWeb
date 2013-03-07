@@ -148,7 +148,10 @@
                     <h:column> 
                         <a4j:commandButton image="/img/icons/edit.gif" render="@form, panelMessage" oncomplete="#{rich:component('buscarExpedientePanel')}.hide();" actionListener="#{frmTblCrearServiciosEnfermeria.seleccionar}">
                         </a4j:commandButton>
-                    </h:column>   
+                    </h:column> 
+                    <f:facet name="footer">
+                        <rich:dataScroller/>
+                    </f:facet>
                 </rich:dataTable>
             </rich:popupPanel>
               <h3>Creacion de servicio de enfermeria</h3>
