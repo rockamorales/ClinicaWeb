@@ -35,7 +35,7 @@
                             <h:outputText value="#{frmMantTblProgramacionCitas.expediente.numExpediente}" id="numExpedien2" />
                             <a4j:commandButton value="..." onclick="#{rich:component('buscarExpedientePanel')}.show(); return false;">
                             </a4j:commandButton>
-                            <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                            <h:outputLabel value="*" style="color:red;font-weight: bold;"/>    
                         </td>
                     </tr>
                     <tr>
@@ -241,9 +241,9 @@
                           </h:outputText>
                         </h:column>  
                         <h:column> 
-                            <a4j:commandButton image="/img/icons/edit.gif" render="@form, panelMessage" oncomplete="#{rich:component('buscarExpedientePanel')}.hide();" actionListener="#{frmMantTblProgramacionCitas.seleccionar}">
+                           <a4j:commandButton image="/img/icons/edit.gif" render="@form, panelMessage" oncomplete="#{rich:component('buscarExpedientePanel')}.hide();$('.hora').mask('99:99:99')" actionListener="#{frmMantTblProgramacionCitas.seleccionar}">
                             </a4j:commandButton>
-                        </h:column>   
+                        </h:column> 
                     </rich:dataTable>
                 </rich:popupPanel>
         </h:form>
