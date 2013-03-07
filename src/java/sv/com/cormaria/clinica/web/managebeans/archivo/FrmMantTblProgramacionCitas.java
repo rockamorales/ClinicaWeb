@@ -206,17 +206,30 @@ public class FrmMantTblProgramacionCitas extends PageBase{
        
        if (this.getCita().getCodEspecialidad() == null || this.getCita().getCodEspecialidad() <= 0){
           isValid = false;
-          this.addError("Porfavor ingrese o seleccione la especialidad", "Porfavor ingrese o seleccione la especialidad");
+          this.addError("Por favor ingrese o seleccione la especialidad", "Por favor ingrese o seleccione la especialidad");
        } 
        
        if (this.getCita().getCodConsultorio() == null || this.getCita().getCodConsultorio() == -1){
            isValid = false;
-           this.addError("Porfavor seleccione el consultorio", "Porfavor seleccione el consultorio");
+           this.addError("Por favor seleccione el consultorio", "Por favor seleccione el consultorio");
        }
        
        if (this.getCita().getNumMedico() == null || this.getCita().getNumMedico() == -1){
            isValid = false;
-           this.addError("Porfavor seleccione el médico", "Porfavor seleccione el médico");
+           this.addError("Por favor seleccione el médico", "Por favor seleccione el médico");
+       }
+       
+       if (this.getCita().getHorCita() == null) {
+           isValid = false;
+           this.addError("Por favor ingrese la Hora de la cita", "Por favor ingrese la Hora de la cita");
+       }
+       if (this.getCita().getFecCita() == null) {
+           isValid = false;
+           this.addError("Por favor seleccione la Fecha de la cita", "Por favor seleccione la Fecha de la cita");
+       }
+       if (this.getCita().getNumExpediente() == null) {
+           isValid = false;
+           this.addError("Por favor seleccione el numero de Expediente", "Por favor seleccione el numero de Expediente");
        }
        
        return isValid;
@@ -224,20 +237,25 @@ public class FrmMantTblProgramacionCitas extends PageBase{
    }
     
     
-    public void guardar(ActionEvent ae){
+    public String guardar(){
         try{
            if (!validar()){
-               return;
+               return null;
            }            
             if (cita.getNumCita() !=null && cita.getNumCita()>0){
                 cita = citasFacade.edit(cita);
             }else{
                 cita = citasFacade.create(cita);
             }
+            
+        String fecCita = new SimpleDateFormat("dd/MM/yyyy").format(cita.getFecCita());
+        return "frmTblControlCitas.jsf?faces-redirect=true&fecCita="+fecCita+"&numCita="+cita.getNumCita(); 
+
         }catch(Exception ex){
             ex.printStackTrace();
             this.addError(ex.getMessage(), ex.getMessage());
         }
+        return null;
     }
     
     public String regresar(){
