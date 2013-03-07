@@ -118,7 +118,7 @@
                  <tr>
                         <td align="left">Lugar de Procedencia del Paciente:</td>
                         <td align="left">
-                            <h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.lugProcPaciente}" size="30" maxlength="30" onkeypress="return filterInput(0, event, false, ' ');">
+                            <h:inputText styleClass="mayusculas" value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.lugProcPaciente}" size="30" maxlength="30" onkeypress="return filterInput(0, event, false, ' ');">
                             </h:inputText>
                             <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                         </td>
@@ -128,25 +128,25 @@
                  <tr>
                         <td align="left">Nombre del Padre:</td>
                         <td colspan="3" align="left">
-                            <h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.nomPadPaciente}" size="100" maxlength="100" onkeypress="return filterInput(0, event, false, ' ');" />
+                            <h:inputText styleClass="mayusculas" value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.nomPadPaciente}" size="100" maxlength="100" onkeypress="return filterInput(0, event, false, ' ');" />
                         </td>
                  </tr>
                  <tr>
                         <td align="left">Nombre de la Madre:</td>
                         <td colspan="3" align="left">
-                            <h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.nomMadPaciente}" size="100" maxlength="100" onkeypress="return filterInput(0, event, false, ' ');"/>
+                            <h:inputText styleClass="mayusculas" value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.nomMadPaciente}" size="100" maxlength="100" onkeypress="return filterInput(0, event, false, ' ');"/>
                         </td>
                  </tr>
                  <tr> 
                      <td align="left"><h:outputText id="nomConPacienteLabel" value="Nombre de Conyuge de Paciente:"></h:outputText></td>
                      <td colspan="3" align="left">
-                         <h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.nomConPaciente}" id="nomConPaciente" size="100" maxlength="100" onkeypress="return filterInput(0, event, false, ' ');"/>
+                         <h:inputText styleClass="mayusculas" value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.nomConPaciente}" id="nomConPaciente" size="100" maxlength="100" onkeypress="return filterInput(0, event, false, ' ');"/>
                      </td>
                  </tr>
                  <tr>
                         <td align="left">Nombre del Responsable del Paciente:</td>
                         <td colspan="3" align="left">
-                            <h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.nomResPaciente}" size="100"  maxlength="100" alt="Indique un Nombre y un Apellido" onkeypress="return filterInput(0, event, false, ' ');" />
+                            <h:inputText styleClass="mayusculas" value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.nomResPaciente}" size="100"  maxlength="100" alt="Indique un Nombre y un Apellido" onkeypress="return filterInput(0, event, false, ' ');" />
                         <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                         </td>
                  </tr>
@@ -167,7 +167,7 @@
                   <tr>
                      <td align="left">Direccion del Responsable del Paciente:</td>
                         <td colspan="3" align="left">
-                            <h:inputTextarea value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.dirResPaciente}" rows="2" cols="100" onkeypress="return filterInput(2, event, false, '.,#/°- ');">
+                            <h:inputTextarea styleClass="mayusculas" value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.dirResPaciente}" rows="2" cols="100" onkeypress="return filterInput(2, event, false, '.,#/°- ');">
                                 <f:validateLength maximum="250"/>
                             </h:inputTextarea>
                         </td> 

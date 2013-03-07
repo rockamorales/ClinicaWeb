@@ -25,43 +25,45 @@
                         Cerrar
                     </h:outputLink>
                 </f:facet>
-                <table>
+               <table>
                     <tr>
                         <td>
                             <h:outputLabel value="Expediente:" for="numExpediente1">
                             </h:outputLabel>
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.numExpediente}" id="numExpediente1">
+                            <h:inputText value="#{expedientesSearchCriteria.numExpediente}" id="numExpediente1" maxlength="11" onkeypress="return filterInput(1, event, false, '');">
                             </h:inputText>
+                            
                         </td>
                         <td>
                             <h:outputLabel value="DUI:" for="dui1">
                             </h:outputLabel>
-                            
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.dui}" id="dui1">
+                            <h:inputText value="#{expedientesSearchCriteria.dui}" id="dui1" maxlength="9" onkeypress="return filterInput(1, event, false, '');">
                             </h:inputText>
                             <rich:tooltip  target="dui1" showEvent="focus" value="Ingrese el numero de dui sin guión" />
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <h:outputLabel value="Nombres:" for="nombres1">
+                            <h:outputLabel value="Nombres:" for="nombres1" >
                             </h:outputLabel>
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.nombres}" id="nombres1">
+                            <h:inputText value="#{expedientesSearchCriteria.nombres}" id="nombres1" maxlength="30" onkeypress="return filterInput(0, event, false, ' %');">
                             </h:inputText>
+                            <rich:tooltip  target="nombres1" showEvent="focus" value="Ingrese los Nombres del Paciente" />
                         </td>
                         <td>
                             <h:outputLabel value="Primer Ape:" for="primerApellido1">
                             </h:outputLabel>
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.primerApellido}" id="primerApellido1">
+                            <h:inputText value="#{expedientesSearchCriteria.primerApellido}" id="primerApellido1" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
                             </h:inputText>
+                            <rich:tooltip  target="primerApellido1" showEvent="focus" value="Ingrese Primer Apellido" />
                         </td>
                     </tr>
                     <tr>
@@ -70,16 +72,18 @@
                             </h:outputLabel>
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.segundoApellido}" id="segundoApellido1">
+                            <h:inputText value="#{expedientesSearchCriteria.segundoApellido}" id="segundoApellido1" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
                             </h:inputText>
+                            <rich:tooltip  target="segundoApellido1" showEvent="focus" value="Ingrese Segundo Apellido" />
                         </td>
                         <td>
                             <h:outputLabel value="Tercer ape:" for="tercerApellido1">
                             </h:outputLabel>
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.tercerApellido}" id="tercerApellido1">
+                            <h:inputText value="#{expedientesSearchCriteria.tercerApellido}" id="tercerApellido1" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
                             </h:inputText>
+                            <rich:tooltip  target="tercerApellido1" showEvent="focus" value="Ingrese Tercer Apellido" />
                         </td>
                     </tr>
                     <tr>
@@ -240,7 +244,7 @@
                  <tr>
                         <td align="left">Dirección del Paciente:</td>
                         <td colspan="3" align="left">
-                            <h:inputTextarea value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.dirPaciente}" rows="2" cols="100" onkeypress="return filterInput(2, event, false, '.,#/ °- ');">
+                            <h:inputTextarea styleClass="mayusculas" value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.dirPaciente}" rows="2" cols="100" onkeypress="return filterInput(2, event, false, '.,#/ °- ');">
                                 <f:validateLength maximum="250" ></f:validateLength>
                             </h:inputTextarea>
                             <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
@@ -249,7 +253,7 @@
                  <tr>
                         <td align="left">Lugar de Procedencia del Paciente:</td>
                         <td align="left">
-                            <h:inputText value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.lugProcPaciente}" size="30" maxlength ="30" onkeypress="return filterInput(0, event, false, ' ');">
+                            <h:inputText styleClass="mayusculas" value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.lugProcPaciente}" size="30" maxlength ="30" onkeypress="return filterInput(0, event, false, ' ');">
                             </h:inputText>
                             <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                         </td>
@@ -259,22 +263,23 @@
                  <tr>
                         <td align="left">Nombre del Padre:</td>
                         <td colspan="3" align="left">
-                            <h:inputText value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.nomPadPaciente}" size="100" maxlength ="100" onkeypress="return filterInput(0, event, false, ' ');"/>
+                            <h:inputText styleClass="mayusculas" value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.nomPadPaciente}" size="100" maxlength ="100" onkeypress="return filterInput(0, event, false, ' ');"/>
                         </td>
                  </tr>
                  <tr>
                         <td align="left">Nombre de la Madre:</td>
                         <td colspan="3" align="left">
-                            <h:inputText value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.nomMadPaciente}" size="100" maxlength ="100" onkeypress="return filterInput(0, event, false, ' ');"/>
+                            <h:inputText styleClass="mayusculas" value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.nomMadPaciente}" size="100" maxlength ="100" onkeypress="return filterInput(0, event, false, ' ');"/>
                         </td>
                  </tr>
                  <tr> 
                      <td align="left"><h:outputText id="nomConPacienteLabel" value="Nombre de Conyuge de Paciente:"></h:outputText></td>
-                     <td colspan="3" align="left"><h:inputText value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.nomConPaciente}" id="nomConPaciente" size="100" maxlength ="100" onkeypress="return filterInput(0, event, false, ' ');"/></td>
+                     <td colspan="3" align="left">
+                     <h:inputText styleClass="mayusculas" value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.nomConPaciente}" id="nomConPaciente" size="100" maxlength ="100" onkeypress="return filterInput(0, event, false, ' ');"/></td>
                  </tr>
                  <tr>
                         <td align="left">Nombre del Responsable del Paciente:</td>
-                        <td colspan="3" align="left"><h:inputText value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.nomResPaciente}" size="100" maxlength ="100" onkeypress="return filterInput(0, event, false, ' ');" />
+                        <td colspan="3" align="left"><h:inputText styleClass="mayusculas" value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.nomResPaciente}" size="100" maxlength ="100" onkeypress="return filterInput(0, event, false, ' ');" />
                         <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                         </td>               
                  </tr>
@@ -295,7 +300,7 @@
                   <tr>
                        <td align="left">Direccion del Responsable del Paciente:</td>
                         <td colspan="3" align="left">
-                            <h:inputTextarea value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.dirResPaciente}" rows="2" cols="100" onkeypress="return filterInput(1, event, false, '.,#/ °- ');">
+                            <h:inputTextarea styleClass="mayusculas" value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.dirResPaciente}" rows="2" cols="100" onkeypress="return filterInput(1, event, false, '.,#/ °- ');">
                                 <f:validateLength maximum="250"/>
                             </h:inputTextarea>
                         </td>

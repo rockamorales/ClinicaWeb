@@ -55,6 +55,7 @@ and open the template in the editor.
                         <td>
                             <h:inputText value="#{serviciosEnfermeriaSearchCriteria.nombres}" id="nombres" maxlength="30" onkeypress="return filterInput(0, event, false, ' %');">
                             </h:inputText>
+                            <rich:tooltip  target="nombres1" showEvent="focus" value="Ingrese los Nombres del Paciente" />
                         </td>
                         <td>
                             <h:outputLabel value="Primer Ape:" for="primerApellido">
@@ -63,6 +64,7 @@ and open the template in the editor.
                         <td>
                             <h:inputText value="#{serviciosEnfermeriaSearchCriteria.primerApellido}" id="primerApellido" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
                             </h:inputText>
+                            <rich:tooltip  target="primerApellido1" showEvent="focus" value="Ingrese Primer Apellido" />
                         </td>
                         <td>
                             <h:outputLabel value="Segundo ape:" for="segundoApellido">
@@ -71,6 +73,7 @@ and open the template in the editor.
                         <td>
                             <h:inputText value="#{serviciosEnfermeriaSearchCriteria.segundoApellido}" id="segundoApellido" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
                             </h:inputText>
+                            <rich:tooltip  target="segundoApellido1" showEvent="focus" value="Ingrese Segundo Apellido" />
                         </td>
                     </tr>
                     <tr>
@@ -81,6 +84,7 @@ and open the template in the editor.
                         <td>
                             <h:inputText value="#{serviciosEnfermeriaSearchCriteria.tercerApellido}" id="tercerApellido" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
                             </h:inputText>
+                            <rich:tooltip  target="tercerApellido1" showEvent="focus" value="Ingrese Tercer Apellido" />
                         </td>
                         <td>
                             <h:outputLabel value="Estados:" for="estados">
