@@ -16,6 +16,7 @@ and open the template in the editor.
         </ui:define>
         <ui:define name="body">
             <h:form>
+                <h3>Comprobante de Donación</h3>
                 <fieldset>
                     <legend>Buscar</legend>
                     <table>
@@ -24,7 +25,7 @@ and open the template in the editor.
                                 <h:outputLabel value="Num expediente:" for="numExpediente"/>
                             </td>
                             <td>
-                                <h:inputText value="#{comprobanteDonacionEmitidosSearchCriteria.numExpediente}" id="numExpediente"/>
+                                <h:inputText value="#{comprobanteDonacionEmitidosSearchCriteria.numExpediente}" id="numExpediente" maxlength="11" onkeypress="return filterInput(1, event, false, '');"/>
                             </td>
                             <td>
                                 <h:outputLabel value="Fecha ini:" for="startDate"/>
@@ -44,19 +45,19 @@ and open the template in the editor.
                                 <h:outputLabel value="Nombre paciente:" for="nomPaciente"/>
                             </td>
                             <td>
-                                <h:inputText value="#{comprobanteDonacionEmitidosSearchCriteria.nomPaciente}" id="nomPaciente"/>
+                                <h:inputText value="#{comprobanteDonacionEmitidosSearchCriteria.nomPaciente}" id="nomPaciente" maxlength="30" onkeypress="return filterInput(0, event, false, ' %');"/>
                             </td>
                             <td>
                                 <h:outputLabel value="Primer Ape.:" for="priApePaciente"/>
                             </td>
                             <td>
-                                <h:inputText value="#{comprobanteDonacionEmitidosSearchCriteria.priApePaciente}" id="priApePaciente"/>
+                                <h:inputText value="#{comprobanteDonacionEmitidosSearchCriteria.priApePaciente}" id="priApePaciente" maxlength="15" onkeypress="return filterInput(0, event, false, '%');"/>
                             </td>
                             <td>
                                 <h:outputLabel value="Segundo Ape.:" for="endDate"/>
                             </td>
                             <td>
-                                <h:inputText value="#{comprobanteDonacionEmitidosSearchCriteria.secApePaciente}" id="secApePaciente"/>
+                                <h:inputText value="#{comprobanteDonacionEmitidosSearchCriteria.secApePaciente}" id="secApePaciente" maxlength="15" onkeypress="return filterInput(0, event, false, '%');"/>
                             </td>
                         </tr>
                         <tr>
