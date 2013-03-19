@@ -156,6 +156,11 @@ public class FrmMantTblEmpleado extends PageBase{
     
     public boolean validar(){
        boolean isValid = true;
+              
+       if (this.getTblEmpleado().getCodProfesion() == null || this.getTblEmpleado().getCodProfesion() <= 0){
+           isValid = false;
+           this.addError("Por favor seleccione Profesion del Empleado", "Por favor seleccione Profesion del Empleado");
+       }
        
        if (this.getTblEmpleado().getCodTipServicio() == null || this.getTblEmpleado().getCodTipServicio() <=0 ) {
           isValid = false;
@@ -166,10 +171,31 @@ public class FrmMantTblEmpleado extends PageBase{
            isValid = false;
            this.addError("Por favor seleccione el Area", "Por favor seleccione el Area");
        }
-       if (this.getTblEmpleado().getCodProfesion() == null || this.getTblEmpleado().getCodProfesion() <= 0){
+       
+       if (this.getTblEmpleado().getNomEmpleado() == null || this.getTblEmpleado().getNomEmpleado().trim().equals("")) {
            isValid = false;
-           this.addError("Por favor seleccione Profesion del Empleado", "Por favor seleccione Profesion del Empleado");
-       }
+           this.addError("Por favor ingrese el nombre del empleado", "Por favor ingrese el nombre del empleado");
+       }   
+       
+       if (this.getTblEmpleado().getPriApeEmpleado() == null || this.getTblEmpleado().getPriApeEmpleado().trim().equals("")) {
+           isValid = false;
+           this.addError("Por favor ingrese el primer apellido del empleado", "Por favor ingrese el primer apellido del empleado");
+       }   
+       
+       if (this.getTblEmpleado().getDirEmpleado() == null || this.getTblEmpleado().getDirEmpleado().trim().equals("")) {
+           isValid = false;
+           this.addError("Por favor ingrese la dirección del empleado", "Por favor ingrese la dirección del empleado");
+       }     
+       
+       if (this.getTblEmpleado().getDuiEmpleado() <= 0) {
+           isValid = false;
+           this.addError("Por favor ingrese el DUI del empleado", "Por favor ingrese el DUI del empleado");
+       }     
+       
+       if (this.getTblEmpleado().getNitEmpleado() <= 0) {
+           isValid = false;
+           this.addError("Por favor ingrese el NIT del empleado", "Por favor ingrese el NIT del empleado");
+       }        
     
        return isValid;
   }    

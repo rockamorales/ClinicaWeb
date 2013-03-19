@@ -39,9 +39,7 @@ and open the template in the editor.
                     <h:column>
                     <h:outputText value="DUI"/>
                   </h:column>                    
-                 <h:column>
-                    <h:outputText value=""/>
-                  </h:column>
+
                   <h:column>
                     <h:outputText value=""/>
                   </h:column>
@@ -67,16 +65,7 @@ and open the template in the editor.
                     <h:outputText value="#{tblEmpleado.duiEmpleado}">
                     </h:outputText>
                 </h:column>  
-                <h:column>
-                    
-                    <h:outputLink value="frmMantTblEmpleado.jsf">
-                        <f:param name="numEmpleado" value="#{tblEmpleado.numEmpleado}"/>
-                        <f:param name="faces-redirect" value="true"/>
-                        <h:graphicImage url="/img/icons/edit.gif">
-                            
-                        </h:graphicImage>
-                    </h:outputLink>
-                </h:column>
+
                 <h:column>
                     <a4j:commandLink actionListener="#{frmTblEmpleado.delete}" render="@form" onclick="if(!confirm('Esta seguro que desea eliminar el Empleado: #{tblEmpleado.nomEmpleado} #{tblEmpleado.priApeEmpleado}')){return false;}">
                         <h:graphicImage url="/img/icons/delete.gif"/>
@@ -85,6 +74,11 @@ and open the template in the editor.
                 </h:column>           
                 <f:facet name="footer">
                    <rich:dataScroller/>
+                  <tr>
+                      <td colspan="6" align="center">
+                         <h:commandButton value="Cancelar" action="/inicio.jsf" immediate="true"/>
+                      </td>
+                  </tr>                     
                 </f:facet>    
             </rich:dataTable>
             </h:form>
