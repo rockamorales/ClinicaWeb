@@ -16,6 +16,7 @@
       <ui:define name="body">
          <h:form id="corteLiquidacionForm">
              <h3>Consulta de Corte y Liquidación</h3>
+             <hr></hr>
              <fieldset>
                 <legend>Corte Diario</legend>
                 <table>
@@ -234,6 +235,13 @@
                         </tr>
                     </table>
                  </h:panelGroup>
+
+                  <tr>
+                      <td colspan="6" align="center">
+                         <h:commandButton value="Cancelar" action="/inicio.jsf" immediate="true"/>
+                      </td>
+                  </tr>                    
+                                       
              </fieldset>
          </h:form>
     </ui:define>

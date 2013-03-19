@@ -39,9 +39,6 @@ and open the template in the editor.
                   <h:column>
                     <h:outputText value=""/>
                   </h:column>
-                  <h:column>
-                    <h:outputText value=""/>
-                  </h:column>
                 </rich:columnGroup>
               </f:facet>
                 <h:column>
@@ -61,15 +58,6 @@ and open the template in the editor.
                     </h:outputText>
                 </h:column>                                 
                 <h:column>
-                    <h:outputLink value="frmMantEditTblBeneficiarios.jsf">
-                        <f:param name="numBeneficiarios" value="#{tblBeneficiarios.numBeneficiario}"/>
-                        <f:param name="faces-redirect" value="true"/>
-                        <h:graphicImage url="/img/icons/edit.gif" style="border: 0">
-                            
-                        </h:graphicImage>
-                    </h:outputLink>
-                </h:column>
-                <h:column>
                     <a4j:commandLink actionListener="#{frmTblBeneficiarios.desactivar}" render="@form, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar el registro: #{tblBeneficiarios.nomBeneficiario}')){return false;}">
                         <h:graphicImage url="/img/icons/delete.gif" style="border: 0"/>
                         <f:setPropertyActionListener target="#{frmTblBeneficiarios.tblBeneficiarios}" value="#{tblBeneficiarios}"/>
@@ -77,6 +65,11 @@ and open the template in the editor.
                 </h:column>           
                 <f:facet name="footer">
                    <rich:dataScroller/>
+                  <tr>
+                      <td colspan="6" align="center">
+                         <h:commandButton value="Cancelar" action="/inicio.jsf" immediate="true"/>
+                      </td>
+                  </tr>                    
                 </f:facet>    
             </rich:dataTable>
             </h:form>

@@ -16,6 +16,8 @@ and open the template in the editor.
         </ui:define>
         <ui:define name="body">
           <h:form>
+              <h3>Eliminar Alquiler Equipo</h3>
+              <hr></hr>
               <fieldset>
                   <legend>Busqueda</legend>
                   <table cellpadding="0" cellspacing="0">
@@ -110,6 +112,14 @@ and open the template in the editor.
                         </h:graphicImage>
                     </h:outputLink>
                 </h:column>
+                <f:facet name="footer">
+                   <rich:dataScroller/>
+                  <tr>
+                      <td colspan="6" align="center">
+                         <h:commandButton value="Cancelar" action="/inicio.jsf" immediate="true"/>
+                      </td>
+                  </tr>                    
+                </f:facet>               
             </rich:dataTable>
             </h:form>
         </ui:define>
