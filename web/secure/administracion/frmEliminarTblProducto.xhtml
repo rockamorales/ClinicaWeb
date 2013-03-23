@@ -16,7 +16,7 @@ and open the template in the editor.
         </ui:define>
         <ui:define name="body">
             <h:form>
-                <h3>Modificar Producto</h3>
+                <h3>Eliminar Producto</h3>
                 <hr></hr>
                 <h:outputLink value="frmMantTblProducto.jsf">
                     Agregar Producto
@@ -58,14 +58,13 @@ and open the template in the editor.
                     </h:outputText>
                 </h:column>                                 
                 <h:column>
-                    <h:outputLink value="frmMantEditTblProducto.jsf">
-                        <f:param name="numProducto" value="#{tblProducto.numProducto}"/>
-                        <f:param name="faces-redirect" value="true"/>
-                        <h:graphicImage url="/img/icons/edit.gif" style="border: 0">
-                            
-                        </h:graphicImage>
-                    </h:outputLink>
-                </h:column>
+                    <a4j:commandLink actionListener="#{frmTblProducto.desactivar}" render="@form, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar el registro: #{tblProducto.nomProducto}')){return false;}">
+                        <h:graphicImage url="/img/icons/delete.gif" style="border: 0"/>
+                        <f:setPropertyActionListener target="#{frmTblProducto.tblProducto}" value="#{tblProducto}"/>
+                    </a4j:commandLink>
+                  
+                   
+                </h:column> 
                <f:facet name="footer">
                    <rich:dataScroller/>
                   <tr>

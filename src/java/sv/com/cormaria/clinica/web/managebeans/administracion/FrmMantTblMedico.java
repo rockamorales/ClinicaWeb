@@ -20,6 +20,7 @@ import sv.com.cormaria.servicios.facades.administracion.TblMedicoFacade;
 import sv.com.cormaria.servicios.facades.administracion.TblMedicoFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatEspecialidadFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatTipoServicioFacadeLocal;
+import sv.com.cormaria.servicios.helpers.ValidationUtils;
 
 /**
  *
@@ -107,15 +108,47 @@ public class FrmMantTblMedico extends PageBase{
    public boolean validar(){
        boolean isValid = true;
        
+       if (this.getTblMedico().getNomMedico() == null || this.getTblMedico().getNomMedico().trim().equals("")) {
+          isValid = false;
+          this.addError("Porfavor ingrese los nombres del médico", "Porfavor ingrese los nombres del médico");
+       }     
+       if (this.getTblMedico().getPriApeMedico() == null || this.getTblMedico().getPriApeMedico().trim().equals("")) {
+          isValid = false;
+          this.addError("Porfavor ingrese el primer apellido del médico", "Porfavor ingrese el primer apellido del médico");
+       }          
        if (this.getTblMedico().getCodTipServicio() == null || this.getTblMedico().getCodTipServicio() <= 0){
           isValid = false;
           this.addError("Porfavor seleccione el tipo de servicio", "Porfavor seleccione el tipo de servicio");
        } 
-       
        if (this.getTblMedico().getCodEspecialidad() == null || this.getTblMedico().getCodEspecialidad() <= 0){
            isValid = false;
            this.addError("Porfavor seleccione la especialidad", "Porfavor seleccione la especialidad");
        }
+       if (this.getTblMedico().getNumJunta() <= 0){
+          isValid = false;
+          this.addError("Porfavor ingrese el numero de junta del médico", "Porfavor ingrese el numero de junta del médico");
+       }    
+       if (this.getTblMedico().getFecIngMedico() == null){
+           isValid = false;
+           this.addError("Porfavor seleccione la fecha de ingreso", "Porfavor seleccione la fecha de ingreso");
+       }       
+       if (this.getTblMedico().getDirPerMedico() == null || this.getTblMedico().getDirPerMedico().trim().equals("")) {
+          isValid = false;
+          this.addError("Porfavor ingrese la dirección personal del médico", "Porfavor ingrese la dirección personal del médico");
+       }  
+       if (this.getTblMedico().getDuiMedico() <= 0){
+          isValid = false;
+          this.addError("Porfavor ingrese el DUI del médico", "Porfavor ingrese el DUI del médico");
+       }  
+       if (this.getTblMedico().getNitMedico() <= 0){
+            isValid = false;
+           this.addError("Porfavor ingrese el número de NIT del Beneficiario", "Porfavor ingrese el número de DUI del Beneficiario");
+       }    
+       if (this.getTblMedico().getValConMedico() <= 0){
+            isValid = false;
+           this.addError("Porfavor ingrese el valor de la consulta del médico", "Porfavor ingrese el valor de la consulta del médico");
+       }        
+       
       
        return isValid;
      
