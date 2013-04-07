@@ -11,16 +11,14 @@ import java.util.Map;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.persistence.NoResultException;
 import org.richfaces.component.UIDataGrid;
 import org.richfaces.component.UIDataTable;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
-import sv.com.cormaria.clinica.web.managebeans.datamodels.ConsultasPagadasDataModel;
 import sv.com.cormaria.clinica.web.managebeans.datamodels.ConsultasSignosVitalesDataModel;
 import sv.com.cormaria.clinica.web.managebeans.datamodels.ExpedienteDataModel;
 import sv.com.cormaria.servicios.entidades.administracion.TblMedico;
-import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
 import sv.com.cormaria.servicios.entidades.catalogos.CatEspecialidad;
 import sv.com.cormaria.servicios.entidades.catalogos.CatExamenesMedicos;
 import sv.com.cormaria.servicios.entidades.catalogos.CatTipoReferencia;
@@ -59,6 +57,7 @@ public class FrmMantTblConsultas extends PageBase {
 
     
     private TblConsultas consulta = new TblConsultas();
+    private TblProducto selectedProduct = new TblProducto();
     
     @EJB
     private TblConsultasFacadeLocal tblConsultasFacade;
@@ -127,6 +126,14 @@ public class FrmMantTblConsultas extends PageBase {
      * Creates a new instance of FrmMantTblConsultas
      */
     public FrmMantTblConsultas() {
+    }
+
+    public TblProducto getSelectedProduct() {
+        return selectedProduct;
+    }
+
+    public void setSelectedProduct(TblProducto selectedProduct) {
+        this.selectedProduct = selectedProduct;
     }
 
     public Map<Integer, Boolean> getSelectedExamenes() {
@@ -384,39 +391,41 @@ public class FrmMantTblConsultas extends PageBase {
     }
     
     public void init(){
-        if (numConsulta != null && numConsulta >0){
-            try{
-                consulta = tblConsultasFacade.find(numConsulta);
+        if (!FacesContext.getCurrentInstance().isPostback()){
+            if (numConsulta != null && numConsulta >0){
                 try{
-                    referencia = tblReferenciaFacade.findByNumConsulta(consulta.getNumConsulta());
-                    if (referencia == null){
+                    consulta = tblConsultasFacade.find(numConsulta);
+                    try{
+                        referencia = tblReferenciaFacade.findByNumConsulta(consulta.getNumConsulta());
+                        if (referencia == null){
+                            referencia = new TblReferencia();
+                        }
+                    }catch(Exception ex){
                         referencia = new TblReferencia();
                     }
-                }catch(Exception ex){
-                    referencia = new TblReferencia();
-                }
-                try{
-                    recetaMedica = tblRecetaMedicaFacade.findByNumConsulta(consulta.getNumConsulta());
-                    if (recetaMedica == null){
+                    try{
+                        recetaMedica = tblRecetaMedicaFacade.findByNumConsulta(consulta.getNumConsulta());
+                        if (recetaMedica == null){
+                            recetaMedica = new TblRecetaMedica();
+                        }
+                    }catch(Exception ex){
                         recetaMedica = new TblRecetaMedica();
                     }
-                }catch(Exception ex){
-                    recetaMedica = new TblRecetaMedica();
-                }
-                try{
-                    ordenLab = tblOrdenLabFacade.findByNumConsulta(consulta.getNumConsulta());
-                    if (ordenLab == null){
-                        ordenLab = new TblOrdenLaboratorio();
+                    try{
+                        ordenLab = tblOrdenLabFacade.findByNumConsulta(consulta.getNumConsulta());
+                        if (ordenLab == null){
+                            ordenLab = new TblOrdenLaboratorio();
+                        }
+                    }catch(Exception ex){
+                        ordenLab = new TblOrdenLaboratorio();            
                     }
+                    detalleReceta.clear();
+                    detalleOrdenLabList.clear();
+                    this.selectedExamenes.clear();
                 }catch(Exception ex){
-                    ordenLab = new TblOrdenLaboratorio();            
+                    ex.printStackTrace();
+                    this.addError(ex.getMessage(), ex.getMessage());
                 }
-                detalleReceta.clear();
-                detalleOrdenLabList.clear();
-                this.selectedExamenes.clear();
-            }catch(Exception ex){
-                ex.printStackTrace();
-                this.addError(ex.getMessage(), ex.getMessage());
             }
         }
     }
@@ -494,6 +503,17 @@ public class FrmMantTblConsultas extends PageBase {
         x.printStackTrace();
         this.addError(x.getMessage(), x.getMessage());
     }
+   }
+   
+   public void selectProduct(){
+       try{
+        this.selectedProduct = tblProductoFacade.find(this.getReceta().getTblDetalleRecetaPK().getNumProducto());
+        if (selectedProduct.getTipConProducto()){
+            this.receta.setNoContribuible(false);
+        }
+       }catch(Exception ex){
+           ex.printStackTrace();
+       }
    }
    
    public void agregarDetalleReceta(ActionEvent ae){
@@ -734,4 +754,5 @@ public class FrmMantTblConsultas extends PageBase {
             this.addError(ex.getMessage(), ex.getMessage());
         }
     }
+    
 }
