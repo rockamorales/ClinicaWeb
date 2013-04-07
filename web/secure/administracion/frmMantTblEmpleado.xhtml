@@ -114,7 +114,7 @@ and open the template in the editor.
                       <td colspan="4" align="center">
                           <a4j:commandButton value="Guardar" actionListener="#{frmMantTblEmpleado.guardar}" render="form, panelMessage" />
                           <a4j:commandButton value="Nuevo" actionListener="#{frmMantTblEmpleado.nuevo}" render="form"/>
-                          <h:commandButton value="Regresar" action="/inicio.jsf" immediate="true"/>
+                          <h:commandButton value="Cancelar" action="frmTblEmpleado.jsf?faces-redirect=true" immediate="true"/>
                       </td>
                   </tr>
               </table>

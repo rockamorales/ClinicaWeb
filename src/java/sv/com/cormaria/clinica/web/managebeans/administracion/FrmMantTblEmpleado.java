@@ -156,7 +156,11 @@ public class FrmMantTblEmpleado extends PageBase{
     
     public boolean validar(){
        boolean isValid = true;
-              
+       
+       if (this.getTblEmpleado().getFecRegEmpleado() == null){
+           isValid = false;
+           this.addError("Por favor seleccione la fecha de ingreso del empleado", "Por favor seleccione la fecha de ingreso del empleado");
+       }       
        if (this.getTblEmpleado().getCodProfesion() == null || this.getTblEmpleado().getCodProfesion() <= 0){
            isValid = false;
            this.addError("Por favor seleccione Profesion del Empleado", "Por favor seleccione Profesion del Empleado");
