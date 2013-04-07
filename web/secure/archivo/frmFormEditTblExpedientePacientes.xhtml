@@ -32,7 +32,7 @@
                             </h:outputLabel>
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.numExpediente}" id="numExpediente1" maxlength="11" onkeypress="return filterInput(1, event, false, '');">
+                            <h:inputText value="#{expedientesSearchCriteria.numExpediente}" id="numExpediente1" maxlength="9" onkeypress="return filterInput(1, event, false, '');">
                             </h:inputText>
                             
                         </td>
@@ -161,7 +161,7 @@
                 <tr>
                     <td align="left">Código:</td>
                     <td align="left">
-                        <h:inputText value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.numExpediente}" id="numExpediente" onkeypress="return filterInput(1, event, false, '');">
+                        <h:inputText value="#{frmMantEditTblExpedientePacientes.tblExpedientePacientes.numExpediente}" id="numExpediente" maxlength ="9" onkeypress="return filterInput(1, event, false, '');">
                             <a4j:ajax event="change" listener="#{frmMantEditTblExpedientePacientes.searchExpedienteByNum}" render="@form,panelMessage"/>
                         </h:inputText>
                         <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
@@ -342,7 +342,7 @@
                   <tr>
                       <td colspan="4" align="center">
                           <a4j:commandButton value="Modificar" actionListener="#{frmMantEditTblExpedientePacientes.guardar}" render="@form, panelMessage" />
-                          <h:commandButton value="Cancelar" action="/inicio.jsf"/>
+                          <a4j:commandButton value="Cancelar" action="/inicio.jsf?faces-redirect=true" />
                       </td>
                   </tr>
               </table>
