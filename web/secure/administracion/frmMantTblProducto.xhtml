@@ -19,7 +19,6 @@ and open the template in the editor.
         </f:metadata>
         
         <ui:define name="body">
-            <hr></hr>
             <h3>Agregar Producto</h3>
             <hr></hr>
             <h:form id="form">
@@ -115,28 +114,33 @@ and open the template in the editor.
                 </tr> 
                 <tr>
                     <td align="left">Distribuidor del Producto</td>
-                    <td colspan="3" align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.disProducto}" maxlength="100" size="100" onkeypress="return filterInput(2, event, false, ' ,.');"/></td>
-                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>               
+                    <td colspan="3" align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.disProducto}" maxlength="100" size="100" onkeypress="return filterInput(2, event, false, ' ,.');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/> 
+                    </td>
                 </tr>
                 <tr>
                     <td align="left">Cantidad de Producto a Ingresar</td>
-                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.exiProducto}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/></td>
+                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.exiProducto}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/>
                     <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
                 </tr>
                 <tr>
                     <td align="left">Cantidad Minima de Producto en Inventario</td>
-                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.exiMinProducto}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/></td>
+                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.exiMinProducto}" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/>
                     <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
                 </tr>
                 <tr>
                     <td align="left">Valor del Producto</td>
-                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.valProducto}" maxlength="8" onkeypress="return filterInput(1, event, false, '.');"/></td>
+                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.valProducto}" maxlength="8" onkeypress="return filterInput(1, event, false, '.');"/>
                     <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
                 </tr>
                 <tr>
                     <td align="left">Precio de Venta del Producto</td>
-                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.preFinProducto}" maxlength="8" onkeypress="return filterInput(1, event, false, '.');"/></td>
-                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>    
+                    <td align="left"><h:inputText value="#{frmMantTblProducto.tblProducto.preFinProducto}" maxlength="8" onkeypress="return filterInput(1, event, false, '.');"/>
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                    </td>
                 </tr>
                  <tr>
                         <td align="left">Descripcion del Producto:</td>
@@ -170,7 +174,7 @@ and open the template in the editor.
                       <td colspan="4" align="center">
                           <a4j:commandButton value="Guardar" actionListener="#{frmMantTblProducto.guardar}" render="form, panelMessage" />
                           <a4j:commandButton value="Nuevo" actionListener="#{frmMantTblProducto.nuevo}" render="form"/>
-                          <a4j:commandButton value="Regresar" action="frmTblProducto.jsf?faces-redirect=true" immediate="true"/>
+                          <h:commandButton value="Cancelar" action="/inicio.jsf" immediate="true"/>
                       </td>
                   </tr>
               </table>

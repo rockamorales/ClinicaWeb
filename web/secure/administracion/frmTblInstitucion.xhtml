@@ -39,9 +39,6 @@ and open the template in the editor.
                   <h:column>
                     <h:outputText value=""/>
                   </h:column>
-                  <h:column>
-                    <h:outputText value=""/>
-                  </h:column>
                 </rich:columnGroup>
               </f:facet>
                 <h:column>
@@ -68,15 +65,14 @@ and open the template in the editor.
                             
                         </h:graphicImage>
                     </h:outputLink>
-                </h:column>
-                <h:column>
-                    <a4j:commandLink actionListener="#{frmTblInstitucion.desactivar}" render="@form, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar el registro: #{tblInstitucion.nomComInstitucion}')){return false;}">
-                        <h:graphicImage url="/img/icons/delete.gif" style="border: 0"/>
-                        <f:setPropertyActionListener target="#{frmTblInstitucion.tblInstitucion}" value="#{tblInstitucion}"/>
-                    </a4j:commandLink>
-                </h:column>           
+                </h:column>       
                <f:facet name="footer">
                    <rich:dataScroller/>
+                  <tr>
+                      <td colspan="6" align="center">
+                         <h:commandButton value="Cancelar" action="/inicio.jsf" immediate="true"/>
+                      </td>
+                  </tr>                    
                </f:facet>     
             </rich:dataTable>
             </h:form>

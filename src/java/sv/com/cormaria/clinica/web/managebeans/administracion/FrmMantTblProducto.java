@@ -157,58 +157,66 @@ public class FrmMantTblProducto extends PageBase{
     public boolean validar(){
        boolean isValid = true;
        
+       if (tblProducto.getNomProducto()==null || tblProducto.getNomProducto().trim().equals("")){
+            this.addError("Por favor ingrese el nombre del Producto", "Por favor ingrese el nombre del Producto");
+            isValid = false;
+        }  
+       if (tblProducto.getNomGenProducto()==null || tblProducto.getNomGenProducto().trim().equals("")){
+            this.addError("Por favor ingrese el nombre generico del Producto", "Por favor ingrese el nombre generico del Producto");
+            isValid = false;
+        }   
        if (this.getTblProducto().getCodTipProducto() == -1) {
           isValid = false;
           this.addError("Por favor seleccione el Tipo de Producto", "Por favor seleccione el Tipo de Producto");
        }
-       if (this.getTblProducto().getCodCatProducto() == -1) {
+       if (this.getTblProducto().getCodClaProducto() == -1) {
           isValid = false;
-          this.addError("Por favor seleccione Categoria de Producto", "Por favor seleccione el Categoria de Producto");
+          this.addError("Por favor seleccione la clasificacion de Producto", "Por favor seleccione la clasificacion de Producto");
        }
        if (this.getTblProducto().getCodPreProducto() == -1) {
           isValid = false;
-          this.addError("Por favor seleccione el Presentacion de Producto", "Por favor seleccione el Presentacion de Producto");
+          this.addError("Por favor seleccione la presentacion de Producto", "Por favor seleccione la presentacion de Producto");
        }
-       if (this.getTblProducto().getCodClaProducto() == -1) {
+       if (this.getTblProducto().getResProducto() <= 0) {
           isValid = false;
-          this.addError("Por favor seleccione el Clasificacion de Producto", "Por favor seleccione el Clasificacion de Producto");
-       }
-       if (tblProducto.getNomProducto()==null || tblProducto.getNomProducto().trim().equals("")){
-            this.addError("Por favor ingrese los nombres del Producto", "Por favor ingrese los nombres del Producto");
-            isValid = false;
-        }
-       if (tblProducto.getNomGenProducto()==null || tblProducto.getNomGenProducto().trim().equals("")){
-            this.addError("Por favor ingrese los nombres genericos del Producto", "Por favor ingrese los nombres genericos del Producto");
-            isValid = false;
-        }
+          this.addError("Por favor ingrese la cantidad de producto en reserva", "Por favor ingrese la cantidad de producto en reserva");
+       }    
         if (tblProducto.getConProducto()==null || tblProducto.getConProducto().trim().equals("")){
             this.addError("Por favor especifique el contenido del Producto", "Por favor especifique el contenido del Producto");
             isValid = false;
-        }
+        } 
        if (tblProducto.getFabProducto()==null || tblProducto.getFabProducto().trim().equals("")){
             this.addError("Por favor especifique el Fabricante del Producto", "Por favor especifique el Fabricante del Producto");
             isValid = false;
-        }
+        } 
         if (tblProducto.getDisProducto()==null || tblProducto.getDisProducto().trim().equals("")){
             this.addError("Por favor especifique el Distribuidor del Producto", "Por favor especifique el Distribuidor del Producto");
             isValid = false;
-        }
-        if (tblProducto.getExiMinProducto() < 0){
-            this.addError("No puede ingresar valor negativo en las existencias minimas del Producto", "No puede ingresar valor negativo en las existencias minimas del Producto");
+        }       
+        if (tblProducto.getExiProducto() <= 0){
+            this.addError("Por favor ingrese la cantidad de producto", "Por favor ingrese la cantidad de producto");
             isValid = false;
-        }   
-        if (tblProducto.getExiProducto() < 0){
-            this.addError("No puede ingresar valor negativo en las existencias del Producto", "No puede ingresar valor negativo en las existencias del Producto");
+        }        
+        if (tblProducto.getExiMinProducto() <= 0){
+            this.addError("Por favor ingrese la cantidad minima del producto", "Por favor ingrese la cantidad minima del producto");
             isValid = false;
-        }  
-        if (tblProducto.getValProducto() < 0){
-            this.addError("No puede ingresar valor negativo en el Valor del Producto", "No puede ingresar valor negativo en el Valor del Producto");
-            isValid = false;
-        }  
-        if (tblProducto.getResProducto() < 0){
-            this.addError("No puede ingresar valor negativo en las reservas de Producto", "No puede ingresar valor negativo en las reservas de Producto");
+        } 
+        if (tblProducto.getValProducto() <= 0){
+            this.addError("Por favor ingrese el valor del producto", "Por favor ingrese el valor del producto");
             isValid = false;
         }  
+        if (tblProducto.getPreFinProducto() <= 0){
+            this.addError("Por favor ingrese el precio de venta del producto", "Por favor ingrese el precio de venta del producto");
+            isValid = false;
+        } 
+        if (tblProducto.getDesProducto()==null || tblProducto.getDesProducto().trim().equals("")){
+            this.addError("Por favor ingrese la descripcion del producto", "Por favor ingrese la descripcion del producto");
+            isValid = false;
+        }         
+       if (this.getTblProducto().getCodCatProducto() == -1) {
+          isValid = false;
+          this.addError("Por favor seleccione Categoria de Producto", "Por favor seleccione el Categoria de Producto");
+       }        
        
        
        return isValid;
