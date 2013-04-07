@@ -11,6 +11,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import org.richfaces.component.UIDataTable;
@@ -330,7 +331,8 @@ public class FrmMantEditTblExpedientePacientes extends PageBase {
     }
     
     public void init(){
-        if (this.getTblExpedientePacientes()==null || this.getTblExpedientePacientes().getNumExpediente()==null || this.getTblExpedientePacientes().getNumExpediente()<=0){
+       if (this.getTblExpedientePacientes()==null || this.getTblExpedientePacientes().getNumExpediente()==null || this.getTblExpedientePacientes().getNumExpediente()<=0){
+         //if (!FacesContext.getCurrentInstance().isPostback()){
             if (numExpediente != null && numExpediente > 0){
                     System.out.println("Cargando el expediente...");
                     try{
@@ -357,6 +359,7 @@ public class FrmMantEditTblExpedientePacientes extends PageBase {
       try{
           this.tblExpedientePacientes = facade.find(this.tblExpedientePacientes.getNumExpediente());
           if (this.tblExpedientePacientes==null){
+              this.tblExpedientePacientes = new TblExpedientePacientes();
               this.addError("No se encontro información para el número de expediente", "No se encontro información para el número de expediente");
           }
       }catch(Exception ex){
