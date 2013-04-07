@@ -82,7 +82,7 @@
                                         <h:selectOneMenu value="#{frmMantTblConsultas.receta.tblDetalleRecetaPK.numProducto}" id="numProducto">
                                             <f:selectItem itemValue="-1" itemLabel="-- Seleccione un producto --" />
                                             <f:selectItems value="#{frmMantTblConsultas.productosList}" var="producto" itemLabel="#{producto.nomProducto}" itemValue="#{producto.numProducto}"/>
-                                            <a4j:ajax event="change" onbegin="#{rich:element('precio')}.value='#{producto.preFinProducto}'; return false;"/>
+                                            <a4j:ajax event="change" execute="@form" render="detalleRecetaForm" listener="#{frmMantTblConsultas.selectProduct}"/>
                                         </h:selectOneMenu>
                                     </td>
                                 </tr>
@@ -121,8 +121,16 @@
                                         </h:outputLabel>
                                     </td>
                                     <td>
-                                        <h:outputText id="precio">
+                                        <h:outputText id="precio" value="#{frmMantTblConsultas.selectedProduct.preFinProducto}">
                                         </h:outputText>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h:outputLabel value="No Contribuible: " for="noContribuible"></h:outputLabel>
+                                    </td>
+                                    <td colspan="3" align="left">
+                                        <h:selectBooleanCheckbox id="noContribuible" value="#{frmMantTblConsultas.receta.noContribuible}" readonly="#{frmMantTblConsultas.selectedProduct.tipConProducto}"/>
                                     </td>
                                 </tr>
                                 <tr>
