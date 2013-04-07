@@ -8,6 +8,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
@@ -24,7 +26,7 @@ import sv.com.cormaria.servicios.facades.catalogos.CatRubroFacade;
  * @author Schumy
  */
 @ManagedBean (name = "frmMantTblInstitucion")
-@RequestScoped
+@ViewScoped
 public class FrmMantTblInstitucion extends PageBase{
     private TblInstitucion tblInstitucion = new TblInstitucion();
 
@@ -34,7 +36,6 @@ public class FrmMantTblInstitucion extends PageBase{
     private CatRubroFacadeLocal CatRubroFacade;
 
     
-    @ManagedProperty(value ="#{param.numInstitucion}")
     private Integer numInstitucion;
     private List<SelectItem> catRubroList = new ArrayList<SelectItem>();
 
@@ -147,6 +148,18 @@ public class FrmMantTblInstitucion extends PageBase{
     public void nuevo(ActionEvent ae){
         this.tblInstitucion = new TblInstitucion();
     }
-    
+    public void init(){
+         if (!FacesContext.getCurrentInstance().isPostback()){
+            if (numInstitucion != null && numInstitucion > 0){
+                    System.out.println("Cargando el expediente...");
+                    try{
+                        this.tblInstitucion = facade.find(numInstitucion);
+                    }catch(Exception ex){
+                        ex.printStackTrace();
+                        throw new RuntimeException(ex.getMessage());
+                    }
+            }
+        }		
+    }    
     
 }
