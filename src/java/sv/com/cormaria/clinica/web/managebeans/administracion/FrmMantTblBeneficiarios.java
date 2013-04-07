@@ -83,18 +83,37 @@ public class FrmMantTblBeneficiarios extends PageBase{
     public boolean validar(){
        boolean isValid = true;
        
-       if (this.getTblBeneficiarios().getCodRubro() == null) {
+       if (this.getTblBeneficiarios().getNomBeneficiario()==null || this.getTblBeneficiarios().getNomBeneficiario().trim().equals("")){
+            isValid = false;
+           this.addError("Por favor ingrese los nombres del Beneficiario", "Por favor ingrese los nombres del Beneficiario");
+
+        }       
+       if (this.getTblBeneficiarios().getCodRubro() == null || this.getTblBeneficiarios().getCodRubro() <= 0) {
           isValid = false;
           this.addError("Por favor seleccione el Rubro", "Por favor seleccione el Rubro");
        } 
-       if (tblBeneficiarios.getNomBeneficiario()==null || tblBeneficiarios.getNomBeneficiario().trim().equals("")){
-            this.addError("Por favor ingrese los nombres del Beneficiario", "Por favor ingrese los nombres del Beneficiario");
+       
+       if (this.getTblBeneficiarios().getNrcBeneficiario() == null || this.getTblBeneficiarios().getNrcBeneficiario() <= 0){
+            isValid = false;            
+           this.addError("Por favor ingrese el NRC del Beneficiario", "Por favor ingrese el NRC del Beneficiario");
+
+       }        
+     
+       if (this.getTblBeneficiarios().getDirBeneficiario() == null || this.getTblBeneficiarios().getDirBeneficiario().trim().equals("")){
+            isValid = false;            
+           this.addError("Por favor ingrese la dirección del Beneficiario", "Por favor ingrese la dirección del Beneficiario");
+
+       }       
+       if (this.getTblBeneficiarios().getGirBeneficiario() == null || this.getTblBeneficiarios().getGirBeneficiario().trim().equals("")){
             isValid = false;
-        }
-       if (tblBeneficiarios.getNitBeneficiario()==null || tblBeneficiarios.getNitBeneficiario().trim().equals("")){
-            this.addError("Por favor ingrese el número de NIT del Beneficiario", "Por favor ingrese el número de DUI del Beneficiario");
+           this.addError("Por favor ingrese el giro del Beneficiario", "Por favor ingrese el giro del Beneficiario");
+
+       }  
+       if (this.getTblBeneficiarios().getNitBeneficiario() == null || this.getTblBeneficiarios().getNitBeneficiario().trim().equals("")){
             isValid = false;
-       }
+           this.addError("Por favor ingrese el número de NIT del Beneficiario", "Por favor ingrese el número de DUI del Beneficiario");
+
+       }       
        if (tblBeneficiarios.getNitBeneficiario()!=null && !tblBeneficiarios.getNitBeneficiario().trim().equals("")){
             if (ValidationUtils.validarNIT(tblBeneficiarios.getNitBeneficiario())== false) {
               this.addError("El número de NIT del Beneficiario NO ES VALIDO", "El número de NIT del Beneficiario NO ES VALIDO");

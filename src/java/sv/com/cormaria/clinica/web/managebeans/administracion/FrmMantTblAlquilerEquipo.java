@@ -124,7 +124,7 @@ public class FrmMantTblAlquilerEquipo extends PageBase{
         }catch(Exception x){
             x.printStackTrace();
             //this.addError(x.getMessage(), x.getMessage());
-            this.addError("Error de Datos, No se creo el Alquiler de Equipo", "Error de Datos, No se creo el Alquiler de Equipo");
+            this.addError("Ingrese el numero de expediente", "Ingrese el numero de expediente");
         }
     }
     
