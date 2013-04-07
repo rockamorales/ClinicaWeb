@@ -103,7 +103,7 @@
                     </tr>
                 </table>
                 <center>
-                    <h:commandButton value="Regresar" action="#{frmMantTblProgramacionCitas.regresar}">
+                    <h:commandButton value="Cancelar" action="#{frmMantTblProgramacionCitas.regresar}" onclick="jQuery('form').reset()">
                    </h:commandButton>
                    <a4j:commandButton value="Guardar" actionListener="#{frmMantTblProgramacionCitas.guardar}" render="@form, panelMessage"/>
                 </center>
@@ -123,7 +123,7 @@
                             </h:outputLabel>
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.numExpediente}" id="numExpediente1" maxlength="11" onkeypress="return filterInput(1, event, false, '');">
+                            <h:inputText value="#{expedientesSearchCriteria.numExpediente}" id="numExpediente1" maxlength="9" onkeypress="return filterInput(1, event, false, '');">
                             </h:inputText>
                             
                         </td>
