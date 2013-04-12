@@ -244,8 +244,10 @@ public class FrmMantTblProgramacionCitas extends PageBase{
            }            
             if (cita.getNumCita() !=null && cita.getNumCita()>0){
                 cita = citasFacade.edit(cita);
+                this.addInfo("Se modificó la cita correctamente","Se modificó la cita correctamente");
             }else{
                 cita = citasFacade.create(cita);
+                this.addInfo("Se creó la cita correctamente","Se creó la cita correctamente");
             }
             
         String fecCita = new SimpleDateFormat("dd/MM/yyyy").format(cita.getFecCita());
@@ -254,6 +256,8 @@ public class FrmMantTblProgramacionCitas extends PageBase{
         }catch(Exception ex){
             ex.printStackTrace();
             this.addError(ex.getMessage(), ex.getMessage());
+            this.addInfo("Error: No se guardo los Cambios","Error: No se guardo los Cambios");
+            
         }
         return null;
     }
