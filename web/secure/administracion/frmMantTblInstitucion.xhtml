@@ -16,6 +16,7 @@ and open the template in the editor.
         </ui:define>
         <f:metadata>
             <f:viewParam name="numInstitucion" value="#{frmMantTblInstitucion.numInstitucion}"/>
+            <f:event listener="#{frmMantTblInstitucion.init}" type="preRenderView"></f:event>
         </f:metadata>
         
         <ui:define name="body">

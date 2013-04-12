@@ -3,7 +3,7 @@
 To change this template, choose Tools | Templates
 and open the template in the editor.
 -->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets" 
       xmlns:h="http://java.sun.com/jsf/html"
@@ -26,7 +26,7 @@ and open the template in the editor.
                               <h:outputLabel value="Num Req.:" for="numRequisicion"/>
                           </td>
                           <td>
-                              <h:inputText value="#{requisicionesSearchCriteria.numRequisicion}" id="numRequisicion" maxlength="11" onkeypress="return filterInput(1, event, false, '');"/>
+                              <h:inputText value="#{requisicionesSearchCriteria.numRequisicion}" id="numRequisicion" maxlength="9" onkeypress="return filterInput(1, event, false, '');"/>
                           </td>
                           <td>
                               <h:outputLabel value="Fecha ini:" for="startDate"/>
@@ -129,7 +129,7 @@ and open the template in the editor.
                     </h:outputLink>
                 </h:column>
                 <h:column>
-                    <a4j:commandLink actionListener="#{frmTblRequisiciones.delete}" render="tblrequisicionesTable" onclick="if(!confirm('Esta seguro que desea eliminar el Registro: #{tblRequisiciones.numRequisicion}')){return false;}">
+                    <a4j:commandLink actionListener="#{frmTblRequisiciones.delete}" render="tblrequisicionesTable, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar el Registro: #{tblRequisiciones.numRequisicion}')){return false;}">
                         <h:graphicImage url="/img/icons/delete.gif"/>
                     </a4j:commandLink>
                 </h:column>
@@ -137,7 +137,7 @@ and open the template in the editor.
                    <rich:dataScroller/>
                </f:facet>
             </rich:dataTable>
-            </h:form>
+          </h:form>
         </ui:define>
     </ui:composition>
 </html>

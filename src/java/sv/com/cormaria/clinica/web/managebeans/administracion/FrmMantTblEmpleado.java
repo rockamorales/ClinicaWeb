@@ -23,6 +23,7 @@ import sv.com.cormaria.servicios.facades.catalogos.CatTipoServicioFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatAreasFacadeLocal;
 import sv.com.cormaria.servicios.facades.administracion.TblInstitucionFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatProfesionesFacadeLocal;
+import sv.com.cormaria.servicios.helpers.ValidationUtils;
 
 /**
  *
@@ -191,10 +192,17 @@ public class FrmMantTblEmpleado extends PageBase{
            this.addError("Por favor ingrese la dirección del empleado", "Por favor ingrese la dirección del empleado");
        }     
        
-       if (this.getTblEmpleado().getDuiEmpleado() <= 0) {
-           isValid = false;
-           this.addError("Por favor ingrese el DUI del empleado", "Por favor ingrese el DUI del empleado");
-       }     
+       if (tblEmpleado.getDuiEmpleado()==null || tblEmpleado.getDuiEmpleado().trim().equals("")){
+            this.addError("Por favor ingrese el número de DUI del paciente", "Por favor ingrese el número de DUI del paciente");
+            isValid = false;
+            }
+            
+            if (ValidationUtils.validarDUI(tblEmpleado.getDuiEmpleado())== false) {
+            this.addError("El número de DUI del paciente NO ES VALIDO", "El número de DUI del paciente NO ES VALIDO");
+            this.addInfo("Ingrese nuevamente el DUI del paciente" , "Ingrese nuevamente el DUI del paciente");
+            isValid = false;
+            }
+       
        
        if (this.getTblEmpleado().getNitEmpleado() <= 0) {
            isValid = false;
@@ -212,12 +220,15 @@ public class FrmMantTblEmpleado extends PageBase{
        
             if(tblEmpleado.getNumEmpleado() != null){
                 facade.edit(tblEmpleado);
+                this.addInfo("Se guardo modificaciones", "Se guardo modificaciones");
             }else{
                 facade.create(tblEmpleado);
+                this.addInfo("Se creo nuevo Empleado con Exito", "Se creo nuevo Empleado con Exito");
             }
         }catch(Exception x){
             x.printStackTrace();
-            this.addError(x.getMessage(), x.getMessage());
+            //this.addError(x.getMessage(), x.getMessage());
+            this.addInfo("Error durante la modificacion/creacion , no se guardo la información", "Error durante la modificacion/creacion , no se guardo la información");
         }
     }
     public void nuevo(ActionEvent ae){

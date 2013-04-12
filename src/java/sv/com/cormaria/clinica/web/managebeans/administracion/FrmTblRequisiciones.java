@@ -40,8 +40,7 @@ public class FrmTblRequisiciones extends PageBase {
     @EJB
     private CatTipoRequisicionFacadeLocal catTipoReqFacade;
     
-    private List<TblRequisiciones> tblRequisicionesList= new ArrayList<TblRequisiciones>();
-    
+        
     private List<CatAreas> areasList = new ArrayList<CatAreas>();
     private List<CatTipoRequisicion> catTipoReqList = new ArrayList<CatTipoRequisicion>();
 
@@ -84,27 +83,14 @@ public class FrmTblRequisiciones extends PageBase {
         this.tblRequisiciones = tblRequisiciones;
     }
 
-    public List<TblRequisiciones> getTblRequisicionesList() {
-        if (tblRequisicionesList.isEmpty()){
-          try{
-            tblRequisicionesList = tblRequisicionesFacade.findAll();
-          }catch(Exception x) {
-              x.printStackTrace();
-          }
-        }
-        return tblRequisicionesList;
-    }
-
-    public void setTblRequisicionesList(List<TblRequisiciones> tblRequisicionesList) {
-        this.tblRequisicionesList = tblRequisicionesList;
-    }
 
     public void delete(ActionEvent ae){
         try{
             UIDataTable table = (UIDataTable) ae.getComponent().getParent().getParent();
             tblRequisiciones = (TblRequisiciones) table.getRowData();
             tblRequisicionesFacade.remove(tblRequisiciones);
-            tblRequisicionesList.clear();
+            RequisicionesDataModel dataModel = (RequisicionesDataModel) this.getBean("#{requisicionesDataModel}", RequisicionesDataModel.class);
+            dataModel.clear();
             addInfo("Se ha Eliminado la Requisicion con Exito", "Se ha Eliminado la Requisicion con Exito");
         }catch(Exception x){
             x.printStackTrace();
