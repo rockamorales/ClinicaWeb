@@ -24,7 +24,7 @@ and open the template in the editor.
                                 <h:outputLabel value="Num expediente:" for="numExpediente"/>
                             </td>
                             <td>
-                                <h:inputText value="#{devolucionEmitidosSearchCriteria.numExpediente}" id="numExpediente"/>
+                                <h:inputText value="#{devolucionEmitidosSearchCriteria.numExpediente}" id="numExpediente" maxlength="9" onkeypress="return filterInput(1, event, false, ' %');"/>
                             </td>
                             <td>
                                 <h:outputLabel value="Fecha ini:" for="startDate"/>
@@ -44,19 +44,19 @@ and open the template in the editor.
                                 <h:outputLabel value="Nombre paciente:" for="nomPaciente"/>
                             </td>
                             <td>
-                                <h:inputText value="#{devolucionEmitidosSearchCriteria.nomPaciente}" id="nomPaciente"/>
+                                <h:inputText value="#{devolucionEmitidosSearchCriteria.nomPaciente}" id="nomPaciente" maxlength="30" onkeypress="return filterInput(0, event, false, ' %');"/>
                             </td>
                             <td>
                                 <h:outputLabel value="Primer Ape.:" for="priApePaciente"/>
                             </td>
                             <td>
-                                <h:inputText value="#{devolucionEmitidosSearchCriteria.priApePaciente}" id="priApePaciente"/>
+                                <h:inputText value="#{devolucionEmitidosSearchCriteria.priApePaciente}" id="priApePaciente" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');"/>
                             </td>
                             <td>
                                 <h:outputLabel value="Segundo Ape.:" for="endDate"/>
                             </td>
                             <td>
-                                <h:inputText value="#{devolucionEmitidosSearchCriteria.secApePaciente}" id="secApePaciente"/>
+                                <h:inputText value="#{devolucionEmitidosSearchCriteria.secApePaciente}" id="secApePaciente" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');"/>
                             </td>
                         </tr>
                         <tr>
