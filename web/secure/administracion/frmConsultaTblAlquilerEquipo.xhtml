@@ -26,13 +26,13 @@ and open the template in the editor.xxxxxxxxx
                               <h:outputLabel value="Num Req.:" for="numRequisicion"/>
                           </td>
                           <td>
-                              <h:inputText value="#{alquileresSearchCriteria.numAlquiler}" id="numRequisicion"/>
+                              <h:inputText value="#{alquileresSearchCriteria.numAlquiler}" id="numRequisicion" maxlength="9" onkeypress="return filterInput(1, event, false, '');"/>
                           </td>
                           <td>
                               <h:outputLabel value="Num Expediente:" for="numExpediente"/>
                           </td>
                           <td>
-                              <h:inputText value="#{alquileresSearchCriteria.numExpediente}" id="numExpediente"/>
+                              <h:inputText value="#{alquileresSearchCriteria.numExpediente}" id="numExpediente" maxlength="9" onkeypress="return filterInput(1, event, false, '');"/>
                           </td>
                       </tr>
                       <tr>

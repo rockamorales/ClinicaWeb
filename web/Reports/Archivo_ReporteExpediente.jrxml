@@ -14,7 +14,7 @@
      tbl_expediente_pacientes.`SEC_APE_PACIENTE` AS tbl_expediente_pacientes_SEC_APE_PACIENTE,
      tbl_expediente_pacientes.`TER_APE_PACIENTE` AS tbl_expediente_pacientes_TER_APE_PACIENTE,
      tbl_consultas.`FEC_CONSULTA` AS tbl_consultas_FEC_CONSULTA,
-     case tbl_expediente_pacientes.`EST_PACIENTE` when 0 then 'Activo' when 1 then 'Inactivo' end AS tbl_expediente_pacientes_EST_PACIENTE
+     case tbl_expediente_pacientes.`EST_PACIENTE` when 1 then 'Activo' when 0 then 'Inactivo' end AS tbl_expediente_pacientes_EST_PACIENTE
 FROM
      `tbl_expediente_pacientes` tbl_expediente_pacientes INNER JOIN `tbl_consultas` tbl_consultas ON tbl_expediente_pacientes.`NUM_EXPEDIENTE` = tbl_consultas.`NUM_EXPEDIENTE`
 WHERE (tbl_expediente_pacientes.`EST_PACIENTE` = $P{estPaciente} OR $P{estPaciente} = -1)]]>

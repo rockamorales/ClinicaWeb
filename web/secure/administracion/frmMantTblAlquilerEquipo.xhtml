@@ -38,7 +38,7 @@ and open the template in the editor.
                             </h:outputLabel>
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.numExpediente}" id="numExpediente1">
+                            <h:inputText value="#{expedientesSearchCriteria.numExpediente}" id="numExpediente1" maxlength="9" onkeypress="return filterInput(1, event, false, '');">
                             </h:inputText>
                         </td>
                         <td>
@@ -46,8 +46,9 @@ and open the template in the editor.
                             </h:outputLabel>
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.dui}" id="dui1">
+                            <h:inputText value="#{expedientesSearchCriteria.dui}" id="dui1" maxlength="9" onkeypress="return filterInput(1, event, false, '');">
                             </h:inputText>
+                            <rich:tooltip  target="dui" showEvent="focus" value="Ingrese el numero de dui sin guión" />
                         </td>
                     </tr>
                     <tr>
@@ -56,7 +57,7 @@ and open the template in the editor.
                             </h:outputLabel>
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.nombres}" id="nombres1">
+                            <h:inputText value="#{expedientesSearchCriteria.nombres}" id="nombres1" maxlength="30" onkeypress="return filterInput(0, event, false, ' %');">
                             </h:inputText>
                         </td>
                         <td>
@@ -64,7 +65,7 @@ and open the template in the editor.
                             </h:outputLabel>
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.primerApellido}" id="primerApellido1">
+                            <h:inputText value="#{expedientesSearchCriteria.primerApellido}" id="primerApellido1" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
                             </h:inputText>
                         </td>
                     </tr>
@@ -74,7 +75,7 @@ and open the template in the editor.
                             </h:outputLabel>
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.segundoApellido}" id="segundoApellido1">
+                            <h:inputText value="#{expedientesSearchCriteria.segundoApellido}" id="segundoApellido1" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
                             </h:inputText>
                         </td>
                         <td>
@@ -82,7 +83,7 @@ and open the template in the editor.
                             </h:outputLabel>
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.tercerApellido}" id="tercerApellido1">
+                            <h:inputText value="#{expedientesSearchCriteria.tercerApellido}" id="tercerApellido1" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
                             </h:inputText>
                         </td>
                     </tr>
@@ -173,7 +174,7 @@ and open the template in the editor.
                        <tr>
                           <td>Num Expediente:</td>
                           <td>
-                              <h:inputText value="#{frmMantTblAlquilerEquipo.tblExpediente.numExpediente}" style="font-weight: bold"/>
+                              <h:inputText value="#{frmMantTblAlquilerEquipo.tblExpediente.numExpediente}" style="font-weight: bold" maxlength="9" onkeypress="return filterInput(1, event, false, '');"/>
                               <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                               <a4j:commandButton value="..." onclick="#{rich:component('buscarExpedientePanel')}.show(); return false;">
                               </a4j:commandButton>

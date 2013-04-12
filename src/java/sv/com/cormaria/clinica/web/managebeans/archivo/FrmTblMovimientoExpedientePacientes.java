@@ -134,7 +134,7 @@ public class FrmTblMovimientoExpedientePacientes extends PageBase{
        
        if (this.getTblExpedientePacientes().getNumExpediente() == null || this.getTblExpedientePacientes().getNumExpediente() <= 0){
           isValid = false;
-          this.addError("Porfavor ingrese o seleccione el número de Expediente de paciente", "Por favor ingrese o seleccione el número de Expediente de paciente");
+          this.addError("Por favor ingrese o seleccione el número de Expediente de paciente", "Por favor ingrese o seleccione el número de Expediente de paciente");
        } 
        
        if (this.getTblMovimientosExpediente().getCodTipTransaccion() == null || this.getTblMovimientosExpediente().getCodTipTransaccion() == -1){
