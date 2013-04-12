@@ -375,9 +375,9 @@ public class FrmTblControlCitas extends PageBase {
             MonthDay day = (MonthDay) repeat.getRowData();
             System.out.println("Day: "+day.getDayDate());
             if (this.getNumMedico()!=null && this.getNumMedico()>0){
-                citasList = programacionCitasFacade.findByDay(day.getDayDate());
-            }else{
                 citasList = programacionCitasFacade.findByDay(day.getDayDate(), this.getNumMedico());
+            }else{
+                citasList = programacionCitasFacade.findByDay(day.getDayDate());
             }
             System.out.println("Cantidad de citas: "+citasList.size());
         }catch(Exception ex){
