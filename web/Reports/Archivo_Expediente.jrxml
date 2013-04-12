@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Archivo_Expediente" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eb3d3e1d-e7a3-48ed-8e8f-a0fac7cf9d19">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="52"/>
 	<parameter name="numExpediente" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -17,7 +17,9 @@
      tbl_expediente_pacientes.`FEC_REG_EXPEDIENTE` AS tbl_expediente_pacientes_FEC_REG_EXPEDIENTE,
      cat_sexo.`NOM_SEX_PACIENTE` AS cat_sexo_NOM_SEX_PACIENTE,
      tbl_expediente_pacientes.`FEC_NAC_PACIENTE` AS tbl_expediente_pacientes_FEC_NAC_PACIENTE,
-     tbl_expediente_pacientes.`EDA_PACIENTE` AS tbl_expediente_pacientes_EDA_PACIENTE,
+
+     datediff(current_timestamp, tbl_expediente_pacientes.`FEC_NAC_PACIENTE`)/365  AS tbl_expediente_pacientes_EDA_PACIENTE,
+
      tbl_expediente_pacientes.`NUM_DUI` AS tbl_expediente_pacientes_NUM_DUI,
      tbl_expediente_pacientes.`LUG_PROC_PACIENTE` AS tbl_expediente_pacientes_LUG_PROC_PACIENTE,
      cat_estado_civil.`NOM_EST_CIVIL` AS cat_estado_civil_NOM_EST_CIVIL,
@@ -188,7 +190,7 @@ TEL: 2263-5889
 				</textElement>
 				<text><![CDATA[Fecha Nacimiento:]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="dd/MM/yyyy">
 				<reportElement uuid="bc807390-7e29-476f-9f06-9ee420ca6c02" x="303" y="153" width="100" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_FEC_NAC_PACIENTE}]]></textFieldExpression>
@@ -200,7 +202,7 @@ TEL: 2263-5889
 				</textElement>
 				<text><![CDATA[Edad:]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="###0">
 				<reportElement uuid="199759b7-e4b5-43d5-8b7e-8c769b389569" x="480" y="153" width="74" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_EDA_PACIENTE}]]></textFieldExpression>
