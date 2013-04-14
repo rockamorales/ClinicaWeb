@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<ui:decorate template="/templates/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+        <f:metadata>
+	  <f:viewParam name="numExpediente" value="#{frmMantTblExpedientePacientes.numExpediente}"/>
+	  <f:event listener="#{frmMantTblExpedientePacientes.init}" type="preRenderView"></f:event>
+	</f:metadata>
+        <ui:define name="title">
+          <h:outputText value="#{messages['default.windowTitle']}--Administración de Expedientes" escape="false"></h:outputText>  
+        </ui:define>
+        <ui:define name="body">
+            <h3>Reporte de Historial de Consultas por Paciente</h3>
+            <hr></hr>            
+            <h:form id="form">
+                <rich:tabPanel switchType="ajax">
+                  <rich:tab header="Informacion expediente">
+                    <table>
+                      <tr>
+                          <td>Código:</td>
+                          <td><h:outputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.numExpediente}" style="font-weight: bold"/>
+                              <h:inputHidden value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.numExpediente}" />
+                              <h:outputLink value="/ClinicaWeb/ReportServlet">
+                                  Generar Reporte
+                                  <f:param value="/Reports/Archivo_HistorialConsultasPaciente.jasper" name="rptFileName"/>
+                                  <f:param value="pdf" name="docType"/>
+                                  <f:param value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.numExpediente}" name="numExpediente"/>
+                                  <f:param value="numerico" name="numExpedienteDataType"/>
+                              </h:outputLink>
+                          </td>
+                          <td>Fecha de Registro:</td>
+                          <td>
+                              <h:outputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.fecRegExpediente}">
+                                  <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                              </h:outputText>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>Nombre del Paciente:</td>
+                          <td><h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.nomPaciente }" size="30" disabled="true"/></td>
+                          <td>Primer Apellido:</td>
+                          <td><h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.priApePaciente}" disabled="true"/></td>
+                      </tr>
+                      <tr>
+                          <td>Segundo Apellido:</td>
+                          <td><h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.secApePaciente}" disabled="true"/></td>
+                          <td><h:outputText value="Tercer Apellido:"></h:outputText></td>
+                          <td><h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.terApePaciente}" disabled="true"/></td>    
+                      </tr>
+                      <tr> 
+                          <td>Fecha de Nacimiento:</td>
+                          <td><rich:calendar value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.fecNacPaciente}" datePattern="dd/MM/yyyy" enableManualInput="true" disabled="true"/></td>
+                          <td>Edad del Paciente:</td>
+                          <td><h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.edadPaciente}" disabled="true"/></td>
+                      </tr>
+                      <tr>
+                          <td>Ocupacion:</td>
+                          <td>
+                           <h:selectOneMenu value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.codOcupacion}" disabled="true">
+                              <f:selectItems value="#{frmMantTblExpedientePacientes.catOcupacionList}"/>
+                           </h:selectOneMenu>
+                          </td>
+                          <td>Sexo</td>
+                          <td>
+                              <h:selectOneMenu value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.codSexPaciente}" disabled="true">
+                                 <f:selectItems value="#{frmMantTblExpedientePacientes.catSexoList}"/>
+                                 <f:ajax event="change" render="@form"></f:ajax>
+                              </h:selectOneMenu>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>Estado Civil:</td>
+                          <td><h:selectOneMenu value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.codEstCivil}" disabled="true">
+                              <f:selectItems value="#{frmMantTblExpedientePacientes.catEstadoCivilList}"/>  
+                              <f:ajax event="change" render="@form"></f:ajax>
+                          </h:selectOneMenu></td>
+                          <td>Numero de Dui:</td>
+                          <td><h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.numDui}" size="9" disabled="true"/></td>
+                      </tr>
+                      <tr>
+                          <td>Dirección del Paciente:</td>
+                          <td colspan="3"><h:outputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.dirPaciente}"/></td>    
+                      </tr>    
+                      <tr>
+                          <td>Lugar de Procedencia del Paciente:</td>
+                          <td><h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.lugProcPaciente}" size="50" disabled="true"/></td>
+                           <td>Telefono del Paciente:</td>
+                          <td><h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.telPaciente}" size="8" disabled="true"/></td>
+                      </tr>
+                      <tr>
+                          <td>Nombre del Padre:</td>
+                          <td colspan="3"><h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.nomPadPaciente}" size="50" disabled="true"/></td>
+                      </tr>
+                      <tr>
+                          <td>Nombre de la Madre:</td>
+                          <td colspan="3"><h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.nomMadPaciente}" size="50" disabled="true"/></td>
+                      </tr>
+                      <tr> 
+                          <td><h:outputText value="Nombre de Conyuge de Paciente:"> </h:outputText></td>
+                          <td colspan="3"><h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.nomConPaciente}" size="50" disabled="true"/></td>
+                      </tr>
+                      <tr>
+                          <td>Nombre del Responsable del Paciente:</td>
+                          <td><h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.nomResPaciente}" size="50" disabled="true"/></td>
+                          <td>Parentesco del Resp.:</td>
+                          <td><h:selectOneMenu value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.codParResponsable}" disabled="true">
+                                  <f:selectItems value="#{frmMantTblExpedientePacientes.catParentescoResponsableList}" noSelectionValue="true" />                 
+                          </h:selectOneMenu></td>
+                      </tr>
+                      <tr>
+                          <td>Direccion del Responsable del Paciente:</td>
+                          <td><h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.dirResPaciente}" size="50" disabled="true"/></td>
+                          <td>Telefono del Resp. del Paciente:</td>
+                          <td><h:inputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.telResPaciente}" size="8" disabled="true"/></td>
+                      </tr>
+                      <tr>
+                          <td>Estado:</td>
+                          <td>
+                              <h:outputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.estPaciente}" rendered="#{frmMantTblExpedientePacientes.tblExpedientePacientes.estPaciente=='INACTIVO'}" style="color:red;font-weight: bold;"/>
+                              <h:outputText value="#{frmMantTblExpedientePacientes.tblExpedientePacientes.estPaciente}" rendered="#{frmMantTblExpedientePacientes.tblExpedientePacientes.estPaciente=='ACTIVO'}" style="color:green;font-weight: bold;"/>
+                          </td>
+                      </tr>
+                  </table>
+               </rich:tab>
+            </rich:tabPanel>
+          <center>
+             <a4j:commandButton value="Regresar" action="RptHistorialConsultasPaciente.jsf?faces-redirect=true" immediate="true"/>
+          </center>
+       </h:form>
+    </ui:define>
+</ui:decorate>

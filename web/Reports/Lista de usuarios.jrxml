@@ -98,48 +98,80 @@
 	<columnHeader>
 		<band height="21" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="82309537-8c2f-4a05-9289-eb6008ea1c36" x="0" y="1" width="85" height="20"/>
-				<textElement/>
-				<text><![CDATA[NUM_USUARIO]]></text>
+				<reportElement uuid="82309537-8c2f-4a05-9289-eb6008ea1c36" x="3" y="1" width="31" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="6cbc607b-68ab-4b53-9bd6-2aab917aa225" x="85" y="1" width="100" height="20"/>
-				<textElement/>
-				<text><![CDATA[NOM_USUARIO]]></text>
+				<reportElement uuid="6cbc607b-68ab-4b53-9bd6-2aab917aa225" x="138" y="1" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="925a8647-6e64-47e9-8fbe-03406997711b" x="285" y="1" width="100" height="20"/>
-				<textElement/>
-				<text><![CDATA[ULT_FEC_FIN_SESION]]></text>
+				<reportElement uuid="925a8647-6e64-47e9-8fbe-03406997711b" x="350" y="1" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Finalizo Sesión]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="7df413d9-1a86-4866-b63e-17b9c5b79c60" x="185" y="1" width="100" height="20"/>
-				<textElement/>
-				<text><![CDATA[ULT_FEC_INI_SESION]]></text>
+				<reportElement uuid="7df413d9-1a86-4866-b63e-17b9c5b79c60" x="243" y="1" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Inicio Sesión]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="99df7e53-328e-4a0b-aca2-0001b6702331" x="36" y="1" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8c1f4b95-f6b1-4cef-a614-53938375b731" x="454" y="1" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement uuid="2b4e667d-c4da-4eef-8e08-203b6942bce8" x="2" y="0" width="83" height="20"/>
-				<textElement/>
+				<reportElement uuid="2b4e667d-c4da-4eef-8e08-203b6942bce8" x="5" y="0" width="29" height="20"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{NUM_USUARIO}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="7e7cd379-6cc8-459f-ab3c-64ba927b83b4" x="85" y="0" width="100" height="20"/>
-				<textElement/>
+				<reportElement uuid="7e7cd379-6cc8-459f-ab3c-64ba927b83b4" x="138" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{NOM_USUARIO}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="90d06195-24da-4c98-aac2-8f3dd127a8f6" x="285" y="0" width="100" height="20"/>
-				<textElement/>
+				<reportElement uuid="90d06195-24da-4c98-aac2-8f3dd127a8f6" x="350" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{ULT_FEC_FIN_SESION}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="5dfb1661-4f49-4ed1-945a-eac7ef840f6f" x="185" y="0" width="100" height="20"/>
-				<textElement/>
+				<reportElement uuid="5dfb1661-4f49-4ed1-945a-eac7ef840f6f" x="243" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{ULT_FEC_INI_SESION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8443dce6-15f0-4ae8-8ced-9b7bde975485" x="36" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ALI_USUARIO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e8a60197-e40e-41ca-8277-b3930a1f875b" x="454" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{EST_USUARIO}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

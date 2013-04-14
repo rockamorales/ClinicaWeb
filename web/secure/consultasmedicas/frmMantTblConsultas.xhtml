@@ -326,6 +326,14 @@
                                 <td align="left" style="vertical-align: top;">Expediente:</td>
                                 <td align="left" style="vertical-align: top;">
                                     <h:outputText value="#{frmMantTblConsultas.consulta.numExpediente}" style="font-weight: bold"/>
+                                    <h:outputLink value="/ClinicaWeb/ReportServlet" rendered="#{frmMantTblConsultas.consulta.numExpediente != null and frmMantTblConsultas.consulta.numExpediente > 0}">
+                                        Historial Consulta
+                                        <f:param value="/Reports/Archivo_HistorialConsultasPaciente.jasper" name="rptFileName"/>
+                                        <f:param value="pdf" name="docType"/>
+                                        <f:param value="#{frmMantTblConsultas.consulta.numExpediente}" name="numExpediente"/>
+                                        <f:param value="numerico" name="numExpedienteDataType"/>
+                                      </h:outputLink>
+                                   
                                 </td>
                                 <td align="left" style="vertical-align: top;">Fecha:</td>
                                 <td align="left" style="vertical-align: top;">
