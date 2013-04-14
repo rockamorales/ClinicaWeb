@@ -99,7 +99,7 @@ and open the template in the editor.
                     <tr>
                         <td colspan="4" align="center">
                             <a4j:commandButton value="Buscar" actionListener="#{frmEliminarTblServiciosEnfermeria.buscar}" render="tblServiciosEnfermeria" type="submit"/>
-                            <h:commandButton value="Cancelar" action="/inicio.jsf"/>
+                            <h:commandButton value="Cancelar" action="/inicio.jsf?faces-redirect=true" immediate="true"/>
                         </td>                        
                     </tr>
                 </table>
