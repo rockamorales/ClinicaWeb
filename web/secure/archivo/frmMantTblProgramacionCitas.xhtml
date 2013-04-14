@@ -19,6 +19,7 @@
           <h:outputText value="#{messages['default.windowTitle']}--Creacion/Modificacion de citas" escape="false"></h:outputText>
         </ui:define>
         <ui:define name="body">
+            <h:outputScript target="head"  name="js/jquery.timeentry.js" />
             <h:form id="form">
                 <table>
                     <tr>
@@ -63,10 +64,10 @@
                             <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                         </td>
                         <td>
-                            <h:outputLabel value="Hora:" for="horCita"/>
+                            <h:outputLabel value="Hora:" for="horCita1"/>
                         </td>
                         <td>
-                            <rich:calendar enableManualInput="true" value="#{frmMantTblProgramacionCitas.cita.horCita}" inputClass="hora" id="horCita" datePattern="HH:mm:ss" showApplyButton="true"/>
+                            <h:inputText value="#{frmMantTblProgramacionCitas.cita.horCita1}" id="horCita1"  styleClass="horCita1"/>
                             <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                         </td>
                     </tr>
@@ -105,7 +106,7 @@
                 <center>
                     <h:commandButton value="Cancelar" action="#{frmMantTblProgramacionCitas.regresar}" onclick="jQuery('form').reset()">
                    </h:commandButton>
-                   <a4j:commandButton value="Guardar" actionListener="#{frmMantTblProgramacionCitas.guardar}" render="@form, panelMessage"/>
+                   <a4j:commandButton value="Guardar" action="#{frmMantTblProgramacionCitas.guardar}" render="@form, panelMessage"/>
                 </center>
                 <rich:popupPanel id="buscarExpedientePanel" modal="true" autosized="true" resizeable="false" domElementAttachment="form">
                     <f:facet name="header">
@@ -241,11 +242,17 @@
                           </h:outputText>
                         </h:column>  
                         <h:column> 
-                           <a4j:commandButton image="/img/icons/edit.gif" render="@form, panelMessage" oncomplete="#{rich:component('buscarExpedientePanel')}.hide();$('.hora').mask('99:99:99')" actionListener="#{frmMantTblProgramacionCitas.seleccionar}">
+                           <a4j:commandButton image="/img/icons/edit.gif" render="@form, panelMessage" oncomplete="#{rich:component('buscarExpedientePanel')}.hide();$('.hora').mask('99:99:99');$('.horCita1').timeEntry({show24Hours:true,showSeconds:false})" actionListener="#{frmMantTblProgramacionCitas.seleccionar}">
                             </a4j:commandButton>
                         </h:column> 
                     </rich:dataTable>
                 </rich:popupPanel>
         </h:form>
+    <script lang="javascript" type="text/javascript">
+    $(document).ready(function(){
+        $("#form\\:horCita1").timeEntry({show24Hours:true,showSeconds:false})
+    })
+    //
+    </script>
     </ui:define>
 </ui:composition>
