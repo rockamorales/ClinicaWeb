@@ -230,7 +230,7 @@
                   <td colspan="4" align="center">
                       <a4j:commandButton value="Generar consulta" actionListener="#{frmGenerarConsulta.generarConsulta}" render="@form, panelMessage"/>
                       <a4j:commandButton value="Crear nueva consulta" actionListener="#{frmGenerarConsulta.nuevaConsulta}" render="@form, panelMessage" />
-                       <h:commandButton value="Cancelar" action="/inicio.jsf"/>
+                       <h:commandButton value="Cancelar" action="/inicio.jsf?faces-redirect=true" immediate="true"/>
                   </td>
                 </tr>
               </table>
