@@ -209,7 +209,7 @@
                       <td colspan="4" align="center">
                           <a4j:commandButton value="Guardar" actionListener="#{frmMantTblExpedientePacientes.guardar}" render="@form, panelMessage" />
                           <a4j:commandButton value="Nuevo" actionListener="#{frmMantTblExpedientePacientes.nuevo}" render="@form, panelMessage" execute="@this"/>
-                          <h:commandButton value="Cancelar" action="/inicio.jsf"/>
+                          <h:commandButton value="Cancelar" action="/inicio.jsf?faces-redirect=true" immediate="true"/>
                       </td>
                   </tr>
                   <tr>

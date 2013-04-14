@@ -23,16 +23,15 @@ and open the template in the editor.
 
                             <td align="left">Fecha de Inicio:</td>
                                 <td align="left">
+                                    
                                     <!-- oninputkeypress="return filterInput(1, event, false, '/');"-->
-                                    <rich:calendar datePattern="dd/MM/yyyy" enableManualInput="true" id="FechaIni"> 
-                                    </rich:calendar>
+                                    <input type="text" name="FechaIni" id="FechaIni" class="dateMask"/>
                                     <input type="hidden" value="String" name="FechaIniDataType" ></input>
                                 </td>
                              <td align="left">Fecha de Fin</td>
                                 <td align="left">
                                     <!-- oninputkeypress="return filterInput(1, event, false, '/');"-->
-                                    <rich:calendar datePattern="dd/MM/yyyy" enableManualInput="true" id="FechaFin"> 
-                                    </rich:calendar>
+                                    <input type="text" name="FechaFin" id="FechaFin" class="dateMask"/>
                                     <input type="hidden" value="String" name="FechaFinDataType" ></input>
                                 </td>
                         <TD>

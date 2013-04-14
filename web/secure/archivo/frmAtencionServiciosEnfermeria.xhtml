@@ -85,7 +85,7 @@ and open the template in the editor.
                         <tr>
                             <td colspan="4" align="center">
                                 <a4j:commandButton value="Guardar" actionListener="#{frmAtencionServiciosEnfermeria.guardar}" render="@form, panelMessage" onclick="if(!confirm('Al guardar, el sistema le cambiara el estado al servicio y ya no podra modificarlo nuevamente. Esta seguro(a) que desea guardar la informacion?')){return false;} return true;" execute="@this"/>
-                                <h:commandButton value="Cancelar" action="/inicio.jsf"/>
+                                <h:commandButton value="Cancelar" action="/inicio.jsf?faces-redirect=true" immediate="true"/>
                             </td>
                         </tr>
                       </table>

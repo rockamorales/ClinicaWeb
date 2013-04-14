@@ -49,7 +49,7 @@
                                 </h:outputLabel>
                             </td>
                             <td>
-                                <h:inputText value="#{consultasPagadasSearchCriteria.numExpediente}" id="numExpediente1">
+                                <h:inputText value="#{consultasPagadasSearchCriteria.numExpediente}" id="numExpediente1" maxlength="9" onkeypress="return filterInput(1, event, false, '');">>
                                 </h:inputText>
                             </td>
                             <td>
@@ -57,7 +57,7 @@
                                 </h:outputLabel>
                             </td>
                             <td>
-                                <h:inputText value="#{consultasPagadasSearchCriteria.dui}" id="dui1">
+                                <h:inputText value="#{consultasPagadasSearchCriteria.dui}" id="dui1" maxlength="9" onkeypress="return filterInput(1, event, false, '');">
                                 </h:inputText>
                                 <rich:tooltip  target="dui1" showEvent="focus" value="Ingrese el numero de dui sin guión" />
                             </td>
@@ -68,7 +68,7 @@
                                 </h:outputLabel>
                             </td>
                             <td>
-                                <h:inputText value="#{consultasPagadasSearchCriteria.nombres}" id="nombres1" styleClass="mayusculas">
+                                <h:inputText value="#{consultasPagadasSearchCriteria.nombres}" id="nombres1" maxlength="30" onkeypress="return filterInput(0, event, false, ' %');">
                                 </h:inputText>
                             </td>
                             <td>
@@ -76,7 +76,7 @@
                                 </h:outputLabel>
                             </td>
                             <td>
-                                <h:inputText value="#{consultasPagadasSearchCriteria.primerApellido}" id="primerApellido1">
+                                <h:inputText value="#{consultasPagadasSearchCriteria.primerApellido}" id="primerApellido1" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
                                 </h:inputText>
                             </td>
                         </tr>
@@ -86,7 +86,7 @@
                                 </h:outputLabel>
                             </td>
                             <td>
-                                <h:inputText value="#{consultasPagadasSearchCriteria.segundoApellido}" id="segundoApellido1">
+                                <h:inputText value="#{consultasPagadasSearchCriteria.segundoApellido}" id="segundoApellido1" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
                                 </h:inputText>
                             </td>
                             <td>
@@ -94,14 +94,14 @@
                                 </h:outputLabel>
                             </td>
                             <td>
-                                <h:inputText value="#{consultasPagadasSearchCriteria.tercerApellido}" id="tercerApellido1">
+                                <h:inputText value="#{consultasPagadasSearchCriteria.tercerApellido}" id="tercerApellido1" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">>
                                 </h:inputText>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="4" align="center">
                                 <a4j:commandButton value="Buscar" actionListener="#{frmMantSigVitales.buscar}" render="sigVitalesTable" type="submit"/>
-                                <h:commandButton value="Cancelar" action="/inicio.jsf"/>
+                                <h:commandButton value="Cancelar" action="/inicio.jsf?faces-redirect=true" immediate="true"/>
                             </td>                        
                         </tr>
                     </table>
@@ -211,7 +211,7 @@
                           <tr>
                               <td colspan="4" align="center">
                                   <a4j:commandButton value="Guardar" actionListener="#{frmMantSigVitales.guardar}" render="@form, panelMessage" onclick="if(!confirm('Esta seguro(a) que desea guardar la informacion?')){return false;} return true;" execute="@this"/>
-                                  <h:commandButton value="Cancelar" action="/inicio.jsf"/>
+                                  <h:commandButton value="Cancelar" action="/inicio.jsf?faces-redirect=true" immediate="true"/>
                               </td>
                           </tr>
                       </table>
