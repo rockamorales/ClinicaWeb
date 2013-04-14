@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <ui:composition template="/templates/main.xhtml">
+        <ui:define name="title">
+          <h:outputText value="#{messages['default.windowTitle']}--Administracion de Expedientes" escape="false"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h3>Reporte de Historial de Consultas por Paciente</h3>
+            <hr></hr>
+            <h:form>
+                <table>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Expediente:" for="numExpediente">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.numExpediente}" id="numExpediente" maxlength="9" onkeypress="return filterInput(1, event, false, '');">
+                            </h:inputText>
+                        </td>
+                        <td>
+                            <h:outputLabel value="DUI:" for="dui"> </h:outputLabel>
+                                
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.dui}" id="dui" maxlength="9" onkeypress="return filterInput(1, event, false, '');">
+                            </h:inputText>
+                            <rich:tooltip  target="dui" showEvent="focus" value="Ingrese el numero de dui sin guión" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Nombres:" for="nombres">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.nombres}" id="nombres" maxlength="30" onkeypress="return filterInput(0, event, false, ' %');">
+                            </h:inputText>
+                             <rich:tooltip  target="nombres" showEvent="focus" value="Ingrese los Nombres del Paciente" />
+                        </td>
+                        <td>
+                            <h:outputLabel value="Primer Ape:" for="primerApellido">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.primerApellido}" id="primerApellido" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
+                            </h:inputText>
+                            <rich:tooltip  target="primerApellido" showEvent="focus" value="Ingrese Primer Apellido" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Segundo ape:" for="segundoApellido">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.segundoApellido}" id="segundoApellido" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
+                            </h:inputText>
+                            <rich:tooltip  target="segundoApellido" showEvent="focus" value="Ingrese Segundo Apellido" />
+                        </td>
+                        <td>
+                            <h:outputLabel value="Tercer ape:" for="tercerApellido">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.tercerApellido}" id="tercerApellido" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
+                            </h:inputText>
+                            <rich:tooltip  target="tercerApellido" showEvent="focus" value="Ingrese Tercer Apellido" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" align="center">
+                            <a4j:commandButton value="Buscar" actionListener="#{frmTblExpedientePacientes.buscar}" render="tblExpedientePacientesTable" type="submit"/>
+                            <h:commandButton value="Cancelar" action="/inicio.jsf?faces-redirect=true"/>    
+                        </td>                        
+                    </tr>
+                </table>
+                <rich:dataTable value="#{expedienteDataModel}" var="tblExpedientePacientes" rows="10" id="tblExpedientePacientesTable">
+                <f:facet name="header">
+                    <rich:columnGroup>
+                      <h:column>
+                        <h:outputText value="Expediente"/>
+                      </h:column>
+                      <h:column>
+                        <h:outputText value="Nombres"/>
+                      </h:column>
+                      <h:column>
+                        <h:outputText value="Primer Apellido"/>
+                      </h:column>   
+                        <h:column>
+                        <h:outputText value="Segundo Apellido"/>
+                       </h:column> 
+                        <h:column>
+                        <h:outputText value="Sexo"/>
+                      </h:column>
+                        <h:column>
+                        <h:outputText value="Fecha de Nacimiento"/>
+                      </h:column>
+                        <h:column>
+                        <h:outputText value="DUI"/>
+                      </h:column>
+                      <h:column>
+                        <h:outputText value="Ver"/>
+                      </h:column>
+                    </rich:columnGroup>
+                  </f:facet>
+                <h:column>
+                    <h:outputText value="#{tblExpedientePacientes.numExpediente}">
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <h:outputText value="#{tblExpedientePacientes.nomPaciente}">
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <h:outputText value="#{tblExpedientePacientes.priApePaciente}">
+                    </h:outputText>
+                </h:column>   
+                <h:column>
+                    <h:outputText value="#{tblExpedientePacientes.secApePaciente}">
+                    </h:outputText>
+                </h:column>   
+                <h:column>
+                    <h:outputText value="#{tblExpedientePacientes.catSexo.nomSexPaciente}">
+                    </h:outputText>
+                </h:column>  
+                <h:column>
+                    <h:outputText value="#{tblExpedientePacientes.fecNacPaciente}">
+                    </h:outputText>
+                </h:column>  
+                <h:column>
+                    <h:outputText value="#{tblExpedientePacientes.numDui}">
+                  </h:outputText>
+                </h:column>  
+                <h:column> 
+                    <h:outputLink value="RptViewHistorialConsultasPaciente.jsf">
+                        <f:param name="numExpediente" value="#{tblExpedientePacientes.numExpediente}"/>
+                        <f:param name="faces-redirect" value="true"/>
+                        <h:graphicImage url="/img/icons/edit.gif"  style="border: 0">
+                        </h:graphicImage>
+                    </h:outputLink>
+                </h:column>   
+              <f:facet name="footer">
+                   <rich:dataScroller/>
+              </f:facet>
+            </rich:dataTable>
+      </h:form>
+            <table>
+                    <h6>En caso de no conocer los parametros completos de la busqueda utilice % para completar la busqueda </h6>
+                    <h6>Por Ejemplo si desea buscar a todos los apellidos Merino indique Mer% </h6>
+                   
+            </table>
+     </ui:define>
+  </ui:composition>
+</html>
