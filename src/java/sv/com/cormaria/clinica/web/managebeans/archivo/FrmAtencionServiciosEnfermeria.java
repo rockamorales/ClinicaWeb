@@ -65,6 +65,7 @@ public class FrmAtencionServiciosEnfermeria extends PageBase{
        }catch(Exception ex){
            ex.printStackTrace();
            this.addError(ex.getMessage(), ex.getMessage());
+           this.addInfo("Error: La informacion no ha sido almacenada", "Error: La informacion no ha sido almacenada");
        }
                
    }
