@@ -57,7 +57,7 @@ and open the template in the editor.
                             </h:outputLabel>
                         </td>
                         <td>
-                            <h:inputText value="#{expedientesSearchCriteria.numExpediente}" id="numExpediente1" maxlength="11" onkeypress="return filterInput(1, event, false, '');">
+                            <h:inputText value="#{expedientesSearchCriteria.numExpediente}" id="numExpediente1" maxlength="9" onkeypress="return filterInput(1, event, false, '');">
                             </h:inputText>
                         </td>
                         <td>
@@ -220,7 +220,7 @@ and open the template in the editor.
                           <tr>
                               <td colspan="4" align="center">
                                   <a4j:commandButton value="Guardar" actionListener="#{frmMantSigVitales.guardar}" render="form, panelMessage" onclick="if(!confirm('Esta seguro(a) que desea guardar la informacion?')){return false;} return true;" execute="@this"/>
-                                  <a4j:commandButton value="Cancelar"/>
+                                  <a4j:commandButton value="Cancelar" action="/inicio.jsf?faces-redirect=true" immediate="true"/>
                               </td>
                           </tr>
                       </table>
