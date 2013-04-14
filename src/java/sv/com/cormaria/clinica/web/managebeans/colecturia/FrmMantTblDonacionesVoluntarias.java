@@ -239,7 +239,7 @@ public class FrmMantTblDonacionesVoluntarias extends PageBase{
                 facade.edit(tblComprobanteDonacion);
             }else{
                 tblComprobanteDonacion.setEstComDonacion(EstadoComprobanteDonacion.EMITIDO);
-                tblComprobanteDonacion.setCanLetras("Cero");
+                tblComprobanteDonacion.setCanLetras(NumToText.convertirLetras(tblComprobanteDonacion.getTotDonacion()));
                 facade.create(tblComprobanteDonacion);
             }
         }catch(Exception x){
