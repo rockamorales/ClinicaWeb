@@ -173,7 +173,9 @@ TEL: 2263-5889
 			</textField>
 			<staticText>
 				<reportElement uuid="d5f1a753-10ae-4f3c-a130-19a3c4a1cc05" x="188" y="84" width="60" height="20"/>
-				<textElement/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Presion]]></text>
 			</staticText>
 			<textField>
@@ -207,7 +209,9 @@ TEL: 2263-5889
 			</textField>
 			<staticText>
 				<reportElement uuid="7132ea8f-427f-4b7e-9b43-009438b2d0bc" x="188" y="115" width="60" height="20"/>
-				<textElement/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Peso]]></text>
 			</staticText>
 			<textField>
