@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteExpedienteDepurados" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eb3d3e1d-e7a3-48ed-8e8f-a0fac7cf9d19">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="36"/>
 	<parameter name="estPaciente" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -14,25 +14,29 @@
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT
+     case tbl_expediente_pacientes.`EST_PACIENTE` when1then 'Activo'when0then 'Inactivo'end AS tbl_expediente_pacientes_EST_PACIENTE,
      tbl_expediente_pacientes.`NUM_EXPEDIENTE` AS tbl_expediente_pacientes_NUM_EXPEDIENTE,
      tbl_expediente_pacientes.`NOM_PACIENTE` AS tbl_expediente_pacientes_NOM_PACIENTE,
      tbl_expediente_pacientes.`PRI_APE_PACIENTE` AS tbl_expediente_pacientes_PRI_APE_PACIENTE,
      tbl_expediente_pacientes.`SEC_APE_PACIENTE` AS tbl_expediente_pacientes_SEC_APE_PACIENTE,
      tbl_expediente_pacientes.`TER_APE_PACIENTE` AS tbl_expediente_pacientes_TER_APE_PACIENTE,
-     tbl_consultas.`FEC_CONSULTA` AS tbl_consultas_FEC_CONSULTA,
-     case tbl_expediente_pacientes.`EST_PACIENTE` when 1 then 'Activo' when 0 then 'Inactivo' end AS tbl_expediente_pacientes_EST_PACIENTE
+     tbl_expediente_pacientes.`FEC_REG_EXPEDIENTE` AS tbl_expediente_pacientes_FEC_REG_EXPEDIENTE,
+     tbl_expediente_pacientes.`COD_SEX_PACIENTE` AS tbl_expediente_pacientes_COD_SEX_PACIENTE
 FROM
-     `tbl_expediente_pacientes` tbl_expediente_pacientes INNER JOIN `tbl_consultas` tbl_consultas ON tbl_expediente_pacientes.`NUM_EXPEDIENTE` = tbl_consultas.`NUM_EXPEDIENTE`
-WHERE (tbl_expediente_pacientes.`EST_PACIENTE` = $P{estPaciente} OR $P{estPaciente} = -1)
-AND TBL_EXPEDIENTE_PACIENTES.FEC_REG_EXPEDIENTE BETWEEN  str_to_date($P{FechaIni},'%d/%m/%Y') and str_to_date($P{FechaFin},'%d/%m/%Y')]]>
+     `tbl_expediente_pacientes` tbl_expediente_pacientes
+WHERE
+     tbl_expediente_pacientes.`EST_PACIENTE` = $P{estPaciente}
+ AND TBL_EXPEDIENTE_PACIENTES.FEC_REG_EXPEDIENTE BETWEEN str_to_date($P{FechaIni},'%d/%m/%Y')and str_to_date($P{FechaFin},'%d/%m/%Y')
+  OR $P{estPaciente} = -1
+ AND TBL_EXPEDIENTE_PACIENTES.FEC_REG_EXPEDIENTE BETWEEN str_to_date($P{FechaIni},'%d/%m/%Y')and str_to_date($P{FechaFin},'%d/%m/%Y')]]>
 	</queryString>
 	<field name="tbl_expediente_pacientes_NUM_EXPEDIENTE" class="java.lang.Integer"/>
 	<field name="tbl_expediente_pacientes_NOM_PACIENTE" class="java.lang.String"/>
 	<field name="tbl_expediente_pacientes_PRI_APE_PACIENTE" class="java.lang.String"/>
 	<field name="tbl_expediente_pacientes_SEC_APE_PACIENTE" class="java.lang.String"/>
 	<field name="tbl_expediente_pacientes_TER_APE_PACIENTE" class="java.lang.String"/>
-	<field name="tbl_consultas_FEC_CONSULTA" class="java.sql.Timestamp"/>
 	<field name="tbl_expediente_pacientes_EST_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_expediente_pacientes_NOM_SEXO" class="java.lang.String"/>
 	<variable name="tbl_expediente_pacientes_NUM_EXPEDIENTE_1" class="java.lang.Integer" resetType="Column" calculation="Count">
 		<variableExpression><![CDATA[$F{tbl_expediente_pacientes_NUM_EXPEDIENTE}]]></variableExpression>
 	</variable>
@@ -108,9 +112,9 @@ AND TBL_EXPEDIENTE_PACIENTES.FEC_REG_EXPEDIENTE BETWEEN  str_to_date($P{FechaIni
 				<text><![CDATA[Segundo Apellido]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b51e5673-65d9-423e-b901-b276af01b45f" x="460" y="0" width="92" height="20"/>
+				<reportElement uuid="b51e5673-65d9-423e-b901-b276af01b45f" x="460" y="0" width="48" height="20"/>
 				<textElement/>
-				<text><![CDATA[Ultima Consulta]]></text>
+				<text><![CDATA[Registro]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="1d85a021-9a82-4b72-858a-858fceda5db6" x="278" y="0" width="92" height="20"/>
@@ -142,7 +146,7 @@ AND TBL_EXPEDIENTE_PACIENTES.FEC_REG_EXPEDIENTE BETWEEN  str_to_date($P{FechaIni
 				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_SEC_APE_PACIENTE}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="98b86210-3ad9-4a93-b9ad-d8c44e8f3777" x="460" y="0" width="92" height="20"/>
+				<reportElement uuid="98b86210-3ad9-4a93-b9ad-d8c44e8f3777" x="460" y="0" width="48" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{tbl_consultas_FEC_CONSULTA}]]></textFieldExpression>
 			</textField>
