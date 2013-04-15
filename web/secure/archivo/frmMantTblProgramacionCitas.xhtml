@@ -67,7 +67,9 @@
                             <h:outputLabel value="Hora:" for="horCita1"/>
                         </td>
                         <td>
-                            <h:inputText value="#{frmMantTblProgramacionCitas.cita.horCita1}" id="horCita1"  styleClass="horCita1"/>
+                            <h:inputText value="#{frmMantTblProgramacionCitas.cita.horCita}" id="horCita1"  styleClass="horCita1">
+                                <f:convertDateTime pattern="HH:mm"></f:convertDateTime>
+                            </h:inputText>
                             <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                         </td>
                     </tr>
