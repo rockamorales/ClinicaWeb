@@ -20,6 +20,19 @@ and open the template in the editor.
             <form action="/ClinicaWeb/ReportServlet">
                 <table>
                     <TR>
+                             <td align="left">Fecha de Inicio:</td>
+                             <td align="left">
+                                    
+                                    <!-- oninputkeypress="return filterInput(1, event, false, '/');"-->
+                                    <input type="text" name="FechaIni" id="FechaIni" class="dateMask"/>
+                                    <input type="hidden" value="String" name="FechaIniDataType" ></input>
+                             </td>
+                             <td align="left">Fecha de Fin</td>
+                                <td align="left">
+                                    <!-- oninputkeypress="return filterInput(1, event, false, '/');"-->
+                                    <input type="text" name="FechaFin" id="FechaFin" class="dateMask"/>
+                                    <input type="hidden" value="String" name="FechaFinDataType" ></input>
+                             </td>
                         <TD>
                             <h:outputLabel value="Seleccione el estado del Expediente"></h:outputLabel>
                         </TD>

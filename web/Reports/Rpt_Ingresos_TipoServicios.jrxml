@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_Ingresos_TipoServicios" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eb3d3e1d-e7a3-48ed-8e8f-a0fac7cf9d19">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="FechaIni" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FechaFin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="TipDonante" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="TipDonacion" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="TipPago" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[
+
+SELECT
+case tbl_comprobante_donacion.`TIP_COMPROBANTE` when 0 then 'Devolucion' when 1 then 'Donacion' when 1 then 'Cobro' end AS tbl_comprobante_donacion_TIP_COMPROBANTE,
+     tbl_comprobante_donacion.`NUM_COM_DONACION` AS tbl_comprobante_donacion_NUM_COM_DONACION,
+     tbl_comprobante_donacion.`FEC_COM_DONACION` AS tbl_comprobante_donacion_FEC_COM_DONACION,
+     tbl_comprobante_donacion.`TOT_DONACION` AS tbl_comprobante_donacion_TOT_DONACION,
+     tbl_comprobante_donacion.`EST_COM_DONACION` AS tbl_comprobante_donacion_EST_COM_DONACION,
+     cat_tipo_pago.`NOM_TIP_PAGO` AS cat_tipo_pago_NOM_TIP_PAGO,
+     cat_tipo_donacion.`NOM_TIP_DONACION` AS cat_tipo_donacion_NOM_TIP_DONACION,
+     cat_tipo_donante.`NOM_TIP_DONANTE` AS cat_tipo_donante_NOM_TIP_DONANTE
+FROM
+     `cat_tipo_pago` cat_tipo_pago INNER JOIN `tbl_comprobante_donacion` tbl_comprobante_donacion ON cat_tipo_pago.`COD_TIP_PAGO` = tbl_comprobante_donacion.`COD_TIP_PAGO`
+     INNER JOIN `cat_tipo_donacion` cat_tipo_donacion ON tbl_comprobante_donacion.`COD_TIP_DONACION` = cat_tipo_donacion.`COD_TIP_DONACION`
+     INNER JOIN `cat_tipo_donante` cat_tipo_donante ON tbl_comprobante_donacion.`COD_TIP_DONANTE` = cat_tipo_donante.`COD_TIP_DONANTE`
+
+
+WHERE (tbl_comprobante_donacion.`COD_TIP_PAGO` = $P{TipPago} OR $P{TipPago} = -1)
+AND (tbl_comprobante_donacion.`COD_TIP_DONACION` = $P{TipDonacion} OR $P{TipDonacion} = -1)
+AND (tbl_comprobante_donacion.`COD_TIP_DONANTE` = $P{TipDonante} OR $P{TipDonante} = -1)
+AND  tbl_comprobante_donacion.`FEC_COM_DONACION` BETWEEN  str_to_date($P{FechaIni},'%d/%m/%Y') and str_to_date($P{FechaFin},'%d/%m/%Y')
+]]>
+	</queryString>
+	<field name="tbl_comprobante_donacion_TIP_COMPROBANTE" class="java.lang.String"/>
+	<field name="tbl_comprobante_donacion_NUM_COM_DONACION" class="java.lang.Integer"/>
+	<field name="tbl_comprobante_donacion_FEC_COM_DONACION" class="java.sql.Timestamp"/>
+	<field name="tbl_comprobante_donacion_TOT_DONACION" class="java.lang.Float"/>
+	<field name="tbl_comprobante_donacion_EST_COM_DONACION" class="java.lang.Integer"/>
+	<field name="cat_tipo_pago_NOM_TIP_PAGO" class="java.lang.String"/>
+	<field name="cat_tipo_donacion_NOM_TIP_DONACION" class="java.lang.String"/>
+	<field name="cat_tipo_donante_NOM_TIP_DONANTE" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="88" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="116" y="23" width="215" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Clinica Asistencial Corazon de Maria]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="f28cce09-6ee2-4268-be04-78c6298d0cab" x="2" y="2" width="83" height="65"/>
+				<imageExpression><![CDATA["logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="8ff5c228-e686-4510-9ac0-b7ad0aa2cd4d" x="375" y="3" width="69" height="20"/>
+				<textElement/>
+				<text><![CDATA[Fecha y Hora:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement uuid="dc2ad595-75d1-477b-b506-79e6b0b15492" x="444" y="3" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="375" y="40" width="180" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Area: <Nombre del area>]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="2" y="0" width="552" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[<Nombre de reporte>]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="6457bf7f-f535-4a58-9350-eda29a4cf80d" x="0" y="0" width="69" height="20"/>
+				<textElement/>
+				<text><![CDATA[No. Comprobante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bd1aa8e3-186f-4952-b8f9-385d7c2665f4" x="207" y="0" width="69" height="20"/>
+				<textElement/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d76b1d08-7ed7-4689-9adc-98a7f5d7ba50" x="69" y="0" width="69" height="20"/>
+				<textElement/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5a3ac9ac-d4d0-4dac-8828-486a325ac776" x="276" y="0" width="69" height="20"/>
+				<textElement/>
+				<text><![CDATA[TIPO Comprobante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4f646963-a132-4601-ab54-c2045f1633ec" x="345" y="0" width="69" height="20"/>
+				<textElement/>
+				<text><![CDATA[TIPO PAGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="79136f27-e251-44ae-bf0c-22167482b3da" x="414" y="0" width="69" height="20"/>
+				<textElement/>
+				<text><![CDATA[TIPO DONACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9bc94967-9436-4a9e-bdf3-95f634b46920" x="483" y="0" width="72" height="20"/>
+				<textElement/>
+				<text><![CDATA[TIPO DONANTE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="5ceafd5b-3f6e-45b6-891c-7d8893d32452" x="0" y="0" width="69" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_comprobante_donacion_NUM_COM_DONACION}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="851d84d5-d686-4a82-9b57-8e1cd30b5836" x="207" y="0" width="69" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_comprobante_donacion_FEC_COM_DONACION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="712decb8-d2ac-4673-8b8b-5a26f9ae0eec" x="69" y="0" width="69" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_comprobante_donacion_TOT_DONACION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="738f3c4d-c410-4d1e-8196-95ffe4d26c9b" x="276" y="0" width="69" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_comprobante_donacion_TIP_COMPROBANTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="23e6e06d-dd54-4130-aa06-138241149c99" x="345" y="0" width="69" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cat_tipo_pago_NOM_TIP_PAGO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3a15df2d-5d2e-43c1-816e-ccdc5a790e0c" x="414" y="0" width="69" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cat_tipo_donacion_NOM_TIP_DONACION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5fdddbe6-3a79-4f6d-a5f8-d7713fb852a8" x="483" y="0" width="69" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cat_tipo_donante_NOM_TIP_DONANTE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="81" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement uuid="dd91d53e-93f0-4c14-9ed7-67ee597856e9" x="0" y="60" width="555" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Hoja "+$V{PAGE_NUMBER}+"/"+$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="0" y="21" width="206" height="20"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[_______________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="355" y="21" width="200" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<text><![CDATA[___________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="2" y="41" width="204" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Sello]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="355" y="41" width="200" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Encargado]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
