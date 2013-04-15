@@ -287,7 +287,7 @@ NIT: 0614-081288-104-1
 				<textFieldExpression><![CDATA[$V{tbl_detalle_comprobante_donacion_TOT_ITE_COM_DONACION_2}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="433" y="0" width="82" height="32"/>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="331" y="0" width="82" height="32"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="16" isBold="true" isStrikeThrough="false"/>
 					<paragraph lineSpacing="Single"/>

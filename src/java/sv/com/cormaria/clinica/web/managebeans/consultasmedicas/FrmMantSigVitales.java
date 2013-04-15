@@ -64,7 +64,11 @@ public class FrmMantSigVitales extends PageBase{
         try{
            if (!validar()){
                return;
-           }            
+           }
+           System.out.println("Modificando informacion de signos vitales");
+           System.out.println("Peso: "+tblConsulta.getPesPaciente());
+           System.out.println("Pulso: "+tblConsulta.getPulPaciente());
+           System.out.println("Talla: "+tblConsulta.getTalPaciente());
             facade.editSigVitalesInfo(tblConsulta);
             ConsultasPagadasDataModel dataModel = (ConsultasPagadasDataModel) this.getBean("#{consultasPagadasDataModel}", ConsultasPagadasDataModel.class);
             dataModel.clear();
