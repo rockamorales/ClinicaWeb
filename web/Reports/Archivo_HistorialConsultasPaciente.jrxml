@@ -153,11 +153,11 @@ ORDER BY tbl_consultas.`FEC_CONSULTA` DESC]]>
 				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_PRI_APE_PACIENTE}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="5e04c24b-2277-434f-9ed4-39de63cbe72a" x="385" y="3" width="69" height="20"/>
+				<reportElement uuid="5e04c24b-2277-434f-9ed4-39de63cbe72a" x="294" y="3" width="160" height="20"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Fecha y Hora]]></text>
+				<text><![CDATA[Fecha y Hora de ultima consulta]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy h.mm a">
 				<reportElement uuid="3955050d-b0c0-46a8-ab33-bfe1a2200a36" x="454" y="3" width="100" height="20"/>

@@ -104,20 +104,24 @@ and open the template in the editor.
                             </td>
                             <td align="left">Num doc:</td>
                             <td align="left">
-                                <h:inputText value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.numFacDonacion}" style="font-weight: bold"/>
+                                <h:inputText value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.numFacDonacion}" style="font-weight: bold" maxlength="8" onkeypress="return filterInput(2, event, false, '');"/>
+                                <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                             </td>
                         </tr>
                         <tr>
                             <td align="left">Nombre:</td>
                             <td colspan="3" align="left">
-                                <h:inputText value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.nomComDonacion}" size="63" disabled="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.estComDonacion != 'EMITIDO' and frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.numComDonacion != null}"/>
+                                <h:inputText value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.nomComDonacion}" size="63" disabled="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.estComDonacion != 'EMITIDO' and frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.numComDonacion != null}" maxlength="100" onkeypress="return filterInput(0, event, false, ' áéíóú');"/>
+                                <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                             </td>
                         </tr>
                         <tr>
                             <td align="left">NIT:</td>
-                            <td align="left"><h:inputText value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.nitComDonacion}" disabled="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.estComDonacion != 'EMITIDO' and frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.numComDonacion != null}"/></td>
+                            <td align="left"><h:inputText value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.nitComDonacion}" disabled="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.estComDonacion != 'EMITIDO' and frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.numComDonacion != null}" maxlength="14" onkeypress="return filterInput(1, event, false, '');"/></td>
                             <td align="left">Fecha:</td>
-                            <td align="left"><rich:calendar value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.fecComDonacion}" datePattern="dd/MM/yyyy" enableManualInput="true" disabled="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.estComDonacion != 'EMITIDO' and frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.numComDonacion != null}"/></td>
+                            <td align="left"><rich:calendar value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.fecComDonacion}" datePattern="dd/MM/yyyy" enableManualInput="true" disabled="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.estComDonacion != 'EMITIDO' and frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.numComDonacion != null}"/>
+                            <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                            </td>
                         </tr>  
                         <tr>
                             <td align="left">Tipo donacion:</td>
@@ -126,6 +130,7 @@ and open the template in the editor.
                                     <f:selectItem itemValue="-1" itemLabel="-- Seleccione una opcion --"/>
                                     <f:selectItems value="#{frmMantTblDonacionesVoluntarias.catTipoDonacionList}"/>
                                 </h:selectOneMenu>
+                                <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                             </td>
                             <td align="left">Tipo Donante:</td>
                             <td align="left">
@@ -133,15 +138,17 @@ and open the template in the editor.
                                     <f:selectItem itemValue="-1" itemLabel="-- Seleccione una opcion --"/>
                                     <f:selectItems value="#{frmMantTblDonacionesVoluntarias.catTipoDonanteList}"/>
                                 </h:selectOneMenu>
+                                <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                             </td>
                         </tr>
                         <tr>
                             <td align="left">Fundacion:</td>
                             <td colspan="3" align="left">
                                 <h:selectOneMenu value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.codCarisma}" style="width: 300px" disabled="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.estComDonacion != 'EMITIDO' and frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.numComDonacion != null}">
+                                    <f:selectItem itemValue="-1" itemLabel="-- Seleccione una opcion --"/>
                                     <f:selectItems value="#{frmMantTblDonacionesVoluntarias.catCarismaList}"/>
                                 </h:selectOneMenu>
-
+                                <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                             </td>
                         </tr>
                         <tr>
@@ -150,6 +157,7 @@ and open the template in the editor.
                                 <h:inputText value="#{frmMantTblDonacionesVoluntarias.tblComprobanteDonacion.totDonacion}" id="totDonacion" style="font-weight: bold">
                                     <a4j:ajax event="change" render="canLetras" listener="#{frmMantTblDonacionesVoluntarias.calcularMontoLetras}"/>
                                 </h:inputText>
+                                <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                             </td>
                         </tr>
                         <tr>

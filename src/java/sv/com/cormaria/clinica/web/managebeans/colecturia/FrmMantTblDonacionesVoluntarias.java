@@ -40,6 +40,7 @@ import sv.com.cormaria.servicios.facades.colecturia.TblComprobanteDonacionFacade
 import sv.com.cormaria.servicios.facades.colecturia.TblDetalleComprobanteDonacionFacadeLocal;
 import sv.com.cormaria.servicios.facades.administracion.TblProductoFacadeLocal;
 import sv.com.cormaria.servicios.helpers.NumToText;
+import sv.com.cormaria.servicios.helpers.ValidationUtils;
 
 /**
  *
@@ -229,10 +230,51 @@ public class FrmMantTblDonacionesVoluntarias extends PageBase{
     public void setNumComDonacion(Integer numComDonacion) {
         this.numComDonacion = numComDonacion;
     }
+      
+    public boolean validar(){
+        boolean isValid = true;
+       /*if (tblExpedientePacientes.getNumExpediente()==null || tblExpedientePacientes.getNumExpediente()<=0){
+            this.addError("Por favor ingrese el numero de expediente", "Por favor ingrese el numero de expediente");
+            isValid = false;
+        }*/
         
+        if (tblComprobanteDonacion.getNumFacDonacion() == null || tblComprobanteDonacion.getNumFacDonacion().trim().equals("")){
+            this.addError("Por favor ingrese el numero del documento de donación", "Por favor ingrese el numero del documento de donación");
+            isValid = false;
+        }
+        
+        if (tblComprobanteDonacion.getNomComDonacion() == null || tblComprobanteDonacion.getNomComDonacion().trim().equals("")){
+            this.addError("Por favor ingrese el nombre del donante", "Por favor ingrese el nombre del donante");
+            isValid = false;
+        }
+        if (tblComprobanteDonacion.getFecComDonacion()==null){
+            this.addError("Por favor ingrese la fecha", "Por favor ingrese la fecha");
+            isValid = false;
+        }
+        if (tblComprobanteDonacion.getCodTipDonacion()<0 ){
+            this.addError("Por favor ingrese el tipo de donación ", "Por favor ingrese el tipo de donación");
+            isValid = false;
+        }
+        if (tblComprobanteDonacion.getCodTipDonante()<0 ){
+            this.addError("Por favor ingrese el tipo de donante", "Por favor ingrese el tipo de donante");
+            isValid = false;
+        }   
+        if (tblComprobanteDonacion.getCodCarisma()<0 ){
+            this.addError("Por favor seleccione la fundacion a la que se realizara la donación", "Por favor seleccione la fundacion a la que se realizara la donación");
+            isValid = false;
+        }      
+        if (tblComprobanteDonacion.getTotDonacion() < 1 ){
+            this.addError("Por favor ingrese el monto a donar", "Por favor ingrese el monto a donar");
+            isValid = false;
+        }          
+
+        return isValid;
+    }
+    
+    
     public void guardar(ActionEvent ae){
         try{
-            if (!validateHeader(tblComprobanteDonacion)){
+            if (!validar()){
                 return;
             }
             if(tblComprobanteDonacion.getNumComDonacion() != null){
