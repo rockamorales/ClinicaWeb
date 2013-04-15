@@ -195,6 +195,20 @@
   </managed-property>
  </managed-bean>
 
+ <!-- Lista todas las donaciones -->
+ <managed-bean>
+  <managed-bean-name>donacionesSearchCriteria</managed-bean-name>
+  <managed-bean-class>sv.com.cormaria.servicios.criteria.ComprobanteDonacionSearchCriteria</managed-bean-class>
+  <managed-bean-scope>view</managed-bean-scope>
+  <managed-property>
+      <display-name>tipComprobanteDonacion</display-name>
+      <property-name>tipComprobanteDonacion</property-name>
+      <property-class>sv.com.cormaria.servicios.enums.TipoComprobanteDonacion</property-class>
+      <value>DONACION</value>
+  </managed-property>
+ </managed-bean>
+
+
  <!-- Bean de criterios de busqueda para las donaciones voluntarias Pagadas (Usado en la anulacion) -->
  <managed-bean>
   <managed-bean-name>donacionesPagadosSearchCriteria</managed-bean-name>

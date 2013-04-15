@@ -70,7 +70,7 @@ and open the template in the editor.
                 <h:outputLink value="frmMantTblDonacionesVoluntarias.jsf">
                     Agregar Nueva Donacion
                 </h:outputLink>
-                <rich:dataTable value="#{donacionesEmitidosDataModel}" var="tblComprobanteDonacion" rows="10" id="tblComprobanteDonacionTable">
+                <rich:dataTable value="#{donacionesDataModel}" var="tblComprobanteDonacion" rows="10" id="tblComprobanteDonacionTable">
                 <f:facet name="header">
                     <rich:columnGroup>
                       <h:column>
@@ -88,9 +88,6 @@ and open the template in the editor.
                       <h:column>
                         <h:outputText value="Estado"/>
                       </h:column>                     
-                      <h:column>
-                        <h:outputText value=""/>
-                      </h:column>
                       <h:column>
                         <h:outputText value=""/>
                       </h:column>
@@ -125,12 +122,6 @@ and open the template in the editor.
                             <h:graphicImage url="/img/icons/edit.gif" style="border: 0">
                             </h:graphicImage>
                         </h:outputLink>
-                    </h:column>
-                    <h:column>
-                        <a4j:commandLink actionListener="#{frmTblDonacionesVoluntarias.delete}" render="@form, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar Pago: #{tblComprobanteDonacion.nomComDonacion}')){return false;}">
-                            <h:graphicImage url="/img/icons/delete.gif" style="border: 0"/>
-                            <f:setPropertyActionListener target="#{frmTblDonacionesVoluntarias.tblComprobanteDonacion}" value="#{tblComprobanteDonacion}"/>
-                        </a4j:commandLink>
                     </h:column>
                     <f:facet name="footer">
                         <rich:dataScroller/>

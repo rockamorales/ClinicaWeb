@@ -16,7 +16,7 @@ and open the template in the editor.
         </ui:define>
         <ui:define name="body">
             <h:form>
-              <h3>Modificar Donaciones Voluntarias</h3>
+              <h3>Eliminar Donaciones Voluntarias</h3>
                 <fieldset>
                     <legend>Buscar</legend>
                     <table>
@@ -116,12 +116,10 @@ and open the template in the editor.
                         </h:outputText>
                     </h:column>
                     <h:column>
-                        <h:outputLink value="frmMantTblDonacionesVoluntarias.jsf">
-                            <f:param name="numComDonacion" value="#{tblComprobanteDonacion.numComDonacion}"/>
-                            <f:param name="faces-redirect" value="true"/>
-                            <h:graphicImage url="/img/icons/edit.gif" style="border: 0">
-                            </h:graphicImage>
-                        </h:outputLink>
+                        <a4j:commandLink actionListener="#{frmTblDonacionesVoluntarias.delete}" render="@form, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar Pago: #{tblComprobanteDonacion.nomComDonacion}')){return false;}">
+                            <h:graphicImage url="/img/icons/delete.gif" style="border: 0"/>
+                            <f:setPropertyActionListener target="#{frmTblDonacionesVoluntarias.tblComprobanteDonacion}" value="#{tblComprobanteDonacion}"/>
+                        </a4j:commandLink>
                     </h:column>
                     <f:facet name="footer">
                         <rich:dataScroller/>
