@@ -211,7 +211,7 @@
                                 </h:outputLabel>
                             </td>
                             <td>
-                                <h:inputText value="#{consultasSigVitalesSearchCriteria.numExpediente}" id="numExpediente1" maxlength="11" onkeypress="return filterInput(1, event, false, '');">
+                                <h:inputText value="#{consultasSigVitalesSearchCriteria.numExpediente}" id="numExpediente1" maxlength="9" onkeypress="return filterInput(1, event, false, '');">
                                 </h:inputText>
                             </td>
                             <td>
@@ -373,6 +373,21 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td colspan="6" align="center" style="border-bottom: #000066 solid thin"><b>Alergias y Enfermedades Cronicas</b></td>
+                            </tr>
+                                <tr>
+                                <td align="left" style="vertical-align: top;">Alergias:</td>
+                                <td align="left" style="vertical-align: top;" colspan="5">
+                                    <h:outputText value="#{frmMantTblConsultas.consulta.tblExpediente.alePaciente}" style="font-weight: bold"/>
+                                </td>
+                                </tr>
+                                <tr>
+                                <td align="left" style="vertical-align: top;">Enfermedades Cronicas:</td>
+                                <td align="left" style="vertical-align: top;" colspan="5">
+                                    <h:outputText value="#{frmMantTblConsultas.consulta.tblExpediente.enfCroPaciente}" style="font-weight: bold"/>
+                                    </td>
+                                </tr>
+                            <tr>
                                 <td colspan="6" align="center" style="border-bottom: #000066 solid thin"><b>Signos vitales</b></td>
                             </tr>
                             <tr>
@@ -412,7 +427,9 @@
                                               <h:outputLabel value="Anamnesis:" for="anaPaciente"></h:outputLabel>
                                           </td>
                                           <td style="vertical-align: top">
-                                              <h:inputTextarea value="#{frmMantTblConsultas.consulta.anaPaciente}" id="anaPaciente" rows="3" cols="90" maxlength="1000" onkeypress="return filterInput(2, event, false, ' ,.()áéíóú');"></h:inputTextarea>
+                                              <h:inputTextarea value="#{frmMantTblConsultas.consulta.anaPaciente}" id="anaPaciente" rows="3" cols="90" onkeypress="return filterInput(2, event, false, ' ,.()áéíóú');">
+                                                                       <f:validateLength maximum="1000" ></f:validateLength>
+                                              </h:inputTextarea>
                                               <h:outputLabel value="*" style="color:red;font-weight: bold;"/> 
                                           </td>
                                       </tr>
@@ -421,7 +438,9 @@
                                               <h:outputLabel value="Examen fisico:" for="anaPaciente"></h:outputLabel>
                                           </td>
                                           <td style="vertical-align: top">
-                                              <h:inputTextarea value="#{frmMantTblConsultas.consulta.exaFisPaciente}" id="exaFisPaciente" rows="3" cols="90" maxlength="500" onkeypress="return filterInput(2, event, false, ' ,.()áéíóú');"></h:inputTextarea>
+                                              <h:inputTextarea value="#{frmMantTblConsultas.consulta.exaFisPaciente}" id="exaFisPaciente" rows="3" cols="90" onkeypress="return filterInput(2, event, false, ' ,.()áéíóú');">
+                                                                       <f:validateLength maximum="500" ></f:validateLength>
+                                              </h:inputTextarea>
                                               <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                                           </td>
                                       </tr>
@@ -430,7 +449,9 @@
                                               <h:outputLabel value="Diagnostico" for="diaPaciente"></h:outputLabel>
                                           </td>
                                           <td style="vertical-align: top">
-                                              <h:inputTextarea value="#{frmMantTblConsultas.consulta.diaPaciente}" id="diaPaciente" rows="3" cols="90" maxlength="500" onkeypress="return filterInput(2, event, false, ' ,.()áéíóú');"></h:inputTextarea>
+                                              <h:inputTextarea value="#{frmMantTblConsultas.consulta.diaPaciente}" id="diaPaciente" rows="3" cols="90" onkeypress="return filterInput(2, event, false, ' ,.()áéíóú');">
+                                                                       <f:validateLength maximum="500" ></f:validateLength>
+                                              </h:inputTextarea>
                                               <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                                           </td>
                                       </tr>
@@ -439,7 +460,9 @@
                                               <h:outputLabel value="Observaciones adicionales:" for="diaPaciente"></h:outputLabel>
                                           </td>
                                           <td style="vertical-align: top">
-                                              <h:inputTextarea value="#{frmMantTblConsultas.consulta.obsCliPaciente}" id="obsCliPaciente" rows="3" cols="90" maxlength="500" onkeypress="return filterInput(2, event, false, ' ,.()áéíóú');"></h:inputTextarea>
+                                              <h:inputTextarea value="#{frmMantTblConsultas.consulta.obsCliPaciente}" id="obsCliPaciente" rows="3" cols="90" onkeypress="return filterInput(2, event, false, ' ,.()áéíóú');">
+                                                     <f:validateLength maximum="300" ></f:validateLength>
+                                              </h:inputTextarea>
                                           </td>
                                       </tr>
                                       <tr>
@@ -474,7 +497,9 @@
                                                     <h:outputLabel value="Prescripcion libre:" for="preLibReceta"/>
                                                 </td>
                                                 <td>
-                                                    <h:inputTextarea value="#{frmMantTblConsultas.recetaMedica.preLibReceta}" id="preLibReceta" cols="90"/>
+                                                    <h:inputTextarea value="#{frmMantTblConsultas.recetaMedica.preLibReceta}" id="preLibReceta" cols="90" rows="2">
+                                                          <f:validateLength maximum="500" ></f:validateLength>
+                                                    </h:inputTextarea>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -482,7 +507,9 @@
                                                     <h:outputLabel value="Otras recomendaciones:" for="otrRecomendaciones"/>
                                                 </td>
                                                 <td>
-                                                    <h:inputTextarea value="#{frmMantTblConsultas.recetaMedica.otrRecomendaciones}" id="otrRecomendaciones" cols="90"/>
+                                                    <h:inputTextarea value="#{frmMantTblConsultas.recetaMedica.otrRecomendaciones}" id="otrRecomendaciones" cols="90" rows="2">
+                                                                             <f:validateLength maximum="500" ></f:validateLength>
+                                                    </h:inputTextarea>
                                                 </td>
                                             </tr>
                                         </table>
@@ -574,7 +601,9 @@
                                                 <h:outputLabel value="Diagnostico del resultado:" for="diaLaboratorio"/>
                                             </td>
                                             <td>
-                                                <h:inputTextarea value="#{frmMantTblConsultas.ordenLab.diaLaboratorio}" id="diaLaboratorio" cols="90"/>
+                                                <h:inputTextarea value="#{frmMantTblConsultas.ordenLab.diaLaboratorio}" id="diaLaboratorio" cols="90" rows="2">
+                                                      <f:validateLength maximum="500" ></f:validateLength>
+                                                </h:inputTextarea>
                                                 <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                                             </td>
                                       </tr>
@@ -583,7 +612,9 @@
                                               <h:outputLabel value="Indicaciones:" for="indLaboratorio"/>
                                           </td>
                                           <td>
-                                              <h:inputTextarea value="#{frmMantTblConsultas.ordenLab.indLaboratorio}" id="indLaboratorio" cols="90"/>
+                                              <h:inputTextarea value="#{frmMantTblConsultas.ordenLab.indLaboratorio}" id="indLaboratorio" cols="90" rows="2">
+                                                    <f:validateLength maximum="500" ></f:validateLength>
+                                              </h:inputTextarea>
                                               <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                                           </td>
                                       </tr>
@@ -592,7 +623,9 @@
                                               <h:outputLabel value="Observaciones:" for="obsLaboratorio"/>
                                           </td>
                                           <td>
-                                              <h:inputTextarea value="#{frmMantTblConsultas.ordenLab.obsLaboratorio}" id="obsLaboratorio" cols="90"/>
+                                              <h:inputTextarea value="#{frmMantTblConsultas.ordenLab.obsLaboratorio}" id="obsLaboratorio" cols="90" rows="2">
+                                                    <f:validateLength maximum="500" ></f:validateLength>
+                                              </h:inputTextarea>
                                           </td>
                                       </tr>
                                     </table>
@@ -635,7 +668,9 @@
                                               <h:outputLabel value="Diagnostico:" for="diaReferencia"/>
                                           </td>
                                           <td colspan="3">
-                                              <h:inputTextarea value="#{frmMantTblConsultas.referencia.diaReferencia}" id="diaReferencia" cols="90" maxlength="500" onkeypress="return filterInput(2, event, false, ' .,áéíóú()');"/>
+                                              <h:inputTextarea value="#{frmMantTblConsultas.referencia.diaReferencia}" id="diaReferencia" cols="90" rows="2" onkeypress="return filterInput(2, event, false, ' .,áéíóú()');">
+                                                  <f:validateLength maximum="500" ></f:validateLength>
+                                              </h:inputTextarea>
                                               <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                                           </td>
                                       </tr>
@@ -644,7 +679,10 @@
                                               <h:outputLabel value="Motivo referencia:" />
                                           </td>
                                           <td colspan="3">
-                                              <h:inputTextarea value="#{frmMantTblConsultas.referencia.motReferencia}" id="motReferencia" cols="90" maxlength="100" onkeypress="return filterInput(2, event, false, ' .,áéíóú()');"/>
+                                              <h:inputTextarea value="#{frmMantTblConsultas.referencia.motReferencia}" id="motReferencia" cols="90" rows="2" onkeypress="return filterInput(2, event, false, ' .,áéíóú()');">
+                                                      <f:validateLength maximum="100" ></f:validateLength>
+                                              </h:inputTextarea>
+                                
                                               <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                                           </td>
                                       </tr>

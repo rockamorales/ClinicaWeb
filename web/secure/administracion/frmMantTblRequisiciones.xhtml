@@ -105,7 +105,7 @@ and open the template in the editor.
                                 </td>
                                 <td>
                                     <a4j:commandButton value="Agregar" actionListener="#{frmMantTblRequisiciones.agregarDetalleReq}" render="tblDetalleRequisicionesTable, panelMessage, agregarDetallePanelGroup" />
-                                    <h:commandButton value="Finalizar Requisición" action="/inicio.jsf"/>
+                                    <h:commandButton value="Finalizar Requisición" action="/inicio.jsf?faces-redirect=true" immediate="true"/>
                                 </td>
                             </tr>
                         </table>

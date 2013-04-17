@@ -84,7 +84,8 @@
                 <tr>
                   <td colspan="4" align="center">
                       <h:commandButton value="Regresar" action="frmEliminarTblServiciosEnfermeria.jsf" immediate="true"/>
-                       <a4j:commandButton value="Eliminar" actionListener="#{frmEliminarViewTblServiciosEnfermeria.eliminar}" render="@form, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar el servicio de enfermeria: #{servicio.numSerEnfermeria}')){return false;}" rendered="#{frmEliminarViewTblServiciosEnfermeria.tblServiciosEnfermeria.estSerEnfermeria != 'ELIMINADO'}"/>
+                      <a4j:commandButton value="Eliminar" actionListener="#{frmEliminarViewTblServiciosEnfermeria.eliminar}" render="@form, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar el servicio de enfermeria: #{servicio.numSerEnfermeria}')){return false;}" rendered="#{frmEliminarViewTblServiciosEnfermeria.tblServiciosEnfermeria.estSerEnfermeria != 'ELIMINADO'}"/>
+                      <h:commandButton value="Cancelar" action="/inicio.jsf?faces-redirect=true" immediate="true"/>
 
                   </td>
                 </tr>
