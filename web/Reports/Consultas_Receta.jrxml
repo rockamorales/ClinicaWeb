@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="clinicaTemplate" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eb3d3e1d-e7a3-48ed-8e8f-a0fac7cf9d19">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="numReceta" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     tbl_receta_medica.`NUM_RECETA` AS tbl_receta_medica_NUM_RECETA,
+     tbl_receta_medica.`FEC_RECETA` AS tbl_receta_medica_FEC_RECETA,
+     tbl_receta_medica.`OTR_RECOMENDACIONES` AS tbl_receta_medica_OTR_RECOMENDACIONES,
+     tbl_detalle_receta.`NUM_RECETA` AS tbl_detalle_receta_NUM_RECETA,
+     tbl_detalle_receta.`CAN_DET_RECETA` AS tbl_detalle_receta_CAN_DET_RECETA,
+     tbl_detalle_receta.`DOS_DET_RECETA` AS tbl_detalle_receta_DOS_DET_RECETA,
+     tbl_detalle_receta.`FRE_DET_RECETA` AS tbl_detalle_receta_FRE_DET_RECETA,
+     tbl_detalle_receta.`DUR_TRATAMIENTO` AS tbl_detalle_receta_DUR_TRATAMIENTO,
+     tbl_medico.`NUM_MEDICO` AS tbl_medico_NUM_MEDICO,
+     tbl_medico.`NOM_MEDICO` AS tbl_medico_NOM_MEDICO,
+     tbl_medico.`PRI_APE_MEDICO` AS tbl_medico_PRI_APE_MEDICO,
+     tbl_medico.`NUM_JUNTA` AS tbl_medico_NUM_JUNTA,
+     tbl_receta_medica.`PRE_LIB_RECETA` AS tbl_receta_medica_PRE_LIB_RECETA,
+     tbl_producto.`NOM_PRODUCTO` AS tbl_producto_NOM_PRODUCTO,
+     tbl_expediente_pacientes.`NOM_PACIENTE` AS tbl_expediente_pacientes_NOM_PACIENTE,
+     tbl_expediente_pacientes.`PRI_APE_PACIENTE` AS tbl_expediente_pacientes_PRI_APE_PACIENTE,
+     tbl_expediente_pacientes.`SEC_APE_PACIENTE` AS tbl_expediente_pacientes_SEC_APE_PACIENTE,
+     tbl_expediente_pacientes.`TER_APE_PACIENTE` AS tbl_expediente_pacientes_TER_APE_PACIENTE,
+     tbl_receta_medica.`NUM_MEDICO` AS tbl_receta_medica_NUM_MEDICO,
+     tbl_receta_medica.`NUM_EXPEDIENTE` AS tbl_receta_medica_NUM_EXPEDIENTE
+FROM
+     `tbl_receta_medica` tbl_receta_medica LEFT OUTER JOIN `tbl_detalle_receta` tbl_detalle_receta ON tbl_receta_medica.`NUM_RECETA` = tbl_detalle_receta.`NUM_RECETA`
+     INNER JOIN `tbl_medico` tbl_medico ON tbl_receta_medica.`NUM_MEDICO` = tbl_medico.`NUM_MEDICO`
+     INNER JOIN `tbl_expediente_pacientes` tbl_expediente_pacientes ON tbl_receta_medica.`NUM_EXPEDIENTE` = tbl_expediente_pacientes.`NUM_EXPEDIENTE`
+     LEFT OUTER JOIN `tbl_producto` tbl_producto ON tbl_detalle_receta.`NUM_PRODUCTO` = tbl_producto.`NUM_PRODUCTO`
+WHERE
+     tbl_receta_medica.`NUM_RECETA` = $P{numReceta}]]>
+	</queryString>
+	<field name="tbl_receta_medica_NUM_RECETA" class="java.lang.Integer"/>
+	<field name="tbl_receta_medica_FEC_RECETA" class="java.sql.Date"/>
+	<field name="tbl_receta_medica_OTR_RECOMENDACIONES" class="java.lang.String"/>
+	<field name="tbl_detalle_receta_NUM_RECETA" class="java.lang.Integer"/>
+	<field name="tbl_detalle_receta_CAN_DET_RECETA" class="java.math.BigDecimal"/>
+	<field name="tbl_detalle_receta_DOS_DET_RECETA" class="java.lang.String"/>
+	<field name="tbl_detalle_receta_FRE_DET_RECETA" class="java.lang.String"/>
+	<field name="tbl_detalle_receta_DUR_TRATAMIENTO" class="java.lang.String"/>
+	<field name="tbl_medico_NUM_MEDICO" class="java.lang.Integer"/>
+	<field name="tbl_medico_NOM_MEDICO" class="java.lang.String"/>
+	<field name="tbl_medico_PRI_APE_MEDICO" class="java.lang.String"/>
+	<field name="tbl_medico_NUM_JUNTA" class="java.math.BigDecimal"/>
+	<field name="tbl_receta_medica_PRE_LIB_RECETA" class="java.lang.String"/>
+	<field name="tbl_producto_NOM_PRODUCTO" class="java.lang.String"/>
+	<field name="tbl_expediente_pacientes_NOM_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_expediente_pacientes_PRI_APE_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_expediente_pacientes_SEC_APE_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_expediente_pacientes_TER_APE_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_receta_medica_NUM_MEDICO" class="java.lang.Integer"/>
+	<field name="tbl_receta_medica_NUM_EXPEDIENTE" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="88" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="5998788b-0576-440c-ac4e-c08c6a2c8db2" x="474" y="17" width="56" height="61"/>
+			</rectangle>
+			<image>
+				<reportElement uuid="f28cce09-6ee2-4268-be04-78c6298d0cab" x="2" y="2" width="83" height="65"/>
+				<imageExpression><![CDATA["logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="178" y="17" width="197" height="22"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="16" isBold="true" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[FUNDACIÓN CARISMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="106" y="39" width="338" height="49"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="8" isBold="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[CLÍNICA ASISTENCIAL CORAZÓN DE MARÍA
+79 AV. SUR Y FINAL PADRES AGUILAR, CONTIGUO A IGLESIA CORAZÓN DE MARÍA, COL. ESCALÓN, SAN SALVADOR EL SALVADOR, C.A.
+TEL: 2263-5889
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="57a29736-6c35-48b1-b6ed-fa0b8698121c" x="474" y="17" width="56" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. Receta]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="748be0cc-333e-43ad-92bd-fe4cc93f3a03" x="474" y="39" width="56" height="39"/>
+				<textElement textAlignment="Center">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbl_receta_medica_NUM_RECETA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="3" y="0" width="552" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="14" isBold="true" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Receta Medica]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="142" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="76e83c21-7551-4f91-b74d-591e438b6e97" x="51" y="24" width="438" height="115"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="0d8a1247-cf24-4d0d-bfd8-a7d14a3eb54a" x="2" y="0" width="49" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Paciente]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="210f86f8-9d69-4c71-8691-f8f9814d2819" x="51" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_NOM_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0efa9546-394a-4177-8488-538f822780e7" x="151" y="0" width="74" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_PRI_APE_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="64533c8a-def0-4bf9-bff6-84ca28961061" x="426" y="2" width="34" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="d76173ea-580d-473c-9fbb-8ded02dc847b" x="460" y="2" width="94" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_receta_medica_FEC_RECETA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c783973e-d5c1-48dd-8cd5-12669a8c9095" x="57" y="76" width="128" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Otras recomendaciones]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="ac2287da-8431-4993-b3fc-a6db024f06e2" x="57" y="96" width="427" height="43"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_receta_medica_OTR_RECOMENDACIONES}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="5807f123-7467-4ef7-a3e3-4995250f3201" x="57" y="28" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prescripcion libre]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="cacc16af-eef5-465a-887e-3cc473499a00" x="57" y="48" width="427" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_receta_medica_PRE_LIB_RECETA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="113" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="185c8ec5-df4c-4d09-90a4-dd71fb2ecc0e" x="125" y="7" width="129" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_producto_NOM_PRODUCTO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0f1828c8-f9e7-40aa-9777-288cf6b4075c" x="57" y="7" width="68" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Medicamento]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="b039a9f5-b4e3-4636-9004-5af7a5f451b9" x="342" y="7" width="132" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_detalle_receta_CAN_DET_RECETA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e76cdc39-e9fc-44fd-af4f-7a4ee31f8da3" x="274" y="7" width="68" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="09f08654-3cf2-4115-bcd0-6a248a5aa6bd" x="125" y="27" width="129" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_detalle_receta_DOS_DET_RECETA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9ca58fde-5cb7-4aae-9465-431c6ac6bcd1" x="57" y="27" width="68" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dosis]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="d1261c28-4f40-42c0-b8a6-b7fdec9e08bc" x="342" y="27" width="132" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_detalle_receta_FRE_DET_RECETA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="ab04a522-8801-4c46-a2bb-6230d4fc221b" x="274" y="27" width="68" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Frecuencia]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="13af9dc5-2e4c-4582-ad46-d70770d0048c" x="125" y="58" width="129" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_detalle_receta_DUR_TRATAMIENTO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a3879579-613d-4cd4-b425-92577259c47c" x="57" y="58" width="68" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Duración]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f541b002-1af5-4609-b55a-eaf4de27e717" x="121" y="90" width="85" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_medico_NOM_MEDICO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="1406b722-4017-4cbc-a103-ac966fdf4743" x="57" y="90" width="64" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Médico]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="44740f4f-f355-4a9a-a528-b082cf257d4f" x="206" y="90" width="91" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_medico_PRI_APE_MEDICO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="115927e3-7d6b-428f-9d2b-61d643fd98aa" x="375" y="90" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_medico_NUM_JUNTA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="4c1396a9-1a7f-40c2-a2fd-7b201d0ca72a" x="311" y="90" width="64" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. Junta]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="81" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement uuid="dd91d53e-93f0-4c14-9ed7-67ee597856e9" x="0" y="60" width="555" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Hoja "+$V{PAGE_NUMBER}+"/"+$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="0" y="21" width="206" height="20"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[_______________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="355" y="21" width="200" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<text><![CDATA[___________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="2" y="41" width="204" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Sello]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="355" y="41" width="200" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Encargado]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

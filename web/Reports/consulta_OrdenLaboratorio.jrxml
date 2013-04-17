@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="clinicaTemplate" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eb3d3e1d-e7a3-48ed-8e8f-a0fac7cf9d19">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="numOrdLaboratorio" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     tbl_orden_laboratorio.`NUM_ORD_LABORATORIO` AS tbl_orden_laboratorio_NUM_ORD_LABORATORIO,
+     tbl_orden_laboratorio.`FEC_ORD_LABORATORIO` AS tbl_orden_laboratorio_FEC_ORD_LABORATORIO,
+     tbl_orden_laboratorio.`DIA_LABORATORIO` AS tbl_orden_laboratorio_DIA_LABORATORIO,
+     tbl_orden_laboratorio.`IND_LABORATORIO` AS tbl_orden_laboratorio_IND_LABORATORIO,
+     tbl_orden_laboratorio.`OBS_LABORATORIO` AS tbl_orden_laboratorio_OBS_LABORATORIO,
+     tbl_detalle_orden_laboratorio.`NUM_ORD_LABORATORIO` AS tbl_detalle_orden_laboratorio_NUM_ORD_LABORATORIO,
+     cat_examenes_medicos.`NOM_EXA_MEDICO` AS cat_examenes_medicos_NOM_EXA_MEDICO,
+     tbl_orden_laboratorio.`NUM_CONSULTA` AS tbl_orden_laboratorio_NUM_CONSULTA,
+     tbl_medico.`NOM_MEDICO` AS tbl_medico_NOM_MEDICO,
+     tbl_medico.`PRI_APE_MEDICO` AS tbl_medico_PRI_APE_MEDICO,
+     tbl_expediente_pacientes.`NOM_PACIENTE` AS tbl_expediente_pacientes_NOM_PACIENTE,
+     tbl_expediente_pacientes.`PRI_APE_PACIENTE` AS tbl_expediente_pacientes_PRI_APE_PACIENTE,
+     tbl_expediente_pacientes.`SEC_APE_PACIENTE` AS tbl_expediente_pacientes_SEC_APE_PACIENTE,
+     cat_sexo.`NOM_SEX_PACIENTE` AS cat_sexo_NOM_SEX_PACIENTE,
+     tbl_expediente_pacientes.`EDA_PACIENTE` AS tbl_expediente_pacientes_EDA_PACIENTE,
+     cat_examenes_medicos.`DES_EXA_MEDICO` AS cat_examenes_medicos_DES_EXA_MEDICO
+FROM
+     `tbl_orden_laboratorio` tbl_orden_laboratorio LEFT OUTER JOIN `tbl_detalle_orden_laboratorio` tbl_detalle_orden_laboratorio ON tbl_orden_laboratorio.`NUM_ORD_LABORATORIO` = tbl_detalle_orden_laboratorio.`NUM_ORD_LABORATORIO`
+     LEFT OUTER JOIN `cat_examenes_medicos` cat_examenes_medicos ON tbl_detalle_orden_laboratorio.`COD_EXA_MEDICO` = cat_examenes_medicos.`COD_EXA_MEDICO`
+     INNER JOIN `tbl_medico` tbl_medico ON tbl_orden_laboratorio.`NUM_MEDICO` = tbl_medico.`NUM_MEDICO`
+     INNER JOIN `tbl_expediente_pacientes` tbl_expediente_pacientes ON tbl_orden_laboratorio.`NUM_EXPEDIENTE` = tbl_expediente_pacientes.`NUM_EXPEDIENTE`
+     INNER JOIN `cat_sexo` cat_sexo ON tbl_expediente_pacientes.`COD_SEX_PACIENTE` = cat_sexo.`COD_SEX_PACIENTE`
+WHERE
+tbl_orden_laboratorio.`NUM_ORD_LABORATORIO` = $P{numOrdLaboratorio}]]>
+	</queryString>
+	<field name="tbl_orden_laboratorio_NUM_ORD_LABORATORIO" class="java.lang.Integer"/>
+	<field name="tbl_orden_laboratorio_FEC_ORD_LABORATORIO" class="java.sql.Timestamp"/>
+	<field name="tbl_orden_laboratorio_DIA_LABORATORIO" class="java.lang.String"/>
+	<field name="tbl_orden_laboratorio_IND_LABORATORIO" class="java.lang.String"/>
+	<field name="tbl_orden_laboratorio_OBS_LABORATORIO" class="java.lang.String"/>
+	<field name="tbl_detalle_orden_laboratorio_NUM_ORD_LABORATORIO" class="java.lang.Integer"/>
+	<field name="cat_examenes_medicos_NOM_EXA_MEDICO" class="java.lang.String"/>
+	<field name="tbl_orden_laboratorio_NUM_CONSULTA" class="java.lang.Integer"/>
+	<field name="tbl_medico_NOM_MEDICO" class="java.lang.String"/>
+	<field name="tbl_medico_PRI_APE_MEDICO" class="java.lang.String"/>
+	<field name="tbl_expediente_pacientes_NOM_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_expediente_pacientes_PRI_APE_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_expediente_pacientes_SEC_APE_PACIENTE" class="java.lang.String"/>
+	<field name="cat_sexo_NOM_SEX_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_expediente_pacientes_EDA_PACIENTE" class="java.math.BigDecimal"/>
+	<field name="cat_examenes_medicos_DES_EXA_MEDICO" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="88" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="bea6e6af-3ebe-44b3-bdf7-20649449a58e" x="479" y="6" width="60" height="71"/>
+			</rectangle>
+			<image>
+				<reportElement uuid="f28cce09-6ee2-4268-be04-78c6298d0cab" x="2" y="2" width="83" height="65"/>
+				<imageExpression><![CDATA["logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="184" y="6" width="197" height="22"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="16" isBold="true" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[FUNDACIÓN CARISMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="112" y="28" width="338" height="49"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="16" isBold="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[CLÍNICA ASISTENCIAL CORAZÓN DE MARÍA
+79 AV. SUR Y FINAL PADRES AGUILAR, CONTIGUO A IGLESIA CORAZÓN DE MARÍA, COL. ESCALÓN, SAN SALVADOR EL SALVADOR, C.A.
+TEL: 2263-5889
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="82613ca0-f55a-4af5-a74e-a1e6190d0dfc" x="479" y="6" width="60" height="32"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. Orden Laboratorio]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="82b6ce22-889b-489a-b109-6f3f11bf0c08" x="479" y="38" width="60" height="39"/>
+				<textElement textAlignment="Center">
+					<font size="24"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbl_orden_laboratorio_NUM_ORD_LABORATORIO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="2" y="0" width="552" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="14" isBold="true" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Examenes de Laboratorio]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="212" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="cfc709b8-a048-40d8-9c9a-5176727bcb72" x="2" y="2" width="46" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Paciente]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="d41d6c42-74c9-4150-ae34-49545ff259ad" x="48" y="2" width="86" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_NOM_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="09d4ed65-40c2-40ba-a2f4-b4f081373080" x="134" y="2" width="72" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_PRI_APE_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ebf1dc96-9e3e-44e6-8e44-171db8645d27" x="206" y="2" width="57" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_SEC_APE_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="1e7d54bf-3514-4135-b211-8b6ac80dc096" x="301" y="2" width="30" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sexo]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="474ef438-864c-4afc-b1b2-a328d5dd6128" x="331" y="2" width="54" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cat_sexo_NOM_SEX_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="7c816f5e-fc50-4b78-9a54-f01870565229" x="401" y="2" width="38" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="5ec3ca07-6028-435c-ab40-391f06ca0158" x="439" y="2" width="81" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_orden_laboratorio_FEC_ORD_LABORATORIO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a2781f69-6818-4cc9-858e-1542bdb27221" x="2" y="29" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Diagnostico]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="e1b880cd-db05-47d5-a2dc-d6bd57807df0" x="112" y="29" width="408" height="48"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_orden_laboratorio_DIA_LABORATORIO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="cc96226a-d340-4441-8897-146951c86ac7" x="2" y="77" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Indicaciones]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="048da849-a635-4e55-9b95-2a678b57f9a7" x="112" y="87" width="408" height="48"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_orden_laboratorio_IND_LABORATORIO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="192efa86-58aa-4b65-ad45-15ec28ec2059" x="2" y="135" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observaciones]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="af8c4e1e-db7a-47b6-8b5d-92cae5b7a35a" x="112" y="135" width="408" height="48"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_orden_laboratorio_OBS_LABORATORIO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="cae6f182-4dc8-46f6-95e9-59c24c796203" x="12" y="192" width="172" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Examenes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6e851db7-1640-431e-a34e-336a08982123" x="184" y="192" width="336" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="43" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="1a3e72c4-026d-442f-bc36-d298b2feb223" x="6" y="0" width="518" height="43"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="04c72f1a-b82d-4aa3-a2a9-b14d7fb8ef07" x="12" y="0" width="172" height="43"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cat_examenes_medicos_NOM_EXA_MEDICO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="d9e31502-7f81-4b44-b76d-adbf35b46bda" x="184" y="0" width="336" height="43"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cat_examenes_medicos_DES_EXA_MEDICO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="81" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement uuid="dd91d53e-93f0-4c14-9ed7-67ee597856e9" x="0" y="60" width="555" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Hoja "+$V{PAGE_NUMBER}+"/"+$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="0" y="21" width="206" height="20"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[_______________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="355" y="21" width="200" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<text><![CDATA[___________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="2" y="41" width="204" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Sello]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="355" y="41" width="200" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Encargado]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
