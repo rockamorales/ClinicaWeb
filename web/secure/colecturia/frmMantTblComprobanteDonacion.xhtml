@@ -65,7 +65,7 @@ and open the template in the editor.
                         <tr>
                           <td colspan="4" align="center">
                               <a4j:commandButton value="Guardar" actionListener="#{frmMantTblComprobanteDonacion.recibirPago}" render="@form, panelMessage" oncomplete="#{rich:component('recibirPagoPanel')}.hide();"/>
-                              <a4j:commandButton value="Regresar">
+                              <a4j:commandButton value="Regresar" >
                                   <rich:componentControl target="recibirPagoPanel" operation="hide" event="click"></rich:componentControl>
                               </a4j:commandButton>
                           </td>
