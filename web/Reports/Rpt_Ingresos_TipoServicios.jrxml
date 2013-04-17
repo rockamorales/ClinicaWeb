@@ -83,7 +83,7 @@ AND  tbl_comprobante_donacion.`FEC_COM_DONACION` BETWEEN  str_to_date($P{FechaIn
 					<font isStrikeThrough="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[Area: <Nombre del area>]]></text>
+				<text><![CDATA[Area: <Colecturia>]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -100,85 +100,85 @@ AND  tbl_comprobante_donacion.`FEC_COM_DONACION` BETWEEN  str_to_date($P{FechaIn
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="21" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<staticText>
 				<reportElement uuid="6457bf7f-f535-4a58-9350-eda29a4cf80d" x="0" y="0" width="69" height="20"/>
 				<textElement/>
 				<text><![CDATA[No. Comprobante]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="bd1aa8e3-186f-4952-b8f9-385d7c2665f4" x="207" y="0" width="69" height="20"/>
-				<textElement/>
+				<reportElement uuid="bd1aa8e3-186f-4952-b8f9-385d7c2665f4" x="207" y="0" width="69" height="30"/>
+				<textElement textAlignment="Center"/>
 				<text><![CDATA[Fecha]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="d76b1d08-7ed7-4689-9adc-98a7f5d7ba50" x="69" y="0" width="69" height="20"/>
-				<textElement/>
+				<textElement textAlignment="Center"/>
 				<text><![CDATA[Total]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="5a3ac9ac-d4d0-4dac-8828-486a325ac776" x="276" y="0" width="69" height="20"/>
-				<textElement/>
+				<reportElement uuid="5a3ac9ac-d4d0-4dac-8828-486a325ac776" x="276" y="0" width="69" height="30"/>
+				<textElement textAlignment="Center"/>
 				<text><![CDATA[TIPO Comprobante]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="4f646963-a132-4601-ab54-c2045f1633ec" x="345" y="0" width="69" height="20"/>
-				<textElement/>
+				<reportElement uuid="4f646963-a132-4601-ab54-c2045f1633ec" x="345" y="0" width="69" height="30"/>
+				<textElement textAlignment="Center"/>
 				<text><![CDATA[TIPO PAGO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="79136f27-e251-44ae-bf0c-22167482b3da" x="414" y="0" width="69" height="20"/>
-				<textElement/>
+				<reportElement uuid="79136f27-e251-44ae-bf0c-22167482b3da" x="414" y="0" width="69" height="30"/>
+				<textElement textAlignment="Center"/>
 				<text><![CDATA[TIPO DONACION]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="9bc94967-9436-4a9e-bdf3-95f634b46920" x="483" y="0" width="72" height="20"/>
-				<textElement/>
+				<reportElement uuid="9bc94967-9436-4a9e-bdf3-95f634b46920" x="483" y="0" width="72" height="30"/>
+				<textElement textAlignment="Center"/>
 				<text><![CDATA[TIPO DONANTE]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="20" splitType="Stretch">
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="5ceafd5b-3f6e-45b6-891c-7d8893d32452" x="0" y="0" width="69" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{tbl_comprobante_donacion_NUM_COM_DONACION}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
 				<reportElement uuid="851d84d5-d686-4a82-9b57-8e1cd30b5836" x="207" y="0" width="69" height="20"/>
-				<textElement/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{tbl_comprobante_donacion_FEC_COM_DONACION}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="712decb8-d2ac-4673-8b8b-5a26f9ae0eec" x="69" y="0" width="69" height="20"/>
-				<textElement/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{tbl_comprobante_donacion_TOT_DONACION}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="738f3c4d-c410-4d1e-8196-95ffe4d26c9b" x="276" y="0" width="69" height="20"/>
-				<textElement/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{tbl_comprobante_donacion_TIP_COMPROBANTE}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="23e6e06d-dd54-4130-aa06-138241149c99" x="345" y="0" width="69" height="20"/>
-				<textElement/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{cat_tipo_pago_NOM_TIP_PAGO}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="3a15df2d-5d2e-43c1-816e-ccdc5a790e0c" x="414" y="0" width="69" height="20"/>
-				<textElement/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{cat_tipo_donacion_NOM_TIP_DONACION}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="5fdddbe6-3a79-4f6d-a5f8-d7713fb852a8" x="483" y="0" width="69" height="20"/>
-				<textElement/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{cat_tipo_donante_NOM_TIP_DONANTE}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band height="41" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
 		<band height="81" splitType="Stretch">
