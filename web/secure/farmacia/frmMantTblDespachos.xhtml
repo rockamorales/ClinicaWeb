@@ -69,13 +69,15 @@ and open the template in the editor.
                           </tr>
                       </table>
                 <hr/>
-                <h:panelGroup>
+                <h:panelGroup rendered="#{frmMantTblDespachos.tblDespachos.numDespacho != null and frmMantTblDespachos.tblDespachos.numDespacho>0}">
                         <h3>Detalle de Despacho de Producto</h3>                    
                             <table>
                                   <tr>
                                       <td align="left">Codigo de Producto:</td>
                                       <td align="left">
-                                          <h:inputText value="#{frmMantTblDespachos.tblDetalleDespacho.tblDetalleDespachoPK.numProducto}" />
+                                          <h:inputText value="#{frmMantTblDespachos.tblDetalleDespacho.tblDetalleDespachoPK.numProducto}" valueChangeListener="#{frmMantTblDespachos.seleccionarProductoByCodigo}">
+                                              <f:ajax event="change" render="@form"></f:ajax>
+                                          </h:inputText>
                                       </td>
                                       <td align="left">Producto:</td>
                                       <td align="left">
@@ -84,7 +86,7 @@ and open the template in the editor.
                                               <f:ajax event="change" render="@form"></f:ajax>
                                           </h:selectOneMenu>
                                       </td>
-                                      <td align="left">Cantidad a Ingresar:</td>
+                                      <td align="left">Cantidad a Despachar:</td>
                                       <td align="left">
                                           <h:inputText value="#{frmMantTblDespachos.tblDetalleDespacho.canDetDespacho}" />
                                       </td>
@@ -96,7 +98,11 @@ and open the template in the editor.
                                       <td align="left">Precio Unitario:</td>
                                       <td align="left">
                                           <h:outputText value="#{frmMantTblDespachos.tblDetalleDespacho.preUniDetDespacho}"/>
-                                      </td>                            
+                                      </td>   
+                                      <td align="left" colspan="2">Cantidad de Producto Disponible:</td>
+                                      <td align="left" colspan="2">
+                                          <h:outputText value="#{frmMantTblDespachos.selectedProduct.exiProducto}"/>
+                                      </td>    
                                   </tr>
                             </table>
                         <rich:dataTable value="#{frmMantTblDespachos.cblDetalleDespachoList}" var="tblDetalleDespacho" rows="10" id="tblDetalleDespachoTable" rowKeyVar="row">
