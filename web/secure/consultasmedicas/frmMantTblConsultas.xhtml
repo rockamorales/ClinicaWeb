@@ -186,7 +186,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="4" align="center">
-                                        <a4j:commandButton value="Agregar" actionListener="#{frmMantTblConsultas.agregarDetalleOrdenLab}" render="detalleOrdenLabGrid, detalleOrdenLabForm, panelMessage" type="submit"/>
+                                        <a4j:commandButton value="Agregar" actionListener="#{frmMantTblConsultas.agregarDetalleOrdenLab}" render="detalleOrdenLabGrid, detalleOrdenLabForm, panelMessage" type="submit" oncomplete="#{rich:component('agregarOrdenLabPanel')}.hide();"/>
                                     </td>                        
                                 </tr>
                             </table>
@@ -378,13 +378,14 @@
                                 <tr>
                                 <td align="left" style="vertical-align: top;">Alergias:</td>
                                 <td align="left" style="vertical-align: top;" colspan="5">
-                                    <h:outputText value="#{frmMantTblConsultas.consulta.tblExpediente.alePaciente}" style="font-weight: bold"/>
+                                    <h:outputText value="#{fn:substring(frmMantTblConsultas.consulta.tblExpediente.alePaciente,0,75)} ..." title="#{frmMantTblConsultas.consulta.tblExpediente.alePaciente}" style="font-weight: bold"/>                
+                                        
                                 </td>
                                 </tr>
                                 <tr>
                                 <td align="left" style="vertical-align: top;">Enfermedades Cronicas:</td>
                                 <td align="left" style="vertical-align: top;" colspan="5">
-                                    <h:outputText value="#{frmMantTblConsultas.consulta.tblExpediente.enfCroPaciente}" style="font-weight: bold"/>
+                                    <h:outputText value="#{fn:substring(frmMantTblConsultas.consulta.tblExpediente.enfCroPaciente,0,75)} ..." title="#{frmMantTblConsultas.consulta.tblExpediente.enfCroPaciente}" style="font-weight: bold"/>
                                     </td>
                                 </tr>
                             <tr>
