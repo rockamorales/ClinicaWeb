@@ -108,9 +108,15 @@
   </tbody>
 </table>
 <script lang="javascript" type="text/javascript">
-    $(".rf-cal-inp:not(.hora)").mask('99/99/9999')
-    $(".dateMask").mask('99/99/9999')
-    $(".hora").mask('time')
+    $(".rf-cal-inp:not(.hora)").mask('99/99/9999');
+    $(".dateMask").mask('99/99/9999');
+    $(".hora").mask('time');
+    $(".textArea").keyup(function(event){
+        length = $(this).attr('cols')*$(this).attr('rows');
+        if($(this).val().length > length){
+            $(this).val($(this).val().substr(0, length));
+        }
+    })
     //
 </script>
 </h:body>
