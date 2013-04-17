@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="clinicaTemplate" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eb3d3e1d-e7a3-48ed-8e8f-a0fac7cf9d19">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="numReferencia" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     tbl_referencia.`NUM_REFERENCIA` AS tbl_referencia_NUM_REFERENCIA,
+     tbl_referencia.`COD_TIP_REFERENCIA` AS tbl_referencia_COD_TIP_REFERENCIA,
+     tbl_referencia.`FEC_REFERENCIA` AS tbl_referencia_FEC_REFERENCIA,
+     tbl_referencia.`DIA_REFERENCIA` AS tbl_referencia_DIA_REFERENCIA,
+     tbl_referencia.`REF_A` AS tbl_referencia_REF_A,
+     tbl_referencia.`MOT_REFERENCIA` AS tbl_referencia_MOT_REFERENCIA,
+     tbl_referencia.`NUM_CONSULTA` AS tbl_referencia_NUM_CONSULTA,
+     tbl_referencia.`NUM_EXPEDIENTE` AS tbl_referencia_NUM_EXPEDIENTE,
+     tbl_expediente_pacientes.`NOM_PACIENTE` AS tbl_expediente_pacientes_NOM_PACIENTE,
+     tbl_expediente_pacientes.`PRI_APE_PACIENTE` AS tbl_expediente_pacientes_PRI_APE_PACIENTE,
+     tbl_expediente_pacientes.`SEC_APE_PACIENTE` AS tbl_expediente_pacientes_SEC_APE_PACIENTE,
+     cat_tipo_referencia.`COD_TIP_REFERENCIA` AS cat_tipo_referencia_COD_TIP_REFERENCIA,
+     cat_tipo_referencia.`NOM_TIP_REFERENCIA` AS cat_tipo_referencia_NOM_TIP_REFERENCIA,
+     tbl_medico.`NOM_MEDICO` AS tbl_medico_NOM_MEDICO,
+     tbl_medico.`PRI_APE_MEDICO` AS tbl_medico_PRI_APE_MEDICO,
+     cat_especialidad.`COD_ESPECIALIDAD` AS cat_especialidad_COD_ESPECIALIDAD,
+     cat_especialidad.`NOM_ESPECIALIDAD` AS cat_especialidad_NOM_ESPECIALIDAD
+FROM
+     `tbl_expediente_pacientes` tbl_expediente_pacientes INNER JOIN `tbl_referencia` tbl_referencia ON tbl_expediente_pacientes.`NUM_EXPEDIENTE` = tbl_referencia.`NUM_EXPEDIENTE`
+     INNER JOIN `cat_tipo_referencia` cat_tipo_referencia ON tbl_referencia.`COD_TIP_REFERENCIA` = cat_tipo_referencia.`COD_TIP_REFERENCIA`
+     INNER JOIN `tbl_medico` tbl_medico ON tbl_referencia.`NUM_MEDICO` = tbl_medico.`NUM_MEDICO`
+     INNER JOIN `cat_especialidad` cat_especialidad ON tbl_referencia.`COD_ESPECIALIDAD` = cat_especialidad.`COD_ESPECIALIDAD`
+WHERE
+tbl_referencia.`NUM_REFERENCIA` = $P{numReferencia}]]>
+	</queryString>
+	<field name="tbl_referencia_NUM_REFERENCIA" class="java.lang.Integer"/>
+	<field name="tbl_referencia_COD_TIP_REFERENCIA" class="java.lang.Integer"/>
+	<field name="tbl_referencia_FEC_REFERENCIA" class="java.sql.Timestamp"/>
+	<field name="tbl_referencia_DIA_REFERENCIA" class="java.lang.String"/>
+	<field name="tbl_referencia_REF_A" class="java.lang.String"/>
+	<field name="tbl_referencia_MOT_REFERENCIA" class="java.lang.String"/>
+	<field name="tbl_referencia_NUM_CONSULTA" class="java.lang.Integer"/>
+	<field name="tbl_referencia_NUM_EXPEDIENTE" class="java.lang.Integer"/>
+	<field name="tbl_expediente_pacientes_NOM_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_expediente_pacientes_PRI_APE_PACIENTE" class="java.lang.String"/>
+	<field name="tbl_expediente_pacientes_SEC_APE_PACIENTE" class="java.lang.String"/>
+	<field name="cat_tipo_referencia_COD_TIP_REFERENCIA" class="java.lang.Integer"/>
+	<field name="cat_tipo_referencia_NOM_TIP_REFERENCIA" class="java.lang.String"/>
+	<field name="tbl_medico_NOM_MEDICO" class="java.lang.String"/>
+	<field name="tbl_medico_PRI_APE_MEDICO" class="java.lang.String"/>
+	<field name="cat_especialidad_COD_ESPECIALIDAD" class="java.lang.Integer"/>
+	<field name="cat_especialidad_NOM_ESPECIALIDAD" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="88" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="f1971f95-0b6c-46bb-b785-ce77e09ad0c0" x="472" y="9" width="73" height="69"/>
+			</rectangle>
+			<image>
+				<reportElement uuid="f28cce09-6ee2-4268-be04-78c6298d0cab" x="2" y="2" width="83" height="65"/>
+				<imageExpression><![CDATA["logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="113" y="29" width="338" height="49"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="8" isBold="false" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[CLÍNICA ASISTENCIAL CORAZÓN DE MARÍA
+79 AV. SUR Y FINAL PADRES AGUILAR, CONTIGUO A IGLESIA CORAZÓN DE MARÍA, COL. ESCALÓN, SAN SALVADOR EL SALVADOR, C.A.
+TEL: 2263-5889
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="185" y="7" width="197" height="22"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="16" isBold="true" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[FUNDACIÓN CARISMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ec50d4f8-07ea-431b-924c-3cb5d77b2c84" x="472" y="9" width="73" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. Referencia]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="5a164cf6-5a9f-4f1b-8a34-ef00cac4fe78" x="472" y="29" width="73" height="49"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbl_referencia_NUM_REFERENCIA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="3" y="0" width="552" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="14" isBold="true" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Referencia Médica]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="296" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="9ca2728a-1e91-48b8-8fd2-a17bc35812fa" x="70" y="56" width="441" height="224"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="416aadef-c62c-4797-8f39-2e459385dcd2" x="3" y="2" width="53" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Paciente]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="d268c384-b6ee-47ec-af9f-773554778c64" x="56" y="2" width="91" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_NOM_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2b35c5bd-d326-41c7-b0bc-95c6ebfe4d3c" x="147" y="2" width="87" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_PRI_APE_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5b9df849-6565-41df-b8b6-b04a97fa9121" x="234" y="2" width="78" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_SEC_APE_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="08909688-d711-464d-9377-81785a34fa22" x="355" y="2" width="60" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Expediente]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="67608071-4d55-4795-9b18-0b111f6b78c6" x="415" y="2" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_referencia_NUM_EXPEDIENTE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="fe86a765-80ba-4045-bda5-33f8165d9ef2" x="3" y="25" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Medico que refiere]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="985fe569-d8b0-4b40-8de6-207cac3ab1d4" x="103" y="25" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_medico_NOM_MEDICO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="16a135cd-5c2e-4bd2-843e-952a16b485c8" x="203" y="25" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_medico_PRI_APE_MEDICO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="89e7e212-bfd1-4b21-9517-4f7def1b6877" x="86" y="66" width="63" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Diagnostico]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="557e3603-086d-4dcb-8ce3-16e708f46a04" x="85" y="86" width="413" height="43"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_referencia_DIA_REFERENCIA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8296de06-1af0-47f6-a965-319e677bc196" x="85" y="130" width="124" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Motivo de la referencia]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="2069a318-c46f-481d-b20f-2c197eebb97d" x="86" y="150" width="412" height="44"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_referencia_MOT_REFERENCIA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="18c937a3-b63e-4a37-99ea-84dd119a3ced" x="86" y="194" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de referencia]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="16047591-f37a-41e2-b620-10bba9caeb2d" x="186" y="194" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cat_tipo_referencia_NOM_TIP_REFERENCIA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0eb4e21a-2c33-46f2-9f07-b713ea02ddcd" x="86" y="214" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Especialidad]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="a156e27b-543a-40a1-89ca-1f572f2867ba" x="186" y="214" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cat_especialidad_NOM_ESPECIALIDAD}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d2c8607c-b1b7-4c65-a634-65a7924df5d4" x="86" y="250" width="123" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Médico al que se refiere]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="5964eefa-9986-4b31-b61d-134a2d88c00c" x="209" y="250" width="246" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_referencia_REF_A}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="81" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement uuid="dd91d53e-93f0-4c14-9ed7-67ee597856e9" x="0" y="60" width="555" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Hoja "+$V{PAGE_NUMBER}+"/"+$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="0" y="21" width="206" height="20"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[_______________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="355" y="21" width="200" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<text><![CDATA[___________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="2" y="41" width="204" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Sello]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="355" y="41" width="200" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Encargado]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
