@@ -63,7 +63,7 @@ and open the template in the editor.
                                 <a4j:commandButton value="Denegar" actionListener="#{frmMantTblRequisiciones.DenegarReq}" render="@form, panelMessage"/>
                                 <a4j:commandButton value="Aprobar" actionListener="#{frmMantTblRequisiciones.AprobarReq}" render="@form, panelMessage"/>
                                 <a4j:commandButton value="Entregar" actionListener="#{frmMantTblRequisiciones.EntregarReq(ae)}" render="@form, panelMessage"/>
-                                <h:commandButton value="Regresar" action="frmEliminarTblRequisiciones.jsf?faces-redirect=true"/>
+                                <h:commandButton value="Regresar" action="frmEliminarTblRequisiciones.jsf?faces-redirect=true" immediate="true"/>
                             </td>
                         </tr>
                     </table>

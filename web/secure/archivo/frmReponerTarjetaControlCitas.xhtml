@@ -193,7 +193,7 @@
                   <td colspan="4" align="center">
                       <a4j:commandButton value="Asignar" actionListener="#{frmCrearTarjetaControlCitas.asignar}" render="@form, panelMessage" />
                       <a4j:commandButton value="Nueva asignacion" actionListener="#{frmCrearTarjetaControlCitas.asignarNuevo}" render="@form, panelMessage" />
-                      <h:commandButton value="Cancelar" action="/inicio.jsf"/>
+                      <h:commandButton value="Cancelar" action="/inicio.jsf?faces-redirect=true" immediate="true"/>
                   </td>
                 </tr>
               </table>
