@@ -54,7 +54,7 @@ public class FrmMantTblDespachos extends PageBase{
     private List<SelectItem> tblInstitucionList = new ArrayList<SelectItem>();
     private List<TblDetalleDespacho> cblDetalleDespachoList= new ArrayList<TblDetalleDespacho>();
     private List<SelectItem> tblProductoList = new ArrayList<SelectItem>();
-
+    private TblProducto selectedProduct = new TblProducto();
     public TblDespachos getTblDespachos() {
         return tblDespachos;
     }
@@ -205,10 +205,32 @@ public class FrmMantTblDespachos extends PageBase{
             this.getCblDetalleDespachoList().clear();
             tblDespachos = facade.find(tblDespachos.getNumDespacho());
             this.addInfo("El producto fue agregado exitosamente", "El producto fue agregado exitosamente");
+            this.selectedProduct= new TblProducto();
         }catch(Exception x){
             x.printStackTrace();
             this.addError(x.getMessage(), x.getMessage());
         }
+    }
+
+    public TblProducto getSelectedProduct() {
+        return selectedProduct;
+    }
+
+    public void setSelectedProduct(TblProducto selectedProduct) {
+        this.selectedProduct = selectedProduct;
+    }
+    
+    public void seleccionarProductoByCodigo(ValueChangeEvent ve){
+        try{
+            selectedProduct = productoFacade.find((Integer)ve.getNewValue());
+            if (selectedProduct!=null){
+                tblDetalleDespacho.setTblDetalleDespachoPK(new TblDetalleDespachoPK(this.tblDespachos.getNumDespacho(), selectedProduct.getNumProducto()));
+                tblDetalleDespacho.setPreUniDetDespacho(selectedProduct.getPreFinProducto());
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+            this.addError(ex.getMessage(), ex.getMessage());
+        }        
     }
     
     public void seleccionarProducto(TblProducto producto){
@@ -220,11 +242,12 @@ public class FrmMantTblDespachos extends PageBase{
     }
     public void seleccionarProducto(ValueChangeEvent v){
         try{
-        TblProducto producto = productoFacade.find((Integer)v.getNewValue());
-        if (producto!=null){
-            tblDetalleDespacho.setTblDetalleDespachoPK(new TblDetalleDespachoPK(this.tblDespachos.getNumDespacho(), producto.getNumProducto()));
-            tblDetalleDespacho.setPreUniDetDespacho(producto.getPreFinProducto());
-        }   
+            selectedProduct = productoFacade.find((Integer)v.getNewValue());
+            if (selectedProduct!=null){
+                tblDetalleDespacho.setTblDetalleDespachoPK(new TblDetalleDespachoPK(this.tblDespachos.getNumDespacho(), selectedProduct.getNumProducto()));
+                tblDetalleDespacho.setPreUniDetDespacho(selectedProduct.getPreFinProducto());
+                System.out.println("Precio enviado:"+selectedProduct.getPreFinProducto());
+            }   
         }catch(Exception ex){
             ex.printStackTrace();
             this.addError(ex.getMessage(), ex.getMessage());
