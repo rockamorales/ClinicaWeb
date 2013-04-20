@@ -319,15 +319,15 @@
                              <tr>
                                  <td align="left" style="vertical-align: top;">Hoja consulta #:</td>
                                  <td align="left" style="vertical-align: top;">
-                                    <h:outputText value="#{frmMantTblConsultas.consulta.numConsulta}  " style="font-weight: bold"/>
+                                    <h:outputText value="#{frmMantTblConsultas.consulta.numConsulta}  " style="font-weight: bold"/>                                 
                                     <a4j:commandButton value="..." onclick="#{rich:component('buscarConsultaPanel')}.show(); return false;">
-                                    </a4j:commandButton>
+                                    </a4j:commandButton>                                 
                                  </td>
                                 <td align="left" style="vertical-align: top;">Expediente:</td>
                                 <td align="left" style="vertical-align: top;">
                                     <h:outputText value="#{frmMantTblConsultas.consulta.numExpediente}" style="font-weight: bold"/>
                                     <h:outputLink value="/ClinicaWeb/ReportServlet" rendered="#{frmMantTblConsultas.consulta.numExpediente != null and frmMantTblConsultas.consulta.numExpediente > 0}">
-                                        Historial Consulta
+                                        Ver Historial
                                         <f:param value="/Reports/Archivo_HistorialConsultasPaciente.jasper" name="rptFileName"/>
                                         <f:param value="pdf" name="docType"/>
                                         <f:param value="#{frmMantTblConsultas.consulta.numExpediente}" name="numExpediente"/>
@@ -469,6 +469,13 @@
                                       <tr>
                                           <td colspan="2" align="center">
                                               <a4j:commandButton actionListener="#{frmMantTblConsultas.guardar}" value="Guardar" render="@form, panelMessage" rendered="#{frmMantTblConsultas.consulta.numConsulta!=null and frmMantTblConsultas.consulta.numConsulta > 0}"/>
+                                              <h:outputLink value="/ClinicaWeb/ReportServlet" rendered="#{frmMantTblConsultas.consulta.numConsulta != null and frmMantTblConsultas.consulta.numConsulta > 0}">
+                                              Imprimir
+                                              <f:param value="/Reports/Consultas_HojaConsulta.jasper" name="rptFileName"/>
+                                              <f:param value="pdf" name="docType"/>
+                                              <f:param value="#{frmMantTblConsultas.consulta.numConsulta}" name="numConsulta"/>
+                                              <f:param value="numerico" name="numConsultaDataType"/>
+                                              </h:outputLink>                                                 
                                           </td>
                                       </tr>
                                   </table>
@@ -481,6 +488,13 @@
                                           </td>
                                           <td>
                                               <h:outputText value="#{frmMantTblConsultas.recetaMedica.numReceta}" />
+                                    <h:outputLink value="/ClinicaWeb/ReportServlet" rendered="#{frmMantTblConsultas.recetaMedica.numReceta != null and frmMantTblConsultas.recetaMedica.numReceta > 0}">
+                                        Imprimir
+                                        <f:param value="/Reports/Consultas_Receta.jasper" name="rptFileName"/>
+                                        <f:param value="pdf" name="docType"/>
+                                        <f:param value="#{frmMantTblConsultas.recetaMedica.numReceta}" name="numReceta"/>
+                                        <f:param value="numerico" name="numRecetaDataType"/>
+                                      </h:outputLink>                                                 
                                           </td>
                                           <td>
                                               <h:outputLabel value="Estado receta: " />
@@ -595,6 +609,13 @@
                                           </td>
                                           <td>
                                               <h:outputText value="#{frmMantTblConsultas.ordenLab.numOrdLaboratorio}" />
+                                              <h:outputLink value="/ClinicaWeb/ReportServlet" rendered="#{frmMantTblConsultas.ordenLab.numOrdLaboratorio != null and frmMantTblConsultas.ordenLab.numOrdLaboratorio > 0}">
+                                                Imprimir
+                                                <f:param value="/Reports/consulta_OrdenLaboratorio.jasper" name="rptFileName"/>
+                                                <f:param value="pdf" name="docType"/>
+                                                <f:param value="#{frmMantTblConsultas.ordenLab.numOrdLaboratorio}" name="numOrdLaboratorio"/>
+                                                <f:param value="numerico" name="numOrdLaboratorioDataType"/>
+                                              </h:outputLink>                                                
                                           </td>
                                       </tr>
                                       <tr>
@@ -656,6 +677,13 @@
                                           </td>
                                           <td>
                                               <h:outputText value="#{frmMantTblConsultas.referencia.numReferencia}" id="numReferencia" style="font-weight: bold;"/>
+                                              <h:outputLink value="/ClinicaWeb/ReportServlet" rendered="#{frmMantTblConsultas.referencia.numReferencia != null and frmMantTblConsultas.referencia.numReferencia > 0}">
+                                                Imprimir
+                                                <f:param value="/Reports/Consulta_Referencia.jasper" name="rptFileName"/>
+                                                <f:param value="pdf" name="docType"/>
+                                                <f:param value="#{frmMantTblConsultas.referencia.numReferencia}" name="numReferencia"/>
+                                                <f:param value="numerico" name="numReferenciaDataType"/>
+                                              </h:outputLink>                                                
                                           </td>
                                           <td>
                                               <h:outputLabel value="Medico:" />
