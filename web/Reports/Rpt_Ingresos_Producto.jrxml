@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rpt_Ingresos_Producto" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eb3d3e1d-e7a3-48ed-8e8f-a0fac7cf9d19">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="FechaIni" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FechaFin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="numProducto" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     case tbl_ingresos_producto.`EST_ING_PRODUCTO` when 0 then 'Inactivo' when 1 then 'Activo' end AS tbl_ingresos_producto_EST_ING_PRODUCTO,
+     tbl_ingresos_producto.`NUM_INGRESO` AS tbl_ingresos_producto_NUM_INGRESO,
+     tbl_ingresos_producto.`FEC_INGRESO` AS tbl_ingresos_producto_FEC_INGRESO,
+     tbl_ingresos_producto.`OBS_INGRESO` AS tbl_ingresos_producto_OBS_INGRESO,
+     tbl_ingresos_producto.`NUM_DOC_INGRESO` AS tbl_ingresos_producto_NUM_DOC_INGRESO,
+     tbl_ingresos_producto.`MON_INGRESO` AS tbl_ingresos_producto_MON_INGRESO,
+     tbl_empleado.`NOM_EMPLEADO` AS tbl_empleado_NOM_EMPLEADO,
+     tbl_empleado.`PRI_APE_EMPLEADO` AS tbl_empleado_PRI_APE_EMPLEADO,
+     tbl_empleado.`SEC_APE_EMPLEADO` AS tbl_empleado_SEC_APE_EMPLEADO,
+     tbl_institucion.`RAZ_SOC_INSTITUCION` AS tbl_institucion_RAZ_SOC_INSTITUCION,
+     cat_origen_ingreso_producto_A.`NOM_ORI_INGRESO` AS cat_origen_ingreso_producto_A_NOM_ORI_INGRESO,
+     tbl_producto.`NOM_PRODUCTO` AS tbl_producto_NOM_PRODUCTO,
+     tbl_detalle_ingreso_producto.`COR_DET_INGRESO` AS tbl_detalle_ingreso_producto_COR_DET_INGRESO,
+     tbl_detalle_ingreso_producto.`CAN_DET_INGRESO` AS tbl_detalle_ingreso_producto_CAN_DET_INGRESO,
+     tbl_producto.`NUM_PRODUCTO` AS tbl_producto_NUM_PRODUCTO
+FROM
+     `tbl_empleado` tbl_empleado RIGHT OUTER JOIN `tbl_ingresos_producto` tbl_ingresos_producto ON tbl_empleado.`NUM_EMPLEADO` = tbl_ingresos_producto.`NUM_EMPLEADO`
+     LEFT OUTER JOIN `tbl_institucion` tbl_institucion ON tbl_ingresos_producto.`NUM_INSTITUCION` = tbl_institucion.`NUM_INSTITUCION`
+     LEFT OUTER JOIN `cat_origen_ingreso_producto` cat_origen_ingreso_producto_A ON tbl_ingresos_producto.`COD_ORI_INGRESO` = cat_origen_ingreso_producto_A.`COD_ORI_INGRESO`
+     LEFT OUTER JOIN `tbl_detalle_ingreso_producto` tbl_detalle_ingreso_producto ON tbl_ingresos_producto.`NUM_INGRESO` = tbl_detalle_ingreso_producto.`NUM_INGRESO`
+     INNER JOIN `tbl_producto` tbl_producto ON tbl_detalle_ingreso_producto.`NUM_PRODUCTO` = tbl_producto.`NUM_PRODUCTO`
+WHERE
+     tbl_ingresos_producto.`FEC_INGRESO` BETWEEN str_to_date($P{FechaIni},'%d/%m/%Y')and str_to_date($P{FechaFin},'%d/%m/%Y')
+     and (tbl_producto.`NUM_PRODUCTO` = $P{numProducto}
+     or $P{numProducto} = -1)
+ORDER BY
+     tbl_ingresos_producto.`NUM_INGRESO` ASC, tbl_ingresos_producto.`FEC_INGRESO`]]>
+	</queryString>
+	<field name="tbl_ingresos_producto_EST_ING_PRODUCTO" class="java.lang.String"/>
+	<field name="tbl_ingresos_producto_NUM_INGRESO" class="java.lang.Integer"/>
+	<field name="tbl_ingresos_producto_FEC_INGRESO" class="java.sql.Timestamp"/>
+	<field name="tbl_ingresos_producto_OBS_INGRESO" class="java.lang.String"/>
+	<field name="tbl_ingresos_producto_NUM_DOC_INGRESO" class="java.lang.String"/>
+	<field name="tbl_ingresos_producto_MON_INGRESO" class="java.lang.Float"/>
+	<field name="tbl_empleado_NOM_EMPLEADO" class="java.lang.String"/>
+	<field name="tbl_empleado_PRI_APE_EMPLEADO" class="java.lang.String"/>
+	<field name="tbl_empleado_SEC_APE_EMPLEADO" class="java.lang.String"/>
+	<field name="tbl_institucion_RAZ_SOC_INSTITUCION" class="java.lang.String"/>
+	<field name="cat_origen_ingreso_producto_A_NOM_ORI_INGRESO" class="java.lang.String"/>
+	<field name="tbl_producto_NOM_PRODUCTO" class="java.lang.String"/>
+	<field name="tbl_detalle_ingreso_producto_COR_DET_INGRESO" class="java.math.BigDecimal"/>
+	<field name="tbl_detalle_ingreso_producto_CAN_DET_INGRESO" class="java.math.BigDecimal"/>
+	<field name="tbl_producto_NUM_PRODUCTO" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="88" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="132" y="32" width="215" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Clinica Asistencial Corazon de Maria]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="f28cce09-6ee2-4268-be04-78c6298d0cab" x="18" y="11" width="83" height="65"/>
+				<imageExpression><![CDATA["logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="8ff5c228-e686-4510-9ac0-b7ad0aa2cd4d" x="557" y="12" width="69" height="20"/>
+				<textElement/>
+				<text><![CDATA[Fecha y Hora:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement uuid="dc2ad595-75d1-477b-b506-79e6b0b15492" x="626" y="12" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="557" y="49" width="180" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Area: <Farmacia>]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="2" y="0" width="552" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Reporte de Ingresos]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="eb1bf8ff-2999-4be2-ae35-f3fedfda2f14" x="2" y="0" width="35" height="20"/>
+				<textElement/>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0ff0972a-2e79-489f-bf4d-cef52a581a30" x="202" y="0" width="50" height="20"/>
+				<textElement/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="19ac7710-c5df-4688-a4bc-0e120fe8414a" x="302" y="0" width="103" height="20"/>
+				<textElement/>
+				<text><![CDATA[Observaciones]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="477daaa0-e1aa-4767-8c07-bd5ba5acc307" x="152" y="0" width="50" height="20"/>
+				<textElement/>
+				<text><![CDATA[Doc_Ingreso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="006dd7af-e43c-40ef-98a6-6e3b73683ded" x="252" y="0" width="50" height="20"/>
+				<textElement/>
+				<text><![CDATA[Monto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="25a840d6-ada6-4dbc-b528-e0b8dce411b6" x="405" y="0" width="50" height="20"/>
+				<textElement/>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a5e28b6e-50fc-44ba-90e8-6e29e81e1d69" x="455" y="0" width="82" height="20"/>
+				<textElement/>
+				<text><![CDATA[Empleado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="93553c2b-c677-486a-802d-6ef804e91361" x="537" y="0" width="50" height="20"/>
+				<textElement/>
+				<text><![CDATA[Apellidos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="39d5a092-c666-4e90-b285-711878b9f79c" x="37" y="0" width="65" height="20"/>
+				<textElement/>
+				<text><![CDATA[Institucion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9d40fb94-3b96-4ea3-91c6-c1e7500c9427" x="102" y="0" width="50" height="20"/>
+				<textElement/>
+				<text><![CDATA[Origen]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d14cec2a-2e41-45bb-9349-c84b5e0ac98d" x="600" y="0" width="94" height="20"/>
+				<textElement/>
+				<text><![CDATA[tbl_producto_NOM_PRODUCTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9fc52af2-d13f-434d-b909-4900f770f58f" x="694" y="0" width="45" height="20"/>
+				<textElement/>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f26e788b-4750-4a99-971c-9fd62a698901" x="600" y="0" width="94" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_producto_NOM_PRODUCTO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c4bd89c6-9a65-4609-9c9c-5fe5f2e8b4bc" x="694" y="0" width="45" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_detalle_ingreso_producto_CAN_DET_INGRESO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="60ab9c0e-3905-4d76-b492-b587f7481230" x="2" y="0" width="35" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_ingresos_producto_NUM_INGRESO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="9560ef59-0fa6-4341-97cf-2fd608a5cefc" x="202" y="0" width="50" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_ingresos_producto_FEC_INGRESO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="b1d4eae8-7e91-4aa5-8ff5-64eef0d20bcc" x="302" y="0" width="103" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_ingresos_producto_OBS_INGRESO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="bd0d4203-0742-440b-82e5-5a71a67c3eed" x="152" y="0" width="50" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_ingresos_producto_NUM_DOC_INGRESO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="22a78df4-d048-4077-b747-24343455f1df" x="252" y="0" width="50" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_ingresos_producto_MON_INGRESO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="ebdd46c8-4ff9-4227-8924-47ac98f9c710" x="405" y="0" width="50" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_ingresos_producto_EST_ING_PRODUCTO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="3f5131b7-d172-40b3-8dab-1fa293f0b35a" x="455" y="0" width="82" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_empleado_NOM_EMPLEADO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f1d9c37a-55f8-4053-a322-8ebe25f3b516" x="537" y="0" width="50" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_empleado_PRI_APE_EMPLEADO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="212548d1-571d-4e15-a927-139e07ff1666" x="37" y="0" width="65" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_institucion_RAZ_SOC_INSTITUCION}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="8410f153-281a-4983-9c12-09538b43bfe5" x="102" y="0" width="50" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{cat_origen_ingreso_producto_A_NOM_ORI_INGRESO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="13" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="81" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement uuid="dd91d53e-93f0-4c14-9ed7-67ee597856e9" x="96" y="59" width="555" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Hoja "+$V{PAGE_NUMBER}+"/"+$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="96" y="20" width="206" height="20"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[_______________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="451" y="20" width="200" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<text><![CDATA[___________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="98" y="40" width="204" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Sello]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="451" y="40" width="200" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Encargado]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
