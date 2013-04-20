@@ -69,7 +69,7 @@ datediff (tbl_detalle_ingreso_producto.`FEC_EXP_DET_INGRESO`,current_timestamp) 
 					<font size="12" isBold="true" isStrikeThrough="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[Reporte de Medicamentos por Vencer]]></text>
+				<text><![CDATA[Reporte de Medicamentos por Vencer en Menos de 90 Días]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
