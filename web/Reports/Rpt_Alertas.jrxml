@@ -155,7 +155,7 @@ and tbl_producto.`EXI_MIN_PRODUCTO` >= tbl_producto.`EXI_PRODUCTO`]]>
 				<textFieldExpression><![CDATA[$F{cat_categoria_producto_NOM_CAT_PRODUCTO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="5cf866ee-015b-4438-9e2e-f88328910941" x="30" y="0" width="144" height="20" isRemoveLineWhenBlank="true" forecolor="#FF0033"/>
+				<reportElement uuid="5cf866ee-015b-4438-9e2e-f88328910941" x="30" y="0" width="144" height="20" isRemoveLineWhenBlank="true" forecolor="#000000"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{tbl_producto_NOM_PRODUCTO}]]></textFieldExpression>
 			</textField>
