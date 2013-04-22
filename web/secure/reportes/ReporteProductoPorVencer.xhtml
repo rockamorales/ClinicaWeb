@@ -15,7 +15,7 @@ and open the template in the editor.
           <h:outputText value="#{messages['default.windowTitle']}--Reporte de Productos por Vencer" escape="false"></h:outputText>  
         </ui:define>
         <ui:define name="body">
-            <h3>Reporte de Productos por Vencer</h3>
+            <h3>Reporte de Medicamentos por Vencer</h3>
             <hr></hr>
             <form action="/ClinicaWeb/ReportServlet">
                 <table>
@@ -27,11 +27,11 @@ and open the template in the editor.
                             <h:outputLabel value="Formato:"></h:outputLabel>
                         </TD>
                         <TD>
-                            <select id="docType" name="docType">
-                                <option value="pdf" label="PDF"/>
-                                <option value="xls" label="xls"/>
-                                <option value="html" label="html"/>                                
-                            </select>
+                            <h:selectOneMenu id="docType">
+                                <f:selectItem itemValue="pdf" itemLabel="PDF"/>
+                                <f:selectItem itemValue="xls" itemLabel="XLS"/>
+                                <f:selectItem itemValue="html" itemLabel="HTML"/>
+                            </h:selectOneMenu>   
                         </TD>
                         <TD>
                             <input type="hidden" value="/Reports/Farmacia_MedicamentosPorVencer.jasper" name="rptFileName"/>
