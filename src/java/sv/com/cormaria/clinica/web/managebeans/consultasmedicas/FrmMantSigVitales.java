@@ -101,7 +101,7 @@ public class FrmMantSigVitales extends PageBase{
    
    
    public void buscar(ActionEvent ae){
-      ExpedienteDataModel model = (ExpedienteDataModel) this.getBean("#{expedienteDataModel}", ExpedienteDataModel.class);
+      ConsultasPagadasDataModel model = (ConsultasPagadasDataModel) this.getBean("#{consultasPagadasDataModel}", ConsultasPagadasDataModel.class);
       model.clear();
    }    
     

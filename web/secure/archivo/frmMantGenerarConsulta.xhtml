@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+    <ui:composition 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j"
+      template="/templates/main.xhtml">
+      <ui:define name="title">
+        <h:outputText value="#{messages['default.windowTitle']}--Modificacion de Consultas" escape="false"></h:outputText>
+      </ui:define>
+      <ui:define name="body">
+         <h:form id="form">
+             <a4j:poll id="poll" interval="5000" enabled="true" render="MantConsultasGrid" actionListener="#{frmMantGenerarConsulta.buscar}" />
+                    <rich:popupPanel id="buscarConsultaPanel" modal="true" autosized="true" resizeable="false" domElementAttachment="form">
+                    <f:facet name="header">
+                        <h:outputText value="Seleccionar consulta"/>
+                    </f:facet>
+                    <f:facet name="controls">
+                        <h:outputLink value="#" onclick="#{rich:component('buscarConsultaPanel')}.hide(); return false;" style="color:white;font-weight: bold;">
+                            Cerrar
+                        </h:outputLink>
+                    </f:facet>
+                <table>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Expediente:" for="numExpediente1">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.numExpediente}" id="numExpediente1" maxlength="9" onkeypress="return filterInput(1, event, false, '');">
+                            </h:inputText>
+                        </td>
+                        <td>
+                            <h:outputLabel value="DUI:" for="dui1"> </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.dui}" id="dui1" maxlength="9" onkeypress="return filterInput(1, event, false, '');">
+                            </h:inputText>
+                            <rich:tooltip  target="dui" showEvent="focus" value="Ingrese el numero de dui sin guión" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Nombres:" for="nombres1">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.nombres}" id="nombres1" maxlength="30" onkeypress="return filterInput(0, event, false, ' %');">
+                            </h:inputText>
+                        </td>
+                        <td>
+                            <h:outputLabel value="Primer Ape:" for="primerApellido1">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.primerApellido}" id="primerApellido1" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
+                            </h:inputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Segundo ape:" for="segundoApellido1">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.segundoApellido}" id="segundoApellido1" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
+                            </h:inputText>
+                        </td>
+                        <td>
+                            <h:outputLabel value="Tercer ape:" for="tercerApellido1">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.tercerApellido}" id="tercerApellido1" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
+                            </h:inputText>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td colspan="4" align="center">
+                                <a4j:commandButton value="Buscar" actionListener="#{frmMantGenerarConsulta.buscar}" render="tblConsultasTable" type="submit"/>
+                            </td>                        
+                        </tr>
+                    </table>
+                  <rich:dataTable value="#{consultasSignosVitalesDataModel}" var="Consultas" rows="10" id="tblConsultasTable">
+                    <f:facet name="header">
+                        <rich:columnGroup>
+                          <h:column>
+                            <h:outputText value="Expediente"/>
+                          </h:column>
+                          <h:column>
+                            <h:outputText value="Nombres"/>
+                          </h:column>
+                          <h:column>
+                            <h:outputText value="Primer Apellido"/>
+                          </h:column>   
+                            <h:column>
+                            <h:outputText value="Segundo Apellido"/>
+                           </h:column> 
+                            <h:column>
+                            <h:outputText value="Sexo"/>
+                          </h:column>
+                            <h:column>
+                            <h:outputText value="Fecha de Nacimiento"/>
+                          </h:column>
+                            <h:column>
+                            <h:outputText value="DUI"/>
+                          </h:column>
+                          <h:column>
+                            <h:outputText value="Ver"/>
+                          </h:column>
+                        </rich:columnGroup>
+                      </f:facet>
+                    <h:column>
+                        <h:outputText value="#{Consultas.numExpediente}">
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <h:outputText value="#{Consultas.tblExpediente.nomPaciente}">
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <h:outputText value="#{Consultas.tblExpediente.priApePaciente}">
+                        </h:outputText>
+                    </h:column>   
+                    <h:column>
+                        <h:outputText value="#{Consultas.tblExpediente.secApePaciente}">
+                        </h:outputText>
+                    </h:column>   
+                    <h:column>
+                        <h:outputText value="#{Consultas.tblExpediente.catSexo.nomSexPaciente}">
+                        </h:outputText>
+                    </h:column>  
+                    <h:column>
+                        <h:outputText value="#{Consultas.tblExpediente.fecNacPaciente}">
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <h:outputText value="#{Consultas.tblExpediente.numDui}">
+                      </h:outputText>
+                    </h:column>  
+                    <h:column> 
+                        <a4j:commandButton image="/img/icons/edit.gif" render="@form, panelMessage" oncomplete="#{rich:component('buscarConsultaPanel')}.hide();" actionListener="#{frmMantGenerarConsulta.seleccionar}">
+                        </a4j:commandButton>
+                    </h:column>  
+                   <f:facet name="footer">
+                   <rich:dataScroller/>
+                   </f:facet>
+                </rich:dataTable>
+            </rich:popupPanel>
+              <h3>Generacion de consulta</h3>
+              <hr/>
+              <table>
+                <tr>
+                    <td align="left">Expediente:</td>
+                    <td align="left">
+                        <h:outputText value="#{frmMantGenerarConsulta.tblConsultas.numExpediente}" id="numExpediente" maxlength="9" onkeypress="return filterInput(1, event, false, '');">
+                        </h:outputText>
+                        <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                        <a4j:commandButton value="..." onclick="#{rich:component('buscarConsultaPanel')}.show(); return false;">
+                        </a4j:commandButton>
+                    </td>
+                    <td align="left"># Consulta:</td>
+                    <td align="left">
+                        <h:outputText value="#{frmMantGenerarConsulta.tblConsultas.numConsulta}" id="numConsulta">
+                        </h:outputText>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Nombres:</td>
+                    <td align="left">
+                        <h:outputText value="#{frmMantGenerarConsulta.tblConsultas.tblExpediente.nomPaciente}"/>
+                    </td>
+                    <td align="left">Apellidos:</td>
+                    <td align="left">
+                        <h:outputText value="#{frmMantGenerarConsulta.tblConsultas.tblExpediente.priApePaciente} #{frmMantGenerarConsulta.tblConsultas.tblExpediente.secApePaciente} #{frmMantGenerarConsulta.tblConsultas.tblExpediente.terApePaciente}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Fecha de Nacimiento:</td>
+                    <td align="left">
+                        <h:outputText value="#{frmMantGenerarConsulta.tblConsultas.tblExpediente.fecNacPaciente}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </td>
+                    <td align="left">Edad del Paciente:</td>
+                    <td align="left">
+                        <h:outputText value="#{frmMantGenerarConsulta.tblConsultas.tblExpediente.edadPaciente}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Tipo consulta:</td>
+                    <td align="left">
+                        <h:selectOneMenu value="#{frmMantGenerarConsulta.tblConsultas.codTipConsulta}" id="codTipConsulta">
+                            <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem>
+                            <f:selectItems value="#{frmMantGenerarConsulta.catTipoConsultaList}"/>
+                        </h:selectOneMenu>
+                    </td>
+                    <td align="left">Especialidad:</td>
+                    <td align="left">
+                        <h:selectOneMenu value="#{frmMantGenerarConsulta.tblConsultas.codEspecialidad}" id="codEspecialidad">
+                            <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem>
+                            <f:selectItems value="#{frmMantGenerarConsulta.catEspecialidadList}"/>
+                        </h:selectOneMenu>
+                    </td>                    
+                </tr> 
+                <tr>
+                    <td align="left">Dr:</td>
+                    <td colspan="3" align="left">
+                        <h:selectOneMenu value="#{frmMantGenerarConsulta.tblConsultas.numMedico}" id="numMedico">
+                            <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem>
+                            <f:selectItems value="#{frmMantGenerarConsulta.tblMedicosList}" var="medico" itemLabel="#{medico.nomMedico} #{medico.priApeMedico} #{medico.secApeMedico} #{medico.terApeMedico}" itemValue="#{medico.numMedico}" />
+                        </h:selectOneMenu>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Observaciones:</td>
+                    <td align="left" colspan="3">
+                        <h:inputTextarea value="#{frmMantGenerarConsulta.tblConsultas.obsCliPaciente}" id="observaciones" rows="2" cols="40">
+                            <f:validateLength maximum="300" ></f:validateLength>
+                        </h:inputTextarea>
+                        <h:outputLabel value="*" style="color:red;font-weight: bold;"/>                         
+                    </td>
+                </tr>  
+                <tr>
+                  <td colspan="4" align="center">
+                      <a4j:commandButton value="Guardar" actionListener="#{frmMantGenerarConsulta.guardarConsulta}" render="@form, panelMessage"/>
+                       <h:commandButton value="Cancelar" action="/inicio.jsf?faces-redirect=true" immediate="true"/>
+                  </td>
+                </tr>
+              </table>
+           </h:form>
+        </ui:define>
+    </ui:composition>
