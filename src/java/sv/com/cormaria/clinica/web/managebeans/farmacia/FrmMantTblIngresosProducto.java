@@ -53,6 +53,15 @@ public class FrmMantTblIngresosProducto extends PageBase{
     private List<SelectItem> tblInstitucionList = new ArrayList<SelectItem>();
     private List<TblDetalleIngresoProducto> cblDetalleIngresoProductoList= new ArrayList<TblDetalleIngresoProducto>();
     private List<SelectItem> tblProductoList = new ArrayList<SelectItem>();
+    private TblProducto selectedProduct = new TblProducto();
+
+    public TblProducto getSelectedProduct() {
+        return selectedProduct;
+    }
+
+    public void setSelectedProduct(TblProducto selectedProduct) {
+        this.selectedProduct = selectedProduct;
+    }
 
     public TblIngresosProducto getTblIngresosProducto() {
         return tblIngresosProducto;
@@ -206,6 +215,7 @@ public class FrmMantTblIngresosProducto extends PageBase{
             this.getCblDetalleIngresoProductoList().clear();
             tblIngresosProducto = facade.find(tblIngresosProducto.getNumIngreso());
             this.addInfo("El producto fue agregado exitosamente", "El producto fue agregado exitosamente");
+            this.selectedProduct= new TblProducto();
         }catch(Exception x){
             x.printStackTrace();
             this.addError(x.getMessage(), x.getMessage());
@@ -220,16 +230,30 @@ public class FrmMantTblIngresosProducto extends PageBase{
     }
     public void seleccionarProducto(ValueChangeEvent v){
         try{
-        TblProducto producto = productoFacade.find((Integer)v.getNewValue());
-        if (producto!=null){
-            tblDetalleIngresoProducto.setTblDetalleIngresoProductoPK(new TblDetalleIngresoProductoPK(this.tblIngresosProducto.getNumIngreso(), producto.getNumProducto()));
-            tblDetalleIngresoProducto.setCosUniDetIngreso(producto.getPreFinProducto());
+        selectedProduct = productoFacade.find((Integer)v.getNewValue());
+        if (selectedProduct!=null){
+            tblDetalleIngresoProducto.setTblDetalleIngresoProductoPK(new TblDetalleIngresoProductoPK(this.tblIngresosProducto.getNumIngreso(), selectedProduct.getNumProducto()));
+            tblDetalleIngresoProducto.setCosUniDetIngreso(selectedProduct.getPreFinProducto());
         }   
         }catch(Exception ex){
             ex.printStackTrace();
             this.addError(ex.getMessage(), ex.getMessage());
         }
     }
+    
+    public void seleccionarProductoByCodigo(ValueChangeEvent ve){
+        try{
+            selectedProduct = productoFacade.find((Integer)ve.getNewValue());
+            if (selectedProduct!=null){
+                tblDetalleIngresoProducto.setTblDetalleIngresoProductoPK(new TblDetalleIngresoProductoPK(this.tblIngresosProducto.getNumIngreso(), selectedProduct.getNumProducto()));
+                tblDetalleIngresoProducto.setCosUniDetIngreso(selectedProduct.getPreFinProducto());
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+            this.addError(ex.getMessage(), ex.getMessage());
+        }        
+    }
+    
     public void deleteProducto(ActionEvent ae){
         try{
             UIDataTable table = (UIDataTable) ae.getComponent().getParent().getParent();
