@@ -12,23 +12,37 @@ and open the template in the editor.
       xmlns:a4j="http://richfaces.org/a4j">
     <ui:composition template="/templates/main.xhtml">
         <ui:define name="title">
-          <h:outputText value="#{messages['default.windowTitle']}--Reporte de Productos Alquilados" escape="false"></h:outputText>  
+          <h:outputText value="#{messages['default.windowTitle']}--Reporte de Medicamentos Vencidos" escape="false"></h:outputText>  
         </ui:define>
         <ui:define name="body">
             <h3>Reporte de Medicamentos Vencidos</h3>
             <hr></hr>
             <form action="/ClinicaWeb/ReportServlet">
                 <table>
+                    Formato de fecha (DD/MM/AAAA)
                     <TR>
+                             <td align="left">Fecha de Inicio:</td>
+                                <td align="left">
+                                    
+                                    <!-- oninputkeypress="return filterInput(1, event, false, '/');"-->
+                                    <input type="text" name="FechaIni" id="FechaIni" class="dateMask"/>
+                                    <input type="hidden" value="String" name="FechaIniDataType" ></input>
+                                </td>
+                             <td align="left">Fecha de Fin:</td>
+                                <td align="left">
+                                    <!-- oninputkeypress="return filterInput(1, event, false, '/');"-->
+                                    <input type="text" name="FechaFin" id="FechaFin" class="dateMask"/>
+                                    <input type="hidden" value="String" name="FechaFinDataType" ></input>
+                                </td>                        
                         <TD>
                             <h:outputLabel value="Formato:"></h:outputLabel>
                         </TD>
                         <TD>
-                            <select id="docType" name="docType">
-                                <option value="pdf" label="PDF"/>
-                                <option value="xls" label="xls"/>
-                                <option value="html" label="html"/>                                
-                            </select>
+                            <h:selectOneMenu id="docType">
+                                <f:selectItem itemValue="pdf" itemLabel="PDF"/>
+                                <f:selectItem itemValue="xls" itemLabel="XLS"/>
+                                <f:selectItem itemValue="html" itemLabel="HTML"/>
+                            </h:selectOneMenu>   
                         </TD>
                         <TD>
                             <input type="hidden" value="/Reports/Farmacia_MedicamentosVencidos.jasper" name="rptFileName"/>

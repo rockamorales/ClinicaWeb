@@ -60,7 +60,7 @@ WHERE
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="88" splitType="Stretch">
+		<band height="111" splitType="Stretch">
 			<rectangle>
 				<reportElement uuid="5998788b-0576-440c-ac4e-c08c6a2c8db2" x="474" y="17" width="56" height="61"/>
 			</rectangle>
@@ -101,6 +101,18 @@ TEL: 2263-5889
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tbl_receta_medica_NUM_RECETA}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement uuid="64533c8a-def0-4bf9-bff6-84ca28961061" x="425" y="88" width="34" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="d76173ea-580d-473c-9fbb-8ded02dc847b" x="459" y="88" width="94" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_receta_medica_FEC_RECETA}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -116,67 +128,84 @@ TEL: 2263-5889
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="142" splitType="Stretch">
+		<band height="164" splitType="Stretch">
 			<rectangle>
-				<reportElement uuid="76e83c21-7551-4f91-b74d-591e438b6e97" x="51" y="24" width="438" height="115"/>
+				<reportElement uuid="76e83c21-7551-4f91-b74d-591e438b6e97" x="53" y="48" width="438" height="115"/>
 			</rectangle>
 			<staticText>
-				<reportElement uuid="0d8a1247-cf24-4d0d-bfd8-a7d14a3eb54a" x="2" y="0" width="49" height="20"/>
+				<reportElement uuid="0d8a1247-cf24-4d0d-bfd8-a7d14a3eb54a" x="4" y="24" width="49" height="20"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Paciente]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="210f86f8-9d69-4c71-8691-f8f9814d2819" x="51" y="0" width="100" height="20"/>
+				<reportElement uuid="210f86f8-9d69-4c71-8691-f8f9814d2819" x="53" y="24" width="100" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_NOM_PACIENTE}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="0efa9546-394a-4177-8488-538f822780e7" x="151" y="0" width="74" height="20"/>
+				<reportElement uuid="0efa9546-394a-4177-8488-538f822780e7" x="153" y="24" width="74" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_PRI_APE_PACIENTE}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="64533c8a-def0-4bf9-bff6-84ca28961061" x="426" y="2" width="34" height="20"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Fecha]]></text>
-			</staticText>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement uuid="d76173ea-580d-473c-9fbb-8ded02dc847b" x="460" y="2" width="94" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{tbl_receta_medica_FEC_RECETA}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement uuid="c783973e-d5c1-48dd-8cd5-12669a8c9095" x="57" y="76" width="128" height="20"/>
+				<reportElement uuid="c783973e-d5c1-48dd-8cd5-12669a8c9095" x="59" y="100" width="128" height="20"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Otras recomendaciones]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="ac2287da-8431-4993-b3fc-a6db024f06e2" x="57" y="96" width="427" height="43"/>
+				<reportElement uuid="ac2287da-8431-4993-b3fc-a6db024f06e2" x="59" y="120" width="427" height="43"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{tbl_receta_medica_OTR_RECOMENDACIONES}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="5807f123-7467-4ef7-a3e3-4995250f3201" x="57" y="28" width="100" height="20"/>
+				<reportElement uuid="5807f123-7467-4ef7-a3e3-4995250f3201" x="59" y="52" width="100" height="20"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Prescripcion libre]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="cacc16af-eef5-465a-887e-3cc473499a00" x="57" y="48" width="427" height="20"/>
+				<reportElement uuid="cacc16af-eef5-465a-887e-3cc473499a00" x="59" y="72" width="427" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{tbl_receta_medica_PRE_LIB_RECETA}]]></textFieldExpression>
 			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f541b002-1af5-4609-b55a-eaf4de27e717" x="106" y="0" width="85" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_medico_NOM_MEDICO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="1406b722-4017-4cbc-a103-ac966fdf4743" x="3" y="0" width="103" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Médico que atendio]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="44740f4f-f355-4a9a-a528-b082cf257d4f" x="191" y="0" width="91" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_medico_PRI_APE_MEDICO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="115927e3-7d6b-428f-9d2b-61d643fd98aa" x="425" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_medico_NUM_JUNTA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="4c1396a9-1a7f-40c2-a2fd-7b201d0ca72a" x="361" y="0" width="64" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. Junta]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="113" splitType="Stretch">
+		<band height="78" splitType="Stretch">
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="185c8ec5-df4c-4d09-90a4-dd71fb2ecc0e" x="125" y="7" width="129" height="20"/>
 				<textElement/>
@@ -237,39 +266,10 @@ TEL: 2263-5889
 				</textElement>
 				<text><![CDATA[Duración]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="f541b002-1af5-4609-b55a-eaf4de27e717" x="121" y="90" width="85" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{tbl_medico_NOM_MEDICO}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement uuid="1406b722-4017-4cbc-a103-ac966fdf4743" x="57" y="90" width="64" height="20"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Médico]]></text>
-			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="44740f4f-f355-4a9a-a528-b082cf257d4f" x="206" y="90" width="91" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{tbl_medico_PRI_APE_MEDICO}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="115927e3-7d6b-428f-9d2b-61d643fd98aa" x="375" y="90" width="100" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{tbl_medico_NUM_JUNTA}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement uuid="4c1396a9-1a7f-40c2-a2fd-7b201d0ca72a" x="311" y="90" width="64" height="20"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[No. Junta]]></text>
-			</staticText>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="7" splitType="Stretch"/>
+		<band height="9" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
 		<band height="81" splitType="Stretch">
