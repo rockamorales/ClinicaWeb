@@ -9,6 +9,7 @@ and open the template in the editor.
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:rich="http://richfaces.org/rich"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
       xmlns:a4j="http://richfaces.org/a4j">
     <ui:composition template="/templates/main.xhtml">
         <f:metadata>
@@ -21,149 +22,186 @@ and open the template in the editor.
 
         <ui:define name="body">
           <h:form>
-                <h3>Despacho de Producto</h3>
+                <h3>Despacho de Producto 1</h3>
                 <hr></hr>
-                    <table border="0">
-                        <tr>
-                            <td align="left">Numero de Despacho</td>
-                            <td align="left">
-                                <h:outputText value="#{frmMantTblDespachos.tblDespachos.numDespacho}" style="font-weight: bold"/>
-                                <h:inputHidden value="#{frmMantTblDespachos.tblDespachos.numDespacho}" />
-                            </td>
-                            <td align="left">Estado:</td>
-                            <td align="left">
-                                <h:outputText value="#{frmMantTblDespachos.tblDespachos.estDespacho}" style="font-weight: bold"></h:outputText>
-                            </td>                         
-                        </tr>
-                        <tr>
-                            <td align="left">Observaciones del Despacho</td>
-                            <td colspan="3" align="left">
-                                <h:inputText value="#{frmMantTblDespachos.tblDespachos.obsDespacho}" size="63" />
-                            </td>
-                        </tr>
-                        <tr>  
-                                <td align="left">Tipo de Salida</td>
+                <table cellspacing="0" cellpadding="0">
+                    <td>
+                        <table border="0">
+                            <tr>
+                                <td align="left">Numero de Despacho</td>
                                 <td align="left">
-                                    <h:selectOneMenu value="#{frmMantTblDespachos.tblDespachos.codTipSalida}">
-                                        <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem> 
-                                        <f:selectItems value="#{frmMantTblDespachos.catTipoSalidaList}"/>
-                                    </h:selectOneMenu>
+                                    <h:outputText value="#{frmMantTblDespachos.tblDespachos.numDespacho}" style="font-weight: bold"/>
+                                    <h:inputHidden value="#{frmMantTblDespachos.tblDespachos.numDespacho}" />
                                 </td>
-                           </tr>
-                        <tr>
-                            <td align="left">Fecha de Despacho:</td>
-                            <td align="left"><rich:calendar value="#{frmMantTblDespachos.tblDespachos.fecDespacho}" datePattern="dd/MM/yyyy" enableManualInput="true"/></td>
-                        </tr>  
-                        <tr>
-                            <td align="left">Numero de Documento de Despacho:</td>
-                            <td align="left"><h:inputText value="#{frmMantTblDespachos.tblDespachos.numDocDespacho}" /></td>
-                            <td align="left">Monto Total del Despacho</td>
-                            <td align="left"><h:outputText value="#{frmMantTblDespachos.tblDespachos.monDespacho}" style="font-weight: bold"/></td>
-                        </tr>
-                          <tr>
-                              <td colspan="4" align="center">
-                                  <a4j:commandButton value="Guardar" actionListener="#{frmMantTblDespachos.guardar}" render="@form, panelMessage" />
-                                  <a4j:commandButton value="Nuevo" actionListener="#{frmMantTblDespachos.nuevo}" render="@form" execute="@this"/>
-                                  <a4j:commandButton value="Regresar" action="/inicio.jsf?faces-redirect=true" immediate="true"/>
-                              </td>
-                          </tr>
-                      </table>
-                <hr/>
-                <h:panelGroup rendered="#{frmMantTblDespachos.tblDespachos.numDespacho != null and frmMantTblDespachos.tblDespachos.numDespacho>0}">
-                        <h3>Detalle de Despacho de Producto</h3>                    
-                            <table>
-                                  <tr>
-                                      <td align="left">Codigo de Producto:</td>
-                                      <td align="left">
-                                          <h:inputText value="#{frmMantTblDespachos.tblDetalleDespacho.tblDetalleDespachoPK.numProducto}" valueChangeListener="#{frmMantTblDespachos.seleccionarProductoByCodigo}">
-                                              <f:ajax event="change" render="@form"></f:ajax>
-                                          </h:inputText>
-                                      </td>
-                                      <td align="left">Producto:</td>
-                                      <td align="left">
-                                          <h:selectOneMenu value="#{frmMantTblDespachos.tblDetalleDespacho.tblDetalleDespachoPK.numProducto}" style="width: 130px" valueChangeListener="#{frmMantTblDespachos.seleccionarProducto}">
-                                              <f:selectItems value="#{frmMantTblDespachos.tblProductoList}"/>
-                                              <f:ajax event="change" render="@form"></f:ajax>
-                                          </h:selectOneMenu>
-                                      </td>
-                                      <td align="left">Cantidad a Despachar:</td>
-                                      <td align="left">
-                                          <h:inputText value="#{frmMantTblDespachos.tblDetalleDespacho.canDetDespacho}" />
-                                      </td>
-                                      <td colspan="4" align="center">
-                                          <a4j:commandButton value="Agregar" actionListener="#{frmMantTblDespachos.agregar}" render="@form, panelMessage" />
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td align="left">Precio Unitario:</td>
-                                      <td align="left">
-                                          <h:outputText value="#{frmMantTblDespachos.tblDetalleDespacho.preUniDetDespacho}"/>
-                                      </td>   
-                                      <td align="left" colspan="2">Cantidad de Producto Disponible:</td>
-                                      <td align="left" colspan="2">
-                                          <h:outputText value="#{frmMantTblDespachos.selectedProduct.exiProducto}"/>
-                                      </td>    
-                                  </tr>
-                            </table>
-                        <rich:dataTable value="#{frmMantTblDespachos.cblDetalleDespachoList}" var="tblDetalleDespacho" rows="10" id="tblDetalleDespachoTable" rowKeyVar="row">
-                        <f:facet name="header">
-                            <rich:columnGroup>
-                              <h:column>
-                                <h:outputText value="Numero Correlativo"/>
-                              </h:column>
-                              <h:column>
-                                <h:outputText value="Codigo de Producto"/>
-                              </h:column>
-                              <h:column>
-                                <h:outputText value="Producto"/>
-                              </h:column>
-                              <h:column>
-                                <h:outputText value="Cantidad"/>
-                              </h:column>   
-                              <h:column>
-                                <h:outputText value="Precio Unitario"/>
-                              </h:column>
-                              <h:column>
-                                <h:outputText value="Total"/>
-                              </h:column>                     
-                              <h:column>
-                                <h:outputText value=""/>
-                              </h:column>
-                            </rich:columnGroup>
-                          </f:facet>
-                        <h:column>
-                            <h:outputText value="#{row+1}">   
+                                <td align="left">Estado:</td>
+                                <td align="left">
+                                    <h:outputText value="#{frmMantTblDespachos.tblDespachos.estDespacho}" style="font-weight: bold"></h:outputText>
+                                </td>                         
+                            </tr>
+                            <tr>
+                                <td align="left">Observaciones del Despacho</td>
+                                <td colspan="3" align="left">
+                                    <h:inputText value="#{frmMantTblDespachos.tblDespachos.obsDespacho}" size="63" disabled="#{frmMantTblDespachos.tblDespachos.estDespacho == 'ENTREGADO'}"/>
+                                </td>
+                            </tr>
+                            <tr>  
+                                    <td align="left">Tipo de Salida</td>
+                                    <td align="left">
+                                        <h:selectOneMenu value="#{frmMantTblDespachos.tblDespachos.codTipSalida}" disabled="#{frmMantTblDespachos.tblDespachos.estDespacho == 'ENTREGADO'}">
+                                            <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem> 
+                                            <f:selectItems value="#{frmMantTblDespachos.catTipoSalidaList}"/>
+                                        </h:selectOneMenu>
+                                    </td>
+                               </tr>
+                            <tr>
+                                <td align="left">Fecha de Despacho:</td>
+                                <td align="left"><rich:calendar value="#{frmMantTblDespachos.tblDespachos.fecDespacho}" datePattern="dd/MM/yyyy" enableManualInput="true" disabled="#{frmMantTblDespachos.tblDespachos.estDespacho == 'ENTREGADO'}"/></td>
+                            </tr>  
+                            <tr>
+                                <td align="left">Numero de Documento de Despacho:</td>
+                                <td align="left"><h:inputText value="#{frmMantTblDespachos.tblDespachos.numDocDespacho}" disabled="#{frmMantTblDespachos.tblDespachos.estDespacho == 'ENTREGADO'}"/></td>
+                                <td align="left">Monto Total del Despacho</td>
+                                <td align="left"><h:outputText value="#{frmMantTblDespachos.tblDespachos.monDespacho}" style="font-weight: bold"/></td>
+                            </tr>
+                              <tr>
+                                  <td colspan="4" align="center">
+                                      <a4j:commandButton value="Guardar" actionListener="#{frmMantTblDespachos.guardar}" render="@form, panelMessage" />
+                                      <a4j:commandButton value="Nuevo" actionListener="#{frmMantTblDespachos.nuevo}" render="@form" execute="@this"/>
+                                      <a4j:commandButton value="Entregar" actionListener="#{frmMantTblDespachos.entregarDespacho}" render="@form, panelMessage"/>
+                                      <a4j:commandButton value="Regresar" action="/inicio.jsf?faces-redirect=true" immediate="true"/>
+                                  </td>
+                              </tr>
+                          </table>
+                    <hr/>
+                    <h:panelGroup rendered="#{frmMantTblDespachos.tblDespachos.numDespacho != null and frmMantTblDespachos.tblDespachos.numDespacho>0}">
+                            <h3>Detalle de Despacho de Producto</h3>                    
+                                <table>
+                                      <tr>
+                                          <td align="left">Codigo de Producto:</td>
+                                          <td align="left">
+                                              <h:inputText value="#{frmMantTblDespachos.tblDetalleDespacho.tblDetalleDespachoPK.numProducto}" valueChangeListener="#{frmMantTblDespachos.seleccionarProductoByCodigo}">
+                                                  <f:ajax event="change" render="@form"></f:ajax>
+                                              </h:inputText>
+                                          </td>
+                                          <td align="left">Producto:</td>
+                                          <td align="left">
+                                              <h:selectOneMenu value="#{frmMantTblDespachos.tblDetalleDespacho.tblDetalleDespachoPK.numProducto}" style="width: 130px" valueChangeListener="#{frmMantTblDespachos.seleccionarProducto}">
+                                                  <f:selectItems value="#{frmMantTblDespachos.tblProductoList}"/>
+                                                  <f:ajax event="change" render="@form"></f:ajax>
+                                              </h:selectOneMenu>
+                                          </td>
+                                          <td align="left">Cantidad a Despachar:</td>
+                                          <td align="left">
+                                              <h:inputText value="#{frmMantTblDespachos.tblDetalleDespacho.canDetDespacho}" />
+                                          </td>
+                                          <td colspan="4" align="center">
+                                              <a4j:commandButton value="Agregar" actionListener="#{frmMantTblDespachos.agregar}" render="@form, panelMessage" disabled="#{frmMantTblDespachos.tblDespachos.estDespacho == 'ENTREGADO'}"/>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td align="left">Precio Unitario:</td>
+                                          <td align="left">
+                                              <h:outputText value="#{frmMantTblDespachos.tblDetalleDespacho.preUniDetDespacho}"/>
+                                          </td>   
+                                          <td align="left" colspan="2">Cantidad de Producto Disponible:</td>
+                                          <td align="left" colspan="2">
+                                              <h:outputText value="#{frmMantTblDespachos.selectedProduct.exiProducto}"/>
+                                          </td>    
+                                      </tr>
+                                </table>
+                            <rich:dataTable value="#{frmMantTblDespachos.cblDetalleDespachoList}" var="tblDetalleDespacho" rows="10" id="tblDetalleDespachoTable" rowKeyVar="row">
+                            <f:facet name="header">
+                                <rich:columnGroup>
+                                  <h:column>
+                                    <h:outputText value="Numero Correlativo"/>
+                                  </h:column>
+                                  <h:column>
+                                    <h:outputText value="Codigo de Producto"/>
+                                  </h:column>
+                                  <h:column>
+                                    <h:outputText value="Producto"/>
+                                  </h:column>
+                                  <h:column>
+                                    <h:outputText value="Cantidad"/>
+                                  </h:column>   
+                                  <h:column>
+                                    <h:outputText value="Precio Unitario"/>
+                                  </h:column>
+                                  <h:column>
+                                    <h:outputText value="Total"/>
+                                  </h:column>                     
+                                  <h:column>
+                                    <h:outputText value=""/>
+                                  </h:column>
+                                </rich:columnGroup>
+                              </f:facet>
+                            <h:column>
+                                <h:outputText value="#{row+1}">   
+                                </h:outputText>
+                            </h:column>
+                            <h:column>
+                                <h:outputText value="#{tblDetalleDespacho.tblProducto.numProducto}">
                             </h:outputText>
-                        </h:column>
-                        <h:column>
-                            <h:outputText value="#{tblDetalleDespacho.tblProducto.numProducto}">
-                        </h:outputText>
-                             </h:column> 
-                        <h:column>
-                            <h:outputText value="#{tblDetalleDespacho.tblProducto.nomProducto}">
-                            </h:outputText>
-                        </h:column>                 
-                        <h:column>
-                            <h:outputText value="#{tblDetalleDespacho.canDetDespacho}">
-                            </h:outputText>
-                        </h:column>                        
-                        <h:column>
-                            <h:outputText value="&#36; #{tblDetalleDespacho.preUniDetDespacho}">
-                            </h:outputText>
-                        </h:column>  
-                        <h:column>
-                            <h:outputText value="&#36; #{tblDetalleDespacho.canDetDespacho*tblDetalleDespacho.preUniDetDespacho}">
-                                <f:convertNumber pattern="#,###,##0.00"></f:convertNumber>
-                            </h:outputText>
-                        </h:column> 
+                                 </h:column> 
+                            <h:column>
+                                <h:outputText value="#{tblDetalleDespacho.tblProducto.nomProducto}">
+                                </h:outputText>
+                            </h:column>                 
+                            <h:column>
+                                <h:outputText value="#{tblDetalleDespacho.canDetDespacho}">
+                                </h:outputText>
+                            </h:column>                        
+                            <h:column>
+                                <h:outputText value="&#36; #{tblDetalleDespacho.preUniDetDespacho}">
+                                </h:outputText>
+                            </h:column>  
+                            <h:column>
+                                <h:outputText value="&#36; #{tblDetalleDespacho.canDetDespacho*tblDetalleDespacho.preUniDetDespacho}">
+                                    <f:convertNumber pattern="#,###,##0.00"></f:convertNumber>
+                                </h:outputText>
+                            </h:column> 
 
-                        <h:column>
-                            <a4j:commandLink actionListener="#{frmMantTblDespachos.deleteProducto}" render="@form, despacharProductoPanel, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar el producto: #{tblDetalleDespacho.tblProducto.nomProducto} #{tblDetalleDespacho.tblProducto.numProducto}')){return false;}">
-                                <h:graphicImage url="/img/icons/delete.gif" style="border: 0"/>
-                            </a4j:commandLink>
-                        </h:column>                
-                    </rich:dataTable>
-                </h:panelGroup>               
+                            <h:column>
+                                <a4j:commandLink disabled="#{frmMantTblDespachos.tblDespachos.estDespacho == 'ENTREGADO'}" actionListener="#{frmMantTblDespachos.deleteProducto}" render="@form, despacharProductoPanel, panelMessage" onclick="if(!confirm('Esta seguro que desea eliminar el producto: #{tblDetalleDespacho.tblProducto.nomProducto} #{tblDetalleDespacho.tblProducto.numProducto}')){return false;}">
+                                    <h:graphicImage url="/img/icons/delete.gif" style="border: 0"/>
+                                </a4j:commandLink>
+                            </h:column>                
+                        </rich:dataTable>
+                    </h:panelGroup>
+                 </td>
+                 <td>
+                     <rich:dataGrid value="#{frmMantTblDespachos.despachosList}" var="despacho" columns="1" elements="10" id="despachosGrid">
+                        <table cellpadding="0" cellspacing="4">
+                                <tr>
+                                 <td colspan="2">
+                                     <h:outputText value="#{despacho.recetaMedica.expediente.nomPaciente} #{despacho.recetaMedica.expediente.priApePaciente} #{despacho.recetaMedica.expediente.secApePaciente} #{despacho.recetaMedica.expediente.terApePaciente}" style="font-weight: bold;"/>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                      <h:outputText value="RECETA" style="font-weight: bold;"/>
+                                  </td>
+                                   <td align="right">
+                                      <h:outputText value="Cantidad: #{despacho.cantidadArticulos}" style="font-weight: bold;">
+                                          <f:converter converterId="javax.faces.Integer"/>
+                                    </h:outputText>
+                                  </td>                                        
+                                </tr>
+                                <tr>
+                                  <td colspan="2">
+                                      <h:outputText value="#{fn:substring(despacho.obsDespacho ,0,20)} ...   " title="#{despacho.obsDespacho}"/>
+                                      <a4j:commandLink value="Seleccionar" render="@form, panelMessage" actionListener="#{frmMantTblDespachos.seleccionarFromDataGrid}" style="color: blue; font-weight: bold; font-size: smaller">
+                                      </a4j:commandLink>
+                                  </td>
+                                </tr>
+                            </table>
+                        <hr size="0" style="border: #000066 solid thin"/>
+                        <f:facet name="footer" >
+                            <rich:dataScroller maxPages="2" renderIfSinglePage="false" fastControls="hide"></rich:dataScroller>
+                        </f:facet>
+                    </rich:dataGrid>                     
+                 </td>
+                </table>
             </h:form>
         </ui:define>
     </ui:composition>
