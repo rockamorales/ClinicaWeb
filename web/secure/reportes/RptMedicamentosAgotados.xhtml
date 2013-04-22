@@ -20,16 +20,16 @@ and open the template in the editor.
             <form action="/ClinicaWeb/ReportServlet">
                 <table>
                     <TR>
-                                                   
+                                                 
                         <TD>
                             <h:outputLabel value="Formato:"></h:outputLabel>
                         </TD>
                         <TD>
-                            <select id="docType" name="docType">
-                                <option value="pdf" label="PDF"/>
-                                <option value="xls" label="xls"/>
-                                <option value="html" label="html"/>                                
-                            </select>
+                            <h:selectOneMenu id="docType">
+                                <f:selectItem itemValue="pdf" itemLabel="PDF"/>
+                                <f:selectItem itemValue="xls" itemLabel="XLS"/>
+                                <f:selectItem itemValue="html" itemLabel="HTML"/>
+                            </h:selectOneMenu>   
                         </TD>
                         <TD>
                             <input type="hidden" value="/Reports/Farmacia_MedicamentosAgotodas.jasper" name="rptFileName"/>

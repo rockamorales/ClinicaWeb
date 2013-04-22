@@ -3,6 +3,12 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="FechaIni" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FechaFin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
      tbl_producto.`NUM_PRODUCTO` AS tbl_producto_NUM_PRODUCTO,
@@ -10,11 +16,12 @@
      tbl_producto.`NOM_PRODUCTO` AS tbl_producto_NOM_PRODUCTO,
      tbl_producto.`NOM_GEN_PRODUCTO` AS tbl_producto_NOM_GEN_PRODUCTO,
      tbl_detalle_ingreso_producto.`FEC_EXP_DET_INGRESO` AS tbl_detalle_ingreso_producto_FEC_EXP_DET_INGRESO,
-     tbl_producto.`FAB_PRODUCTO` AS tbl_producto_FAB_PRODUCTO
+     tbl_producto.`FAB_PRODUCTO` AS tbl_producto_FAB_PRODUCTO,
+     tbl_producto.`EST_PRODUCTO` AS tbl_producto_EST_PRODUCTO
 FROM
      `tbl_producto` tbl_producto LEFT OUTER JOIN `tbl_detalle_ingreso_producto` tbl_detalle_ingreso_producto ON tbl_producto.`NUM_PRODUCTO` = tbl_detalle_ingreso_producto.`NUM_PRODUCTO`
 WHERE
-tbl_detalle_ingreso_producto.`FEC_EXP_DET_INGRESO` < current_timestamp]]>
+     tbl_detalle_ingreso_producto.`FEC_EXP_DET_INGRESO` BETWEEN str_to_date($P{FechaIni},'%d/%m/%Y')and str_to_date($P{FechaFin},'%d/%m/%Y') AND tbl_producto.`EST_PRODUCTO` = 1]]>
 	</queryString>
 	<field name="tbl_producto_NUM_PRODUCTO" class="java.lang.Integer"/>
 	<field name="tbl_producto_COD_TIP_PRODUCTO" class="java.lang.Integer"/>
@@ -22,6 +29,7 @@ tbl_detalle_ingreso_producto.`FEC_EXP_DET_INGRESO` < current_timestamp]]>
 	<field name="tbl_producto_NOM_GEN_PRODUCTO" class="java.lang.String"/>
 	<field name="tbl_detalle_ingreso_producto_FEC_EXP_DET_INGRESO" class="java.sql.Timestamp"/>
 	<field name="tbl_producto_FAB_PRODUCTO" class="java.lang.String"/>
+	<field name="tbl_producto_EST_PRODUCTO" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
