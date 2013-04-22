@@ -38,7 +38,9 @@ import sv.com.cormaria.servicios.facades.administracion.TblProductoFacadeLocal;
 @ViewScoped
 public class FrmMantTblDespachos extends PageBase{
     private TblDespachos tblDespachos = new TblDespachos();
-    private TblDetalleDespacho tblDetalleDespacho = new TblDetalleDespacho();    
+    private TblDetalleDespacho tblDetalleDespacho = new TblDetalleDespacho();
+    private List<TblDespachos> pendingDeliveringDespachos = new ArrayList<TblDespachos>();
+    
     @EJB
     private transient TblDespachosFacadeLocal facade;
     @EJB
@@ -55,6 +57,7 @@ public class FrmMantTblDespachos extends PageBase{
     private List<TblDetalleDespacho> cblDetalleDespachoList= new ArrayList<TblDetalleDespacho>();
     private List<SelectItem> tblProductoList = new ArrayList<SelectItem>();
     private TblProducto selectedProduct = new TblProducto();
+    
     public TblDespachos getTblDespachos() {
         return tblDespachos;
     }
@@ -165,7 +168,7 @@ public class FrmMantTblDespachos extends PageBase{
             if(tblDespachos.getNumDespacho() != null){
                 facade.edit(tblDespachos);
             }else{
-                tblDespachos.setEstDespacho(1); 
+                tblDespachos.setEstDespacho(EstadoDetalleDespacho.CREADO); 
                 if(this.getSessionBean().getUsuario().getNumEmpleado()==null){
                     this.addError("Su usuario no tiene un empleado asociado", "Su usuario no tiene un empleado asociado");
                 }
