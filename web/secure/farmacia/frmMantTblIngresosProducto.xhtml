@@ -47,7 +47,7 @@ and open the template in the editor.
                            </tr>
                         <tr>
                             <td align="left">Fecha de Ingreso:</td>
-                            <td align="left"><rich:calendar value="#{frmMantTblIngresosProducto.tblIngresosProducto.fecIngreso}" id="fechaIngreso" datePattern="dd/MM/yyyy" enableManualInput="true" /></td>
+                            <td align="left"><rich:calendar value="#{frmMantTblIngresosProducto.tblIngresosProducto.fecIngreso}" id="fechaIngreso" datePattern="dd/MM/yyyy" enableManualInput="false" /></td>
                             <rich:tooltip  target="fechaIngreso" showEvent="focus" value="Seleccione la fecha en que ingreso el producto a la Institucion" />
                         </tr>  
                         <tr>
@@ -63,7 +63,7 @@ and open the template in the editor.
                         <tr>
                             <td align="left">Numero de Documento de Ingreso:</td>
                             <td align="left">
-                                <h:inputText value="#{frmMantTblIngresosProducto.tblIngresosProducto.numDocIngreso}" id="numDocIngreso" size="30" maxlength="30" onkeypress="return filterInput(2, event, false, ' ./#()=-_:;,');"/>
+                                <h:inputText value="#{frmMantTblIngresosProducto.tblIngresosProducto.numDocIngreso}" id="numDocIngreso" size="30" maxlength="30" onkeypress="return filterInput(2, event, false, ' ./#');"/>
                                 <rich:tooltip  target="numDocIngreso" showEvent="focus" value="Ingrese numero de Factura FAC, Credito fiscal CCF, Comprobante de Donacion si cuenta con la documentación " />
                             </td>
                             <td align="left">Monto Total del Ingreso</td>
@@ -73,7 +73,7 @@ and open the template in the editor.
                         <tr>
                             <td align="left">Observaciones del Ingreso</td>
                             <td colspan="3" align="left">
-                                 <h:inputTextarea value="#{frmMantTblIngresosProducto.tblIngresosProducto.obsIngreso}" id="obserIngreso" rows="5" cols="100" onkeypress="return filterInput(2, event, false, '.,#/ °- ');">
+                                 <h:inputTextarea value="#{frmMantTblIngresosProducto.tblIngresosProducto.obsIngreso}" id="obserIngreso" rows="5" cols="100" onkeypress="return filterInput(2, event, false, '.,#/()°- =?¿¡$%');">
                                        <f:validateLength maximum="500" ></f:validateLength>
                                  </h:inputTextarea>
                                 <rich:tooltip  target="obserIngreso" showEvent="focus" value="Especifique las observaciones si es necesario " />
@@ -84,19 +84,21 @@ and open the template in the editor.
                                   <a4j:commandButton value="Guardar" id="btnGuardar" actionListener="#{frmMantTblIngresosProducto.guardar}" render="@form, panelMessage" />
                                   <rich:tooltip  target="btnGuardar" showEvent="focus" value="Guardar Ingreso y luego adicione el detalle del ingreso" />
                                   <a4j:commandButton value="Nuevo" actionListener="#{frmMantTblIngresosProducto.nuevo}" render="@form" execute="@this"/>
-                                  <a4j:commandButton value="Regresar" action="inicio.jsf?faces-redirect=true" immediate="true"/>
+                                  <a4j:commandButton value="Regresar" action="/inicio.jsf?faces-redirect=true" immediate="true"/>
                               </td>
                           </tr>
                       </table>
                 <hr/>
-                <h:panelGroup>
+                <h:panelGroup rendered="#{frmMantTblIngresosProducto.tblIngresosProducto.numIngreso != null and frmMantTblIngresosProducto.tblIngresosProducto.numIngreso>0}">
                         <h3>Detalle de Ingreso de Producto</h3>                    
                             <table>
                                   <tr>
                                       <td align="left">Codigo de Producto:</td>
                                       <td align="left">
-                                          <h:inputText value="#{frmMantTblIngresosProducto.tblDetalleIngresoProducto.tblDetalleIngresoProductoPK.numProducto}" />
-                                      </td>
+                                          <h:inputText value="#{frmMantTblIngresosProducto.tblDetalleIngresoProducto.tblDetalleIngresoProductoPK.numProducto}" valueChangeListener="#{frmMantTblIngresosProducto.seleccionarProductoByCodigo}"  maxlength="8"  id="codproducto" onkeypress="return filterInput(1, event, false, '');">
+                                              <f:ajax event="change" render="@form"></f:ajax>
+                                          </h:inputText>
+                                           </td>
                                       <td align="left">Producto:</td>
                                       <td align="left">
                                           <h:selectOneMenu value="#{frmMantTblIngresosProducto.tblDetalleIngresoProducto.tblDetalleIngresoProductoPK.numProducto}" style="width: 130px" id="prod" valueChangeListener="#{frmMantTblIngresosProducto.seleccionarProducto}">
@@ -108,7 +110,7 @@ and open the template in the editor.
                                       </td>
                                       <td align="left">Cantidad a Ingresar:</td>
                                       <td align="left">
-                                          <h:inputText value="#{frmMantTblIngresosProducto.tblDetalleIngresoProducto.canDetIngreso}" />
+                                          <h:inputText value="#{frmMantTblIngresosProducto.tblDetalleIngresoProducto.canDetIngreso}" id="CantIngreso" size="8" maxlength="8" onkeypress="return filterInput(1, event, false, '');"/> 
                                       </td>
                                       <td colspan="4" align="center">
                                           <a4j:commandButton value="Agregar" actionListener="#{frmMantTblIngresosProducto.agregar}" render="@form, panelMessage" />
@@ -116,7 +118,7 @@ and open the template in the editor.
                                   </tr>
                                   <tr>
                                       <td align="left">Fecha de Vencimiento:</td>
-                                      <td align="left"><rich:calendar value="#{frmMantTblIngresosProducto.tblDetalleIngresoProducto.fecExpDetIngreso}" datePattern="dd/MM/yyyy" enableManualInput="true" /></td>
+                                      <td align="left"><rich:calendar value="#{frmMantTblIngresosProducto.tblDetalleIngresoProducto.fecExpDetIngreso}" datePattern="dd/MM/yyyy" enableManualInput="false" /></td>
                                       <td align="left">Precio Unitario:</td>
                                       <td align="left">
                                           <h:inputText value="#{frmMantTblIngresosProducto.tblDetalleIngresoProducto.cosUniDetIngreso}" />
