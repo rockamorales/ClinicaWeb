@@ -30,6 +30,7 @@ import sv.com.cormaria.servicios.entidades.colecturia.TblDetalleComprobanteDonac
 import sv.com.cormaria.servicios.entidades.administracion.TblProducto;
 import sv.com.cormaria.servicios.entidades.archivo.TblServiciosEnfermeria;
 import sv.com.cormaria.servicios.enums.EstadoComprobanteDonacion;
+import sv.com.cormaria.servicios.enums.OrigenDonacionEnum;
 import sv.com.cormaria.servicios.enums.TipoComprobanteDonacion;
 import sv.com.cormaria.servicios.facades.catalogos.CatBancosFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatCarismaFacadeLocal;
@@ -235,10 +236,11 @@ public class FrmMantTblComprobanteDonacion extends PageBase{
             if (!validateHeader(tblComprobanteDonacion)){
                 return;
             }
-            if(tblComprobanteDonacion.getNumComDonacion() != null){
+            if(tblComprobanteDonacion.getNumComDonacion() != null && tblComprobanteDonacion.getNumComDonacion()>0){
                 facade.edit(tblComprobanteDonacion);
             }else{
                 tblComprobanteDonacion.setEstComDonacion(EstadoComprobanteDonacion.EMITIDO);
+                tblComprobanteDonacion.setOriDonacion(OrigenDonacionEnum.OTROS);
                 tblComprobanteDonacion.setCanLetras("Cero");
                 facade.create(tblComprobanteDonacion);
             }
