@@ -348,30 +348,7 @@ public class FrmMantTblConsultas extends PageBase {
            this.addError("Porfavor ingrese el diagnostico del paciente", "Porfavor ingrese el diagnostico del paciente");
        }
      /*  
-       if (this.getReceta().getCanDetReceta() == 0 || this.getReceta().getCanDetReceta() <= 0){
-           isValid = false;
-           this.addError("Porfavor ingrese la cantidad", "Porfavor ingrese la cantidad");
-       }       
-
-       if (this.getReceta().getTblProducto().getNumProducto() == null || this.getReceta().getTblProducto().getNumProducto() == -1){
-           isValid = false;
-           this.addError("Porfavor seleccione el producto", "Porfavor seleccione el producto");
-       } 
-       
-       if (this.getReceta().getDosDetReceta() == ""){
-           isValid = false;
-           this.addError("Porfavor ingrese la dosis del medicamento", "Porfavor ingrese la dosis del medicamento");
-       }      
-       
-       if (this.getReceta().getFreDetReceta() == ""){
-           isValid = false;
-           this.addError("Porfavor ingrese la frecuencia del medicamento", "Porfavor ingrese la frecuencia del medicamento");
-       }   
-
-       if (this.getReceta().getDurTratamiento() == ""){
-           isValid = false;
-           this.addError("Porfavor ingrese la duración del medicamento", "Porfavor ingrese la duración del medicamento");
-       } */        
+        */        
        
        return isValid;
      
@@ -517,12 +494,18 @@ public class FrmMantTblConsultas extends PageBase {
    }
    
    public void agregarDetalleReceta(ActionEvent ae){
-       try{          
+       try{
+          if (!validarReceta()){
+               return;
+           }           
+        
            TblDetalleRecetaPK pk = receta.getTblDetalleRecetaPK();
            pk.setNumReceta(recetaMedica.getNumReceta());
            tblDetalleRecetaFacade.create(receta);
            this.addInfo("La informacion ha sido guardada", "La informacion ha sido guardada");
            this.detalleReceta.clear();
+           this.receta = new TblDetalleReceta();
+           this.selectedProduct = new TblProducto();
        }catch(Exception ex){
            ex.printStackTrace();
           this.addError(ex.getMessage(), ex.getMessage());
@@ -551,7 +534,7 @@ public class FrmMantTblConsultas extends PageBase {
    
    
    public void guardarReceta(ActionEvent ae){
-      try{
+      try{ 
           if (recetaMedica.getNumReceta()!=null && recetaMedica.getNumReceta()>0){
             recetaMedica = tblRecetaMedicaFacade.edit(recetaMedica);
           }else{
@@ -569,8 +552,42 @@ public class FrmMantTblConsultas extends PageBase {
    }
 
    
+   public boolean validarReceta(){
+       boolean isValidreceta = true;
+       
+       if (this.getReceta().getCanDetReceta() == 0 || this.getReceta().getCanDetReceta() <= 0){
+           isValidreceta = false;
+           this.addError("Por favor ingrese la cantidad", "Por favor ingrese la cantidad");
+       }       
+
+       if (this.getReceta().getTblDetalleRecetaPK().getNumProducto() == -1){
+           isValidreceta = false;
+           this.addError("Porfavor seleccione el producto", "Porfavor seleccione el producto");
+       } 
+       
+       if (this.getReceta().getDosDetReceta() == null || this.getReceta().getDosDetReceta().trim().equals("")){
+           isValidreceta = false;
+           this.addError("Porfavor ingrese la dosis del medicamento", "Porfavor ingrese la dosis del medicamento");
+       }      
+       
+       if (this.getReceta().getFreDetReceta() == null || this.getReceta().getFreDetReceta().trim().equals("")){
+           
+           isValidreceta = false;
+           this.addError("Porfavor ingrese la frecuencia del medicamento", "Porfavor ingrese la frecuencia del medicamento");
+       }   
+
+       if (this.getReceta().getDurTratamiento() == null || this.getReceta().getDurTratamiento().trim().equals("")){
+           isValidreceta = false;
+           this.addError("Porfavor ingrese la duración del medicamento", "Porfavor ingrese la duración del medicamento");
+       }   
+       
+       return isValidreceta;
+     
+   }
+   
       public boolean validar2(){
        boolean isValid2 = true;
+       
        
        if (this.getOrdenLab().getDiaLaboratorio() == null || this.getOrdenLab().getDiaLaboratorio().trim().equals("")){
           isValid2 = false;
@@ -581,6 +598,7 @@ public class FrmMantTblConsultas extends PageBase {
            isValid2 = false;
            this.addError("Porfavor ingrese las indicaciones para el paciente", "Porfavor ingrese las indicaciones para el paciente");
        }
+       
        
        return isValid2;
      
