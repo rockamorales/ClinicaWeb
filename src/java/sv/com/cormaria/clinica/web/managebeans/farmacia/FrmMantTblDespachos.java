@@ -15,6 +15,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
+import org.richfaces.component.UIDataGrid;
 import org.richfaces.component.UIDataTable;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
 import sv.com.cormaria.servicios.entidades.farmacia.TblDespachos;
@@ -23,7 +24,9 @@ import sv.com.cormaria.servicios.entidades.farmacia.TblDetalleDespachoPK;
 import sv.com.cormaria.servicios.entidades.administracion.TblProducto;
 import sv.com.cormaria.servicios.entidades.administracion.TblInstitucion;
 import sv.com.cormaria.servicios.entidades.catalogos.CatTipoSalida;
+import sv.com.cormaria.servicios.entidades.consultasmedicas.TblConsultas;
 import sv.com.cormaria.servicios.enums.EstadoDetalleDespacho;
+import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.administracion.TblInstitucionFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatTipoSalidaFacadeLocal;
 import sv.com.cormaria.servicios.facades.farmacia.TblDespachosFacadeLocal;
@@ -48,7 +51,8 @@ public class FrmMantTblDespachos extends PageBase{
     @EJB
     private transient TblInstitucionFacadeLocal tblInstitucionFacade;
     @EJB
-    private TblDetalleDespachoFacadeLocal cblDetalleDespachoFacade;  
+    private TblDetalleDespachoFacadeLocal tblDetalleDespachoFacade;  
+    
     @EJB
     private TblProductoFacadeLocal productoFacade;
     private Integer numeroDespacho;
@@ -57,6 +61,7 @@ public class FrmMantTblDespachos extends PageBase{
     private List<TblDetalleDespacho> cblDetalleDespachoList= new ArrayList<TblDetalleDespacho>();
     private List<SelectItem> tblProductoList = new ArrayList<SelectItem>();
     private TblProducto selectedProduct = new TblProducto();
+    private List<TblDespachos> despachosList = new ArrayList<TblDespachos>();
     
     public TblDespachos getTblDespachos() {
         return tblDespachos;
@@ -64,6 +69,21 @@ public class FrmMantTblDespachos extends PageBase{
 
     public void setTblDespachos(TblDespachos tblDespachos) {
         this.tblDespachos = tblDespachos;
+    }
+
+    public List<TblDespachos> getDespachosList() {
+        if (despachosList.isEmpty()){
+            try{
+                despachosList = facade.findDespachosCreados();
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+        }
+        return despachosList;
+    }
+
+    public void setDespachosList(List<TblDespachos> despachosList) {
+        this.despachosList = despachosList;
     }
 
     public TblDetalleDespacho getTblDetalleDespacho() {
@@ -98,7 +118,7 @@ public class FrmMantTblDespachos extends PageBase{
         if (cblDetalleDespachoList.isEmpty()){
           try{
               if(tblDespachos.getNumDespacho() != null){
-                cblDetalleDespachoList = cblDetalleDespachoFacade.findByDespachoProducto(tblDespachos.getNumDespacho());
+                cblDetalleDespachoList = tblDetalleDespachoFacade.findByDespachoProducto(tblDespachos.getNumDespacho());
               }
           }catch(Exception x) {
               x.printStackTrace();
@@ -203,7 +223,7 @@ public class FrmMantTblDespachos extends PageBase{
             tblDetalleDespacho.getTblDetalleDespachoPK().setNumDespacho(tblDespachos.getNumDespacho());
             tblDetalleDespacho.setCorDetDespacho(0);
             tblDetalleDespacho.setEstDespacho(EstadoDetalleDespacho.ENTREGADO);
-            cblDetalleDespachoFacade.create(tblDetalleDespacho);
+            tblDetalleDespachoFacade.create(tblDetalleDespacho);
             tblDetalleDespacho = new TblDetalleDespacho();
             this.getCblDetalleDespachoList().clear();
             tblDespachos = facade.find(tblDespachos.getNumDespacho());
@@ -260,7 +280,7 @@ public class FrmMantTblDespachos extends PageBase{
         try{
             UIDataTable table = (UIDataTable) ae.getComponent().getParent().getParent();
             TblDetalleDespacho tblDetalleDespacho1 = (TblDetalleDespacho) table.getRowData();
-            cblDetalleDespachoFacade.remove(tblDetalleDespacho1);
+            tblDetalleDespachoFacade.remove(tblDetalleDespacho1);
             cblDetalleDespachoList.clear();
             tblDespachos = facade.find(tblDespachos.getNumDespacho());
         }catch(Exception x){
@@ -268,6 +288,18 @@ public class FrmMantTblDespachos extends PageBase{
             this.addError(x.getMessage(), x.getMessage());
         }
     } 
+    
+    public void entregarDespacho(ActionEvent ae){
+        try{
+            this.tblDespachos.setEstDespacho(EstadoDetalleDespacho.ENTREGADO);
+            this.facade.edit(tblDespachos);
+            this.cblDetalleDespachoList.clear();
+            this.despachosList.clear();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            this.addError(ex.getMessage(), ex.getMessage());
+        }
+    }
     
     public boolean validate (TblDetalleDespacho detalle){
         boolean validationOk = true;
@@ -292,6 +324,17 @@ public class FrmMantTblDespachos extends PageBase{
                     this.addError(ex.getMessage(), ex.getMessage());
                 }
             }
+        }
+    }
+    
+    public void seleccionarFromDataGrid(ActionEvent ae){
+        try{
+            UIDataGrid table = (UIDataGrid) ae.getComponent().getParent();
+            this.tblDespachos = facade.find(((TblDespachos)table.getRowData()).getNumDespacho());
+            this.cblDetalleDespachoList.clear();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            this.addError(ex.getMessage(), ex.getMessage());
         }
     }
 }
