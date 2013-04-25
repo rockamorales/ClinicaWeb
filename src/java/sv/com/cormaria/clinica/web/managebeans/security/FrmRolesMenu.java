@@ -21,6 +21,7 @@ import sv.com.cormaria.servicios.exceptions.ClinicaModelexception;
 import sv.com.cormaria.servicios.facades.security.CatMenuSessionFacadeLocal;
 import sv.com.cormaria.servicios.facades.security.CatRolesMenuSessionFacadeLocal;
 import sv.com.cormaria.servicios.facades.security.CatRolesSessionFacadeLocal;
+import sv.com.cormaria.servicios.helpers.ValidationUtils;
 
 
 @ManagedBean(name="frmRolesMenu")
@@ -116,8 +117,27 @@ public class FrmRolesMenu extends PageBase{
 		this.rolesList = rolesList;
 	}
 
+    public boolean validar(){
+        boolean isValid = true;
+        Rol role = (Rol) this.getBean("#{role}", Rol.class);
+        if (role.getCatRol().getNomRol() == null || role.getCatRol().getNomRol().trim().equals("")){
+            this.addError("Por favor ingrese el nombre del nuevo rol", "Por favor ingrese el nombre del nuevo rol");
+            isValid = false;
+        }
+        if (role.getCatRol().getDesRol() == null || role.getCatRol().getDesRol().trim().equals("")){
+            this.addError("Por favor ingrese la descripcion del nuevo rol", "Por favor ingrese la descripcion del nuevo rol");
+            isValid = false;
+        }
+        
+        return isValid;
+    }        
+        
+        
 	public void guardar(ActionEvent ae){
 		try{
+                        if (!validar()){
+                        return;
+                        }
 			Rol role = (Rol) this.getBean("#{role}", Rol.class);
 			if (role.getCatRol().getCodRol()==null || role.getCatRol().getCodRol() == 0L){
 				role.getCatRol().setCodRol(null);
