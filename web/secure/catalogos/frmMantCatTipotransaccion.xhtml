@@ -28,7 +28,8 @@ and open the template in the editor.
                 </tr>
                 <tr>    
                     <td>Nombre</td>
-                    <td><h:inputText value="#{frmMantCatTipoTransaccion.catTipoTransaccion.nomTipTransaccion}" /></td>
+                    <td><h:inputText value="#{frmMantCatTipoTransaccion.catTipoTransaccion.nomTipTransaccion}" />
+                    <h:outputLabel value="*" style="color:red;font-weight: bold;"/></td>
                     <td>Estado</td>
                     <td>
                         <h:selectOneMenu value="#{frmMantCatTipoTransaccion.catTipoTransaccion.actTipTransaccion}" >
