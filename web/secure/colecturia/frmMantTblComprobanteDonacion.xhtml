@@ -60,7 +60,11 @@ and open the template in the editor.
                                 </h:inputText>
                             </td>
                             <td align="left">Cambio:</td>
-                            <td align="left"><h:outputText value="#{frmMantTblComprobanteDonacion.tblComprobanteDonacion.cambio}" rendered="#{frmMantTblComprobanteDonacion.tblComprobanteDonacion.montoRecibido > 0}" style="color:red;font-weight: bold;"/></td>
+                            <td align="left">
+                                <h:outputText value="#{frmMantTblComprobanteDonacion.tblComprobanteDonacion.cambio}" rendered="#{frmMantTblComprobanteDonacion.tblComprobanteDonacion.montoRecibido > 0}" style="color:red;font-weight: bold;">
+                                    <f:convertNumber pattern="###,##0.00" />
+                                </h:outputText>
+                            </td>
                         </tr>  
                         <tr>
                           <td colspan="4" align="center">
