@@ -16,17 +16,11 @@ import sv.com.cormaria.servicios.entidades.catalogos.CatTipoProducto;
 import sv.com.cormaria.servicios.entidades.catalogos.CatCategoriaProducto;
 import sv.com.cormaria.servicios.entidades.catalogos.CatClasificacionProducto;
 import sv.com.cormaria.servicios.entidades.catalogos.CatPresentacionProducto;
-import sv.com.cormaria.servicios.enums.Estado;
-import sv.com.cormaria.servicios.facades.administracion.TblProductoFacade;
 import sv.com.cormaria.servicios.facades.administracion.TblProductoFacadeLocal;
-import sv.com.cormaria.servicios.facades.catalogos.CatTipoProductoFacade;
 import sv.com.cormaria.servicios.facades.catalogos.CatTipoProductoFacadeLocal;
-import sv.com.cormaria.servicios.facades.catalogos.CatCategoriaProductoFacade;
 import sv.com.cormaria.servicios.facades.catalogos.CatCategoriaProductoFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatClasificacionProductoFacadeLocal;
-import sv.com.cormaria.servicios.facades.catalogos.CatPresentacionProductoFacade;
 import sv.com.cormaria.servicios.facades.catalogos.CatPresentacionProductoFacadeLocal;
-import sv.com.cormaria.servicios.helpers.ValidationUtils;
 
 /**
  *

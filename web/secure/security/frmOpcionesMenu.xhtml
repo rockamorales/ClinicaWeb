@@ -28,43 +28,6 @@
                 <table align="center">
                   <tr>
                     <td valign="top">
-                        <rich:tree id="tree" render="tree" selectionType="ajax" var="menuRow">
-                            <rich:treeModelRecursiveAdaptor roots="#{frmOpcionesMenu.menuList}" nodes="#{menuRow.optionsList}">
-                                <rich:treeNode>
-                                    <h:panelGroup layout="block" style="cursor:pointer;width:200px;" >
-                                        <table>
-                                            <tr>
-                                                <td>
-                                                    <a4j:commandLink render="@form" actionListener="#{frmOpcionesMenu.nuevo}">
-                                                        <h:graphicImage url="/img/icons/create_doc.gif" alt="Clic para agregar una nueva opcion" style="border:none" >
-                                                        </h:graphicImage>
-                                                        <f:setPropertyActionListener value="#{menuRow.codMenu}" target="#{menu.catMenu.codPadMenu}"/>
-                                                    </a4j:commandLink>
-                                                </td>
-                                                <td>
-                                                    <a4j:commandLink render="@form" actionListener="#{frmOpcionesMenu.seleccionar}">
-                                                        <h:graphicImage url="/img/icons/edit.gif" alt="Clic para editar la opcion" style="border:none" >
-                                                        </h:graphicImage>
-                                                        <f:setPropertyActionListener value="#{menuRow}" target="#{menu.catMenu}"/>
-                                                    </a4j:commandLink>
-                                                </td>
-                                                <td>
-                                                    <a4j:commandLink render="@form"  actionListener="#{frmOpcionesMenu.delete}">
-                                                            <h:graphicImage url="/img/icons/delete.gif" alt="Clic para eliminar la opcion" style="border:none" >
-                                                            </h:graphicImage>
-                                                    </a4j:commandLink>
-                                                </td>
-                                                <td>
-                                                    <h:outputText  value="#{menuRow.codMenu} -- #{menuRow.nomOpcMenu}" />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </h:panelGroup>
-                                </rich:treeNode>
-                            </rich:treeModelRecursiveAdaptor>
-                           </rich:tree>
-                    </td>
-                    <td valign="top">
                         <table>
                                 <tr>
                                         <td>
@@ -144,6 +107,43 @@
                                 </tr>
                         </table>
                       <h:inputHidden value="#{menu.catMenu.codMenu}" id="codigomenu"></h:inputHidden>
+                    </td>
+                      <td valign="top" width="700">
+                        <rich:tree id="tree" render="tree" selectionType="ajax" var="menuRow">
+                            <rich:treeModelRecursiveAdaptor roots="#{frmOpcionesMenu.menuList}" nodes="#{menuRow.optionsList}">
+                                <rich:treeNode>
+                                    <h:panelGroup layout="block" style="cursor:pointer;width:200px;" >
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <a4j:commandLink render="@form" actionListener="#{frmOpcionesMenu.nuevo}">
+                                                        <h:graphicImage url="/img/icons/create_doc.gif" alt="Clic para agregar una nueva opcion" style="border:none" >
+                                                        </h:graphicImage>
+                                                        <f:setPropertyActionListener value="#{menuRow.codMenu}" target="#{menu.catMenu.codPadMenu}"/>
+                                                    </a4j:commandLink>
+                                                </td>
+                                                <td>
+                                                    <a4j:commandLink render="@form" actionListener="#{frmOpcionesMenu.seleccionar}">
+                                                        <h:graphicImage url="/img/icons/edit.gif" alt="Clic para editar la opcion" style="border:none" >
+                                                        </h:graphicImage>
+                                                        <f:setPropertyActionListener value="#{menuRow}" target="#{menu.catMenu}"/>
+                                                    </a4j:commandLink>
+                                                </td>
+                                                <td>
+                                                    <a4j:commandLink render="@form"  actionListener="#{frmOpcionesMenu.delete}">
+                                                            <h:graphicImage url="/img/icons/delete.gif" alt="Clic para eliminar la opcion" style="border:none" >
+                                                            </h:graphicImage>
+                                                    </a4j:commandLink>
+                                                </td>
+                                                <td>
+                                                    <h:outputText  value="#{menuRow.codMenu} -- #{menuRow.nomOpcMenu}" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </h:panelGroup>
+                                </rich:treeNode>
+                            </rich:treeModelRecursiveAdaptor>
+                           </rich:tree>
                     </td>
                 </tr>
             </table>
