@@ -3,6 +3,12 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="FechaIni" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FechaFin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
      tbl_tarjeta_control_citas.`NUM_TARJETA` AS tbl_tarjeta_control_citas_NUM_TARJETA,
@@ -13,7 +19,9 @@
      tbl_expediente_pacientes.`TER_APE_PACIENTE` AS tbl_expediente_pacientes_TER_APE_PACIENTE,
      tbl_expediente_pacientes.`NUM_EXPEDIENTE` AS tbl_expediente_pacientes_NUM_EXPEDIENTE
 FROM
-     `tbl_expediente_pacientes` tbl_expediente_pacientes INNER JOIN `tbl_tarjeta_control_citas` tbl_tarjeta_control_citas ON tbl_expediente_pacientes.`NUM_EXPEDIENTE` = tbl_tarjeta_control_citas.`NUM_EXPEDIENTE`]]>
+     `tbl_expediente_pacientes` tbl_expediente_pacientes INNER JOIN `tbl_tarjeta_control_citas` tbl_tarjeta_control_citas ON tbl_expediente_pacientes.`NUM_EXPEDIENTE` = tbl_tarjeta_control_citas.`NUM_EXPEDIENTE`
+WHERE
+tbl_tarjeta_control_citas.`FEC_EXP_TARJETA` BETWEEN str_to_date($P{FechaIni},'%d/%m/%Y')and str_to_date($P{FechaFin},'%d/%m/%Y')]]>
 	</queryString>
 	<field name="tbl_tarjeta_control_citas_NUM_TARJETA" class="java.lang.Integer"/>
 	<field name="tbl_tarjeta_control_citas_FEC_EXP_TARJETA" class="java.sql.Date"/>
@@ -78,37 +86,51 @@ FROM
 		<band height="20" splitType="Stretch">
 			<staticText>
 				<reportElement uuid="badf55d6-27af-4a54-b909-3d8fa5dfc66e" x="331" y="0" width="79" height="20"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[No. tarjeta]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="f00b297b-ac9a-40d5-80dc-9d533a511d29" x="476" y="0" width="79" height="20"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Fecha Creación]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="8eba5027-4ffb-40b5-98ae-feb5d1186476" x="2" y="0" width="79" height="20"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="61e3ee7c-7730-4f51-8c6b-591e55d32a33" x="81" y="0" width="79" height="20"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Primer Apellido]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="8bd6cd96-eab5-4f7c-b0b3-5c802598600e" x="166" y="0" width="79" height="20"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Segundo Apellido]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="e42df089-6e28-4d1b-9253-901e77feacf9" x="250" y="0" width="79" height="20"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Tercer Apellido]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="819ea443-f5c7-4cc2-ac5f-08da2d28ee39" x="411" y="0" width="65" height="20"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[Expediente]]></text>
 			</staticText>
 		</band>
