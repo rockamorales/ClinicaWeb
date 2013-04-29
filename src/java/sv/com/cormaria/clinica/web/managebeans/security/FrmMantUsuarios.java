@@ -29,6 +29,7 @@ import sv.com.cormaria.servicios.facades.security.CatRolesSessionFacadeLocal;
 import sv.com.cormaria.servicios.facades.security.CatRolesUsuarioSessionFacadeLocal;
 import sv.com.cormaria.servicios.facades.security.ExceptionHelper;
 import sv.com.cormaria.servicios.facades.security.TblUsuariosSessionFacadeLocal;
+import sv.com.cormaria.servicios.helpers.ValidationUtils;
 
 /**
  *
@@ -253,9 +254,29 @@ public class FrmMantUsuarios extends PageBase {
         }
     }
     
+    
+public boolean validar(){
+        boolean isValid = true;
+        if (tblUsuario.getNumEmpleado() < 0 && tblUsuario.getNumMedico() < 0){
+            this.addError("Ingrese el nombre del empleado o el nombre del médico", "Ingrese el nombre del empleado o el nombre del médico");
+            isValid = false;
+        }        
+        if (tblUsuario.getAliUsuario() == null || tblUsuario.getAliUsuario().trim().equals("")){
+            this.addError("Por favor ingrese el alias del usuario", "Por favor ingrese el alias del usuario");
+            isValid = false;
+        }
+        if (tblUsuario.getConUsuario() == null || tblUsuario.getConUsuario().trim().equals("")){
+            this.addError("Por favor ingrese la contraseña", "Por favor ingrese la contraseña");
+            isValid = false;
+        }              
+        return isValid;
+    }    
+    
+    
+    
     public void guardar(ActionEvent ae ){
       try{
-          if (!validate(getTblUsuario())){
+          if (!validar()){
              return;
           }
           

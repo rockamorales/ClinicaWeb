@@ -14,6 +14,7 @@ import javax.faces.model.SelectItem;
 import org.richfaces.component.UIDataTable;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
 import sv.com.cormaria.clinica.web.managebeans.datamodels.ExpedienteDataModel;
+import sv.com.cormaria.servicios.criteria.ExpedientesSearchCriteria;
 import sv.com.cormaria.servicios.entidades.administracion.TblMedico;
 import sv.com.cormaria.servicios.entidades.administracion.TblMovimientosExpediente;
 import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
@@ -56,6 +57,35 @@ public class FrmGenerarConsulta extends PageBase{
     private List<SelectItem> catTipoConsultaList = new ArrayList<SelectItem>();
     private List<SelectItem> catEspecialidadList = new ArrayList<SelectItem>();
     private List<TblMedico> tblMedicosList = new ArrayList<TblMedico>();
+    private Integer numTarjeta = 0;
+
+    public Integer getNumTarjeta() {
+        return numTarjeta;
+    }
+
+    public void setNumTarjeta(Integer numTarjeta) {
+        this.numTarjeta = numTarjeta;
+    }
+    
+   public void searchExpedienteByNumTarjeta(){
+      try{
+          ExpedientesSearchCriteria criteria = new ExpedientesSearchCriteria();
+          criteria.setNumeroTarjeta(this.getNumTarjeta());
+          List<TblExpedientePacientes> expedientes = tblExpedienteFacade.find(criteria, 0, 1);
+          System.out.println("Lista de expedientes: "+expedientes.size());
+          if (expedientes.size()>0){
+              this.tblExpediente = expedientes.get(0);
+              if(expedientes.get(0).getTarjetaControlCitas()!=null){
+                  this.setNumTarjeta(expedientes.get(0).getTarjetaControlCitas().getNumTarjeta());
+              }
+              this.tblExpediente = expedientes.get(0);
+          }else{
+              this.tblExpediente = new TblExpedientePacientes();
+          }
+      }catch(Exception ex){
+          this.addError(ex.getMessage(), ex.getMessage());
+      }
+   }    
     
     /**
      * Creates a new instance of FrmGenerarConsulta
@@ -184,6 +214,9 @@ public class FrmGenerarConsulta extends PageBase{
     public void searchExpedienteByNum(){
       try{
           this.tblExpediente = tblExpedienteFacade.find(this.tblExpediente.getNumExpediente());
+          if(tblExpediente.getTarjetaControlCitas()!=null){
+              this.setNumTarjeta(tblExpediente.getTarjetaControlCitas().getNumTarjeta());
+          }
       }catch(Exception ex){
           this.addError(ex.getMessage(), ex.getMessage());
       }
@@ -194,6 +227,9 @@ public class FrmGenerarConsulta extends PageBase{
         UIDataTable table = (UIDataTable) ae.getComponent().getParent().getParent();
         System.out.println("Buscando el expediente... "+((TblExpedientePacientes)table.getRowData()).getNumExpediente());
         this.tblExpediente = tblExpedienteFacade.find(((TblExpedientePacientes)table.getRowData()).getNumExpediente());
+        if (tblExpediente.getTarjetaControlCitas()!=null){
+            this.setNumTarjeta(tblExpediente.getTarjetaControlCitas().getNumTarjeta());
+        }
         System.out.println("Expediente encontrado... ");
     }catch(Exception x){
         x.printStackTrace();
