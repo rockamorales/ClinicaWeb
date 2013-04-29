@@ -8,11 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -30,6 +29,7 @@ import sv.com.cormaria.servicios.facades.security.CatRolesSessionFacadeLocal;
 import sv.com.cormaria.servicios.facades.security.CatRolesUsuarioSessionFacadeLocal;
 import sv.com.cormaria.servicios.facades.security.ExceptionHelper;
 import sv.com.cormaria.servicios.facades.security.TblUsuariosSessionFacadeLocal;
+import sv.com.cormaria.servicios.helpers.ValidationUtils;
 
 /**
  *
@@ -228,9 +228,55 @@ public class FrmMantUsuarios extends PageBase {
             this.rolesList = rolesList;
     }
     
+    public void seleccionarMedico(ValueChangeEvent vce){
+        try{
+            if (vce.getNewValue()!=null && (Integer)vce.getNewValue()>0){
+                System.out.println("New value: "+vce.getNewValue());
+                TblMedico medico = medicosLocal.find(vce.getNewValue());
+                this.getTblUsuario().setNomUsuario(medico.getNomMedico()+" "+medico.getPriApeMedico()+(medico.getSecApeMedico()!=null && !medico.getSecApeMedico().trim().equals("")?(" "+medico.getSecApeMedico()):""));
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+            this.addError(ex.getMessage(), ex.getMessage());
+        }
+    }
+
+    public void seleccionarEmpleado(ValueChangeEvent vce){
+        try{
+            if (vce.getNewValue()!=null && (Integer)vce.getNewValue()>0){
+                System.out.println("New value: "+vce.getNewValue());
+                TblEmpleado empleado = empleadoLocal.find(vce.getNewValue());
+                this.getTblUsuario().setNomUsuario(empleado.getNomEmpleado()+" "+empleado.getNomEmpleado()+(empleado.getNomEmpleado()!=null && !empleado.getSecApeEmpleado().trim().equals("")?(" "+empleado.getSecApeEmpleado()):""));
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+            this.addError(ex.getMessage(), ex.getMessage());
+        }
+    }
+    
+    
+public boolean validar(){
+        boolean isValid = true;
+        if (tblUsuario.getNumEmpleado() < 0 && tblUsuario.getNumMedico() < 0){
+            this.addError("Ingrese el nombre del empleado o el nombre del médico", "Ingrese el nombre del empleado o el nombre del médico");
+            isValid = false;
+        }        
+        if (tblUsuario.getAliUsuario() == null || tblUsuario.getAliUsuario().trim().equals("")){
+            this.addError("Por favor ingrese el alias del usuario", "Por favor ingrese el alias del usuario");
+            isValid = false;
+        }
+        if (tblUsuario.getConUsuario() == null || tblUsuario.getConUsuario().trim().equals("")){
+            this.addError("Por favor ingrese la contraseña", "Por favor ingrese la contraseña");
+            isValid = false;
+        }              
+        return isValid;
+    }    
+    
+    
+    
     public void guardar(ActionEvent ae ){
       try{
-          if (!validate(getTblUsuario())){
+          if (!validar()){
              return;
           }
           

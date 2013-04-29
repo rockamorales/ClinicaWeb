@@ -29,12 +29,35 @@
                                 </tr>
                                 <tr>
                                         <td>
+                                            <h:outputLabel for="numEmpleado" value="Empleado: "></h:outputLabel>
+                                        </td>
+                                        <td>
+                                            <h:selectOneMenu value="#{frmMantUsuarios.tblUsuario.numEmpleado}" id="numEmpleado" valueChangeListener="#{frmMantUsuarios.seleccionarEmpleado}">
+                                                <f:selectItem itemValue="-1" itemLabel="No Aplica"/>
+                                                <f:selectItems value="#{frmMantUsuarios.empleadosList}" var="empleado" itemValue="#{empleado.numEmpleado}" itemLabel="#{empleado.nomEmpleado} #{empleado.priApeEmpleado} #{empleado.secApeEmpleado} #{empleado.terApeEmpleado}"/>
+                                                <a4j:ajax event="change" render="@form"/>
+                                            </h:selectOneMenu>
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                            <h:outputLabel for="numMedico" value="Medico: "></h:outputLabel>
+                                        </td>
+                                        <td>
+                                            <h:selectOneMenu value="#{frmMantUsuarios.tblUsuario.numMedico}" id="numMedico" valueChangeListener="#{frmMantUsuarios.seleccionarMedico}">
+                                                <f:selectItem itemValue="-1" itemLabel="No Aplica"/>
+                                                <f:selectItems value="#{frmMantUsuarios.medicosList}" var="medico" itemValue="#{medico.numMedico}" itemLabel="#{medico.nomMedico} #{medico.priApeMedico} #{medico.secApeMedico} #{medico.terApeMedico}"/>
+                                                <a4j:ajax event="change" render="@form"/>
+                                            </h:selectOneMenu>
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td>
                                                 <h:outputLabel for="nombres" value="Nombres:"></h:outputLabel>
                                         </td>
                                         <td>
-                                            <h:inputText value="#{frmMantUsuarios.tblUsuario.nomUsuario}" id="nombres">
-                                            </h:inputText>
-                                            <h:outputLabel value="*" for="nombres" style="color:red;font-weight:bold;"></h:outputLabel>
+                                            <h:outputText value="#{frmMantUsuarios.tblUsuario.nomUsuario}" id="nombres">
+                                            </h:outputText>
                                         </td>
                                 </tr>
                                 <tr>
@@ -74,31 +97,9 @@
                                                     <h:outputLabel value="*" style="color:red;font-weight:bold;" rendered="#{frmMantUsuarios.tblUsuario.numUsuario==null}"></h:outputLabel>
                                                 </td>
                                         </tr>
-                                        <tr>
-                                                <td>
-                                                    <h:outputLabel for="numEmpleado" value="Empleado: "></h:outputLabel>
-                                                </td>
-                                                <td>
-                                                    <h:selectOneMenu value="#{frmMantUsuarios.tblUsuario.numEmpleado}" id="numEmpleado">
-                                                        <f:selectItem itemValue="-1" itemLabel="No Aplica"/>
-                                                        <f:selectItems value="#{frmMantUsuarios.empleadosList}" var="empleado" itemValue="#{empleado.numEmpleado}" itemLabel="#{empleado.nomEmpleado} #{empleado.priApeEmpleado} #{empleado.secApeEmpleado} #{empleado.terApeEmpleado}"/>
-                                                    </h:selectOneMenu>
-                                                </td>
-                                        </tr>
-                                        <tr>
-                                                <td>
-                                                    <h:outputLabel for="numMedico" value="Medico: "></h:outputLabel>
-                                                </td>
-                                                <td>
-                                                    <h:selectOneMenu value="#{frmMantUsuarios.tblUsuario.numMedico}" id="numMedico">
-                                                        <f:selectItem itemValue="-1" itemLabel="No Aplica"/>
-                                                        <f:selectItems value="#{frmMantUsuarios.medicosList}" var="medico" itemValue="#{medico.numMedico}" itemLabel="#{medico.nomMedico} #{medico.priApeMedico} #{medico.secApeMedico} #{medico.terApeMedico}"/>
-                                                    </h:selectOneMenu>
-                                                </td>
-                                        </tr>
                                 <tr>
                                         <td colspan="2" align="center">
-                                            <a4j:commandButton value="Guardar" actionListener="#{frmMantUsuarios.guardar}" render="panelMessage,creacionUsuariosPanel"/>
+                                            <a4j:commandButton value="Guardar" actionListener="#{frmMantUsuarios.guardar}" render="panelMessage,frmUsuariosMant"/>
                                             <a4j:commandButton value="Nuevo" actionListener="#{frmMantUsuarios.nuevo}" render="panelMessage,frmUsuariosMant" immediate="true"/>
                                             <h:commandButton value="Regresar" action="frmUsuarios.jsf?faces-redirect=true" immediate="true"/>
                                         </td>
