@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="clinicaTemplate" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eb3d3e1d-e7a3-48ed-8e8f-a0fac7cf9d19">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nomArea" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FechaIni" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FechaFin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nomEstado" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     tbl_requisiciones.`FEC_REQUISICION` AS tbl_requisiciones_FEC_REQUISICION,
+     tbl_requisiciones.`EST_REQUISICION` AS tbl_requisiciones_EST_REQUISICION,
+     tbl_detalle_requisicion.`CAN_PRO_REQUISICION` AS tbl_detalle_requisicion_CAN_PRO_REQUISICION,
+     tbl_producto.`NOM_PRODUCTO` AS tbl_producto_NOM_PRODUCTO,
+     tbl_requisiciones.`NUM_REQUISICION` AS tbl_requisiciones_NUM_REQUISICION,
+     cat_areas.`NOM_AREA` AS cat_areas_NOM_AREA,
+     cat_tipo_requisicion.`NOM_TIP_REQUISICION` AS cat_tipo_requisicion_NOM_TIP_REQUISICION,
+     tbl_empleado.`NOM_EMPLEADO` AS tbl_empleado_NOM_EMPLEADO,
+     tbl_empleado.`PRI_APE_EMPLEADO` AS tbl_empleado_PRI_APE_EMPLEADO,
+     tbl_requisiciones.`COD_AREA` AS tbl_requisiciones_COD_AREA
+FROM
+     `tbl_requisiciones` tbl_requisiciones INNER JOIN `tbl_detalle_requisicion` tbl_detalle_requisicion ON tbl_requisiciones.`NUM_REQUISICION` = tbl_detalle_requisicion.`NUM_REQUISICION`
+     INNER JOIN `tbl_producto` tbl_producto ON tbl_detalle_requisicion.`NUM_PRODUCTO` = tbl_producto.`NUM_PRODUCTO`
+     INNER JOIN `cat_areas` cat_areas ON tbl_requisiciones.`COD_AREA` = cat_areas.`COD_AREA`
+     INNER JOIN `cat_tipo_requisicion` cat_tipo_requisicion ON tbl_requisiciones.`COD_TIP_REQUISICION` = cat_tipo_requisicion.`COD_TIP_REQUISICION`
+     INNER JOIN `tbl_empleado` tbl_empleado ON tbl_requisiciones.`NUM_EMPLEADO` = tbl_empleado.`NUM_EMPLEADO`
+WHERE
+(tbl_requisiciones.`COD_AREA` = $P{nomArea} OR $P{nomArea} = -1)
+AND (tbl_requisiciones.`EST_REQUISICION` = $P{nomEstado} OR $P{nomEstado} = -1)
+AND tbl_requisiciones.`FEC_REQUISICION` BETWEEN  str_to_date($P{FechaIni},'%d/%m/%Y') and str_to_date(concat($P{FechaFin},' 23:59:59'),'%d/%m/%Y %H:%i:%s')
+ORDER BY tbl_requisiciones.`COD_AREA`,tbl_requisiciones.`FEC_REQUISICION`]]>
+	</queryString>
+	<field name="tbl_requisiciones_FEC_REQUISICION" class="java.sql.Timestamp"/>
+	<field name="tbl_requisiciones_EST_REQUISICION" class="java.lang.Integer"/>
+	<field name="tbl_detalle_requisicion_CAN_PRO_REQUISICION" class="java.math.BigDecimal"/>
+	<field name="tbl_producto_NOM_PRODUCTO" class="java.lang.String"/>
+	<field name="tbl_requisiciones_NUM_REQUISICION" class="java.lang.Integer"/>
+	<field name="cat_areas_NOM_AREA" class="java.lang.String"/>
+	<field name="cat_tipo_requisicion_NOM_TIP_REQUISICION" class="java.lang.String"/>
+	<field name="tbl_empleado_NOM_EMPLEADO" class="java.lang.String"/>
+	<field name="tbl_empleado_PRI_APE_EMPLEADO" class="java.lang.String"/>
+	<field name="tbl_requisiciones_COD_AREA" class="java.lang.Integer"/>
+	<group name="detallerequisicion">
+		<groupExpression><![CDATA[$V{PAGE_NUMBER}]]></groupExpression>
+		<groupHeader>
+			<band height="31">
+				<staticText>
+					<reportElement uuid="0f0d3fd4-846d-47e9-b13a-1f5773fd54f4" x="2" y="11" width="65" height="20"/>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Requisición]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="ca0979e2-1924-4926-bb29-ec161030df2e" x="67" y="11" width="157" height="20"/>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Empleado]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="b9a36ab4-ea0f-4235-9abf-6542ac6ab207" x="317" y="11" width="102" height="20"/>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Área]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="690387a2-9de8-4377-863c-d866f3638f3a" x="224" y="11" width="93" height="20"/>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tipo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="04ebf6d2-787d-4b9d-8f9d-0ed5448d5aaa" x="419" y="11" width="172" height="20"/>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Producto]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="a268c449-9c54-47cc-96b3-c6b93d0291d2" x="591" y="11" width="46" height="20"/>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cantidad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="6278daf3-f0bb-40ab-b532-a41195b5738c" x="637" y="11" width="58" height="20"/>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="e40b1224-c6ef-4f98-8d61-c70697e717cc" x="695" y="11" width="57" height="20"/>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Estado]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="5"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="88" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="116" y="23" width="215" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Clinica Asistencial Corazon de Maria]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="f28cce09-6ee2-4268-be04-78c6298d0cab" x="2" y="2" width="83" height="65"/>
+				<imageExpression><![CDATA["logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="8ff5c228-e686-4510-9ac0-b7ad0aa2cd4d" x="572" y="0" width="69" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha y Hora:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement uuid="dc2ad595-75d1-477b-b506-79e6b0b15492" x="641" y="0" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="572" y="37" width="180" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Area: Administración]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="2" y="0" width="750" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="12" isBold="true" isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Reporte de Requisiciones]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="c592aba0-69d0-4555-abd7-74ad500e688c" x="2" y="0" width="65" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbl_requisiciones_NUM_REQUISICION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="badaa2bb-bbb1-4460-9b49-243e107b74cc" x="67" y="0" width="75" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tbl_empleado_NOM_EMPLEADO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="99a4ea20-55b8-49c7-b774-e58547f98319" x="224" y="0" width="93" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{cat_tipo_requisicion_NOM_TIP_REQUISICION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="316fede5-af82-453b-b14e-e26d022c67cb" x="419" y="0" width="172" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tbl_producto_NOM_PRODUCTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b2ed93b4-4f61-4ab0-8f9d-f459115a17e4" x="591" y="0" width="46" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tbl_detalle_requisicion_CAN_PRO_REQUISICION}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="fe18ba68-7986-4760-9bc7-b8856f202695" x="637" y="0" width="58" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tbl_requisiciones_FEC_REQUISICION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f09da97b-e43d-45f9-abf1-26521a4cbfc3" x="142" y="0" width="82" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tbl_empleado_PRI_APE_EMPLEADO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e627b3e3-7180-45bc-8cb0-1a723b935d18" x="695" y="0" width="57" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tbl_requisiciones_EST_REQUISICION}==0?"Creada":($F{tbl_requisiciones_EST_REQUISICION}==1?"En Proceso":($F{tbl_requisiciones_EST_REQUISICION}==2?"Aprobada":($F{tbl_requisiciones_EST_REQUISICION}==3?"Denegada":($F{tbl_requisiciones_EST_REQUISICION}==4?"Entregada":($F{tbl_requisiciones_EST_REQUISICION}==5?"Eliminada":(""))))))]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="889038ad-2519-4c96-8048-c60753c21fe8" x="317" y="0" width="102" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{cat_areas_NOM_AREA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="8" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="81" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement uuid="dd91d53e-93f0-4c14-9ed7-67ee597856e9" x="0" y="60" width="752" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Hoja "+$V{PAGE_NUMBER}+"/"+$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="0" y="21" width="206" height="20"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[_______________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0329fcf8-31ec-4e5d-983c-efb9b7ca0eed" x="552" y="21" width="200" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<text><![CDATA[___________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="2" y="41" width="204" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Sello]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5cae34e-4713-44b4-8042-0fea701c8bc3" x="552" y="41" width="200" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Encargado]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
