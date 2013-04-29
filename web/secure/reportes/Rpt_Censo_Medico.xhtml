@@ -36,15 +36,17 @@ and open the template in the editor.
                         <TD>
                             <h:outputLabel value="Seleccione el Medico"></h:outputLabel>
                         </TD>
-                        <TD>
-                            <h:selectOneMenu id="Medico">
-                                <f:selectItem itemValue="-1" itemLabel="Todos"/>
-                                <f:selectItem itemValue="1" itemLabel="ACTIVO"/>
-                                <f:selectItem itemValue="0" itemLabel="INACTIVO"/>
+                        
+                            <td>
+                                <h:selectOneMenu value="#{consultasSensoMedico.numMedico}" id="numMedico">
+                                    <f:selectItem itemValue="-1" itemLabel="-- Mostrar Todos --" />
+                                    <f:selectItems value="#{frmTblSensoMedico.medicosList}" var="medico" itemValue="#{medico.numMedico}" itemLabel="#{medico.nomMedico} #{medico.priApeMedico} #{medico.secApeMedico} #{medico.terApeMedico}"/>
+                                </h:selectOneMenu>
+                                <input type="hidden" value="numerico" name="numMedicoDataType" ></input>
+                            </td>
 
-                            </h:selectOneMenu>
-                            <input type="hidden" value="numerico" name="MedicoDataType" ></input>
-                        </TD>
+                            
+
                         <TD>
                             <h:outputLabel value="Formato:"></h:outputLabel>
                         </TD>

@@ -21,7 +21,7 @@
 FROM
      `tbl_expediente_pacientes` tbl_expediente_pacientes INNER JOIN `tbl_tarjeta_control_citas` tbl_tarjeta_control_citas ON tbl_expediente_pacientes.`NUM_EXPEDIENTE` = tbl_tarjeta_control_citas.`NUM_EXPEDIENTE`
 WHERE
-tbl_tarjeta_control_citas.`FEC_EXP_TARJETA` BETWEEN str_to_date($P{FechaIni},'%d/%m/%Y') and str_to_date(concat($P{FechaFin},' 23:59:59'),'%d/%m/%Y %H:%i:%s')]]>
+tbl_tarjeta_control_citas.`FEC_EXP_TARJETA` BETWEEN str_to_date($P{FechaIni},'%d/%m/%Y')and str_to_date($P{FechaFin},'%d/%m/%Y')]]>
 	</queryString>
 	<field name="tbl_tarjeta_control_citas_NUM_TARJETA" class="java.lang.Integer"/>
 	<field name="tbl_tarjeta_control_citas_FEC_EXP_TARJETA" class="java.sql.Date"/>
