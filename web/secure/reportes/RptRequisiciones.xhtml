@@ -12,13 +12,14 @@ and open the template in the editor.
       xmlns:a4j="http://richfaces.org/a4j">
     <ui:composition template="/templates/main.xhtml">
         <ui:define name="title">
-          <h:outputText value="#{messages['default.windowTitle']}--Expediente de Expedientes" escape="false"></h:outputText>  
+          <h:outputText value="#{messages['default.windowTitle']}--Reporte de Citas" escape="false"></h:outputText>  
         </ui:define>
         <ui:define name="body">
-            <h3>Reporte de Expedientes creados</h3>
+            <h3>Reporte de Requisiciones</h3>
             <hr></hr>
             <form action="/ClinicaWeb/ReportServlet">
                 <table>
+                    Formato de fecha (DD/MM/AAAA)
                     <TR>
                              <td align="left">Fecha de Inicio:</td>
                              <td align="left">
@@ -32,23 +33,46 @@ and open the template in the editor.
                                     <!-- oninputkeypress="return filterInput(1, event, false, '/');"-->
                                     <input type="text" name="FechaFin" id="FechaFin" class="dateMask"/>
                                     <input type="hidden" value="String" name="FechaFinDataType" ></input>
-                             </td>
+                             </td>   
+                    </TR>
+                    <TR>
                         <TD>
-                            <h:outputLabel value="Seleccione el estado del Expediente"></h:outputLabel>
+                            <h:outputLabel value="Seleccione el área a consultar:"></h:outputLabel>
                         </TD>
                         <TD>
-                            <h:selectOneMenu id="estPaciente">
+                            <h:selectOneMenu id="nomArea">
                                 <f:selectItem itemValue="-1" itemLabel="Todos"/>
-                                <f:selectItem itemValue="1" itemLabel="ACTIVO"/>
-                                <f:selectItem itemValue="0" itemLabel="INACTIVO"/>
-
+                                <f:selectItem itemValue="1" itemLabel="ARCHIVO DE PACIENTES"/>
+                                <f:selectItem itemValue="2" itemLabel="COLECTURIA"/>
+                                <f:selectItem itemValue="3" itemLabel="CONSULTORIOS"/>
+                                <f:selectItem itemValue="4" itemLabel="ADMINISTRACION"/>
+                                <f:selectItem itemValue="5" itemLabel="FARMACIA"/>
                             </h:selectOneMenu>
-                            <input type="hidden" value="numerico" name="estPacienteDataType" ></input>
+                            <input type="hidden" value="numerico" name="nomAreaDataType" ></input>
                         </TD>
+                    </TR>
+                    <TR>
+                        <TD>
+                            <h:outputLabel value="Seleccione el estado:"></h:outputLabel>
+                        </TD>
+                        <TD>
+                            <h:selectOneMenu id="nomEstado">
+                                <f:selectItem itemValue="-1" itemLabel="Todos"/>
+                                <f:selectItem itemValue="0" itemLabel="CREADA"/>
+                                <f:selectItem itemValue="1" itemLabel="EN PROCESO"/>
+                                <f:selectItem itemValue="2" itemLabel="APROBADA"/>
+                                <f:selectItem itemValue="3" itemLabel="DENEGADA"/>
+                                <f:selectItem itemValue="4" itemLabel="ENTREGADA"/>
+                                <f:selectItem itemValue="5" itemLabel="ELIMINADA"/>
+                            </h:selectOneMenu>
+                            <input type="hidden" value="numerico" name="nomEstadoDataType" ></input>
+                        </TD>
+                    </TR>                    
+                    <TR>
                         <TD>
                             <h:outputLabel value="Formato:"></h:outputLabel>
                         </TD>
-                        <TD>                            
+                        <TD>      
                             <h:selectOneMenu id="docType">
                                 <f:selectItem itemValue="pdf" itemLabel="PDF"/>
                                 <f:selectItem itemValue="xls" itemLabel="XLS"/>
@@ -56,7 +80,7 @@ and open the template in the editor.
                             </h:selectOneMenu>                            
                         </TD>
                         <TD>
-                            <input type="hidden" value="/Reports/Archivo_ReporteExpedientesCreados.jasper" name="rptFileName"/>
+                            <input type="hidden" value="/Reports/Administracion_Requisiciones.jasper" name="rptFileName"/>
                             <input type="submit" value="Mostrar"/>
                         </TD>
                     </TR> 
