@@ -29,7 +29,7 @@
 	</parameter>
 	<parameter name="fechaEndCreacion" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[Select * from tbl_usuarios where fec_crecion between STR_TO_DATE($P{fechaIniCreacion},'%d/%m/%Y') and str_to_date(concat($P{fechaEndCreacion},' 23:59:59'),'%d/%m/%Y %H:%i:%s')]]>
+		<![CDATA[Select * from tbl_usuarios where fec_crecion between STR_TO_DATE($P{fechaIniCreacion},'%d/%m/%Y') and STR_TO_DATE($P{fechaEndCreacion},'%d/%m/%Y')]]>
 	</queryString>
 	<field name="NUM_USUARIO" class="java.lang.Integer"/>
 	<field name="ALI_USUARIO" class="java.lang.String"/>

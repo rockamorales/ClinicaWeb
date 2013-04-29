@@ -24,7 +24,7 @@ FROM
      INNER JOIN `cat_tipo_producto` cat_tipo_producto ON tbl_producto.`COD_TIP_PRODUCTO` = cat_tipo_producto.`COD_TIP_PRODUCTO`
 WHERE
      est_producto = 1
- AND TBL_DETALLE_INGRESO_PRODUCTO.FEC_EXP_DET_INGRESO BETWEEN  str_to_date($P{FechaIni},'%d/%m/%Y') and str_to_date(concat($P{FechaFin},' 23:59:59'),'%d/%m/%Y %H:%i:%s')]]>
+ AND TBL_DETALLE_INGRESO_PRODUCTO.FEC_EXP_DET_INGRESO BETWEEN  str_to_date($P{FechaIni},'%d/%m/%Y') and str_to_date($P{FechaFin},'%d/%m/%Y')]]>
 	</queryString>
 	<field name="tbl_producto_NUM_PRODUCTO" class="java.lang.Integer"/>
 	<field name="tbl_producto_NOM_PRODUCTO" class="java.lang.String"/>

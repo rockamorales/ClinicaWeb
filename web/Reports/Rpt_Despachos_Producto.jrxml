@@ -32,7 +32,7 @@ FROM
      INNER JOIN `cat_clasificacion_producto` cat_clasificacion_producto ON tbl_producto.`COD_CLA_PRODUCTO` = cat_clasificacion_producto.`COD_CLA_PRODUCTO`
      INNER JOIN `cat_presentacion_producto` cat_presentacion_producto ON tbl_producto.`COD_PRE_PRODUCTO` = cat_presentacion_producto.`COD_PRE_PRODUCTO`
 WHERE
-(tbl_despachos.`FEC_DESPACHO` BETWEEN str_to_date($P{FechaIni},'%d/%m/%Y') and str_to_date(concat($P{FechaFin},' 23:59:59'),'%d/%m/%Y %H:%i:%s'))
+(tbl_despachos.`FEC_DESPACHO` BETWEEN str_to_date($P{FechaIni},'%d/%m/%Y')and str_to_date($P{FechaFin},'%d/%m/%Y'))
 and (tbl_producto.`NUM_PRODUCTO` = $P{numProducto} or $P{numProducto}=-1)
 GROUP BY
      tbl_producto.`NOM_PRODUCTO`,
