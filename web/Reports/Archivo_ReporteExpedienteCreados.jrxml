@@ -14,7 +14,7 @@
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT
-     case tbl_expediente_pacientes.`EST_PACIENTE` when1then 'Activo'when0then 'Inactivo'end AS tbl_expediente_pacientes_EST_PACIENTE,
+     case tbl_expediente_pacientes.`EST_PACIENTE` when 1 then 'Activo' when 0 then 'Inactivo' end AS tbl_expediente_pacientes_EST_PACIENTE,
      tbl_expediente_pacientes.`NUM_EXPEDIENTE` AS tbl_expediente_pacientes_NUM_EXPEDIENTE,
      tbl_expediente_pacientes.`NOM_PACIENTE` AS tbl_expediente_pacientes_NOM_PACIENTE,
      tbl_expediente_pacientes.`PRI_APE_PACIENTE` AS tbl_expediente_pacientes_PRI_APE_PACIENTE,
@@ -30,13 +30,14 @@ WHERE
   OR $P{estPaciente} = -1
  AND TBL_EXPEDIENTE_PACIENTES.FEC_REG_EXPEDIENTE BETWEEN str_to_date($P{FechaIni},'%d/%m/%Y')and str_to_date($P{FechaFin},'%d/%m/%Y')]]>
 	</queryString>
+	<field name="tbl_expediente_pacientes_EST_PACIENTE" class="java.lang.String"/>
 	<field name="tbl_expediente_pacientes_NUM_EXPEDIENTE" class="java.lang.Integer"/>
 	<field name="tbl_expediente_pacientes_NOM_PACIENTE" class="java.lang.String"/>
 	<field name="tbl_expediente_pacientes_PRI_APE_PACIENTE" class="java.lang.String"/>
 	<field name="tbl_expediente_pacientes_SEC_APE_PACIENTE" class="java.lang.String"/>
 	<field name="tbl_expediente_pacientes_TER_APE_PACIENTE" class="java.lang.String"/>
-	<field name="tbl_expediente_pacientes_EST_PACIENTE" class="java.lang.String"/>
-	<field name="tbl_expediente_pacientes_NOM_SEXO" class="java.lang.String"/>
+	<field name="tbl_expediente_pacientes_FEC_REG_EXPEDIENTE" class="java.sql.Timestamp"/>
+	<field name="tbl_expediente_pacientes_COD_SEX_PACIENTE" class="java.lang.Integer"/>
 	<variable name="tbl_expediente_pacientes_NUM_EXPEDIENTE_1" class="java.lang.Integer" resetType="Column" calculation="Count">
 		<variableExpression><![CDATA[$F{tbl_expediente_pacientes_NUM_EXPEDIENTE}]]></variableExpression>
 	</variable>
@@ -112,14 +113,14 @@ WHERE
 				<text><![CDATA[Segundo Apellido]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b51e5673-65d9-423e-b901-b276af01b45f" x="460" y="0" width="48" height="20"/>
-				<textElement/>
-				<text><![CDATA[Registro]]></text>
-			</staticText>
-			<staticText>
 				<reportElement uuid="1d85a021-9a82-4b72-858a-858fceda5db6" x="278" y="0" width="92" height="20"/>
 				<textElement/>
 				<text><![CDATA[Estado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="11224849-83b2-49a2-afe3-b1351902eb37" x="462" y="0" width="88" height="20"/>
+				<textElement/>
+				<text><![CDATA[Registro]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -146,14 +147,14 @@ WHERE
 				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_SEC_APE_PACIENTE}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="98b86210-3ad9-4a93-b9ad-d8c44e8f3777" x="460" y="0" width="48" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{tbl_consultas_FEC_CONSULTA}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement uuid="94e2715b-9af3-4365-8f97-c641cd795e29" x="278" y="0" width="92" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_EST_PACIENTE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="21d0129f-2ab8-45d6-a57e-ea3d92f45d2e" x="462" y="0" width="88" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_expediente_pacientes_FEC_REG_EXPEDIENTE}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

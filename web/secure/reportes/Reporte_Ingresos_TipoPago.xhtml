@@ -12,10 +12,10 @@ and open the template in the editor.
       xmlns:a4j="http://richfaces.org/a4j">
     <ui:composition template="/templates/main.xhtml">
         <ui:define name="title">
-          <h:outputText value="#{messages['default.windowTitle']}--Censo Medico" escape="false"></h:outputText>  
+          <h:outputText value="#{messages['default.windowTitle']}--Reporte de Comprobantes de donacion por Tipo de Pago" escape="false"></h:outputText>  
         </ui:define>
         <ui:define name="body">
-            <h3>Censo Medico</h3>
+            <h3>Reporte de Comprobantes de donacion por Tipo de Pago</h3>
             <hr></hr>
             <form action="/ClinicaWeb/ReportServlet">
                 <table>
@@ -34,19 +34,17 @@ and open the template in the editor.
                                     <input type="hidden" value="String" name="FechaFinDataType" ></input>
                              </td>
                         <TD>
-                            <h:outputLabel value="Seleccione el Medico"></h:outputLabel>
+                            <h:outputLabel value="Seleccione el Tipo de Pago"></h:outputLabel>
                         </TD>
-                        
-                            <td>
-                                <h:selectOneMenu value="#{consultasSensoMedico.numMedico}" id="numMedico">
-                                    <f:selectItem itemValue="-1" itemLabel="-- Mostrar Todos --" />
-                                    <f:selectItems value="#{frmTblSensoMedico.medicosList}" var="medico" itemValue="#{medico.numMedico}" itemLabel="#{medico.nomMedico} #{medico.priApeMedico} #{medico.secApeMedico} #{medico.terApeMedico}"/>
-                                </h:selectOneMenu>
-                                <input type="hidden" value="numerico" name="numMedicoDataType" ></input>
-                            </td>
+                        <TD>
+                            <h:selectOneMenu id="codTipPago">
+                                <f:selectItem itemValue="-1" itemLabel="Todos"/>
+                                <f:selectItem itemValue="1" itemLabel="Efectivo"/>
+                                <f:selectItem itemValue="2" itemLabel="Cheque"/>
 
-                            
-
+                            </h:selectOneMenu>
+                            <input type="hidden" value="numerico" name="codTipPagoDataType" ></input>
+                        </TD>
                         <TD>
                             <h:outputLabel value="Formato:"></h:outputLabel>
                         </TD>
@@ -58,7 +56,7 @@ and open the template in the editor.
                             </h:selectOneMenu>                            
                         </TD>
                         <TD>
-                            <input type="hidden" value="/Reports/Rpt_Censo_Medico.jasper" name="rptFileName"/>
+                            <input type="hidden" value="/Reports/Admin_ReporteIngresoPorTipoCobro.jasper" name="rptFileName"/>
                             <input type="submit" value="Mostrar"/>
                         </TD>
                     </TR> 

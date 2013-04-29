@@ -9,7 +9,7 @@
 	<parameter name="FechaFin" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
-	<parameter name="Medico" class="java.lang.Integer">
+	<parameter name="numMedico" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
@@ -36,8 +36,8 @@ FROM
      INNER JOIN `cat_sexo` cat_sexo ON tbl_expediente_pacientes.`COD_SEX_PACIENTE` = cat_sexo.`COD_SEX_PACIENTE`
 WHERE
      tbl_consultas.`FEC_CONSULTA` BETWEEN str_to_date($P{FechaIni},'%d/%m/%Y')and str_to_date($P{FechaFin},'%d/%m/%Y')
-     and (tbl_consultas.`NUM_MEDICO` = $P{Medico}
-  OR $P{Medico} = -1)
+     and (tbl_consultas.`NUM_MEDICO` = $P{numMedico}
+  OR $P{numMedico} = -1)
 and tbl_consultas.`EST_CONSULTA`=4]]>
 	</queryString>
 	<field name="Paciente" class="java.lang.String"/>
@@ -53,6 +53,81 @@ and tbl_consultas.`EST_CONSULTA`=4]]>
 	<field name="cat_especialidad_NOM_ESPECIALIDAD" class="java.lang.String"/>
 	<field name="tbl_consultas_NUM_MEDICO" class="java.lang.Integer"/>
 	<field name="tbl_consultas_EST_CONSULTA" class="java.lang.Integer"/>
+	<group name="medico">
+		<groupExpression><![CDATA[$F{Medico}]]></groupExpression>
+		<groupHeader>
+			<band height="74">
+				<staticText>
+					<reportElement uuid="e7be5f16-d931-4690-a8a4-0ae2b1b89b41" x="3" y="0" width="340" height="20"/>
+					<textElement/>
+					<text><![CDATA[Medico]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="936d1163-7b50-4a16-a21f-a9e21e17cd5b" x="603" y="0" width="68" height="20"/>
+					<textElement/>
+					<text><![CDATA[No. Junta]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="ecd10c23-928f-404f-9467-ce4cdd152d37" x="603" y="20" width="68" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{tbl_medico_NUM_JUNTA}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="3f4b521e-2000-46fa-90cf-a8bf0172ec92" x="3" y="20" width="340" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{Medico}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="7da5c350-865a-41f8-93ad-f3e65e098d8c" x="681" y="51" width="68" height="20"/>
+					<textElement/>
+					<text><![CDATA[Fecha]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="770fabe1-f10b-4222-b3cd-0bf9aeb782b2" x="245" y="50" width="54" height="20"/>
+					<textElement/>
+					<text><![CDATA[Peso]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="48343f76-6484-4834-a3d7-d743762c4567" x="538" y="51" width="143" height="20"/>
+					<textElement/>
+					<text><![CDATA[Diagnostico]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="6965086b-a704-40ee-a908-a4b39530ceed" x="210" y="50" width="35" height="20"/>
+					<textElement/>
+					<text><![CDATA[Edad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="4aa92890-96c4-45fe-8f50-e6adbf6b1a4d" x="45" y="50" width="165" height="20"/>
+					<textElement/>
+					<text><![CDATA[Nombre Paciente]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="50c25149-44be-4bb2-bdde-befb73e97c1e" x="299" y="50" width="68" height="20"/>
+					<textElement/>
+					<text><![CDATA[Sexo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7f048f0e-6cbb-45d2-af0e-247526ed2be1" x="367" y="50" width="84" height="20"/>
+					<textElement/>
+					<text><![CDATA[Consulta]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="f41d6fbd-b796-44fb-9719-e061fd864843" x="3" y="50" width="42" height="20"/>
+					<textElement/>
+					<text><![CDATA[No. Exp.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="47f8eb75-5e01-41e4-9669-de021610f0a6" x="451" y="50" width="87" height="20"/>
+					<textElement/>
+					<text><![CDATA[Especialidad]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50"/>
+		</groupFooter>
+	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -86,128 +161,71 @@ and tbl_consultas.`EST_CONSULTA`=4]]>
 					<font isStrikeThrough="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[Area: <Nombre del area>]]></text>
+				<text><![CDATA[Area: Administracion]]></text>
 			</staticText>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="17" splitType="Stretch"/>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9340309d-fa4a-42b1-8312-b567cef5c487" x="302" y="0" width="180" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isStrikeThrough="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Censo Medico]]></text>
+			</staticText>
+		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="63" splitType="Stretch">
-			<staticText>
-				<reportElement uuid="7da5c350-865a-41f8-93ad-f3e65e098d8c" x="681" y="40" width="68" height="20"/>
-				<textElement/>
-				<text><![CDATA[Fecha]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="770fabe1-f10b-4222-b3cd-0bf9aeb782b2" x="244" y="40" width="54" height="20"/>
-				<textElement/>
-				<text><![CDATA[Peso]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="48343f76-6484-4834-a3d7-d743762c4567" x="538" y="40" width="143" height="20"/>
-				<textElement/>
-				<text><![CDATA[Diagnostico]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="6965086b-a704-40ee-a908-a4b39530ceed" x="209" y="40" width="35" height="20"/>
-				<textElement/>
-				<text><![CDATA[Edad]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="4aa92890-96c4-45fe-8f50-e6adbf6b1a4d" x="44" y="40" width="165" height="20"/>
-				<textElement/>
-				<text><![CDATA[Nombre Paciente]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="e7be5f16-d931-4690-a8a4-0ae2b1b89b41" x="2" y="0" width="340" height="20"/>
-				<textElement/>
-				<text><![CDATA[Medico]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="50c25149-44be-4bb2-bdde-befb73e97c1e" x="298" y="41" width="68" height="20"/>
-				<textElement/>
-				<text><![CDATA[Sexo]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="7f048f0e-6cbb-45d2-af0e-247526ed2be1" x="367" y="39" width="84" height="20"/>
-				<textElement/>
-				<text><![CDATA[Consulta]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="936d1163-7b50-4a16-a21f-a9e21e17cd5b" x="602" y="0" width="68" height="20"/>
-				<textElement/>
-				<text><![CDATA[No. Junta]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="f41d6fbd-b796-44fb-9719-e061fd864843" x="2" y="40" width="42" height="20"/>
-				<textElement/>
-				<text><![CDATA[No. Exp.]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="47f8eb75-5e01-41e4-9669-de021610f0a6" x="451" y="39" width="87" height="20"/>
-				<textElement/>
-				<text><![CDATA[Especialidad]]></text>
-			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="ecd10c23-928f-404f-9467-ce4cdd152d37" x="602" y="20" width="68" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{tbl_medico_NUM_JUNTA}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="3f4b521e-2000-46fa-90cf-a8bf0172ec92" x="2" y="20" width="340" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{Medico}]]></textFieldExpression>
-			</textField>
-		</band>
+		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="21" splitType="Stretch">
+		<band height="23" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="f53cf0ea-cb01-43e1-b3be-9eec09860ac9" x="298" y="1" width="68" height="20"/>
+				<reportElement uuid="f53cf0ea-cb01-43e1-b3be-9eec09860ac9" x="299" y="1" width="68" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{cat_sexo_NOM_SEX_PACIENTE}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="520ea933-41ec-4c02-97fa-70a4447048be" x="2" y="0" width="42" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{tbl_consultas_NUM_EXPEDIENTE}]]></textFieldExpression>
-			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement uuid="28c70ada-a763-49f5-b608-49f724c2bd0d" x="681" y="1" width="68" height="20"/>
+				<reportElement uuid="28c70ada-a763-49f5-b608-49f724c2bd0d" x="680" y="1" width="68" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{tbl_consultas_FEC_CONSULTA}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="977b38ab-19ed-4ad4-a3f7-8f3bf2a49e15" x="244" y="1" width="54" height="20"/>
+				<reportElement uuid="977b38ab-19ed-4ad4-a3f7-8f3bf2a49e15" x="245" y="1" width="54" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{tbl_consultas_PES_PACIENTE}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="4eef7e8d-6ffc-460d-bd2b-80e210cf0137" x="538" y="1" width="143" height="20"/>
+				<reportElement uuid="4eef7e8d-6ffc-460d-bd2b-80e210cf0137" x="537" y="1" width="143" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{tbl_consultas_DIA_PACIENTE}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="a6978342-7494-4eb3-be63-bf1239086191" x="209" y="1" width="35" height="20"/>
+				<reportElement uuid="a6978342-7494-4eb3-be63-bf1239086191" x="210" y="1" width="35" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{tbl_consultas_EDA_CONSULTA}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="31618c2d-7b7d-4ce8-ad75-165613294f81" x="44" y="1" width="165" height="20"/>
+				<reportElement uuid="31618c2d-7b7d-4ce8-ad75-165613294f81" x="45" y="1" width="165" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{Paciente}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="9edf5713-c5b3-457b-9f86-78d4c0af3b29" x="367" y="1" width="84" height="20"/>
+				<reportElement uuid="9edf5713-c5b3-457b-9f86-78d4c0af3b29" x="366" y="1" width="84" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{cat_tipo_consulta_NOM_TIP_CONSULTA}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="e067f48e-aef1-4d91-af25-801af32f62c0" x="451" y="1" width="87" height="20"/>
+				<reportElement uuid="e067f48e-aef1-4d91-af25-801af32f62c0" x="450" y="1" width="87" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{cat_especialidad_NOM_ESPECIALIDAD}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="520ea933-41ec-4c02-97fa-70a4447048be" x="3" y="1" width="42" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{tbl_consultas_NUM_EXPEDIENTE}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
