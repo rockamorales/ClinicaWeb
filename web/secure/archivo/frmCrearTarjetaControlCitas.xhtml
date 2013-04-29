@@ -24,6 +24,15 @@
                 <table>
                     <tr>
                         <td>
+                            <h:outputLabel value="Numero tarjeta:" for="numeroTarjeta">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.numeroTarjeta}" id="numeroTarjeta" maxlength="11" onkeypress="return filterInput(1, event, false, '');">
+                            </h:inputText>
+                            
+                        </td>
+                        <td>
                             <h:outputLabel value="Expediente:" for="numExpediente1">
                             </h:outputLabel>
                         </td>
@@ -31,6 +40,8 @@
                             <h:inputText value="#{expedientesSearchCriteria.numExpediente}" id="numExpediente1" maxlength="9" onkeypress="return filterInput(1, event, false, '');">
                             </h:inputText>
                         </td>
+                    </tr>
+                    <tr>
                         <td>
                             <h:outputLabel value="DUI:" for="dui1">
                             </h:outputLabel>
@@ -40,8 +51,6 @@
                             </h:inputText>
                              <rich:tooltip  target="dui1" showEvent="focus" value="Ingrese el numero de dui sin guión" />
                         </td>
-                    </tr>
-                    <tr>
                         <td>
                             <h:outputLabel value="Nombres:" for="nombres1">
                             </h:outputLabel>
@@ -50,6 +59,8 @@
                             <h:inputText value="#{expedientesSearchCriteria.nombres}" id="nombres1" maxlength="30" onkeypress="return filterInput(0, event, false, ' %');">
                             </h:inputText>
                         </td>
+                    </tr>
+                    <tr>
                         <td>
                             <h:outputLabel value="Primer Ape:" for="primerApellido1">
                             </h:outputLabel>
@@ -58,8 +69,6 @@
                             <h:inputText value="#{expedientesSearchCriteria.primerApellido}" id="primerApellido1" maxlength="15" onkeypress="return filterInput(0, event, false, '%');">
                             </h:inputText>
                         </td>
-                    </tr>
-                    <tr>
                         <td>
                             <h:outputLabel value="Segundo ape:" for="segundoApellido1">
                             </h:outputLabel>
@@ -68,14 +77,16 @@
                             <h:inputText value="#{expedientesSearchCriteria.segundoApellido}" id="segundoApellido1" maxlength="15" onkeypress="return filterInput(0, event, false, '%');">
                             </h:inputText>
                         </td>
+                    </tr>
+                    <tr>
                         <td>
                             <h:outputLabel value="Tercer ape:" for="tercerApellido1">
                             </h:outputLabel>
                         </td>
-                        <td>
+                        <td colspan="3" align="left">
                             <h:inputText value="#{expedientesSearchCriteria.tercerApellido}" id="tercerApellido1" maxlength="15" onkeypress="return filterInput(0, event, false, '%');">
                             </h:inputText>
-                        </td>
+                        </td>                        
                     </tr>
                     <tr>
                         <td colspan="4" align="center">
@@ -87,6 +98,9 @@
                   <rich:dataTable value="#{expedienteDataModel}" var="tblExpedientePacientes" rows="10" id="tblExpedientePacientesTable">
                     <f:facet name="header">
                         <rich:columnGroup>
+                          <h:column>
+                            <h:outputText value="Numero de tarjeta"/>
+                          </h:column>
                           <h:column>
                             <h:outputText value="Expediente"/>
                           </h:column>
@@ -113,6 +127,10 @@
                           </h:column>
                         </rich:columnGroup>
                       </f:facet>
+                    <h:column>
+                        <h:outputText value="#{tblExpedientePacientes.tarjetaControlCitas.numTarjeta}">
+                        </h:outputText>
+                    </h:column>
                     <h:column>
                         <h:outputText value="#{tblExpedientePacientes.numExpediente}">
                         </h:outputText>
@@ -151,8 +169,17 @@
               <hr/>
               <table>
                 <tr>
+                    <td align="left">Numero tarjeta:</td>
+                    <td align="left">
+                        <h:inputText value="#{frmCrearTarjetaControlCitas.numTarjeta}" id="numTarjeta" maxlength="9" onkeypress="return filterInput(1, event, false, '');">
+                            <a4j:ajax event="change" listener="#{frmCrearTarjetaControlCitas.searchExpedienteByNumTarjeta}" render="@form"/>
+                        </h:inputText>
+                        <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                        <a4j:commandButton value="..." onclick="#{rich:component('buscarExpedientePanel')}.show(); return false;">
+                        </a4j:commandButton>
+                    </td>
                     <td align="left">Expediente:</td>
-                    <td align="left" colspan="3">
+                    <td align="left">
                         <h:inputText value="#{frmCrearTarjetaControlCitas.tblExpediente.numExpediente}" id="numExpediente" maxlength="9" onkeypress="return filterInput(1, event, false, '');">
                             <a4j:ajax event="change" listener="#{frmCrearTarjetaControlCitas.searchExpedienteByNum}" render="@form"/>
                         </h:inputText>

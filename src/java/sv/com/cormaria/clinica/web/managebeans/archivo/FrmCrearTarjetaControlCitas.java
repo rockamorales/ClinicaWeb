@@ -4,6 +4,7 @@
  */
 package sv.com.cormaria.clinica.web.managebeans.archivo;
 
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -11,6 +12,7 @@ import javax.faces.event.ActionEvent;
 import org.richfaces.component.UIDataTable;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
 import sv.com.cormaria.clinica.web.managebeans.datamodels.ExpedienteDataModel;
+import sv.com.cormaria.servicios.criteria.ExpedientesSearchCriteria;
 import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
 import sv.com.cormaria.servicios.entidades.archivo.TblTarjetaControlCitas;
 import sv.com.cormaria.servicios.facades.archivo.TblExpedientePacientesFacadeLocal;
@@ -33,6 +35,7 @@ public class FrmCrearTarjetaControlCitas extends PageBase{
     private TblExpedientePacientes tblExpediente = new TblExpedientePacientes();
 
     private TblTarjetaControlCitas tblTarjeta = new TblTarjetaControlCitas();
+    private Integer numTarjeta = 0;
     
     /**
      * Creates a new instance of FrmGenerarConsulta
@@ -59,6 +62,9 @@ public class FrmCrearTarjetaControlCitas extends PageBase{
     public void searchExpedienteByNum(){
       try{
           this.tblExpediente = tblExpedienteFacade.find(this.tblExpediente.getNumExpediente());
+          if(tblExpediente.getTarjetaControlCitas()!=null){
+            this.setNumTarjeta(tblExpediente.getTarjetaControlCitas().getNumTarjeta());
+          }
       }catch(Exception ex){
           this.addError(ex.getMessage(), ex.getMessage());
       }
@@ -69,6 +75,9 @@ public class FrmCrearTarjetaControlCitas extends PageBase{
         UIDataTable table = (UIDataTable) ae.getComponent().getParent().getParent();
         System.out.println("Buscando el expediente... "+((TblExpedientePacientes)table.getRowData()).getNumExpediente());
         this.tblExpediente = tblExpedienteFacade.find(((TblExpedientePacientes)table.getRowData()).getNumExpediente());
+        if (tblExpediente.getTarjetaControlCitas()!=null){
+            this.setNumTarjeta(tblExpediente.getTarjetaControlCitas().getNumTarjeta());
+        }
         System.out.println("Expediente encontrado... ");
     }catch(Exception x){
         x.printStackTrace();
@@ -103,7 +112,34 @@ public class FrmCrearTarjetaControlCitas extends PageBase{
        return isValid;
      
    }
-   
+
+    public Integer getNumTarjeta() {
+        return numTarjeta;
+    }
+
+    public void setNumTarjeta(Integer numTarjeta) {
+        this.numTarjeta = numTarjeta;
+    }
+
+   public void searchExpedienteByNumTarjeta(){
+      try{
+          ExpedientesSearchCriteria criteria = new ExpedientesSearchCriteria();
+          criteria.setNumeroTarjeta(this.getNumTarjeta());
+          List<TblExpedientePacientes> expedientes = tblExpedienteFacade.find(criteria, 0, 1);
+          System.out.println("Lista de expedientes: "+expedientes.size());
+          if (expedientes.size()>0){
+              if(expedientes.get(0).getTarjetaControlCitas()!=null){
+                  this.setNumTarjeta(expedientes.get(0).getTarjetaControlCitas().getNumTarjeta());
+              }
+              this.tblExpediente = expedientes.get(0);
+          }else{
+              this.tblExpediente = new TblExpedientePacientes();
+          }
+      }catch(Exception ex){
+          this.addError(ex.getMessage(), ex.getMessage());
+      }
+   }    
+
    
     public void asignar(ActionEvent ae){
         try{

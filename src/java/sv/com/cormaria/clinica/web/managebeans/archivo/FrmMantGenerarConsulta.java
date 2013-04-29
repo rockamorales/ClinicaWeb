@@ -11,17 +11,15 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
-import org.richfaces.component.UIDataGrid;
 import org.richfaces.component.UIDataTable;
 import sv.com.cormaria.clinica.web.managebeans.base.PageBase;
-import sv.com.cormaria.clinica.web.managebeans.datamodels.ConsultasPagadasDataModel;
-import sv.com.cormaria.clinica.web.managebeans.datamodels.ExpedienteDataModel;
+import sv.com.cormaria.clinica.web.managebeans.datamodels.ConsultasDataModel;
 import sv.com.cormaria.servicios.entidades.administracion.TblMedico;
-import sv.com.cormaria.servicios.entidades.administracion.TblMovimientosExpediente;
 import sv.com.cormaria.servicios.entidades.archivo.TblExpedientePacientes;
 import sv.com.cormaria.servicios.entidades.catalogos.CatEspecialidad;
 import sv.com.cormaria.servicios.entidades.catalogos.CatTipoConsulta;
 import sv.com.cormaria.servicios.entidades.consultasmedicas.TblConsultas;
+import sv.com.cormaria.servicios.enums.EstadoConsultas;
 import sv.com.cormaria.servicios.facades.administracion.TblMedicoFacadeLocal;
 import sv.com.cormaria.servicios.facades.archivo.TblExpedientePacientesFacadeLocal;
 import sv.com.cormaria.servicios.facades.catalogos.CatEspecialidadFacadeLocal;
@@ -177,6 +175,25 @@ public class FrmMantGenerarConsulta extends PageBase{
          this.addInfo("Error", "Error");
       }
     }
+
+    public void eliminarConsulta(ActionEvent ae){
+      try{
+          if (!validar()){
+              return;
+           }
+          if (tblConsultas.getNumConsulta()!=null && tblConsultas.getNumConsulta() > 0){
+              tblConsultas.setEstConsulta(EstadoConsultas.CANCELADA);
+              tblConsultas = tblConsultasFacade.edit(tblConsultas);
+              this.addInfo("La consulta ha sido eliminada", "La consulta ha sido eliminada");
+              //Si se actualiza la consulta, se tiene que considerar actualizar el comprobante de 
+              //donacion asociado.
+          }
+      }catch(Exception ex){
+         ex.printStackTrace();
+         this.addError(ex.getMessage(), ex.getMessage());
+         this.addInfo("Error", "Error");
+      }
+    }    
     
     public void searchExpedienteByNum(){
       try{
@@ -190,6 +207,7 @@ public class FrmMantGenerarConsulta extends PageBase{
     public void seleccionar(ActionEvent ae){
     try{
         UIDataTable table = (UIDataTable) ae.getComponent().getParent().getParent();
+        System.out.println("Numero de consulta seleccionado: "+((TblConsultas)table.getRowData()).getNumConsulta());
         this.tblConsultas = tblConsultasFacade.find(((TblConsultas)table.getRowData()).getNumConsulta());
     }catch(Exception x){
         x.printStackTrace();
@@ -198,7 +216,7 @@ public class FrmMantGenerarConsulta extends PageBase{
    }
    
    public void buscar(ActionEvent ae){
-      ConsultasPagadasDataModel model = (ConsultasPagadasDataModel) this.getBean("#{consultasPagadasDataModel}", ConsultasPagadasDataModel.class);
+      ConsultasDataModel model = (ConsultasDataModel) this.getBean("#{consultasDataModel}", ConsultasDataModel.class);
       model.clear();
    }    
    

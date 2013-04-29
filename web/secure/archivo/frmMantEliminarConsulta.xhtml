@@ -190,14 +190,14 @@
                 <tr>
                     <td align="left">Tipo consulta:</td>
                     <td align="left">
-                        <h:selectOneMenu value="#{frmMantGenerarConsulta.tblConsultas.codTipConsulta}" id="codTipConsulta">
+                        <h:selectOneMenu value="#{frmMantGenerarConsulta.tblConsultas.codTipConsulta}" id="codTipConsulta" disabled="true">
                             <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem>
                             <f:selectItems value="#{frmMantGenerarConsulta.catTipoConsultaList}"/>
                         </h:selectOneMenu>
                     </td>
                     <td align="left">Especialidad:</td>
                     <td align="left">
-                        <h:selectOneMenu value="#{frmMantGenerarConsulta.tblConsultas.codEspecialidad}" id="codEspecialidad">
+                        <h:selectOneMenu value="#{frmMantGenerarConsulta.tblConsultas.codEspecialidad}" id="codEspecialidad"  disabled="true">
                             <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem>
                             <f:selectItems value="#{frmMantGenerarConsulta.catEspecialidadList}"/>
                         </h:selectOneMenu>
@@ -205,17 +205,21 @@
                 </tr> 
                 <tr>
                     <td align="left">Dr:</td>
-                    <td colspan="3" align="left">
-                        <h:selectOneMenu value="#{frmMantGenerarConsulta.tblConsultas.numMedico}" id="numMedico">
+                    <td align="left">
+                        <h:selectOneMenu value="#{frmMantGenerarConsulta.tblConsultas.numMedico}" id="numMedico"  disabled="true">
                             <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem>
                             <f:selectItems value="#{frmMantGenerarConsulta.tblMedicosList}" var="medico" itemLabel="#{medico.nomMedico} #{medico.priApeMedico} #{medico.secApeMedico} #{medico.terApeMedico}" itemValue="#{medico.numMedico}" />
                         </h:selectOneMenu>
+                    </td>
+                    <td align="left">Estado:</td>
+                    <td align="left">
+                        <h:outputText value="#{frmMantGenerarConsulta.tblConsultas.estConsulta}" style="color: red; font-weight: bold;"/>
                     </td>
                 </tr>
                 <tr>
                     <td align="left">Observaciones:</td>
                     <td align="left" colspan="3">
-                        <h:inputTextarea value="#{frmMantGenerarConsulta.tblConsultas.obsCliPaciente}" id="observaciones" rows="2" cols="40">
+                        <h:inputTextarea value="#{frmMantGenerarConsulta.tblConsultas.obsCliPaciente}" id="observaciones" rows="2" cols="40"  disabled="true">
                             <f:validateLength maximum="300" ></f:validateLength>
                         </h:inputTextarea>
                         <h:outputLabel value="*" style="color:red;font-weight: bold;"/>                         
@@ -223,7 +227,7 @@
                 </tr>  
                 <tr>
                   <td colspan="4" align="center">
-                      <a4j:commandButton value="Guardar" actionListener="#{frmMantGenerarConsulta.guardarConsulta}" render="@form, panelMessage"/>
+                      <a4j:commandButton value="Eliminar" actionListener="#{frmMantGenerarConsulta.eliminarConsulta}" render="@form, panelMessage"/>
                        <h:commandButton value="Cancelar" action="/inicio.jsf?faces-redirect=true" immediate="true"/>
                   </td>
                 </tr>
