@@ -24,6 +24,14 @@
                 <table>
                     <tr>
                         <td>
+                            <h:outputLabel value="Numero tarjeta:" for="numeroTarjeta">
+                            </h:outputLabel>
+                        </td>
+                        <td>
+                            <h:inputText value="#{expedientesSearchCriteria.numeroTarjeta}" id="numeroTarjeta" maxlength="11" onkeypress="return filterInput(1, event, false, '');">
+                            </h:inputText>
+                        </td>
+                        <td>
                             <h:outputLabel value="Expediente:" for="numExpediente1">
                             </h:outputLabel>
                         </td>
@@ -32,6 +40,8 @@
                             </h:inputText>
                             
                         </td>
+                    </tr>
+                    <tr>
                         <td>
                             <h:outputLabel value="DUI:" for="dui1">
                             </h:outputLabel>
@@ -41,8 +51,6 @@
                             </h:inputText>
                             <rich:tooltip  target="dui1" showEvent="focus" value="Ingrese el numero de dui sin guión" />
                         </td>
-                    </tr>
-                    <tr>
                         <td>
                             <h:outputLabel value="Nombres:" for="nombres1" >
                             </h:outputLabel>
@@ -52,6 +60,8 @@
                             </h:inputText>
                             <rich:tooltip  target="nombres1" showEvent="focus" value="Ingrese los Nombres del Paciente" />
                         </td>
+                    </tr>
+                    <tr>
                         <td>
                             <h:outputLabel value="Primer Ape:" for="primerApellido1">
                             </h:outputLabel>
@@ -61,8 +71,6 @@
                             </h:inputText>
                             <rich:tooltip  target="primerApellido1" showEvent="focus" value="Ingrese Primer Apellido" />
                         </td>
-                    </tr>
-                    <tr>
                         <td>
                             <h:outputLabel value="Segundo ape:" for="segundoApellido1">
                             </h:outputLabel>
@@ -72,25 +80,30 @@
                             </h:inputText>
                             <rich:tooltip  target="segundoApellido1" showEvent="focus" value="Ingrese Segundo Apellido" />
                         </td>
+                    </tr>
+                    <tr>
                         <td>
                             <h:outputLabel value="Tercer ape:" for="tercerApellido1">
                             </h:outputLabel>
                         </td>
-                        <td>
+                        <td colspan="3" align="left">
                             <h:inputText value="#{expedientesSearchCriteria.tercerApellido}" id="tercerApellido1" maxlength="15" onkeypress="return filterInput(0, event, false, ' %');">
                             </h:inputText>
                             <rich:tooltip  target="tercerApellido1" showEvent="focus" value="Ingrese Tercer Apellido" />
-                        </td>
+                        </td>                        
                     </tr>
                     <tr>
                         <td colspan="4" align="center">
                             <a4j:commandButton value="Buscar" actionListener="#{frmTblCrearServiciosEnfermeria.buscar}" render="tblExpedientePacientesTable" type="submit"/>
-                        </td>                        
+                        </td>
                     </tr>
                   </table>
                   <rich:dataTable value="#{expedienteDataModel}" var="tblExpedientePacientes" rows="10" id="tblExpedientePacientesTable">
                     <f:facet name="header">
                         <rich:columnGroup>
+                          <h:column>
+                            <h:outputText value="Numero tarjeta"/>
+                          </h:column>
                           <h:column>
                             <h:outputText value="Expediente"/>
                           </h:column>
@@ -117,6 +130,10 @@
                           </h:column>
                         </rich:columnGroup>
                       </f:facet>
+                    <h:column>
+                        <h:outputText value="#{tblExpedientePacientes.tarjetaControlCitas.numTarjeta}">
+                        </h:outputText>
+                    </h:column>
                     <h:column>
                         <h:outputText value="#{tblExpedientePacientes.numExpediente}">
                         </h:outputText>
@@ -158,19 +175,23 @@
               <hr/>
               <table>
                 <tr>
+                    <td align="left">Numero de tarjeta:</td>
+                    <td align="left">
+                        <h:inputText value="#{frmTblCrearServiciosEnfermeria.numTarjeta}" id="numTarjeta" maxlength="11" onkeypress="return filterInput(1, event, false, '');">
+                            <a4j:ajax event="change" listener="#{frmTblCrearServiciosEnfermeria.searchExpedienteByNumTarjeta}" render="@form"/>
+                        </h:inputText>
+                        <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
+                        <a4j:commandButton value="..." onclick="#{rich:component('buscarExpedientePanel')}.show(); return false;">
+                        </a4j:commandButton>
+                    </td>
                     <td align="left">Expediente:</td>
                     <td align="left">
                         <h:inputText value="#{frmTblCrearServiciosEnfermeria.tblExpediente.numExpediente}" id="numExpediente" maxlength="11" onkeypress="return filterInput(1, event, false, '');">
                             <a4j:ajax event="change" listener="#{frmTblCrearServiciosEnfermeria.searchExpedienteByNum}" render="@form"/>
                         </h:inputText>
-                        <h:outputLabel value="*" style="color:red;font-weight: bold;"/>                        
+                        <h:outputLabel value="*" style="color:red;font-weight: bold;"/>
                         <a4j:commandButton value="..." onclick="#{rich:component('buscarExpedientePanel')}.show(); return false;">
                         </a4j:commandButton>
-                    </td>
-                    <td align="left">Número de Servicio:</td>
-                    <td align="left">
-                        <h:outputText value="#{frmTblCrearServiciosEnfermeria.tblServiciosEnfermeria.numSerEnfermeria}" id="numSerEnfermeria">
-                        </h:outputText>
                     </td>
                 </tr>
                 <tr>
@@ -181,6 +202,21 @@
                     <td align="left">Apellidos:</td>
                     <td align="left">
                         <h:outputText value="#{frmTblCrearServiciosEnfermeria.tblExpediente.priApePaciente} #{frmTblCrearServiciosEnfermeria.tblExpediente.secApePaciente} #{frmTblCrearServiciosEnfermeria.tblExpediente.terApePaciente}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Número de Servicio:</td>
+                    <td align="left">
+                        <h:outputText value="#{frmTblCrearServiciosEnfermeria.tblServiciosEnfermeria.numSerEnfermeria}" id="numSerEnfermeria">
+                        </h:outputText>
+                    </td>                      
+                    <td align="left">Tipo consulta:</td>
+                    <td align="left">
+                        <h:selectOneMenu value="#{frmTblCrearServiciosEnfermeria.tblServiciosEnfermeria.codServEnfermeria}" id="codServEnfermeria">
+                            <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem>                             
+                            <f:selectItems value="#{frmTblCrearServiciosEnfermeria.tipoServiciosList}" var="tipoServicio" itemLabel="#{tipoServicio.nomSerEnfermeria}" itemValue="#{tipoServicio.codSerEnfermeria}"/>
+                        </h:selectOneMenu>
+                        <h:outputLabel value="*" style="color:red;font-weight: bold;"/>                        
                     </td>
                 </tr>
                 <tr>
@@ -196,16 +232,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <td align="left">Tipo consulta:</td>
-                    <td align="left">
-                        <h:selectOneMenu value="#{frmTblCrearServiciosEnfermeria.tblServiciosEnfermeria.codServEnfermeria}" id="codServEnfermeria">
-                            <f:selectItem itemLabel="Seleccionar" itemValue="-1"></f:selectItem>                             
-                            <f:selectItems value="#{frmTblCrearServiciosEnfermeria.tipoServiciosList}" var="tipoServicio" itemLabel="#{tipoServicio.nomSerEnfermeria}" itemValue="#{tipoServicio.codSerEnfermeria}"/>
-                        </h:selectOneMenu>
-                        <h:outputLabel value="*" style="color:red;font-weight: bold;"/>                        
-                    </td>
                     <td align="left">Fecha:</td>
-                    <td align="left">
+                    <td align="left" colspan="3">
                         <h:outputText value="#{frmTblCrearServiciosEnfermeria.tblServiciosEnfermeria.fecSerEnfermeria}">
                             <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
                         </h:outputText>
