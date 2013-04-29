@@ -19,7 +19,7 @@ FROM
      `cat_tipo_servicios_enfermeria` cat_tipo_servicios_enfermeria INNER JOIN `tbl_servicios_enfermeria` tbl_servicios_enfermeria ON cat_tipo_servicios_enfermeria.`COD_SER_ENFERMERIA` = tbl_servicios_enfermeria.`COD_SER_ENFERMERIA`
      INNER JOIN `tbl_empleado` tbl_empleado ON tbl_servicios_enfermeria.`NUM_EMPLEADO` = tbl_empleado.`NUM_EMPLEADO`
 WHERE
-     TBL_SERVICIOS_ENFERMERIA.FEC_SER_ENFERMERIA BETWEEN str_to_date($P{FechaIni},'%d/%m/%Y')and str_to_date($P{FechaFin},'%d/%m/%Y')]]>
+     TBL_SERVICIOS_ENFERMERIA.FEC_SER_ENFERMERIA BETWEEN str_to_date($P{FechaIni},'%d/%m/%Y') and str_to_date(concat($P{FechaFin},' 23:59:59'),'%d/%m/%Y %H:%i:%s')]]>
 	</queryString>
 	<field name="tbl_servicios_enfermeria_NUM_EXPEDIENTE" class="java.lang.Integer"/>
 	<field name="tbl_servicios_enfermeria_FEC_SER_ENFERMERIA" class="java.sql.Timestamp"/>

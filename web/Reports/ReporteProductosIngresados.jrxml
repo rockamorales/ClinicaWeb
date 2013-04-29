@@ -21,7 +21,7 @@ FROM
      LEFT OUTER JOIN `tbl_detalle_ingreso_producto` tbl_detalle_ingreso_producto ON tbl_producto.`NUM_PRODUCTO` = tbl_detalle_ingreso_producto.`NUM_PRODUCTO`
      LEFT OUTER JOIN `tbl_ingresos_producto` tbl_ingresos_producto ON tbl_detalle_ingreso_producto.`NUM_INGRESO` = tbl_ingresos_producto.`NUM_INGRESO`
 WHERE
-     TBL_INGRESOS_PRODUCTO.FEC_INGRESO BETWEEN str_to_date($P{FechaIngresoIni},'%d/%m/%Y') and str_to_date($P{FechaIngresoFin},'%d/%m/%Y')]]>
+     TBL_INGRESOS_PRODUCTO.FEC_INGRESO BETWEEN str_to_date($P{FechaIngresoIni},'%d/%m/%Y') and str_to_date(concat($P{FechaIngresoFin},' 23:59:59'),'%d/%m/%Y %H:%i:%s')]]>
 	</queryString>
 	<field name="tbl_ingresos_producto_FEC_INGRESO" class="java.sql.Timestamp"/>
 	<field name="tbl_producto_NOM_PRODUCTO" class="java.lang.String"/>

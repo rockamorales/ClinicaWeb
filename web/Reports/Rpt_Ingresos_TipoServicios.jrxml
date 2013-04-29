@@ -37,7 +37,7 @@ FROM
 WHERE (tbl_comprobante_donacion.`COD_TIP_PAGO` = $P{TipPago} OR $P{TipPago} = -1)
 AND (tbl_comprobante_donacion.`COD_TIP_DONACION` = $P{TipDonacion} OR $P{TipDonacion} = -1)
 AND (tbl_comprobante_donacion.`COD_TIP_DONANTE` = $P{TipDonante} OR $P{TipDonante} = -1)
-AND  tbl_comprobante_donacion.`FEC_COM_DONACION` BETWEEN  str_to_date($P{FechaIni},'%d/%m/%Y') and str_to_date($P{FechaFin},'%d/%m/%Y')]]>
+AND  tbl_comprobante_donacion.`FEC_COM_DONACION` BETWEEN  str_to_date($P{FechaIni},'%d/%m/%Y') and str_to_date(concat($P{FechaFin},' 23:59:59'),'%d/%m/%Y %H:%i:%s')]]>
 	</queryString>
 	<field name="tbl_comprobante_donacion_TIP_COMPROBANTE" class="java.lang.String"/>
 	<field name="tbl_comprobante_donacion_NUM_COM_DONACION" class="java.lang.Integer"/>
