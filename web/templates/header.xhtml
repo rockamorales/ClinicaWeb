@@ -13,13 +13,13 @@
                 <rich:toolbar>
                     <rich:toolbarGroup itemSeparator="line">
                         <c:forEach items="#{menuBean.modulos}" var="menu1">
-                            <a4j:commandLink render="leftMenuForm" execute="leftMenuForm">
+                            <a4j:commandLink render="leftMenuForm" execute="leftMenuForm" immediate="true">
                                 <f:setPropertyActionListener target="#{clinicaSessionBean.usuario.selectedModule}" value="#{menu1}"/>
                                 <h:graphicImage url="#{menu1.icoMenu}" title="#{menu1.nomOpcMenu}" height="25" width="25" style="border: 0">
                                 </h:graphicImage>
                             </a4j:commandLink>
                         </c:forEach>
-                        <a4j:commandLink render="leftMenuForm" execute="leftMenuForm" action="#{frmLogin.logout}">
+                        <a4j:commandLink render="leftMenuForm" execute="leftMenuForm" action="#{frmLogin.logout}" immediate="true">
                              <h:graphicImage url="/img/icons/redo.gif" title="Salir" height="25" width="25" style="border: 0">
                              </h:graphicImage>
                         </a4j:commandLink>
