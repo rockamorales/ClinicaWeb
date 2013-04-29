@@ -42,8 +42,7 @@ and  (tbl_detalle_ingreso_producto.`FEC_EXP_DET_INGRESO` BETWEEN str_to_date($P{
      and (tbl_producto.`COD_TIP_PRODUCTO` = $P{tipo}
   OR $P{tipo} = -1)
      and tbl_producto.`EST_PRODUCTO` = 1
-     and tbl_producto.`COD_TIP_PRODUCTO` NOT IN (5,6,3,4)
-]]>
+     and tbl_producto.`COD_TIP_PRODUCTO` NOT IN (5,6,3,4)]]>
 	</queryString>
 	<field name="tbl_producto_EST_PRODUCTO" class="java.lang.String"/>
 	<field name="tbl_producto_TIP_CON_PRODUCTO" class="java.lang.String"/>
