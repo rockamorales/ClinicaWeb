@@ -31,7 +31,7 @@ FROM
      `tbl_expediente_pacientes` tbl_expediente_pacientes INNER JOIN `tbl_programacion_citas` tbl_programacion_citas ON tbl_expediente_pacientes.`NUM_EXPEDIENTE` = tbl_programacion_citas.`NUM_EXPEDIENTE`
      INNER JOIN `tbl_medico` tbl_medico ON tbl_programacion_citas.`NUM_MEDICO` = tbl_medico.`NUM_MEDICO`
      INNER JOIN `cat_especialidad` cat_especialidad ON tbl_programacion_citas.`COD_ESPECIALIDAD` = cat_especialidad.`COD_ESPECIALIDAD`
-WHERE (tbl_medico.`NUM_MEDICO` = $P{numMedico} OR $P{numMedico} = -1) AND (tbl_programacion_citas.`EST_CITA` = $P{estCita} OR $P{estCita} = -1) AND tbl_programacion_citas.`FEC_CITA` BETWEEN str_to_date($P{FechaIni},'%d/%m/%Y')and str_to_date($P{FechaFin},'%d/%m/%Y')]]>
+WHERE (tbl_medico.`NUM_MEDICO` = $P{numMedico} OR $P{numMedico} = -1) AND (tbl_programacion_citas.`EST_CITA` = $P{estCita} OR $P{estCita} = -1) AND tbl_programacion_citas.`FEC_CITA` BETWEEN str_to_date($P{FechaIni},'%d/%m/%Y') and str_to_date(concat($P{FechaFin},' 23:59:59'),'%d/%m/%Y %H:%i:%s')]]>
 	</queryString>
 	<field name="tbl_programacion_citas_EST_CITA" class="java.lang.String"/>
 	<field name="tbl_programacion_citas_NUM_EXPEDIENTE" class="java.lang.Integer"/>

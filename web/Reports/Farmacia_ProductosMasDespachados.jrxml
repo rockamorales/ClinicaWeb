@@ -28,7 +28,7 @@ FROM
      INNER JOIN `cat_tipo_producto` cat_tipo_producto ON tbl_producto.`COD_TIP_PRODUCTO` = cat_tipo_producto.`COD_TIP_PRODUCTO`
      INNER JOIN `cat_tipo_salida` cat_tipo_salida ON tbl_despachos.`COD_TIP_SALIDA` = cat_tipo_salida.`COD_TIP_SALIDA`
 WHERE
-tbl_despachos.`FEC_DESPACHO` BETWEEN str_to_date($P{fecInicio},'%d/%m/%Y')and str_to_date($P{fecFin},'%d/%m/%Y')
+tbl_despachos.`FEC_DESPACHO` BETWEEN str_to_date($P{fecInicio},'%d/%m/%Y') and str_to_date(concat($P{fecFin},' 23:59:59'),'%d/%m/%Y %H:%i:%s')
 ORDER BY
 tbl_detalle_despacho.`CAN_DET_DESPACHO` DESC]]>
 	</queryString>

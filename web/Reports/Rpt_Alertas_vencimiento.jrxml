@@ -38,7 +38,7 @@ FROM
 
 WHERE
      (tbl_producto.`COD_CAT_PRODUCTO` = 2)
-and  (tbl_detalle_ingreso_producto.`FEC_EXP_DET_INGRESO` BETWEEN str_to_date($P{FechaIni},'%d/%m/%Y')and str_to_date($P{FechaFin},'%d/%m/%Y'))
+and  (tbl_detalle_ingreso_producto.`FEC_EXP_DET_INGRESO` BETWEEN str_to_date($P{FechaIni},'%d/%m/%Y') and str_to_date(concat($P{FechaFin},' 23:59:59'),'%d/%m/%Y %H:%i:%s'))
      and (tbl_producto.`COD_TIP_PRODUCTO` = $P{tipo}
   OR $P{tipo} = -1)
      and tbl_producto.`EST_PRODUCTO` = 1

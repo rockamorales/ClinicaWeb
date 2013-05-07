@@ -21,7 +21,7 @@
 FROM
      `tbl_producto` tbl_producto LEFT OUTER JOIN `tbl_detalle_ingreso_producto` tbl_detalle_ingreso_producto ON tbl_producto.`NUM_PRODUCTO` = tbl_detalle_ingreso_producto.`NUM_PRODUCTO`
 WHERE
-     tbl_detalle_ingreso_producto.`FEC_EXP_DET_INGRESO` BETWEEN str_to_date($P{FechaIni},'%d/%m/%Y')and str_to_date($P{FechaFin},'%d/%m/%Y') AND tbl_producto.`EST_PRODUCTO` = 1]]>
+     tbl_detalle_ingreso_producto.`FEC_EXP_DET_INGRESO` BETWEEN str_to_date($P{FechaIni},'%d/%m/%Y') and str_to_date(concat($P{FechaFin},' 23:59:59'),'%d/%m/%Y %H:%i:%s')]]>
 	</queryString>
 	<field name="tbl_producto_NUM_PRODUCTO" class="java.lang.Integer"/>
 	<field name="tbl_producto_COD_TIP_PRODUCTO" class="java.lang.Integer"/>
