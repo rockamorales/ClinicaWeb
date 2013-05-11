@@ -24,7 +24,7 @@
 FROM
      `tbl_expediente_pacientes` tbl_expediente_pacientes INNER JOIN `tbl_consultas` tbl_consultas ON tbl_expediente_pacientes.`NUM_EXPEDIENTE` = tbl_consultas.`NUM_EXPEDIENTE`
 WHERE (tbl_expediente_pacientes.`EST_PACIENTE` = $P{estPaciente} OR $P{estPaciente} = -1)
-AND TBL_EXPEDIENTE_PACIENTES.FEC_REG_EXPEDIENTE BETWEEN  str_to_date($P{FechaIni},'%d/%m/%Y') and str_to_date($P{FechaFin},'%d/%m/%Y')]]>
+AND TBL_EXPEDIENTE_PACIENTES.FEC_REG_EXPEDIENTE BETWEEN  str_to_date($P{FechaIni},'%d/%m/%Y') and str_to_date(concat($P{FechaFin},' 23:59:59'),'%d/%m/%Y %H:%i:%s')]]>
 	</queryString>
 	<field name="tbl_expediente_pacientes_NUM_EXPEDIENTE" class="java.lang.Integer"/>
 	<field name="tbl_expediente_pacientes_NOM_PACIENTE" class="java.lang.String"/>
