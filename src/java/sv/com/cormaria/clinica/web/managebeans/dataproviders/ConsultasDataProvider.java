@@ -30,7 +30,7 @@ public class ConsultasDataProvider implements ClinicaDataProvider<TblConsultas, 
 
     @Override
     public Integer getRowKey(TblConsultas o) {
-            return o.getNumExpediente();
+            return o.getNumConsulta();
     }
 
     @Override
@@ -43,7 +43,7 @@ public class ConsultasDataProvider implements ClinicaDataProvider<TblConsultas, 
 
     @Override
     public Integer getPk(TblConsultas item) {
-            return item.getNumExpediente();
+            return item.getNumConsulta();
     }
 
     @Override
