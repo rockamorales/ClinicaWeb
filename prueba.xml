@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Salida>
+<codigoRetorno>00</codigoRetorno>
+<datosCandidato>
+<fechaNacimiento>26/09/1959</fechaNacimiento>
+<nombre>JUAN ABARCA CASTRO</nombre>
+<nombreNormalizado>ABARCA CASTRO JUAN</nombreNormalizado>
+<numeroDocumento>96151009600018</numeroDocumento>
+<tipoDocumento>NIT</tipoDocumento>
+</datosCandidato>
+<datosCandidato>
+<fechaNacimiento>26/09/1959</fechaNacimiento>
+<nombre>JUAN RAUL ABARCA CASTRO</nombre>
+<nombreNormalizado>ABARCA CASTRO JUAN RAUL</nombreNormalizado>
+<numeroDocumento>02100611570019</numeroDocumento>
+<tipoDocumento>NIT</tipoDocumento>
+</datosCandidato>
+<mensajeRetorno>TRANSACCION EXITOSA</mensajeRetorno>
+</Salida>
